@@ -2,31 +2,37 @@
 
 # Introduction
 
-	A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes, it provides key tools for high-throughput design and screening of catalytic materials. The software mainly includes functional modules such as surface structure analysis and information extraction, catalytic surface and various adsorption model construction, automatic construction of primitive reaction processes, automatic extraction of computational data and automatic extraction and construction of descriptors.The software can perform the following computational workflows: adsorption energy calculation and analysis workflow, primitive reaction calculation and analysis workflow, high throughput calculation and automated analysis of adsorption energy and reaction potential of catalytic primitive reaction processes, etc.
+A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes, it provides key tools for high-throughput design and screening of catalytic materials. The software mainly includes functional modules such as surface structure analysis and information extraction, catalytic surface and various adsorption model construction, automatic construction of primitive reaction processes, automatic extraction of computational data and automatic extraction and construction of descriptors.The software can perform the following computational workflows: adsorption energy calculation and analysis workflow, primitive reaction calculation and analysis workflow, high throughput calculation and automated analysis of adsorption energy and reaction potential of catalytic primitive reaction processes, etc.
 
 # Installation Guide
 
-### 1.  Environment
-
-This project is built on **Python3.6-3.9​** and work on the 64-bit Linux operating system, the invocation of the command line to achieve the modules.
+## 1.  Environment
+Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; Numpy>=1.20.3
 
 If you haven‘t installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and install it.
 
-#### 2.  Dependency liabrary
+## 2.  Installation
+### 1) Automatic installation
 
-ASE 3.22.1; CatKit 0.5.4; Numpy 1.20.3
+download the install script:[install_wheel.bat](https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/install_wheel.bat) or [install_wheel.sh](https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/install_wheel.sh)
+```shell
+./install_wheel.bat # Windows 
+./install_wheel.sh # linux
+```
+### 2) Manual installation
+- install requires package
 ```shell
 pip install ase numpy
-pip install git+https://github.com/SUNCAT-Center/CatKit.git
+pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
+pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
 ```
-#### 3.  Install HTMACat
-from setup.py
+- from setup.py
 ```shell
 python setup.py install
 ```
-from wheel
+- from wheel
 ```
-pip install HTMACat.wheel
+pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/HTMACat-1.0.0-py3-none-any.whl
 ```
 
 # Getting started
