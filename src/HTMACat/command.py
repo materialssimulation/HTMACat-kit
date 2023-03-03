@@ -3,17 +3,26 @@ from HTMACat.model.Construct_adsorption import *
 from HTMACat.model.Construct_Coadsorption import *
 from pathlib import *
 import argparse
+import shutil
 
 def ads():
     parser = argparse.ArgumentParser(description='High-throughput single adsorption modeling')
     parser.add_argument('-i', '--inputdir', type=str, default="./", help="The folder path of input files")
+    parser.add_argument('-o', '--outputdir', type=str, default="./", help="The folder path of output files")
+    #添加了定向输出到指定路径 by Yuxiao-Lan 2023/03/03
     args = parser.parse_args()
     wordir = Path(args.inputdir).resolve()
-    Path_Info = str(wordir / 'StrucInfo')
-    Model =  str(wordir / 'Model')
-    with open(Path_Info,'r+') as f:
+    outdir = Path(args.outputdir).resolve()
+    StrucInfo = 'StrucInfo'
+    ModelInfo = 'Model'
+    if not outdir == wordir:
+        outdir.mkdir(parents=True, exist_ok=True)
+        shutil.copy(wordir/StrucInfo,outdir)
+        shutil.copy(wordir/ModelInfo,outdir)
+        os.chdir(outdir)
+    with open(StrucInfo,'r+') as f:
         for i,item in enumerate(f):
-            Construct_adsorption(item,Model)
+            Construct_adsorption(item,ModelInfo)
 
 
 def coads():
