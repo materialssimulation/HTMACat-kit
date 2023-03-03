@@ -14,7 +14,7 @@ If you haven‘t installed **Python3.x** yet, [download](https://www.python.org)
 
 #### 2.  Dependency liabrary
 
-ASE 3.22.1; CatKit 0.5.4; Numpy 1.20.3
+ASE 3.22.1; CatKit 0.5.4; Numpy 1.20.3 < 1.24.1
 ```shell
 pip install ase numpy
 pip install git+https://github.com/SUNCAT-Center/CatKit.git
