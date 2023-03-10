@@ -8,7 +8,7 @@ A high-throughput modeling, calculation, and analysis framework for catalytic re
 
 
 ## 1.  Environment
-Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; Numpy>=1.20.3
+Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; 1.20.0 <= Numpy <= 1.23.5 
 
 If you haven‘t installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and install it.
 
@@ -19,13 +19,14 @@ download the install script:[install_wheel.bat](https://raw.githubusercontent.co
 ```shell
 ./install_wheel.bat # Windows 
 ./install_wheel.sh # linux
+pip install HTMACat.whl # [download from releases](https://github.com/stanfordbshan/HTMACat-kit/releases/latest)
 ```
 ### 2) Manual installation
 ```shell
-pip install ase numpy scikit-learn
+pip install ase numpy==1.23.5 scikit-learn
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
-pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/HTMACat-1.0.0-py3-none-any.whl
+pip install HTMACat.whl # [download from releases](https://github.com/stanfordbshan/HTMACat-kit/releases/latest)
 ```
 
 # Getting started
