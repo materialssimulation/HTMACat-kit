@@ -21,18 +21,10 @@ download the install script:[install_wheel.bat](https://raw.githubusercontent.co
 ./install_wheel.sh # linux
 ```
 ### 2) Manual installation
-- install requires package
 ```shell
-pip install ase numpy
+pip install ase numpy scikit-learn
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
-```
-- from setup.py
-```shell
-python setup.py install
-```
-- from wheel
-```
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/HTMACat-1.0.0-py3-none-any.whl
 ```
 
