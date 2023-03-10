@@ -22,6 +22,7 @@ wheels/
 *.vasp
 MANIFEST
 script/
+dist/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
