@@ -12,6 +12,8 @@ Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; Numpy>=1.20.3
 
 If you haven‘t installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and install it.
 
+Recommended for use in virtual environments created by anaconda.
+
 ## 2.  Installation
 ### 1) Automatic installation
 
