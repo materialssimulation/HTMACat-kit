@@ -8,7 +8,7 @@ A high-throughput modeling, calculation, and analysis framework for catalytic re
 
 
 ## 1.  Environment
-Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; Numpy>=1.20.3
+Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; 1.20.0 <= Numpy <= 1.23.5 
 
 If you haven‘t installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and install it.
 

@@ -4,11 +4,8 @@ from glob import glob
 from os.path import join
 import sys
 
-install_requires = [
-    'ase',  # July 2019
-    'catkit',
-    'argparse'
-]
+with open('requirements.txt', 'r') as f:
+    requirements = f.readlines()
 
 setup(
     name='HTMACat',
@@ -20,8 +17,7 @@ setup(
     url='http://www.materialssimulation.com/',
     keywords='high-throughput',
     python_requires=">=3.6, <3.10",
-    install_requires=install_requires,
-    # packages=find_packages(), # 包含所有的py文件
+    install_requires=requirements,
     packages=['HTMACat', "HTMACat.descriptor", "HTMACat.model", "HTMACat.NEB"],
     entry_points={
         'console_scripts': [ # 命令的入口
