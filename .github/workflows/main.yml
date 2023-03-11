@@ -35,7 +35,7 @@ jobs:
     - name: Run single-adsorption tests
       run: |
         #pytest tests
-        cd ./example/
+        cd ./example/single-adsorption
         ads
         
     - name: Run coadsorption tests
