@@ -27,8 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          ll
-          cd src
+          cd ${{ github.workspace }}/src
           pip install -r requirements.txt
           pip install ase numpy==1.23.5 scikit-learn
           pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
@@ -37,9 +36,9 @@ jobs:
 
       - name: Test with pytest
         run: |
-          cd example/coadsorption
+          cd ${{ github.workspace }}/example/coadsorption
           coads
-          cd ../adsorption
+          cd ${{ github.workspace }}/example/adsorption
           ads
 
       - name: Build wheel and source distribution
