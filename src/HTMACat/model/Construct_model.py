@@ -216,7 +216,8 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type):
             site02 = AdsorptionSites(slab)
             coordinates02 = site02.get_coordinates()
             for j, coord02 in enumerate(coordinates02):
-                dis = math.hypot(coord01[0]-coord02[0],coord01[1]-coord02[1],coord01[2]-coord02[2])
+                # dis = math.hypot(coord01[0]-coord02[0],coord01[1]-coord02[1],coord01[2]-coord02[2])
+                dis = np.linalg.norm(coord01-coord02)
                 #print(dis)
                 if dis < float(dis_inter[0]):
                    continue
