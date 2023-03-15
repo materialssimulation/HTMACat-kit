@@ -19,14 +19,23 @@ download the install script:[install_wheel.bat](https://raw.githubusercontent.co
 ```shell
 ./install_wheel.bat # Windows 
 ./install_wheel.sh # linux
-pip install HTMACat.whl # [download from releases](https://github.com/stanfordbshan/HTMACat-kit/releases/latest)
 ```
 ### 2) Manual installation
+
 ```shell
+# windows
+pip install ase numpy==1.23.5 scikit-learn
+pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
+pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.requires_wheel
+for /f "tokens=1,* delims=:" %%A in ('curl -ks https://api.github.com/repos/stanfordbshan/HTMACat-kit/releases/latest ^| find "browser_download_url"') do (
+    pip install -U %%B
+)
+
+#linux
 pip install ase numpy==1.23.5 scikit-learn
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
-pip install HTMACat.whl # [download from releases](https://github.com/stanfordbshan/HTMACat-kit/releases/latest)
+pip install --upgrade $(curl -s https://api.github.com/repos/stanfordbshan/HTMACat-kit/releases/latest | grep "browser_download_url.*\.whl" | cut -d : -f 2,3 | tr -d \")
 ```
 
 # Getting started
