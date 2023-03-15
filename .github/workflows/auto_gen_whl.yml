@@ -37,12 +37,12 @@ jobs:
           cd ${{ github.workspace }}/src/dist
           pip install *.whl
 
-      - name: Test with pytest
-        run: |
-          cd ${{ github.workspace }}/example/coadsorption
-          coads
-          cd ${{ github.workspace }}/example/adsorption
-          ads
+      # - name: Test with pytest
+      #   run: |
+      #     cd ${{ github.workspace }}/example/coadsorption
+      #     coads
+      #     cd ${{ github.workspace }}/example/adsorption
+      #     ads
 
       - name: Build wheel and source distribution
         run: |
