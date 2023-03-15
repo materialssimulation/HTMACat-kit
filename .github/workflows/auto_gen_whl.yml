@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9"]
-
+    permissions: write-all
     steps:
       - uses: actions/checkout@v2
       - name: Publish Python Package
@@ -27,7 +27,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        working-directory: 
         run: |
           cd ${{ github.workspace }}/src
           pip install ase numpy==1.21.6 scikit-learn setuptools wheel
@@ -48,6 +47,12 @@ jobs:
         run: |
           cd src
           python setup.py sdist bdist_wheel
+      
+      - name: Release version
+        id: release_version
+        run: |
+          app_version=$(cat setup.py | grep version | sed "s/version='\([0-9]\+\.[0-9]\+\.[0-9]\+\)',/\1/")
+          echo "app_version=$app_version" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         id: create_release
@@ -55,13 +60,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: v${{ env.app_version }}
+          release_name: v${{ env.app_version }}
+          body: ${{ github.event.commits[0].message }}
           draft: false
           prerelease: false
 
       - name: Upload wheel and source distribution
         uses: actions/upload-artifact@v2
+        
         with:
           name: wheel and source distribution
           path: |
