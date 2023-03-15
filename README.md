@@ -46,10 +46,10 @@ pip install HTMACat.whl # [download from releases](https://github.com/stanfordbs
     ```shell
     Cu # Doping elements
     b1 # Doping type
-    [C-]`#`[O+] O[O+] # Adsorption species (SMILES of CO and OOH species)
+    SML C(=O)O # Adsorption species (SMILES of formic acid)
     1 2 # Adsorption type
     ```
-    Where the first line of the file is the doping element and the second line is the doping type, 0 corresponds to no doping, 1, 2 and 3 correspond to surface layers doped with 1, 2 and 3 atoms, respectively, and 1L and b1 represent surface layer substitution and bulk equivalent proportional substitution. The third and fourth lines respectively represent the adsorbate species and the adsorption types. <b>Please note that the adsorbates should be declared by their SMILES expressions!</b> Users can modify the corresponding parameters to achieve customized modeling according to their research needs.
+    Where the first line of the file is the doping element and the second line is the doping type, 0 corresponds to no doping, 1, 2 and 3 correspond to surface layers doped with 1, 2 and 3 atoms, respectively, and 1L and b1 represent surface layer substitution and bulk equivalent proportional substitution. The third and fourth lines respectively represent the adsorbate species and the adsorption types. <b>Please note that the adsorbates should be declared by their SMILES expressions if the third line starts with 'SML'!</b> If no 'SML' at the beginning of this line, the species are represented in their chemical formula. <b>To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.</b> Users can modify the corresponding parameters to achieve customized modeling according to their research needs.
 
     (2) run script
 
@@ -64,7 +64,7 @@ pip install HTMACat.whl # [download from releases](https://github.com/stanfordbs
     ```shell
     Cu # Doping elements
     3 # Doping type
-    N [O];[NH2] [OH];[N] [N];[N] [O];[N] [N]=O # Co-adsorption species
+    SML N [O];[NH2] [OH];[N] [N];[N] [O];[N] [N]=O # Co-adsorption species
     1 1;1 1;1 1;1 1;1 1 # Adsorption type
     ```
     The first line represents the dopant element, the second line represents the dopant type, the third and fourth lines respectively represent the co-adsorbate species (also in SMILES format) and the co-adsorption type. Different co-adsorption combinations are separated by ";".

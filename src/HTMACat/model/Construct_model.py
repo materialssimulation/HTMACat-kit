@@ -156,7 +156,7 @@ def MolToNXGraph(m):
 ### 4.Construct single adsorption configuration 
 #from catkit.gen.adsorption import AdsorptionSites
 #from Extract_info import *
-def Construct_single_adsorption(slabs,ads):
+def Construct_single_adsorption(slabs,ads,SML):
     # generate surface adsorption configuration
     #slabs = Construct_slab()
     slab_ad=[]
@@ -167,45 +167,51 @@ def Construct_single_adsorption(slabs,ads):
         #print(site.get_periodic_sites(screen=True))
         #print(len(site.get_coordinates(unique=False)))
         builder = Builder(slab)
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads))
-        '''
-        AllChem.EmbedMolecule(mole)
-        AllChem.MMFFOptimizeMolecule(mole)
-        conf = mole.GetConformer()
-        conf_coords = [conf.GetAtomPosition(k) for k in range(mole.GetNumAtoms())]
-        '''
-        G = MolToNXGraph(mole)
-        ads_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads_use = ads_list[0]
-        for ads_ in ads_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads_use = ads_
-                break
+        if SML:
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads))
+            '''
+            AllChem.EmbedMolecule(mole)
+            AllChem.MMFFOptimizeMolecule(mole)
+            conf = mole.GetConformer()
+            conf_coords = [conf.GetAtomPosition(k) for k in range(mole.GetNumAtoms())]
+            '''
+            G = MolToNXGraph(mole)
+            ads_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads_use = ads_list[0]
+            for ads_ in ads_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads_use = ads_
+                    break
+        else:
+            ads_use = molecule(ads)[0]
         for i, coord in enumerate(coordinates):
             slab_ad += [builder._single_adsorption(ads_use,bond=0,site_index=i)] ### wzj
     return slab_ad
 
 ### 4.Construct double sites adsorption configuration
-def Construct_double_adsorption(slabs,ads):
+def Construct_double_adsorption(slabs,ads,SML):
     # generate surface adsorption configuration
     slab_ad=[]
     for i, slab in enumerate(slabs):
         site = AdsorptionSites(slab)
         builder=Builder(slab)
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads))
-        G = MolToNXGraph(mole)
-        ads_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads_use = ads_list[0]
-        for ads_ in ads_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads_use = ads_
-                break
+        if SML:
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads))
+            G = MolToNXGraph(mole)
+            ads_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads_use = ads_list[0]
+            for ads_ in ads_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads_use = ads_
+                    break
+        else:
+            ads_use = molecule(ads)[0]
         edges = site.get_adsorption_edges()
         for i, edge01 in enumerate(edges):
             slab_ad += [builder._double_adsorption(ads_use,bonds=[0,1],edge_index=i)]
     return slab_ad
 ### 5.Construct coadsoprtion configuration with mono+mono adsorption
-def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type):
+def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type,SML):
     slab_ad=[]
     #dis_inter=[3.0,5.5]
     for i, slab in enumerate(slabs):
@@ -216,23 +222,26 @@ def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type):
         ##generate surface adsorption configuration
         ads1 = ads.split(' ')[0].strip()
         ads2 = ads.split(' ')[1].strip()
-        #print(ads1)
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-        G = MolToNXGraph(mole)
-        ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads1_use = ads1_list[0]
-        for ads_ in ads1_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads1_use = ads_
-                break
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
-        G = MolToNXGraph(mole)
-        ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads2_use = ads2_list[0]
-        for ads_ in ads2_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads2_use = ads_
-                break
+        if SML:
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+            G = MolToNXGraph(mole)
+            ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads1_use = ads1_list[0]
+            for ads_ in ads1_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads1_use = ads_
+                    break
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
+            G = MolToNXGraph(mole)
+            ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads2_use = ads2_list[0]
+            for ads_ in ads2_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads2_use = ads_
+                    break
+        else:
+            ads1_use = molecule(ads1)[0]
+            ads2_use = molecule(ads2)[0]
         for i, sitetype in enumerate(site01.get_symmetric_sites()):
             slab = builder01._single_adsorption(ads1_use,bond=0,site_index=i,auto_construct=True)
             coord01=site01.get_coordinates()[i]
@@ -251,7 +260,7 @@ def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type):
                    slab_ad += [builder02._single_adsorption(ads2_use,bond=0,site_index=j,auto_construct=True)]
         return slab_ad
 ### 5.Construct coadsoprtion configuration with mono+mono adsorption
-def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type):
+def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type,SML):
     slab_ad=[]
     #dis_inter=[3.0,5.5]
     for i, slab in enumerate(slabs):
@@ -262,23 +271,26 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type):
         ##generate surface adsorption configuration
         ads1 = ads.split(' ')[0].strip()
         ads2 = ads.split(' ')[1].strip()
-        #print(ads1)
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-        G = MolToNXGraph(mole)
-        ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads1_use = ads1_list[0]
-        for ads_ in ads1_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads1_use = ads_
-                break
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
-        G = MolToNXGraph(mole)
-        ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads2_use = ads2_list[0]
-        for ads_ in ads2_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads2_use = ads_
-                break
+        if SML:
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+            G = MolToNXGraph(mole)
+            ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads1_use = ads1_list[0]
+            for ads_ in ads1_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads1_use = ads_
+                    break
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
+            G = MolToNXGraph(mole)
+            ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads2_use = ads2_list[0]
+            for ads_ in ads2_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads2_use = ads_
+                    break
+        else:
+            ads1_use = molecule(ads1)[0]
+            ads2_use = molecule(ads2)[0]
         for i, sitetype in enumerate(site01.get_symmetric_sites()):
             slab = builder01._single_adsorption(ads1_use,bond=0,site_index=i,auto_construct=True)
             coord01=site01.get_coordinates()[i]
@@ -318,7 +330,7 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type):
              slab_ad_final += [adslab]
     return slab_ad_final   
 ### 6.Construct coadsoprtion configuration with mono+mono adsorption
-def Construct_coadsorption_12(slabs,ads,dis_inter):
+def Construct_coadsorption_12(slabs,ads,dis_inter,SML):
     slab_ad=[]
     for i, slab in enumerate(slabs):
         site01 = AdsorptionSites(slab)
@@ -328,22 +340,26 @@ def Construct_coadsorption_12(slabs,ads,dis_inter):
         #generate surface adsorption configuration
         ads1 = ads.split(' ')[0].strip()
         ads2 = ads.split(' ')[1].strip()
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-        G = MolToNXGraph(mole)
-        ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads1_use = ads1_list[0]
-        for ads_ in ads1_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads1_use = ads_
-                break
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
-        G = MolToNXGraph(mole)
-        ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads2_use = ads2_list[0]
-        for ads_ in ads2_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads2_use = ads_
-                break
+        if SML:
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+            G = MolToNXGraph(mole)
+            ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads1_use = ads1_list[0]
+            for ads_ in ads1_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads1_use = ads_
+                    break
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
+            G = MolToNXGraph(mole)
+            ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads2_use = ads2_list[0]
+            for ads_ in ads2_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads2_use = ads_
+                    break
+        else:
+            ads1_use = molecule(ads1)[0]
+            ads2_use = molecule(ads2)[0]
         for i, coord01 in enumerate(coordinate01):
             slab=builder01._single_adsorption(ads1_use,bond=0,site_index=i)
             ## after adsorbing an atoms
@@ -380,7 +396,7 @@ def Construct_coadsorption_12(slabs,ads,dis_inter):
                       slab_ad += [builder02._double_adsorption(ads2_use,bonds=[0,1],edge_index=j)]
     return slab_ad
 ### 7.Construct coadsoprtion configuration with bi+bi adsorption
-def Construct_coadsorption_22(slabs,ads,dis_inter):
+def Construct_coadsorption_22(slabs,ads,dis_inter,SML):
     slab_ad=[]
     for i, slab in enumerate(slabs):
         site01 = AdsorptionSites(slab)
@@ -397,22 +413,26 @@ def Construct_coadsorption_22(slabs,ads,dis_inter):
         #generate surface adsorption configuration
         ads1 = ads.split(' ')[0].strip()
         ads2 = ads.split(' ')[1].strip()
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-        G = MolToNXGraph(mole)
-        ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads1_use = ads1_list[0]
-        for ads_ in ads1_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads1_use = ads_
-                break
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
-        G = MolToNXGraph(mole)
-        ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads2_use = ads2_list[0]
-        for ads_ in ads2_list:
-            if nx.is_isomorphic(ads_._graph, G):
-                ads2_use = ads_
-                break
+        if SML:
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+            G = MolToNXGraph(mole)
+            ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads1_use = ads1_list[0]
+            for ads_ in ads1_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads1_use = ads_
+                    break
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
+            G = MolToNXGraph(mole)
+            ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+            ads2_use = ads2_list[0]
+            for ads_ in ads2_list:
+                if nx.is_isomorphic(ads_._graph, G):
+                    ads2_use = ads_
+                    break
+        else:
+            ads1_use = molecule(ads1)[0]
+            ads2_use = molecule(ads2)[0]
         for i, edge01 in enumerate(edge01):
             slab = builder01._double_adsorption(ads1_use,bonds=[0,1],edge_index=i)
             coord00 = dic_site01.get(edge01[0])

@@ -10,3 +10,4 @@ future>=0.16
 fireworks>=1.7
 sqlalchemy>=1.2
 catkit
+rdkit
