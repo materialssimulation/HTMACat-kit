@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd ${{ github.workspace }}/src
+          cd ./src
           pip install -r requirements.txt
           pip install ase numpy==1.23.5 scikit-learn
           pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
