@@ -8,15 +8,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: python:3.9
+
     strategy:
       matrix:
         python-version: ["3.7", "3.8", "3.9"]
 
     steps:
-      - uses: Publish Python Package
+      - name: Publish Python Package
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          publish-package: true
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -24,6 +31,10 @@ jobs:
         run: |
           cd src
           pip install -r requirements.txt
+          pip install ase numpy==1.23.5 scikit-learn
+          pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
+          pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
+          python setup.py install
 
       - name: Test with pytest
         run: |
