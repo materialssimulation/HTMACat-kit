@@ -27,6 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          pwd
           cd src
           pip install -r requirements.txt
           pip install ase numpy==1.23.5 scikit-learn
