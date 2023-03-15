@@ -34,7 +34,9 @@ jobs:
           pip install ase numpy==1.20.0 scikit-learn
           pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
           pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
-          python setup.py install
+          python setup.py bdist_wheel
+          cd ${{ github.workspace }}/src/dist
+          pip install *.whl
 
       - name: Test with pytest
         run: |
