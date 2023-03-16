@@ -43,10 +43,10 @@ jobs:
           draft: false
           prerelease: false
 
-      # - name: Upload wheel and source distribution
-      #   uses: actions/upload-artifact@v2
+      - name: Upload wheel and source distribution
+        uses: actions/upload-artifact@v2
         
-      #   with:
-      #     name: wheel and source distribution
-      #     path: |
-      #       src/dist/*
+        with:
+          name: wheel and source distribution
+          path: |
+            src/dist/*
