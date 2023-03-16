@@ -46,4 +46,4 @@ jobs:
           release_name: v${{env.app_version}}
           overwrite: true
           file_glob: true
-          body: ${{github.event.commits[0].message}}
+          body: ${{github.event.head_commit.message}}
