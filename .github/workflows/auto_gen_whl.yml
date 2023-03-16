@@ -22,12 +22,13 @@ jobs:
           cd src
           pip install setuptools wheel
           python setup.py sdist bdist_wheel
-      
+
       - name: Release version
         id: release_version
         run: |
           app_version=$(cat setup.py | grep version | sed "s/version='\([0-9]\+\.[0-9]\+\.[0-9]\+\)',/\1/")
           echo "app_version=$app_version" >> $GITHUB_ENV
+          echo "app_version=$app_version"
 
       - name: Create GitHub Release
         id: create_release
@@ -40,8 +41,6 @@ jobs:
           body: ${{github.event.commits[0].message}}
           draft: false
           prerelease: false
-        run: |
-          echo v${{env.app_version}}
 
       # - name: Upload wheel and source distribution
       #   uses: actions/upload-artifact@v2
