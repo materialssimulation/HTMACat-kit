@@ -31,22 +31,32 @@ jobs:
           echo "app_version=$app_version" >> $GITHUB_ENV
           echo "app_version=$app_version"
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{env.app_version}}
-          release_name: v${{env.app_version}}
-          body: ${{github.event.commits[0].message}}
-          draft: false
-          prerelease: false
+      # - name: Create GitHub Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: v${{env.app_version}}
+      #     release_name: v${{env.app_version}}
+      #     body: ${{github.event.commits[0].message}}
+      #     draft: false
+      #     prerelease: false
 
-      - name: Upload wheel and source distribution
-        uses: actions/upload-artifact@v2
+      # - name: Upload wheel and source distribution
+      #   uses: actions/upload-artifact@v2
         
+      #   with:
+      #     name: wheel and source distribution
+      #     path: |
+      #       src/dist/*
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: wheel and source distribution
-          path: |
-            src/dist/*
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file:  src/dist/*.whl
+          tag: v${{env.app_version}}
+          release_name: v${{env.app_version}}
+          overwrite: true
+          file_glob: true
+          body: ${{github.event.commits[0].message}}
