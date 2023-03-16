@@ -31,8 +31,7 @@ jobs:
     - name: Install whl file
       run: |
         cd ./src
-        python setup.py bdist_wheel
-        pip install dist/*.whl
+        python setup.py install
   test:
     needs:build
     runs-on:ubuntu-latest
