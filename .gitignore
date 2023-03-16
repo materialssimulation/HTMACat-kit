@@ -101,3 +101,5 @@ venv.bak/
 .mypy_cache/
 
 # custom
+example/backup*
+example/zjwang*

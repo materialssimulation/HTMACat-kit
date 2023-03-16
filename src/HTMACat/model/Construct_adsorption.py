@@ -9,6 +9,12 @@ def Construct_adsorption(Path_Info,Model):
     Ele_dop=model.readline().split()
     Natom_dop=model.readline().split()
     Ads=model.readline().split()
+    SML = False
+    if 'SML' == Ads[0]:
+       SML = True
+       Ads = Ads[1:]
+    else:
+       pass
     Index=model.readline().split()
     model.close()
 
@@ -18,9 +24,9 @@ def Construct_adsorption(Path_Info,Model):
                for k,ads in enumerate(Ads):
                    slabs,mname,mfacet=Construct_slab(Path_Info)
                    if Index[k] == '1':
-                      slabs_ads=Construct_single_adsorption(slabs,ads)
+                      slabs_ads=Construct_single_adsorption(slabs,ads,SML)
                    elif Index[k] == '2':
-                      slabs_ads=Construct_double_adsorption(slabs,ads)
+                      slabs_ads=Construct_double_adsorption(slabs,ads,SML)
                    for m,slab_ad in enumerate(slabs_ads):
                       write_vasp("%s_%s_%s_%s.vasp" %(mname,mfacet,ads,m), slab_ad, direct=True, sort=[''], vasp5=True)
                    print(f"{ads} {m+1} adsorption on {mname} {natom_dop} doped system are finished!")
@@ -29,9 +35,9 @@ def Construct_adsorption(Path_Info,Model):
                for k,ads in enumerate(Ads):
                    slabs,mname,mfacet=Construct_slab(Path_Info,N_dop_bulk=[ele_dop],super_cell=[2,2,1])
                    if Index[k] == '1':
-                      slabs_ads=Construct_single_adsorption(slabs,ads)
+                      slabs_ads=Construct_single_adsorption(slabs,ads,SML)
                    elif Index[k] == '2':
-                      slabs_ads=Construct_double_adsorption(slabs,ads)
+                      slabs_ads=Construct_double_adsorption(slabs,ads,SML)
                    #view(slabs_ads)
                    for m,slab_ad in enumerate(slabs_ads):
                       write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads,m), slab_ad, direct=True, sort=[''], vasp5=True)
@@ -40,9 +46,9 @@ def Construct_adsorption(Path_Info,Model):
                for k,ads in enumerate(Ads):
                    slabs_dop,mname,mfacet,surface_atoms=Construct_1stLayer_slab(Path_Info,ele_dop)
                    if Index[k] == '1':
-                      slabs_ads=Construct_single_adsorption(slabs_dop,ads)
+                      slabs_ads=Construct_single_adsorption(slabs_dop,ads,SML)
                    elif Index[k] == '2':
-                      slabs_ads=Construct_double_adsorption(slabs_dop,ads)
+                      slabs_ads=Construct_double_adsorption(slabs_dop,ads,SML)
                    for m,slab_ad in enumerate(slabs_ads):
                       write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads,m), slab_ad, direct=True, sort=[''], vasp5=True)
                    print(f"{ads} {m+1} adsorption on {mname}_{ele_dop} {natom_dop} doped system are finished!")
@@ -52,7 +58,7 @@ def Construct_adsorption(Path_Info,Model):
                    slabs_dop,mname,mfacet,p1,p1_symb=Construct_doped_slab(Path_Info,ele_dop,Natom=natom_dop)
                    #print(p1,p1_symb)
                    if Index[k] == '1':
-                      slabs_ads=Construct_single_adsorption(slabs_dop,ads)
+                      slabs_ads=Construct_single_adsorption(slabs_dop,ads,SML)
                       ## To choose the config whose neighbor list includes the doped atoms
                       slabs_ads_near=[]
                       #view(slabs_ads)
@@ -63,7 +69,7 @@ def Construct_adsorption(Path_Info,Model):
                              slabs_ads_near += [slb]
                           
                    elif Index[k] == '2':
-                      slabs_ads=Construct_double_adsorption(slabs_dop,ads)
+                      slabs_ads=Construct_double_adsorption(slabs_dop,ads,SML)
                       ## To choose the config whose neighbor list includes the doped atoms
                       slabs_ads_near=[]
                       for slb in slabs_ads:
