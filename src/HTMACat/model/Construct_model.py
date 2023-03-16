@@ -249,8 +249,7 @@ def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type,SML):
             site02 = AdsorptionSites(slab)
             coordinates02 = site02.get_coordinates()
             for j, coord02 in enumerate(coordinates02):
-                dis = math.hypot(coord01[0]-coord02[0],coord01[1]-coord02[1],coord01[2]-coord02[2])
-                #print(dis)
+                dis = np.linalg.norm(coord01-coord02, ord=2)
                 if dis < float(dis_inter[0]):
                    continue
                 elif dis > float(dis_inter[1]):
@@ -298,9 +297,7 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type,SML):
             site02 = AdsorptionSites(slab)
             coordinates02 = site02.get_coordinates()
             for j, coord02 in enumerate(coordinates02):
-                # dis = math.hypot(coord01[0]-coord02[0],coord01[1]-coord02[1],coord01[2]-coord02[2])
                 dis = np.linalg.norm(coord01-coord02)
-                #print(dis)
                 if dis < float(dis_inter[0]):
                    continue
                 elif dis > float(dis_inter[1]):
@@ -380,11 +377,11 @@ def Construct_coadsorption_12(slabs,ads,dis_inter,SML):
                   coord10 = dic_site.get(edge[0])
                   coord11 = dic_site.get(edge[1])
                   if not coord10 is None:
-                     dis1 = math.hypot(coord01[0]-coord10[0],coord01[1]-coord10[1],coord01[2]-coord10[2])
+                     dis1 = np.linalg.norm(coord01-coord10)
                   else:
                      dis1=dis_inter[0]+0.1
                   if not coord11 is None:
-                     dis2 = math.hypot(coord01[0]-coord11[0],coord01[1]-coord11[1],coord01[2]-coord11[2])
+                     dis2 = np.linalg.norm(coord01-coord11)
                   else:
                      dis2 = dis_inter[1]+0.1
                   dis=min(dis1,dis2)
@@ -455,7 +452,7 @@ def Construct_coadsorption_22(slabs,ads,dis_inter,SML):
                   coord10 = dic_site02.get(edge[0])
                   coord11 = dic_site02.get(edge[1])
                   if not coord10 is None:
-                     dis1 = math.hypot(coord00[0]-coord10[0],coord00[1]-coord10[1],coord00[2]-coord10[2])
+                     dis1 = np.linalg.norm(coord01-coord10)
                   else:
                      dis1=dis_inter[0]+0.1
                   if not coord11 is None:
