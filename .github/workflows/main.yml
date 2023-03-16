@@ -1,5 +1,5 @@
 
-name: Python package
+name: HTMACat
 
 on:
   push:
@@ -31,7 +31,11 @@ jobs:
         cd ./src
         python setup.py bdist_wheel
         pip install dist/*.whl
-
+  test:
+    needs:build
+    runs-on:ubuntu-latest
+    
+    steps:
     - name: Run single-adsorption tests
       run: |
         #pytest tests
@@ -43,7 +47,3 @@ jobs:
         #pytest tests
         cd ./example/coadsorption
         coads
-    #- name: Install whl file and run more tests
-      #run: |
-        #pip install path/to/your/whl/file
-        #pytest more_tests/
