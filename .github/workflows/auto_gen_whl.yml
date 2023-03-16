@@ -8,44 +8,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        python-version: ["3.7", "3.8", "3.9"]
     permissions: write-all
     steps:
       - uses: actions/checkout@v2
       - name: Publish Python Package
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: 3.8
           publish-package: true
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: |
-          cd ${{ github.workspace }}/src
-          pip install ase numpy==1.21.6 scikit-learn setuptools wheel
-          pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
-          pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
-          python setup.py bdist_wheel
-          cd ${{ github.workspace }}/src/dist
-          pip install *.whl
-
-      # - name: Test with pytest
-      #   run: |
-      #     cd ${{ github.workspace }}/example/coadsorption
-      #     coads
-      #     cd ${{ github.workspace }}/example/adsorption
-      #     ads
 
       - name: Build wheel and source distribution
         run: |
           cd src
+          pip install setuptools wheel
           python setup.py sdist bdist_wheel
       
       - name: Release version
@@ -60,9 +35,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ env.app_version }}
-          release_name: v${{ env.app_version }}
-          body: ${{ github.event.commits[0].message }}
+          tag_name: v${{env.app_version}}
+          release_name: v${{env.app_version}}
+          body: ${{github.event.commits[0].message}}
           draft: false
           prerelease: false
 
