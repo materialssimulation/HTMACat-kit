@@ -22,6 +22,8 @@ wheels/
 *.vasp
 MANIFEST
 script/
+dist/
+.vscode/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -100,3 +102,5 @@ venv.bak/
 .mypy_cache/
 
 # custom
+example/backup*
+example/zjwang*
