@@ -31,20 +31,29 @@ jobs:
     - name: Install whl file
       run: |
         cd ./src
-        python setup.py install
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps: 
-    - name: Run single-adsorption tests
+        python setup.py bdist_wheel
+        pip install dist/*.whl
+
+    - name: Run adsorption tests
       run: |
         #pytest tests
-        cd ./example/single-adsorption
+        cd ./example/Formic_acid_ads-SML
+        ads
+        
+    - name: Run adsorption tests
+      run: |
+        #pytest tests
+        cd ./example/Formic_acid_ads
         ads
         
     - name: Run coadsorption tests
       run: |
         #pytest tests
-        cd ./example/coadsorption
+        cd ./example/coads
+        coads
+        
+    - name: Run coadsorption tests
+      run: |
+        #pytest tests
+        cd ./example/coads-SML
         coads
