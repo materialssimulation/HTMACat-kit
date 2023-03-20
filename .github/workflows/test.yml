@@ -3,6 +3,8 @@ name: HTMACat
 on:
   push:
     branches: [ dev,master ]
+  pull_request:
+    branches: [ dev,master]
 
 jobs:
   build:
@@ -36,24 +38,10 @@ jobs:
 
     - name: Run adsorption tests
       run: |
-        #pytest tests
-        cd ./example/Formic_acid_ads-SML
-        ads
-        
-    - name: Run adsorption tests
-      run: |
-        #pytest tests
-        cd ./example/Formic_acid_ads
-        ads
-        
+        pytest tests/test_ads.py
+    
     - name: Run coadsorption tests
       run: |
-        #pytest tests
-        cd ./example/coads
-        coads
+        pytest tests/test_coads.py
+
         
-    - name: Run coadsorption tests
-      run: |
-        #pytest tests
-        cd ./example/coads-SML
-        coads
