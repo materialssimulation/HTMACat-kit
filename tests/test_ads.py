@@ -7,15 +7,31 @@ import filecmp
     ("./example/Formic_acid_ads-SML", "./tests/results/Formic_acid_ads-SML")
 ])
 
-def test_coads(dir1, dir2):
+def test_ads(dir1, dir2):
     cwd = os.getcwd()
     os.chdir(dir1)
     os.system('ads')
-    # 获取文件夹中的文件列表
-    files1 = [os.path.join(dp, f) for dp, dn, filenames in os.walk(dir1) for f in filenames if os.path.isfile(os.path.join(dp, f)) and f.endswith(".vasp")]
-    files2 = [os.path.join(dp, f) for dp, dn, filenames in os.walk(dir2) for f in filenames if os.path.isfile(os.path.join(dp, f)) and f.endswith(".vasp")]
-
-# 对比文件夹中的文本文件
-    for file1, file2 in zip(files1, files2):
-        assert filecmp.cmp(file1, file2, shallow=False)
     os.chdir(cwd)
+    # 比较文件夹的文件
+    assert compare_folders(dir1, dir2)
+
+def compare_folders(folder1, folder2):
+    # 获取两个文件夹下的所有文件列表
+    files1 = set(os.listdir(folder1))
+    files2 = set(os.listdir(folder2))
+
+    # 判断文件夹中的文件是否完全相同
+    if not files1 == files2:
+        print(folder1+"缺少文件")
+        return False
+
+    # 逐个比较文件内容
+    for file in files1:
+        file1_path = os.path.join(folder1, file)
+        file2_path = os.path.join(folder2, file)
+        if not filecmp.cmp(file1_path, file2_path, shallow=False):
+            print(f"文件 {file} 不同")
+            return False
+
+    # 文件夹中的文件全部相同
+    return True
