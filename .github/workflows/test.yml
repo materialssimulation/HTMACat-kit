@@ -1,4 +1,4 @@
-name: HTMACat
+name: HTMACat-test
 
 on:
   push:
@@ -29,13 +29,17 @@ jobs:
         pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
         pip install wheel
         pip install pytest
+        sudo -E apt-get install zip unzip
         # pip install -r requirements.txt
     - name: Install whl file
       run: |
         cd ./src
         python setup.py bdist_wheel
         pip install dist/*.whl
-
+    - name: unzip
+      run: |
+        cd ./tests
+        unzip results.zip
     - name: Run adsorption tests
       run: |
         pytest tests/test_ads.py
