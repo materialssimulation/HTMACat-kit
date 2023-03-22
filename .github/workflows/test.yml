@@ -48,5 +48,11 @@ jobs:
       run: |
         pytest tests/test_coads.py
 
-        
+        pytest tests/test_coads.py
 
+        
+    - name: Run coadsorption tests
+      run: |
+        #pytest tests
+        cd ./example/coads-SML
+        coads
