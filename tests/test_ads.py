@@ -30,12 +30,12 @@ def compare_folders(folder1, folder2):
         file1_path = os.path.join(folder1, file)
         file2_path = os.path.join(folder2, file)
         if not filecmp.cmp(file1_path, file2_path, shallow=False):
-            with open(file1_path.'r') as f:
+            with open(file1_path,'r') as f:
                 print('file1')
-                print(f)
-            with open(file_path.'r') as f:
+                print(f.read())
+            with open(file2_path,'r') as f:
                 print('file2')
-                print(f)
+                print(f.read())
             print(f"文件 {file} 不同")
             return False
 
