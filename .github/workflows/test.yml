@@ -39,7 +39,7 @@ jobs:
     - name: unzip
       run: |
         cd ./tests
-        unzip results.zip
+        unzip results.zip -d .
     - name: Run adsorption tests
       run: |
         pytest tests/test_ads.py
