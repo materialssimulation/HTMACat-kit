@@ -40,8 +40,7 @@ jobs:
       run: |
         cd ./tests
         unzip results.zip -d .
-    - name: SSH远程连接（制作.config配置文件）
-      uses: danshui-git/debugger-action@main
+
     - name: Run adsorption tests
       run: |
         pytest tests/test_ads.py
