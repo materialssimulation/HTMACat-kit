@@ -26,18 +26,18 @@ def compare_folders(folder1, folder2):
         return False
 
     # 逐个比较文件内容
-    # for file in files1:
-    #     file1_path = os.path.join(folder1, file)
-    #     file2_path = os.path.join(folder2, file)
-    #     if not filecmp.cmp(file1_path, file2_path, shallow=False):
-    #         with open(file1_path,'r') as f:
-    #             print('file1')
-    #             print(f.read())
-    #         with open(file2_path,'r') as f:
-    #             print('file2')
-    #             print(f.read())
-    #         print(f"文件 {file} 不同")
-    #         return False
+    for file in files1:
+        file1_path = os.path.join(folder1, file)
+        file2_path = os.path.join(folder2, file)
+        if not filecmp.cmp(file1_path, file2_path, shallow=False):
+            with open(file1_path,'r') as f:
+                print('file1')
+                print(f.read())
+            with open(file2_path,'r') as f:
+                print('file2')
+                print(f.read())
+            print(f"文件 {file} 不同")
+            return False
 
     # 文件夹中的文件全部相同
     return True
