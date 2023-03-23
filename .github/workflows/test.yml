@@ -5,13 +5,13 @@ on:
     branches: [ dev,master ]
   pull_request:
     branches: [ dev,master]
-  workflow_dispatch:
-    inputs:
-      SSH_ACTION:
-        description: 'SSH远程配置固件'
-        required: false
-        default: 'false'
-        type: boolean
+  # workflow_dispatch:
+  #   inputs:
+  #     SSH_ACTION:
+  #       description: 'SSH远程配置固件'
+  #       required: false
+  #       default: 'false'
+  #       type: boolean
 
 jobs:
   build:
