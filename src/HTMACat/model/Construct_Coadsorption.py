@@ -55,7 +55,7 @@ def Construct_coadsorption(Path_Info,Model,spec_ads_stable):
                    #view(slabs_ads) 
                    for m,slab_ad in enumerate(slabs_ads):
                       #write_vasp("%s_%s_%s_%s_%s.vasp" %(mname,mfacet,natom_dop,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True)
-                      write_vasp("%s_%s_%s_%s.vasp" %(mname,mfacet,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True)
+                      write_vasp("%s_%s_%s_%s.vasp" %(mname,mfacet,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True, long_format=False)
                    print("%s %s adsorption on pristine system are finished!" %(ads_symb,m+1))
             elif natom_dop == 'b1':
                # Doped system with a ratio
@@ -71,7 +71,7 @@ def Construct_coadsorption(Path_Info,Model,spec_ads_stable):
                    elif Index[k].strip() == '2 2':
                       slabs_ads=Construct_coadsorption_22(slabs,ads,dis_inter,SML)
                    for m,slab_ad in enumerate(slabs_ads):
-                      write_vasp("%s_%s_%s_b1_%s.vasp" %(mname,mfacet,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True)
+                      write_vasp("%s_%s_%s_b1_%s.vasp" %(mname,mfacet,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True, long_format=False)
                    print("%s %s adsorption on b1 doped systemare finished!" %(ads_symb,m+1))
             elif natom_dop == '1L':
                #spec_ads_stable={'NH2': [2], 'NH': [3], 'NO': [3], 'NH3': [1], 'N': [3], 'O': [3], 'OH': [3]}
@@ -89,7 +89,7 @@ def Construct_coadsorption(Path_Info,Model,spec_ads_stable):
                       slabs_ads=Construct_coadsorption_22(slabs_dop,ads,dis_inter,SML)
                    #view(slabs_ads)
                    for m,slab_ad in enumerate(slabs_ads):
-                      write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True)
+                      write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True, long_format=False)
                     
                    print("%s %s adsorption on 1 layer doped system are finished!" %(ads_symb,m+1))
             else:
@@ -116,7 +116,7 @@ def Construct_coadsorption(Path_Info,Model,spec_ads_stable):
                    #view(slabs_ads)
                    #view(slabs_ads_near)
                    for m,slab_ad in enumerate(slabs_ads_near):
-                      write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True)
+                      write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads_symb,m), slab_ad, direct=True, sort=[''], vasp5=True, long_format=False)
                    print("%s %s adsorption on %s atom doped system are finished!" %(ads_symb,m+1,natom_dop))
      
 if __name__ == '__main__':

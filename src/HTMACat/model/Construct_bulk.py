@@ -17,7 +17,7 @@ def Construct_bulks(Path_Info,Model):
             if natom_dop == '0':
                slabs,mname,dop=Construct_slab(Path_Info,output_bulk=True)
                #view(slabs)
-               write_vasp("%s.vasp" %(mname), slabs, direct=True, sort=[''], vasp5=True)
+               write_vasp("%s.vasp" %(mname), slabs, direct=True, sort=[''], vasp5=True, long_format=False)
                print("pristine system are finished!")
           
             elif natom_dop == 'b1':
@@ -26,7 +26,7 @@ def Construct_bulks(Path_Info,Model):
                else:
                   slabs,mname,dop=Construct_slab(Path_Info,N_dop_bulk=[ele_dop],super_cell=[3,3,1],output_bulk=True)
                   print(dop)
-                  write_vasp("%s_%s_%s.vasp" %(mname,ele_dop,natom_dop), slabs, direct=True, sort=[''], vasp5=True)
+                  write_vasp("%s_%s_%s.vasp" %(mname,ele_dop,natom_dop), slabs, direct=True, sort=[''], vasp5=True, long_format=False)
                   print(f"{struct}_{ele_dop} {natom_dop} doped systemare finished!")
 
 if __name__ == '__main__':

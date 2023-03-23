@@ -19,7 +19,7 @@ def Construct_slabs(Path_Info,Model):
             if natom_dop == '0':
                slabs,mname,mfacet=Construct_slab(Path_Info)
                for m,slab in enumerate(slabs):
-                   write_vasp("%s_%s_%s.vasp" %(mname,mfacet,m), slab, direct=True, sort=[''], vasp5=True)
+                   write_vasp("%s_%s_%s.vasp" %(mname,mfacet,m), slab, direct=True, sort=[''], vasp5=True, long_format=False)
                print("pristine system are finished!")
           
             elif natom_dop == 'b1':
@@ -28,7 +28,7 @@ def Construct_slabs(Path_Info,Model):
                else:
                   slabs,mname,mfacet=Construct_slab(Path_Info,N_dop_bulk=[ele_dop],super_cell=[3,3,1])
                   for m,slab in enumerate(slabs):
-                     write_vasp("%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,m), slab, direct=True, sort=[''], vasp5=True)
+                     write_vasp("%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,m), slab, direct=True, sort=[''], vasp5=True, long_format=False)
                   print(f"{struct}_{ele_dop} {natom_dop} doped systemare finished!")
 
             elif natom_dop == '1L':
@@ -37,7 +37,7 @@ def Construct_slabs(Path_Info,Model):
                else:
                   slabs,mname,mfacet,surface_atoms=Construct_1stLayer_slab(Path_Info,ele_dop)
                   for m,slab in enumerate(slabs):
-                      write_vasp("%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,m), slab, direct=True, sort=[''], vasp5=True)
+                      write_vasp("%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,m), slab, direct=True, sort=[''], vasp5=True, long_format=False)
                   print(f"{struct}_{ele_dop} {natom_dop} doped system are finished!" )
           
             else:
@@ -47,7 +47,7 @@ def Construct_slabs(Path_Info,Model):
                   natom_dop=int(natom_dop)
                   slabs,mname,mfacet,p1,p1_symb=Construct_doped_slab(Path_Info,ele_dop,Natom=natom_dop)
                   for m,slab in enumerate(slabs):
-                      write_vasp("%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,m), slab, direct=True, sort=[''], vasp5=True)
+                      write_vasp("%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,m), slab, direct=True, sort=[''], vasp5=True, long_format=False)
                   print(f"{struct}_{ele_dop} {natom_dop} atom doped system are finished!")
             #view(slabs)
 if __name__ == '__main__':
