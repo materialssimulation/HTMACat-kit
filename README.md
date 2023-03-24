@@ -19,14 +19,23 @@ download the install script:[install_wheel.bat](https://raw.githubusercontent.co
 ```shell
 ./install_wheel.bat # Windows 
 ./install_wheel.sh # linux
-pip install HTMACat.whl # [download from releases](https://github.com/stanfordbshan/HTMACat-kit/releases/latest)
 ```
 ### 2) Manual installation
+
 ```shell
+# windows
+pip install ase numpy==1.23.5 scikit-learn
+pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
+pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.requires_wheel
+for /f "tokens=1,* delims=:" %%A in ('curl -ks https://api.github.com/repos/stanfordbshan/HTMACat-kit/releases/latest ^| find "browser_download_url"') do (
+    pip install -U %%B
+)
+
+#linux
 pip install ase numpy==1.23.5 scikit-learn
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
 pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
-pip install HTMACat.whl # [download from releases](https://github.com/stanfordbshan/HTMACat-kit/releases/latest)
+pip install --upgrade $(curl -s https://api.github.com/repos/stanfordbshan/HTMACat-kit/releases/latest | grep "browser_download_url.*\.whl" | cut -d : -f 2,3 | tr -d \")
 ```
 
 # Getting started
@@ -45,11 +54,11 @@ pip install HTMACat.whl # [download from releases](https://github.com/stanfordbs
 
     ```shell
     Cu # Doping elements
-    0 1 1L 2 3 b1 # Doping type
-    H NH2 NO N2 N2O O2 H2O # Adsorption species
-    1 1 1 2 2 1 # Adsorption type
+    b1 # Doping type
+    SML C(=O)O # Adsorption species (SMILES of formic acid)
+    1 2 # Adsorption type
     ```
-    Where the first line of the file is the doping element and the second line is the doping type, 0 corresponds to no doping, 1, 2 and 3 correspond to surface layers doped with 1, 2 and 3 atoms, respectively, and 1L and b1 represent surface layer substitution and bulk equivalent proportional substitution. Users can modify the corresponding parameters to achieve customized modeling according to their research needs.
+    Where the first line of the file is the doping element and the second line is the doping type, 0 corresponds to no doping, 1, 2 and 3 correspond to surface layers doped with 1, 2 and 3 atoms, respectively, and 1L and b1 represent surface layer substitution and bulk equivalent proportional substitution. The third and fourth lines respectively represent the adsorbate species and the adsorption types. <b>Please note that the adsorbates should be declared by their SMILES expressions if the third line starts with 'SML'!</b> If no 'SML' at the beginning of this line, the species are represented in their chemical formula. <b>To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.</b> Users can modify the corresponding parameters to achieve customized modeling according to their research needs.
 
     (2) run script
 
@@ -63,11 +72,11 @@ pip install HTMACat.whl # [download from releases](https://github.com/stanfordbs
 
     ```shell
     Cu # Doping elements
-    1 1L 2 3 # Doping type
-    NH2 H2O;NH H2O;N H2O;NH2 H;NH H;N H # Co-adsorption species
-    1 1;1 1;1 1;1 1;1 1;1 1 # Adsorption type
+    3 # Doping type
+    SML N [O];[NH2] [OH];[N] [N];[N] [O];[N] [N]=O # Co-adsorption species
+    1 1;1 1;1 1;1 1;1 1 # Adsorption type
     ```
-    The first line represents the dopant element, the second line represents the dopant type, the third and fourth lines respectively represent the co-adsorbate species and the co-adsorption type. Different co-adsorption combinations are separated by ";".
+    The first line represents the dopant element, the second line represents the dopant type, the third and fourth lines respectively represent the co-adsorbate species (also in SMILES format) and the co-adsorption type. Different co-adsorption combinations are separated by ";".
 
     (2) run script
 
@@ -83,3 +92,9 @@ pip install HTMACat.whl # [download from releases](https://github.com/stanfordbs
 * Jiaqiang Yang email:[jqyang_hust@hust.edu.cn](mailto:jqyang_hust@hust.edu.cn)
 * Feifeng Wu email:[wufeifeng_hust@163.com](wufeifeng_hust@163.com)
 * Bin Shan email:[bshan@mail.hust.edu.cn](bshan@mail.hust.edu.cn)
+
+‍
+
+# Links
+
+* Materials Design and Nano-Manufacturing Center@HUST:http://www.materialssimulation.com/

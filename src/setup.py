@@ -9,7 +9,7 @@ with open('requirements.txt', 'r') as f:
 
 setup(
     name='HTMACat',
-    version='1.0.1',
+    version='1.0.2',
     description=
     'A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.',
     long_description=
