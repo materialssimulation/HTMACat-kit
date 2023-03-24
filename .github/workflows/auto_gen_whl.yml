@@ -1,6 +1,16 @@
 name: publish HtmaCat-kit to release
 
 on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to run the workflow on'
+        required: false
+        default: 'master'
+        type: choice
+        options:
+          - 'master'
+          - 'dev'
   push:
     branches:
       - master
@@ -17,6 +27,8 @@ jobs:
     permissions: write-all
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref }}
       - name: Publish Python Package
         uses: actions/setup-python@v4
         with:
