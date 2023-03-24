@@ -29,6 +29,13 @@ def isequal(a, b):
     else:
         return False
 
+### Function3: 用0.000000代替vasp文件中的-0.000000
+def replace(file):
+    with open(file,'r') as f:
+        content = f.read()
+    content = content.replace('-0.000000',' 0.000000')
+    with open(file,'w') as f:
+        f.write(content)
 
 if __name__ == '__main__':
     a = [1, 2, 3, 4]

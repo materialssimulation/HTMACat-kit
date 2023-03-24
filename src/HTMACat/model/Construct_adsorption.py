@@ -4,6 +4,7 @@ from ase.visualize import view
 from ase.io.vasp import write_vasp
 from HTMACat.model.Construct_model import *
 from HTMACat.Extract_info import *
+from HTMACat.Base_tools import *
 def Construct_adsorption(Path_Info,Model):
     model = open(Model,'r')
     Ele_dop=model.readline().split()
@@ -29,6 +30,7 @@ def Construct_adsorption(Path_Info,Model):
                       slabs_ads=Construct_double_adsorption(slabs,ads,SML)
                    for m,slab_ad in enumerate(slabs_ads):
                       write_vasp("%s_%s_%s_%s.vasp" %(mname,mfacet,ads,m), slab_ad, direct=True, sort=[''], vasp5=True, long_format=False)
+                      replace("%s_%s_%s_%s.vasp" %(mname,mfacet,ads,m))
                    print(f"{ads} {m+1} adsorption on {mname} {natom_dop} doped system are finished!")
             elif natom_dop == 'b1':
                #N_dop_bulk=[ele_dop]
@@ -41,6 +43,7 @@ def Construct_adsorption(Path_Info,Model):
                    #view(slabs_ads)
                    for m,slab_ad in enumerate(slabs_ads):
                       write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads,m), slab_ad, direct=True, sort=[''], vasp5=True, long_format=False)
+                      replace("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads,m))
                    print(f"{ads} {m+1} adsorption on {mname}_{ele_dop} {natom_dop} doped system are finished!")
             elif natom_dop == '1L':
                for k,ads in enumerate(Ads):
@@ -51,6 +54,7 @@ def Construct_adsorption(Path_Info,Model):
                       slabs_ads=Construct_double_adsorption(slabs_dop,ads,SML)
                    for m,slab_ad in enumerate(slabs_ads):
                       write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads,m), slab_ad, direct=True, sort=[''], vasp5=True, long_format=False)
+                      replace("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads,m))
                    print(f"{ads} {m+1} adsorption on {mname}_{ele_dop} {natom_dop} doped system are finished!")
             else:
                natom_dop=int(natom_dop)
@@ -80,6 +84,7 @@ def Construct_adsorption(Path_Info,Model):
                    #view(slabs_ads_near)
                    for m,slab_ad in enumerate(slabs_ads_near):
                       write_vasp("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads,m), slab_ad, direct=True, sort=[''], vasp5=True, long_format=False)
+                      replace("%s_%s_%s_%s_%s_%s.vasp" %(mname,ele_dop,mfacet,natom_dop,ads,m))
                    print(f"{ads} {m+1} adsorption on {mname}_{ele_dop} {natom_dop} doped system are finished!")
 if __name__ == '__main__':
    Path_Info='StrucInfo'

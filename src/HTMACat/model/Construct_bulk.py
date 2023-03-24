@@ -4,6 +4,7 @@ from ase.visualize import view
 from ase.io.vasp import write_vasp
 from HTMACat.model.Construct_model import *
 from HTMACat.Extract_info import *
+from HTMACat.Base_tools import *
 def Construct_bulks(Path_Info,Model):
     model = open(Model,'r')
     Ele_dop=model.readline().split()
@@ -18,6 +19,7 @@ def Construct_bulks(Path_Info,Model):
                slabs,mname,dop=Construct_slab(Path_Info,output_bulk=True)
                #view(slabs)
                write_vasp("%s.vasp" %(mname), slabs, direct=True, sort=[''], vasp5=True, long_format=False)
+               replace("%s.vasp" %(mname))
                print("pristine system are finished!")
           
             elif natom_dop == 'b1':
@@ -27,6 +29,7 @@ def Construct_bulks(Path_Info,Model):
                   slabs,mname,dop=Construct_slab(Path_Info,N_dop_bulk=[ele_dop],super_cell=[3,3,1],output_bulk=True)
                   print(dop)
                   write_vasp("%s_%s_%s.vasp" %(mname,ele_dop,natom_dop), slabs, direct=True, sort=[''], vasp5=True, long_format=False)
+                  replace("%s_%s_%s.vasp" %(mname,ele_dop,natom_dop))
                   print(f"{struct}_{ele_dop} {natom_dop} doped systemare finished!")
 
 if __name__ == '__main__':
