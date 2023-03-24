@@ -76,4 +76,4 @@ def compare_folders(folder1, folder2):
     #         return False
 
     # 文件夹中的文件全部相同
-    return True
+    # return True
