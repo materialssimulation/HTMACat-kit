@@ -76,4 +76,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           add: 'README.md'
-          message: Updated wheel link in README
+          message: 'Updated wheel link in README'
+          push: true
