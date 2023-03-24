@@ -59,17 +59,11 @@ jobs:
           file_glob: true
           body: ${{github.event.head_commit.message}}
 
-      - name: Get release download link
-        id: get_release
-        run: |
-          curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
-            jq -r '.assets[].browser_download_url' | head -n1
-        env:
-          RELEASE_DOWNLOAD_LINK: ${{ steps.get_release.outputs.stdout }}
-
       - name: Replace the install link and Update Readme
         run: |
-          sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"${{ env.RELEASE_DOWNLOAD_LINK }}"'~g' README.md
+          link=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
+            jq -r '.assets[].browser_download_url' | head -n1)
+          sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"$link"'~g' README.md
       
 
       - name: Commit changes
