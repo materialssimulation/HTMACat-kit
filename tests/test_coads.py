@@ -1,6 +1,7 @@
 import pytest
 import os
 import filecmp
+import hashlib
 
 @pytest.mark.parametrize("dir1, dir2", [
     ("./example/coads", "./tests/results/coads"),
@@ -29,7 +30,19 @@ def compare_folders(folder1, folder2):
     for file in files1:
         file1_path = os.path.join(folder1, file)
         file2_path = os.path.join(folder2, file)
-        if not filecmp.cmp(file1_path, file2_path, shallow=False):
+        # if not filecmp.cmp(file1_path, file2_path, shallow=False):
+        #     with open(file1_path,'r') as f:
+        #         print('file1')
+        #         print(f.read())
+        #     with open(file2_path,'r') as f:
+        #         print('file2')
+        #         print(f.read())
+        #     print(f"文件 {file} 不同")
+        #     return False
+
+        file1_md5 = calculate_md5(file1_path)
+        file2_md5 = calculate_md5(file2_path)
+        if file1_md5 != file2_md5:
             with open(file1_path,'r') as f:
                 print('file1')
                 print(f.read())
@@ -39,5 +52,12 @@ def compare_folders(folder1, folder2):
             print(f"文件 {file} 不同")
             return False
 
+
     # 文件夹中的文件全部相同
     return True
+
+def calculate_md5(file_path):
+    with open(file_path, 'rb') as f:
+        content = f.read()
+        md5_hash = hashlib.md5(content)
+        return md5_hash.hexdigest()
