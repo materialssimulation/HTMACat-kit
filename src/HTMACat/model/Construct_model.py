@@ -18,6 +18,33 @@ from HTMACat.Extract_info import *
 from catkit.build import molecule
 ### 1.Construct the slab
 def Construct_slab(Path_info,N_dop_bulk=[],super_cell=[3,3,1],output_bulk=False):
+    """
+    Constructs slabs of bulk crystal structures using the provided crystallographic information and settings.
+
+    Parameters
+    ----------
+    Path_info : str
+        A string containing the crystallographic information for generating the slabs. It should be in the format
+        "element lattice_type lattice_constant crystal face". For hcp lattices, c /a ratio information should also
+            be provided,It should be in the format "element lattice_type lattice_constant c/a crystal face"
+    N_dop_bulk : list of str, optional
+        A list of strings representing the doping elements for the bulk material. Defaults to an empty list.
+    super_cell : list of int, optional
+        A list of 3 integers representing the supercell size in each dimension. Defaults to [3, 3, 1].
+    output_bulk : bool, optional
+        A flag indicating whether the function should output the bulk crystal structure information. Defaults to False.
+
+    Returns
+    ---------
+    tuple[list,str,str]
+        A tuple with the following elements:
+        slab : list
+            A list representing the slabs generated from the bulk crystal structure.
+        mname : str
+            A string representing the material name.
+        mfacet : str
+            A string representing the Miller index of the slab.
+    """
   # Construct lattice using the optimized lattice constant
   #if isinstance(Path_info, str):
   #   LatInfo = open(Path_info,"r+")
@@ -92,6 +119,34 @@ def Construct_slab(Path_info,N_dop_bulk=[],super_cell=[3,3,1],output_bulk=False)
 from catkit.gen.adsorption import AdsorptionSites
 #from Extract_info import *
 def Construct_doped_slab(Path_info,Ele_dop,Natom=1):
+    """
+    Construct the doped surface configuration
+
+    Parameters
+    ----------
+    Path_info : str
+        The file path to the structure information
+    Ele_dop : str
+        The symbol of the doped element
+    Natom : int, optional
+        Number of doped atoms, by default 1
+
+    Returns
+    -------
+    tuple[list,str,str,lsit,lsit]
+        A tuple with the following elements:
+        slabs_dop : list
+            A list of Atoms objects, each representing a doped slab.
+        mname : str
+            The name of the crystal.
+        mfacet : str
+            The facet of the crystal.
+        p1 : list
+            A list of the coordinates of the doped atoms in the slabs.
+        p1_symb : list
+            A list of the symbols of the doped atoms in the slabs.
+    """
+          
     # generate surface adsorption configuration
     slabs,mname,mfacet = Construct_slab(Path_info)
     slabs_dop=[]
@@ -122,6 +177,29 @@ def Construct_doped_slab(Path_info,Ele_dop,Natom=1):
 
 ### 3.Construct the doped surface configuration
 def Construct_1stLayer_slab(Path_info,Ele_dop):
+    """
+    Construct doped surfaces with layer substitution as the substitution type.
+
+    Parameters
+    ----------
+    Path_info : str
+        The file path to the structure information.
+    Ele_dop : str
+        The symbol of the doped element.
+
+    Returns
+    -------
+    tuple
+        A tuple with the following elements:
+        slabs_dop : list
+            A list of Atoms objects, each representing a doped slab.
+        mname : str
+            The name of the crystal.
+        mfacet : str
+            The facet of the crystal.
+        surface_atoms : list
+            A list of the indices of the surface atoms in the original slab.
+    """
     # generate surface adsorption configuration
     slabs,mname,mfacet = Construct_slab(Path_info)
     slabs_dop=[]
@@ -136,13 +214,16 @@ def Construct_1stLayer_slab(Path_info,Ele_dop):
 #Construct_1stLayer_slab(Path_info='./StrucInfo',Ele_dop='Au')
 
 def MolToNXGraph(m):
-    '''
+    """
     convert molecule object to graph in networkx
-    params:
+
+    Parameters
+    ----------
         m: RDKit Mol object
-    returns:
+    Returns
+    -------
         G: networkx Graph object of molecule m
-    '''
+    """
     G = nx.Graph()
     for i_n in range(m.GetNumAtoms()):
         G.add_node(i_n)
@@ -157,6 +238,24 @@ def MolToNXGraph(m):
 #from catkit.gen.adsorption import AdsorptionSites
 #from Extract_info import *
 def Construct_single_adsorption(slabs,ads,SML):
+    """
+        Building a surface model with a single adsorption site.
+
+        Parameters
+        ----------
+        slabs : list
+            A list of Atoms objects, each representing a slab.
+        ads : str
+            The name of the adsorbate.
+        SML : str
+           SMILE representation of molecular chemical formulas
+
+
+        Returns
+        -------
+        list
+            A list of Atoms objects, each representing a surface structure with a single adsorbate.
+        """
     # generate surface adsorption configuration
     #slabs = Construct_slab()
     slab_ad=[]
@@ -190,6 +289,23 @@ def Construct_single_adsorption(slabs,ads,SML):
 
 ### 4.Construct double sites adsorption configuration
 def Construct_double_adsorption(slabs,ads,SML):
+    """
+    Building a surface model with double adsorption sites.
+
+    Parameters
+    ----------
+    slabs : list
+        A list of Atoms objects, each representing a slab.
+    ads : str
+        The name of the adsorbate.
+    SML : str
+           SMILE representation of molecular chemical formulas
+
+    Returns
+    -------
+    list
+        A list of Atoms objects, each representing a surface structure with double adsorption sites.
+    """
     # generate surface adsorption configuration
     slab_ad=[]
     for i, slab in enumerate(slabs):
@@ -260,6 +376,27 @@ def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type,SML):
         return slab_ad
 ### 5.Construct coadsoprtion configuration with mono+mono adsorption
 def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type,SML):
+    """
+     Construct coadsoprtion configuration with mono+mono adsorption
+
+     Parameters
+     ----------
+     slabs : list
+         Crystal structure
+     ads : str
+         Adsorbent
+     dis_inter : list
+         Distance range between two adsorbents
+     ads_type : dict
+         Type of adsorption site
+     SML : str
+           SMILE representation of molecular chemical formulas
+
+     Returns
+     -------
+     slab_ad_final : list
+         Coadsorption structure
+     """
     slab_ad=[]
     #dis_inter=[3.0,5.5]
     for i, slab in enumerate(slabs):
@@ -329,6 +466,30 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type,SML):
     return slab_ad_final   
 ### 6.Construct coadsoprtion configuration with mono+mono adsorption
 def Construct_coadsorption_12(slabs,ads,dis_inter,SML):
+    """
+    Constructing coadsorption configuration with single+double adsorption
+
+    Parameters
+    ----------
+    slabs : list
+        List of crystal structures
+    ads : str
+        String containing the names of two adsorbates separated by a space
+    dis_inter : list
+        Distance range between two adsorbates in Angstroms, given as a list of two floats
+    ads_type : dict
+        Dictionary containing the adsorbate species as keys and a list of possible adsorption types as values.
+        The possible adsorption types are: 'top', 'bri', 'fcc', 'hcp', '4-fold'. An example for the NH3 molecule is:
+        {'NH3': ['top']}
+    SML : str
+        SMILE representation of molecular chemical formulas
+
+    Returns
+    -------
+    slab_ad_final : list
+        the list of coadsorption structures
+
+    """
     slab_ad=[]
     for i, slab in enumerate(slabs):
         site01 = AdsorptionSites(slab)
@@ -395,6 +556,25 @@ def Construct_coadsorption_12(slabs,ads,dis_inter,SML):
     return slab_ad
 ### 7.Construct coadsoprtion configuration with bi+bi adsorption
 def Construct_coadsorption_22(slabs,ads,dis_inter,SML):
+    """
+    Constructing coadsorption configuration with double+double adsorption
+
+    Parameters
+    ----------
+    slabs : list
+        Crystal structure.
+    ads : str
+        Adsorbent.
+    dis_inter : list
+        Distance range between two adsorbents.
+    SML : str
+        SMILE representation of molecular chemical formulas
+
+    Returns
+    -------
+    slab_ad_final : list
+        Coadsorption structure.
+    """
     slab_ad=[]
     for i, slab in enumerate(slabs):
         site01 = AdsorptionSites(slab)
