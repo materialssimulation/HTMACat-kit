@@ -353,17 +353,17 @@ def distinguish_atom_binding(poscar, tol_layer=0.01, tol=0.05, base_layer=4, ato
         Returns
         -------
         tuple
-            -adatoms : list
+            - adatoms : list
                 A list of the indices of adatoms in the structure.
-            -adatoms_symb : list
+            - adatoms_symb : list
                 A list of the chemical symbols of adatoms in the structure.
-            -surfatoms : list
+            - surfatoms : list
                 A list of the indices of surface atoms in the structure.
-            -surfatoms_symb : list
+            - surfatoms_symb : list
                 A list of the chemical symbols of surface atoms in the structure.
-            -subsurfatoms : list
+            - subsurfatoms : list
                 A list of the indices of subsurface atoms in the structure.
-            -subsurfatoms_symb : list
+            - subsurfatoms_symb : list
                 A list of the chemical symbols of subsurface atoms in the structure
 
         Raises
@@ -1155,6 +1155,7 @@ def cal_Eslab(FEslab, facet):
     -------
     float
         Energy of the given slab facet.
+
     Examples
     --------
     >>> cal_Eslab('path/to/file.csv', [1, 0, 0])
@@ -1294,9 +1295,7 @@ def cal_adE_coad(Flist, FErad, FEslab, Erad_property='radical'):
 
     Returns
     -------
-
     Nones
-    -----
     The function writes the calculated adsorption energy for each system to a file named 'adsE_coad_<Erad_property>'.
 
     """
