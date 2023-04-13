@@ -220,6 +220,7 @@ def MolToNXGraph(m):
     Parameters
     ----------
         m: RDKit Mol object
+    
     Returns
     -------
         G: networkx Graph object of molecule m

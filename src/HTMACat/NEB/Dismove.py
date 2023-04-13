@@ -29,7 +29,7 @@ def Dismove(dcut):
     None
 
     Notes
-    -------
+    -----
     This function needs to read two files named POSstart and POSend, and write the processing results to three files: 
     POStmp, POStmp2, and POSfinal.At the same time, this function will also create a file called Nmovetatom to record 
     the sequence numbers of atoms whose movement distance is greater than the threshold. It is necessary to ensure that 

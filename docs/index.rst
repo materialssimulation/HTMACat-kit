@@ -11,7 +11,7 @@ Welcome to HTMACat-kit's documentation!
    :caption: Contents:
 
    Get_start.rst
-   Examples.rst
+   Usage.rst
    HTMACat.rst
 
 Indices and tables

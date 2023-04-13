@@ -1178,7 +1178,7 @@ def cal_Eads(Flist, FErad, FEslab, radicals, Erad_property='radical', Facet_prop
     Calculate the adsorption energy based on atom energy.
 
     Parameters
-    -----------
+    ----------
     Flist : str
         The filename of the file that contains the list of adsorption energy configurations.
     FErad : str
@@ -1193,11 +1193,11 @@ def cal_Eads(Flist, FErad, FEslab, radicals, Erad_property='radical', Facet_prop
         The property of the facet energy calculation. Default is 'all'.
 
     Returns
-    ---------
+    -------
     None
 
     Outputs
-    ----------
+    -------
     adsE_{Erad_property}_{Facet_property} : file
     The file that contains the calculated adsorption energies.
 
@@ -1276,7 +1276,7 @@ def cal_adE_coad(Flist, FErad, FEslab, Erad_property='radical'):
     """
     Calculate the adsorption energy of CO on a surface with multiple radicals
 
-    Parameters:
+    Parameters
     ----------
     Flist: str
         File path of a text file that contains the adsorption energy information of the system in each line.
@@ -1292,8 +1292,8 @@ def cal_adE_coad(Flist, FErad, FEslab, Erad_property='radical'):
     Erad_property: str, optional
         The property used to calculate the radical energy. It can be either 'atom' or 'radical'. Default is 'radical'.
 
-    Returns:
-    --------
+    Returns
+    -------
     None
     The function writes the calculated adsorption energy for each system to a file named 'adsE_coad_<Erad_property>'.
 
@@ -1340,14 +1340,14 @@ def Extract_slab_info_1(Flist, facet):
     Extracts structural information and energy of specific slab.
 
     Parameters
-    -------
+    ----------
     Flist : str
         File path to the list of slab energies.
     facet : list
         List of strings representing the surface facets to extract information for.
 
     Returns
-    ---------
+    -------
     tuple[list,list,list,list,list]
         - E_slab : list
             a List of energies for the given facets.
@@ -1361,6 +1361,7 @@ def Extract_slab_info_1(Flist, facet):
             a List containing the number of layers and the number of atoms in each layer of the most stable facet.
 
     Notes
+    -----
     This function extracts the energy and structural information of a specific slab given a list of energies and the
     surface facets to extract information for. The energy and surface information are extracted for all slabs that match
     the given facet. If there is only one matching slab, the energy and surface information are returned directly. If

@@ -10,7 +10,7 @@ def Construct_slabs(Path_Info,Model):
 
     Parameters
     ---------- 
-    Path_Info:str
+    Path_Info: str
        a filename,containing the crystallographic information for generating the slabs.
     Model:str
        a filename,containing surface doping and adsorption modeling parameters

@@ -33,7 +33,7 @@ def get_file_name(reaction):
         specie_f_list += [specie_f.split('+')[i].strip()]
     specie_f_mol = []
     specie_f_typ = []
-    for j, specie in enumerate(specie_f_list):
+    for j, specie in enumeratemak(specie_f_list):
         specie_f_mol += [specie.split('(', 1)[0].strip()]
         specie_f_typ += [specie.split('(', 1)[1].split(')')[0].strip()]
     ##2.Extract the product molecule and type (a g s)
