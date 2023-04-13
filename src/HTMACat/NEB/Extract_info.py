@@ -98,6 +98,7 @@ def Extract_energy(Efile, struc):
         -------
         tuple
             A tuple containing two lists:
+
             - Ener : list of float
                 The list of extracted energies.
             - order : list of str
@@ -139,6 +140,7 @@ def Extract_energy_single(Efile, struc):
     -------
     tuple
         A tuple containing the energy and the structure:
+
         - Ener : float
             The extracted energy.
         - struc : str
@@ -484,6 +486,7 @@ def get_atom_neigh(poscar, atom):
     -------
     tuple[list,list]
         A tuple of two lists:
+
         - The indices of the nearest neighbor atoms of the specified atom in the lattice structure.
         - The chemical element symbols of the nearest neighbor atoms.
 
@@ -681,6 +684,7 @@ def get_distance_adatoms(poscar, tol=0.1):
     -------
     tuple[list,list]
         A tuple containing two lists:
+
             - dis_symb_matrix : list of str
                 A list of strings indicating the atomic symbols of the adsorbed atoms and their corresponding distance.
             - dis_matrix : list of float
@@ -848,6 +852,7 @@ def Extract_atomic_info(atoms):
     -------
     tuple[list,list,list,list]
         A tuple containing the following information:
+
         - names_atoms : list of str
             List of strings representing the names of the atoms.
         - radii_atoms : list of float
@@ -1194,11 +1199,11 @@ def cal_Eads(Flist, FErad, FEslab, radicals, Erad_property='radical', Facet_prop
         The property of the facet energy calculation. Default is 'all'.
 
     Returns
-    ---------
+    -------
     None
 
     Outputs
-    ----------
+    -------
     adsE_{Erad_property}_{Facet_property} : file
     The file that contains the calculated adsorption energies.
 

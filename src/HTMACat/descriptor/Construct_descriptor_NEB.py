@@ -15,12 +15,12 @@ def get_file_name(reaction):
         The string representing the reaction, in the format "reactants = products".
 
     Returns
-    ---------
+    -------
     str
         The file name constructed based on the reaction, in the format "reactant1+reactant2+...=product1+product2+...".
 
     Examples
-    -------
+    --------
     >>>get_file_name("2H2 + O2 = 2H2O")
     >>>'2H2+O2=2H2O'
 """
@@ -95,16 +95,16 @@ def get_site_info(poscar):
     """
     This function extracts site information from a given POSCAR file.
 
-    Parameters:
+    Parameters
     ----------
         poscar (str): The name of the POSCAR file.
 
-    Returns:
-    ------------
+    Returns
+    -------
         descriptor_site (list): A list of the site descriptors.
 
-    Notes:
-    ----------
+    Notes
+    -----
     The function extracts the binding adatoms, adspecie, binding type symbols, and binding surface atoms from the POSCAR file.
     The function then assigns numerical values to the binding types based on the following dictionary: {None: 0, 'top': 1, 'bri': 2, 'fcc': 3, 'hcp': 3, '4-fold': 4}.
     The function then adds up the numerical values for each binding type symbol and returns a list of the resulting descriptor.
@@ -137,7 +137,7 @@ def get_adsorbate_info(poscar, feature_ads, base_info):
         The path of the file containing information about the elements.
 
     Returns
-    ----------
+    -------
         descriptor_ads : list
             A list of the calculated descriptors for the adsorbate.
     """
