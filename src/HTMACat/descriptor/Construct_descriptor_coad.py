@@ -181,8 +181,8 @@ def Construct_descriptor_coad(poscar, feature_surf, feature_ads, feature_site):
         print(f'Surface info of {poscar} can not be obtained ')
 
 
-from Extract_info import *
-from Base_tools import *
+from HTMACat.Extract_info import *
+from HTMACat.Base_tools import *
 import os
 import numpy as np
 import operator

@@ -107,9 +107,9 @@ def Construct_descriptor(poscar, feature_surf, feature_ads, feature_site, adspec
             print(f'Surface info of {poscar} can not be obtained ')
 
 
-from Extract_info import *
-from Construct_descriptor import *
-from Base_tools import *
+from HTMACat.Extract_info import *
+from HTMACat.descriptor.Construct_descriptor import *
+from HTMACat.Base_tools import *
 import os
 import numpy as np
 import operator

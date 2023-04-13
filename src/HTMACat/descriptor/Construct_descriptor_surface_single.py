@@ -143,7 +143,7 @@ def Construct_descriptor_info_E(ele, facet, specie, facet_dop=True):
                     continue
 
 
-from Extract_info import *
+from HTMACat.Extract_info import *
 import os
 import numpy as np
 import operator
