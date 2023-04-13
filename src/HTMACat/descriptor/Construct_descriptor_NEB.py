@@ -21,8 +21,8 @@ def get_file_name(reaction):
 
     Examples
     --------
-    >>>get_file_name("2H2 + O2 = 2H2O")
-    >>>'2H2+O2=2H2O'
+    >>> get_file_name("2H2 + O2 = 2H2O")
+    >>> '2H2+O2=2H2O'
 """
     specie_f = reaction.split('=')[0].strip()
     specie_b = reaction.split('=')[1].strip()
