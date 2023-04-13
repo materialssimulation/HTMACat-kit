@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.post package &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="HTMACat.model package" href="HTMACat.model.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Get_start.html"><strong>Get_start</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="HTMACat.html">HTMACat package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="HTMACat.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.NEB.html">HTMACat.NEB package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.descriptor.html">HTMACat.descriptor package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.model.html">HTMACat.model package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">HTMACat.post package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-post-extract-adener-module">HTMACat.post.Extract_adener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-post-extract-adener-alloy-module">HTMACat.post.Extract_adener_alloy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-post-extract-adener-site-module">HTMACat.post.Extract_adener_site module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.post.Extract_cal_fre">HTMACat.post.Extract_cal_fre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.post.Extract_info">HTMACat.post.Extract_info module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-post-cal-adse-module">HTMACat.post.cal_adsE module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.post">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Base_tools">HTMACat.Base_tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Extract_info">HTMACat.Extract_info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.command">HTMACat.command module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.configuration">HTMACat.configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="HTMACat.html">HTMACat package</a></li>
+      <li class="breadcrumb-item active">HTMACat.post package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/HTMACat.post.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="htmacat-post-package">
+<h1>HTMACat.post package<a class="headerlink" href="#htmacat-post-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="htmacat-post-extract-adener-module">
+<h2>HTMACat.post.Extract_adener module<a class="headerlink" href="#htmacat-post-extract-adener-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="htmacat-post-extract-adener-alloy-module">
+<h2>HTMACat.post.Extract_adener_alloy module<a class="headerlink" href="#htmacat-post-extract-adener-alloy-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="htmacat-post-extract-adener-site-module">
+<h2>HTMACat.post.Extract_adener_site module<a class="headerlink" href="#htmacat-post-extract-adener-site-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-HTMACat.post.Extract_cal_fre">
+<span id="htmacat-post-extract-cal-fre-module"></span><h2>HTMACat.post.Extract_cal_fre module<a class="headerlink" href="#module-HTMACat.post.Extract_cal_fre" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_cal_fre.get_adspecie_dir">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_cal_fre.</span></span><span class="sig-name descname"><span class="pre">get_adspecie_dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">react</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'react.log'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_cal_fre.html#get_adspecie_dir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_cal_fre.get_adspecie_dir" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_cal_fre.get_file_name">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_cal_fre.</span></span><span class="sig-name descname"><span class="pre">get_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reaction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_cal_fre.html#get_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_cal_fre.get_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-HTMACat.post.Extract_info">
+<span id="htmacat-post-extract-info-module"></span><h2>HTMACat.post.Extract_info module<a class="headerlink" href="#module-HTMACat.post.Extract_info" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.Construct_descriptor_info">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">Construct_descriptor_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#Construct_descriptor_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.Construct_descriptor_info" title="Permalink to this definition"></a></dt>
+<dd><p>Construct descriptor information from raw data file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>raw_file</strong><span class="classifier">str</span></dt><dd><p>Path to the raw data file.</p>
+</dd>
+<dt><strong>atoms</strong><span class="classifier">list</span></dt><dd><p>a list of atoms.</p>
+</dd>
+<dt><strong>feature</strong><span class="classifier">list</span></dt><dd><p>a list of features.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>feature_value</strong><span class="classifier">list</span></dt><dd><p>a list of feature values for each atom.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.Extract_adsE">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">Extract_adsE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab_E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radical_E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tot_E</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#Extract_adsE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.Extract_adsE" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the adsorption energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>slab_E</strong><span class="classifier">float</span></dt><dd><p>The crystal surface energy.</p>
+</dd>
+<dt><strong>radical_E</strong><span class="classifier">float</span></dt><dd><p>The radical energy.</p>
+</dd>
+<dt><strong>tot_E</strong><span class="classifier">float</span></dt><dd><p>The total energy.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>The calculated adsorption energy.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.Extract_atomic_info">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">Extract_atomic_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#Extract_atomic_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.Extract_atomic_info" title="Permalink to this definition"></a></dt>
+<dd><p>Extracts information related to the provided atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>atoms</strong><span class="classifier">list of int</span></dt><dd><p>List of integers representing the atomic numbers of the atoms.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[list,list,list,list]</dt><dd><p>A tuple containing the following information:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>names_atoms<span class="classifier">list of str</span></dt><dd><p>List of strings representing the names of the atoms.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>radii_atoms<span class="classifier">list of float</span></dt><dd><p>List of floats representing the covalent radii of the atoms.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>mass_atoms<span class="classifier">list of float</span></dt><dd><p>List of floats representing the atomic masses of the atoms.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>vdw_radii_atoms<span class="classifier">list of float</span></dt><dd><p>List of floats representing the van der Waals radii of the atoms.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.Extract_energy">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">Extract_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Efile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">struc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#Extract_energy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.Extract_energy" title="Permalink to this definition"></a></dt>
+<dd><p>Batch extraction of calculated energy for specific species structure</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Efile</strong><span class="classifier">str</span></dt><dd><p>Energy information file</p>
+</dd>
+<dt><strong>struc</strong><span class="classifier">list of str</span></dt><dd><p>Specific species that want to extract energy</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><p>A tuple containing two lists:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Ener<span class="classifier">list of float</span></dt><dd><p>The list of extracted energies.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>order<span class="classifier">list of str</span></dt><dd><p>The sequential list of the extracted energies.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.Extract_energy_single">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">Extract_energy_single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Efile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">struc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#Extract_energy_single"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.Extract_energy_single" title="Permalink to this definition"></a></dt>
+<dd><p>Extract energy of radical &amp; slab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Efile</strong><span class="classifier">str</span></dt><dd><p>Energy information file.</p>
+</dd>
+<dt><strong>struc</strong><span class="classifier">str</span></dt><dd><p>Structure that want to extract energy.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><p>A tuple containing the energy and the structure:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Ener<span class="classifier">float</span></dt><dd><p>The extracted energy.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>struc<span class="classifier">str</span></dt><dd><p>The extracted structure.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.Extract_reaction">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">Extract_reaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Efile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#Extract_reaction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.Extract_reaction" title="Permalink to this definition"></a></dt>
+<dd><p>Extract the adsorbate and gas species from a given reaction file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Efile</strong><span class="classifier">str</span></dt><dd><p>Path of the reaction file.The reaction formula can be NH3(a)+O(a)=N(a)+NO(a)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><p>A tuple of two lists containing adsorbate and gas species, respectively.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.Extract_slab_info_1">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">Extract_slab_info_1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#Extract_slab_info_1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.Extract_slab_info_1" title="Permalink to this definition"></a></dt>
+<dd><p>Extracts structural information and energy of specific slab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Flist</strong><span class="classifier">str</span></dt><dd><p>File path to the list of slab energies.</p>
+</dd>
+<dt><strong>facet</strong><span class="classifier">list</span></dt><dd><p>List of strings representing the surface facets to extract information for.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[list,list,list,list,list]</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>E_slab<span class="classifier">list</span></dt><dd><p>a List of energies for the given facets.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>surf<span class="classifier">list</span></dt><dd><p>a List of lists of atomic symbols for the surface atoms of the given facets.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>E_stable<span class="classifier">list</span></dt><dd><p>a List of the most stable energy value among the given facets.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>surf_stable<span class="classifier">list</span></dt><dd><p>a List of atomic symbols for the surface atoms of the most stable facet.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>layer_info<span class="classifier">list</span></dt><dd><p>a List containing the number of layers and the number of atoms in each layer of the most stable facet.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function extracts the energy and structural information of a specific slab given a list of energies and the
+surface facets to extract information for. The energy and surface information are extracted for all slabs that match
+the given facet. If there is only one matching slab, the energy and surface information are returned directly. If
+there are multiple matching slabs, the function determines the most stable facet by finding the slab with the lowest
+energy, and returns the energy and surface information for that slab.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.Extract_slab_info_2">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">Extract_slab_info_2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#Extract_slab_info_2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.Extract_slab_info_2" title="Permalink to this definition"></a></dt>
+<dd><p>TO Extract the struct info and energy of slabs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Flist: str</strong></dt><dd><p>Crystal surface energy information file</p>
+</dd>
+<dt><strong>layer: int</strong></dt><dd><p>Number of crystal layers, default value is 4</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.cal_Eads">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">cal_Eads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FErad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FEslab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radicals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Erad_property</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'radical'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Facet_property</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#cal_Eads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.cal_Eads" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the adsorption energy based on atom energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Flist</strong><span class="classifier">str</span></dt><dd><p>The filename of the file that contains the list of adsorption energy configurations.</p>
+</dd>
+<dt><strong>FErad</strong><span class="classifier">str</span></dt><dd><p>The filename of the file that contains the atom energies of the radicals.</p>
+</dd>
+<dt><strong>FEslab</strong><span class="classifier">str</span></dt><dd><p>The filename of the file that contains the energies of the slabs.</p>
+</dd>
+<dt><strong>radicals</strong><span class="classifier">list</span></dt><dd><p>The list of radicals to consider.</p>
+</dd>
+<dt><strong>Erad_property</strong><span class="classifier">str, optional</span></dt><dd><p>The property of the radical energy calculation. Default is ‘radical’.</p>
+</dd>
+<dt><strong>Facet_property</strong><span class="classifier">str, optional</span></dt><dd><p>The property of the facet energy calculation. Default is ‘all’.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.cal_Erad">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">cal_Erad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FErad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Radical</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#cal_Erad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.cal_Erad" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the energy of a given radical.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>FErad</strong><span class="classifier">str</span></dt><dd><p>The name of the file containing the radical energies.</p>
+</dd>
+<dt><strong>Radical</strong><span class="classifier">str</span></dt><dd><p>The name of the radical to calculate the energy for.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>The energy of the given radical.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The file containing the radical energies should be a comma-separated file,Just like this:Pt_100_CO2_0,-226.43504734</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.cal_Erad_atom">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">cal_Erad_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FErad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Radical</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#cal_Erad_atom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.cal_Erad_atom" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates the energy of each atom in a given radical.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>FErad</strong><span class="classifier">str</span></dt><dd><p>The name of the file containing the atom energies.</p>
+</dd>
+<dt><strong>Radical</strong><span class="classifier">str</span></dt><dd><p>The name of the radical to calculate the atom energies for.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>The total energy of all atoms in the given radical.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.cal_Eslab">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">cal_Eslab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">FEslab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#cal_Eslab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.cal_Eslab" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the energy of a given slab facet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>FEslab</strong><span class="classifier">str</span></dt><dd><p>File path to the file containing the slab energies.</p>
+</dd>
+<dt><strong>facet</strong><span class="classifier">list</span></dt><dd><p>a List containing the Miller indices of the facet.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>float</dt><dd><p>Energy of the given slab facet.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cal_Eslab</span><span class="p">(</span><span class="s1">&#39;path/to/file.csv&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="go">-123.45</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.cal_adE_coad">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">cal_adE_coad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Flist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FErad</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FEslab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Erad_property</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'radical'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#cal_adE_coad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.cal_adE_coad" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the adsorption energy of CO on a surface with multiple radicals</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Flist: str</strong></dt><dd><p>File path of a text file that contains the adsorption energy information of the system in each line.
+Each line should be in the following format: facet_radical1_radical2, adsorption_energy, where
+facet_radical1_radical2 is the identifier of the system, and adsorption_energy is the corresponding
+adsorption energy.</p>
+</dd>
+<dt><strong>FErad: str</strong></dt><dd><p>File path of a text file that contains the energy of each radical. Each line should be in the following
+format: radical, energy, where radical is the identifier of the radical, and energy is the corresponding
+energy.</p>
+</dd>
+<dt><strong>FEslab: str</strong></dt><dd><p>File path of a text file that contains the energy of each slab..</p>
+</dd>
+<dt><strong>Erad_property: str, optional</strong></dt><dd><p>The property used to calculate the radical energy. It can be either ‘atom’ or ‘radical’. Default is ‘radical’.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+<dt>The function writes the calculated adsorption energy for each system to a file named ‘adsE_coad_&lt;Erad_property&gt;’.</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.distinguish_atom_binding">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">distinguish_atom_binding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poscar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms_layer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#distinguish_atom_binding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.distinguish_atom_binding" title="Permalink to this definition"></a></dt>
+<dd><p>Distinguishes different types of atoms in a surface structure and classifies them as adatoms, surface atoms,
+and subsurface atoms based on their Z coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>poscar</strong><span class="classifier">str</span></dt><dd><p>The input structure in POSCAR format</p>
+</dd>
+<dt><strong>tol_layer</strong><span class="classifier">float, optional</span></dt><dd><p>Tolerance for distinguishing the Z coordinate of atoms belonging to different layers. Default is 0.01.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, optional</span></dt><dd><p>Tolerance for distinguishing the Z coordinate of adatoms and surface atoms. Default is 0.05.</p>
+</dd>
+<dt><strong>base_layer</strong><span class="classifier">int, optional</span></dt><dd><p>The layer number where the surface atoms are located. Default is 4.</p>
+</dd>
+<dt><strong>atoms_layer</strong><span class="classifier">int, optional</span></dt><dd><p>The minimum number of surface atoms required for the structure to be analyzed. Default is 9.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt>adatoms<span class="classifier">list</span></dt><dd><p>A list of the indices of adatoms in the structure.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>adatoms_symb<span class="classifier">list</span></dt><dd><p>A list of the chemical symbols of adatoms in the structure.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>surfatoms<span class="classifier">list</span></dt><dd><p>A list of the indices of surface atoms in the structure.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>surfatoms_symb<span class="classifier">list</span></dt><dd><p>A list of the chemical symbols of surface atoms in the structure.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>subsurfatoms<span class="classifier">list</span></dt><dd><p>A list of the indices of subsurface atoms in the structure.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>subsurfatoms_symb<span class="classifier">list</span></dt><dd><p>A list of the chemical symbols of subsurface atoms in the structure</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If tol is too large and not able to distinguish the layers, or if the structure cannot be analyzed.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_adsorption_energy_stable">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_adsorption_energy_stable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Efile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specie</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dop_typ</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_adsorption_energy_stable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_adsorption_energy_stable" title="Permalink to this definition"></a></dt>
+<dd><p>get the energy of  most stable configurationi for single radical</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Efile</strong><span class="classifier">str</span></dt><dd><p>The name of the file storing energy information.</p>
+</dd>
+<dt><strong>specie</strong><span class="classifier">str</span></dt><dd><p>The name of the adsorbed species.</p>
+</dd>
+<dt><strong>dop_typ</strong><span class="classifier">str</span></dt><dd><p>The type of doping.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[list,list]</dt><dd><p>A tuple containing the name of the most stable radical and its energy.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_atom_neigh">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_atom_neigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poscar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_atom_neigh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_atom_neigh" title="Permalink to this definition"></a></dt>
+<dd><p>Get the neighboring atoms of specific adsorbed atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>poscar</strong><span class="classifier">str or pymatgen.Structure</span></dt><dd><p>The VASP file or pymatgen.Structure object containing the lattice structure information.</p>
+</dd>
+<dt><strong>atom</strong><span class="classifier">str</span></dt><dd><p>The chemical symbol of the specific adsorbed atom.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[list,list]</dt><dd><p>A tuple of two lists:</p>
+<ul class="simple">
+<li><p>The indices of the nearest neighbor atoms of the specified atom in the lattice structure.</p></li>
+<li><p>The chemical element symbols of the nearest neighbor atoms.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_binding_adatom">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_binding_adatom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poscar</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_binding_adatom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_binding_adatom" title="Permalink to this definition"></a></dt>
+<dd><p>Determine the adsorbed atoms and the surface atoms to which they bind.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>poscar</strong><span class="classifier">str</span></dt><dd><p>The VASP file path or pymatgen.Structure object.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[list,list,list,list,list,list]</dt><dd><p>A tuple containing the following elements:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>bind_adatoms :list</dt><dd><p>The list of indices of adsorbed atoms that are bound to surface atoms.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>bind_adatoms_symb :list</dt><dd><p>The list of chemical symbols of adsorbed atoms that are bound to surface atoms.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>adspecie :list</dt><dd><p>The list of chemical representations of adsorbates.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>bind_type_symb :list</dt><dd><p>The list of adsorption types.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>bind_surfatoms :list</dt><dd><p>The list of indices of surface atoms that are bound to adsorbed atoms.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>bind_surfatoms_symb :list</dt><dd><p>The list of chemical symbols of surface atoms that are bound to adsorbed atoms.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function extracts adsorbed and surface atoms from the structure, calculates the neighbor list,
+and determines which adsorbed atoms are bound to which surface atoms. It then extracts the adsorbate species,
+the adsorption type, and the surface atoms that are bound to each adsorbed atom.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_distance_adatoms">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_distance_adatoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poscar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_distance_adatoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_distance_adatoms" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the distance between adsorbed atoms in a VASP file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>poscar</strong><span class="classifier">str</span></dt><dd><p>The VASP file or structure object.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, optional</span></dt><dd><p>A parameter that determines whether atoms are bonded. The default value is 0.1.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
+<dt>tuple[list,list]</dt><dd><p>A tuple containing two lists:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>dis_symb_matrix<span class="classifier">list of str</span></dt><dd><p>A list of strings indicating the atomic symbols of the adsorbed atoms and their corresponding distance.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>dis_matrix<span class="classifier">list of float</span></dt><dd><p>A list of distances between adsorbed atoms.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If there is only one atom in the VASP file.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_file_name">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reaction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_file_name" title="Permalink to this definition"></a></dt>
+<dd><p>Given a chemical reaction as a string in the form of ‘reactants = products’,
+constructs the file name for the corresponding reaction file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>reaction</strong><span class="classifier">str</span></dt><dd><p>A chemical reaction in the form of ‘reactants = products’.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd><p>The file name for the corresponding reaction file.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_file_name</span><span class="p">(</span><span class="s1">&#39;H2(g) + Cl2(g) = 2HCl(g)&#39;</span><span class="p">)</span>
+<span class="go">&#39;H2+Cl2=2HCl&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_min_distance_group">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_min_distance_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_min_distance_group"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_min_distance_group" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the minimum distance between two sets of atoms in a crystal structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>struct</strong><span class="classifier">ase.Atoms</span></dt><dd><p>The crystal structure.</p>
+</dd>
+<dt><strong>group1</strong><span class="classifier">list of int</span></dt><dd><p>Indices of the atoms in the first group.</p>
+</dd>
+<dt><strong>group2</strong><span class="classifier">list of int</span></dt><dd><p>Indices of the atoms in the second group.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>A 2D array containing the distances between each pair of atoms in group1 and group2.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_potcar">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_potcar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poscar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/data/jqyang/src/mypps/potpaw_PBE/'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_potcar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_potcar" title="Permalink to this definition"></a></dt>
+<dd><p>Get the POTCAR file for VASP calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>poscar</strong><span class="classifier">str</span></dt><dd><p>The file path of POSCAR.</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">str, optional</span></dt><dd><p>The path of the pseudopotential files, by default ‘/data/jqyang/src/mypps/potpaw_PBE/’.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd><p>The function writes the combined POTCAR file.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If the elements in the structure files are different.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_site">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_site</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poscar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mole</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_site"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_site" title="Permalink to this definition"></a></dt>
+<dd><p>Determine the type of adsorption site.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>poscar</strong><span class="classifier">str</span></dt><dd><p>The name of the POSCAR file.</p>
+</dd>
+<dt><strong>mole</strong><span class="classifier">list</span></dt><dd><p>A list consisting of the chemical formula of the adsorbed molecule
+and the atoms adsorbed on the point.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple</dt><dd><p>A tuple of two lists: binding site types and the chemical symbols for
+other atoms bound to the binding site.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_site_stable">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_site_stable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Efile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ecut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_site_stable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_site_stable" title="Permalink to this definition"></a></dt>
+<dd><p>Extracts the stable adsorption type for single molecule or radical adsorption based on adsorption energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Efile</strong><span class="classifier">str</span></dt><dd><p>Path to the file containing adsorption energies.</p>
+</dd>
+<dt><strong>Ecut</strong><span class="classifier">float, optional</span></dt><dd><p>The maximum energy cut-off for stable adsorption (default is -0.1).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[dict,dict,list,dict]</dt><dd><ul class="simple">
+<li><p>spec_ads: a dictionary with species as keys and a list of possible adsorption types as values.</p></li>
+<li><p>spec_ads_stable: a dictionary with species as keys and the stable adsorption type as values.</p></li>
+<li><p>dir_list_final: a list of directories containing the stable adsorption configurations.</p></li>
+<li><p>spec_ads_stable_surfa: a dictionary with species as keys and the symbol of the surface atom bound to the adsorbate in the stable adsorption configuration as values.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_site_stable_energy">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_site_stable_energy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Efile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ecut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_site_stable_energy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_site_stable_energy" title="Permalink to this definition"></a></dt>
+<dd><p>Extract the stable adsorption type for single molecule or radical adsorption based on the calculated energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Efile</strong><span class="classifier">str</span></dt><dd><p>The path to the file containing the adsorption energy information.</p>
+</dd>
+<dt><strong>Ecut</strong><span class="classifier">float, optional</span></dt><dd><p>The cutoff energy for considering stable adsorption types. Default is 0.0.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[dict,dict,list]</dt><dd><p>The first dictionary contains all the possible adsorption types for each species.
+The second dictionary contains the stable adsorption type for each species.
+The third list contains the corresponding directories for each species’ stable adsorption type.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.post.Extract_info.get_symmetry_surfatoms">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.post.Extract_info.</span></span><span class="sig-name descname"><span class="pre">get_symmetry_surfatoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poscar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/post/Extract_info.html#get_symmetry_surfatoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.post.Extract_info.get_symmetry_surfatoms" title="Permalink to this definition"></a></dt>
+<dd><p>Determine whether surface atoms are reconstructed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>poscar</strong><span class="classifier">str or Structure</span></dt><dd><p>Vasp format structure file</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float, optional</span></dt><dd><p>Tolerance for determining whether surface atoms are reconstructed. The default is 0.3.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd><p>A sign of whether surface atoms are reconstructed. “When surface atoms are reconstructed,
+‘NO’ is returned, otherwise ‘YES’ is returned.”.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="htmacat-post-cal-adse-module">
+<h2>HTMACat.post.cal_adsE module<a class="headerlink" href="#htmacat-post-cal-adse-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-HTMACat.post">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-HTMACat.post" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="HTMACat.model.html" class="btn btn-neutral float-left" title="HTMACat.model package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

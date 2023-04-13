@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.model.Construct_model &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Get_start.html"><strong>Get_start</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../HTMACat.html">HTMACat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HTMACat.model.Construct_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HTMACat.model.Construct_model</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/data/jqyang/miniconda3/bin/python</span>
+<span class="c1"># -*- coding: UTF-8 -*-</span>
+<span class="kn">import</span> <span class="nn">ase</span>
+<span class="kn">from</span> <span class="nn">ase.build</span> <span class="kn">import</span> <span class="n">bulk</span>
+<span class="kn">from</span> <span class="nn">ase.visualize</span> <span class="kn">import</span> <span class="n">view</span>
+<span class="kn">from</span> <span class="nn">ase.io.vasp</span> <span class="kn">import</span> <span class="n">write_vasp</span>
+<span class="kn">from</span> <span class="nn">catkit.gen.surface</span> <span class="kn">import</span> <span class="n">SlabGenerator</span>
+<span class="kn">from</span> <span class="nn">catkit.build</span> <span class="kn">import</span> <span class="n">surface</span>
+<span class="kn">from</span> <span class="nn">catkit.gen.adsorption</span> <span class="kn">import</span> <span class="n">Builder</span>
+<span class="kn">from</span> <span class="nn">catkit.gratoms</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1">#from catkit.build import molecule</span>
+<span class="kn">from</span> <span class="nn">rdkit</span> <span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span> <span class="nn">rdkit.Chem</span> <span class="kn">import</span> <span class="n">AllChem</span><span class="p">,</span> <span class="n">rdMolDescriptors</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">HTMACat.Extract_info</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">catkit.build</span> <span class="kn">import</span> <span class="n">molecule</span>
+<span class="c1">### 1.Construct the slab</span>
+<div class="viewcode-block" id="Construct_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_slab">[docs]</a><span class="k">def</span> <span class="nf">Construct_slab</span><span class="p">(</span><span class="n">Path_info</span><span class="p">,</span><span class="n">N_dop_bulk</span><span class="o">=</span><span class="p">[],</span><span class="n">super_cell</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">output_bulk</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs slabs of bulk crystal structures using the provided crystallographic information and settings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Path_info : str</span>
+<span class="sd">        A string containing the crystallographic information for generating the slabs. It should be in the format</span>
+<span class="sd">        &quot;element lattice_type lattice_constant crystal face&quot;. For hcp lattices, c /a ratio information should also</span>
+<span class="sd">            be provided,It should be in the format &quot;element lattice_type lattice_constant c/a crystal face&quot;</span>
+<span class="sd">    N_dop_bulk : list of str, optional</span>
+<span class="sd">        A list of strings representing the doping elements for the bulk material. Defaults to an empty list.</span>
+<span class="sd">    super_cell : list of int, optional</span>
+<span class="sd">        A list of 3 integers representing the supercell size in each dimension. Defaults to [3, 3, 1].</span>
+<span class="sd">    output_bulk : bool, optional</span>
+<span class="sd">        A flag indicating whether the function should output the bulk crystal structure information. Defaults to False.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------</span>
+<span class="sd">    tuple[list,str,str]</span>
+<span class="sd">        A tuple with the following elements:</span>
+
+<span class="sd">        slab : list</span>
+<span class="sd">            A list representing the slabs generated from the bulk crystal structure.</span>
+<span class="sd">        mname : str</span>
+<span class="sd">            A string representing the material name.</span>
+<span class="sd">        mfacet : str</span>
+<span class="sd">            A string representing the Miller index of the slab.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+  <span class="c1"># Construct lattice using the optimized lattice constant</span>
+  <span class="c1">#if isinstance(Path_info, str):</span>
+  <span class="c1">#   LatInfo = open(Path_info,&quot;r+&quot;)</span>
+  <span class="c1">#else:</span>
+  <span class="c1">#   LatInfo = Path_info   </span>
+  <span class="c1">#LatInfo = open(Path_info,&quot;r+&quot;)</span>
+    <span class="n">slab</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">line</span><span class="o">=</span><span class="n">Path_info</span>
+    <span class="c1">#print(line)</span>
+    <span class="c1">#for index, line in enumerate(LatInfo):</span>
+    <span class="n">mname</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">mlat</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">mlatcon</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c1"># hcp </span>
+    <span class="k">if</span> <span class="n">mlat</span> <span class="o">==</span> <span class="s1">&#39;hcp&#39;</span><span class="p">:</span>
+       <span class="n">mc</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+       <span class="n">mfacet</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+       <span class="n">La</span><span class="p">,</span><span class="n">Lb</span><span class="p">,</span><span class="n">Lc</span><span class="p">,</span><span class="n">Ld</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">mfacet</span><span class="p">)</span>
+       <span class="n">mbulk</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span><span class="n">mname</span><span class="p">,</span> <span class="n">mlat</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">mlatcon</span><span class="p">),</span> <span class="n">covera</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">mlatcon</span><span class="p">),</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+       <span class="c1">#mbulk=mbulk*[2,1,1]</span>
+       <span class="c1">#view(mbulk)</span>
+       <span class="k">if</span> <span class="n">N_dop_bulk</span> <span class="o">==</span> <span class="p">[]:</span>
+          <span class="k">pass</span>
+       <span class="k">else</span><span class="p">:</span>
+          <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">N_dop_bulk</span><span class="p">)):</span>
+              <span class="n">mbulk</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">symbol</span><span class="o">=</span><span class="n">N_dop_bulk</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+       <span class="n">gen</span> <span class="o">=</span> <span class="n">SlabGenerator</span><span class="p">(</span>
+             <span class="n">mbulk</span><span class="p">,</span>
+             <span class="n">miller_index</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">La</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">Lb</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">Lc</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">Ld</span><span class="p">)),</span>
+             <span class="n">layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+             <span class="n">fixed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+             <span class="n">layer_type</span> <span class="o">=</span> <span class="s1">&#39;trim&#39;</span><span class="p">,</span>
+             <span class="n">vacuum</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+             <span class="n">standardize_bulk</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+       <span class="c1"># bcc fcc etc.</span>
+       <span class="n">mfacet</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+       <span class="n">La</span><span class="p">,</span><span class="n">Lb</span><span class="p">,</span><span class="n">Lc</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">mfacet</span><span class="p">)</span>
+       <span class="n">mbulk</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span><span class="n">mname</span><span class="p">,</span> <span class="n">mlat</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">mlatcon</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+       <span class="c1">#view(mbulk)</span>
+       <span class="k">if</span> <span class="n">N_dop_bulk</span> <span class="o">==</span> <span class="p">[]:</span>
+          <span class="k">pass</span>
+          <span class="c1">#return mbulk,mname</span>
+       <span class="k">else</span><span class="p">:</span>
+          <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">N_dop_bulk</span><span class="p">)):</span>
+              <span class="n">mbulk</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">symbol</span><span class="o">=</span><span class="n">N_dop_bulk</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+       <span class="c1">##### generate the surfaces #####</span>
+       <span class="n">gen</span> <span class="o">=</span> <span class="n">SlabGenerator</span><span class="p">(</span>
+             <span class="n">mbulk</span><span class="p">,</span>
+             <span class="n">miller_index</span><span class="o">=</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">La</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">Lb</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">Lc</span><span class="p">)),</span>
+             <span class="n">layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+             <span class="n">fixed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+             <span class="n">layer_type</span> <span class="o">=</span> <span class="s1">&#39;trim&#39;</span><span class="p">,</span>
+             <span class="n">vacuum</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+             <span class="n">standardize_bulk</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> 
+    <span class="n">terminations</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">get_unique_terminations</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">terminations</span><span class="p">):</span>
+        <span class="n">slab</span> <span class="o">+=</span> <span class="p">[</span><span class="n">gen</span><span class="o">.</span><span class="n">get_slab</span><span class="p">(</span><span class="n">iterm</span><span class="o">=</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">super_cell</span><span class="p">]</span>
+        <span class="c1">#print(&quot;%s%s_%s facet is finished!&quot; %(mname,mfacet,i))</span>
+        <span class="c1">#write_vasp(&quot;%s%s%s.vasp&quot; %(mname,mfacet,i), slab, direct=True, sort=[&#39;&#39;], vasp5=True)</span>
+         
+  <span class="c1">#LatInfo.close()</span>
+    <span class="k">if</span> <span class="n">output_bulk</span> <span class="p">:</span>
+       <span class="k">return</span> <span class="n">mbulk</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">N_dop_bulk</span>
+    <span class="k">else</span><span class="p">:</span>
+       <span class="k">return</span> <span class="n">slab</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">mfacet</span></div>
+<span class="c1">#slab,mname,mfacet= Construct_slab(Path_info=&#39;../Info/StrucInfo&#39;)</span>
+<span class="c1">#view(slab)</span>
+
+<span class="c1">### 2.Construct the doped surface configuration</span>
+<span class="kn">from</span> <span class="nn">catkit.gen.adsorption</span> <span class="kn">import</span> <span class="n">AdsorptionSites</span>
+<span class="c1">#from Extract_info import *</span>
+<div class="viewcode-block" id="Construct_doped_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_doped_slab">[docs]</a><span class="k">def</span> <span class="nf">Construct_doped_slab</span><span class="p">(</span><span class="n">Path_info</span><span class="p">,</span><span class="n">Ele_dop</span><span class="p">,</span><span class="n">Natom</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct the doped surface configuration</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Path_info : str</span>
+<span class="sd">        The file path to the structure information</span>
+<span class="sd">    Ele_dop : str</span>
+<span class="sd">        The symbol of the doped element</span>
+<span class="sd">    Natom : int, optional</span>
+<span class="sd">        Number of doped atoms, by default 1</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple[list,str,str,lsit,lsit]</span>
+<span class="sd">        A tuple with the following elements:</span>
+
+<span class="sd">        slabs_dop : list</span>
+<span class="sd">            A list of Atoms objects, each representing a doped slab.</span>
+<span class="sd">        mname : str</span>
+<span class="sd">            The name of the crystal.</span>
+<span class="sd">        mfacet : str</span>
+<span class="sd">            The facet of the crystal.</span>
+<span class="sd">        p1 : list</span>
+<span class="sd">            A list of the coordinates of the doped atoms in the slabs.</span>
+<span class="sd">        p1_symb : list</span>
+<span class="sd">            A list of the symbols of the doped atoms in the slabs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+          
+    <span class="c1"># generate surface adsorption configuration</span>
+    <span class="n">slabs</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">mfacet</span> <span class="o">=</span> <span class="n">Construct_slab</span><span class="p">(</span><span class="n">Path_info</span><span class="p">)</span>
+    <span class="n">slabs_dop</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">p1</span><span class="o">=</span><span class="p">[]</span>
+    <span class="n">p1_symb</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slabs</span><span class="p">):</span>
+        <span class="n">site</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="n">site_typ</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">get_connectivity</span><span class="p">()</span>
+        <span class="n">topo</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">get_topology</span><span class="p">()</span>
+        <span class="c1">#atom_number_dop =[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">site_typ</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">site_typ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">Natom</span><span class="p">:</span>
+               <span class="n">atom_number_dop</span> <span class="o">=</span> <span class="n">topo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> 
+               <span class="n">p1</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slab</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">atom_number_dop</span><span class="p">]</span>
+               
+               <span class="n">slb</span><span class="o">=</span><span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+               <span class="n">symbol</span> <span class="o">=</span> <span class="n">slb</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
+               <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">atom_number_dop</span><span class="p">):</span>
+                   <span class="n">symbol</span><span class="p">[</span><span class="n">item</span><span class="p">]</span><span class="o">=</span><span class="n">Ele_dop</span>
+               <span class="n">slb</span><span class="o">.</span><span class="n">set_chemical_symbols</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+               <span class="n">p1_symb</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">atom_number_dop</span><span class="p">]</span>
+               <span class="n">slabs_dop</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="p">]</span>
+               <span class="c1">#view(slb*(2,2,1))</span>
+    <span class="k">return</span> <span class="n">slabs_dop</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">mfacet</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p1_symb</span></div>
+      
+<span class="c1">#slab_dop,mname,mfacet=Construct_doped_slab(Path_info=&#39;./StrucInfo&#39;,Ele_dop=&#39;Au&#39;,Natom=1)</span>
+<span class="c1">#view(slab_dop)</span>
+
+<span class="c1">### 3.Construct the doped surface configuration</span>
+<div class="viewcode-block" id="Construct_1stLayer_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_1stLayer_slab">[docs]</a><span class="k">def</span> <span class="nf">Construct_1stLayer_slab</span><span class="p">(</span><span class="n">Path_info</span><span class="p">,</span><span class="n">Ele_dop</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct doped surfaces with layer substitution as the substitution type.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Path_info : str</span>
+<span class="sd">        The file path to the structure information.</span>
+<span class="sd">    Ele_dop : str</span>
+<span class="sd">        The symbol of the doped element.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        A tuple with the following elements:</span>
+<span class="sd">        </span>
+<span class="sd">        slabs_dop : list</span>
+<span class="sd">            A list of Atoms objects, each representing a doped slab.</span>
+<span class="sd">        mname : str</span>
+<span class="sd">            The name of the crystal.</span>
+<span class="sd">        mfacet : str</span>
+<span class="sd">            The facet of the crystal.</span>
+<span class="sd">        surface_atoms : list</span>
+<span class="sd">            A list of the indices of the surface atoms in the original slab.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># generate surface adsorption configuration</span>
+    <span class="n">slabs</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">mfacet</span> <span class="o">=</span> <span class="n">Construct_slab</span><span class="p">(</span><span class="n">Path_info</span><span class="p">)</span>
+    <span class="n">slabs_dop</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slabs</span><span class="p">):</span>
+        <span class="n">surface_atoms</span><span class="o">=</span><span class="n">slab</span><span class="o">.</span><span class="n">get_surface_atoms</span><span class="p">()</span>
+        <span class="n">slb</span><span class="o">=</span><span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">surf_atom</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">surface_atoms</span><span class="p">)</span> <span class="p">:</span>
+            <span class="n">slb</span><span class="p">[</span><span class="n">surf_atom</span><span class="p">]</span><span class="o">.</span><span class="n">symbol</span><span class="o">=</span><span class="n">Ele_dop</span>
+        <span class="n">slabs_dop</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="p">]</span>
+        <span class="c1">#view(slb*(2,2,1))</span>
+    <span class="k">return</span> <span class="n">slabs_dop</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">mfacet</span><span class="p">,</span><span class="n">surface_atoms</span></div>
+<span class="c1">#Construct_1stLayer_slab(Path_info=&#39;./StrucInfo&#39;,Ele_dop=&#39;Au&#39;)</span>
+
+<div class="viewcode-block" id="MolToNXGraph"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.MolToNXGraph">[docs]</a><span class="k">def</span> <span class="nf">MolToNXGraph</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    convert molecule object to graph in networkx</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        m: RDKit Mol object</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        G: networkx Graph object of molecule m</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i_n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GetNumAtoms</span><span class="p">()):</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">i_n</span><span class="p">)</span>
+    <span class="n">bonds</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">GetBondWithIdx</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GetBonds</span><span class="p">()))]</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">bonds</span><span class="p">:</span>
+        <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">edge</span><span class="o">.</span><span class="n">GetBeginAtomIdx</span><span class="p">(),</span><span class="n">edge</span><span class="o">.</span><span class="n">GetEndAtomIdx</span><span class="p">()))</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">G</span></div>
+
+<span class="c1">### 4.Construct single adsorption configuration </span>
+<span class="c1">#from catkit.gen.adsorption import AdsorptionSites</span>
+<span class="c1">#from Extract_info import *</span>
+<div class="viewcode-block" id="Construct_single_adsorption"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_single_adsorption">[docs]</a><span class="k">def</span> <span class="nf">Construct_single_adsorption</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span><span class="n">ads</span><span class="p">,</span><span class="n">SML</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Building a surface model with a single adsorption site.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        slabs : list</span>
+<span class="sd">            A list of Atoms objects, each representing a slab.</span>
+<span class="sd">        ads : str</span>
+<span class="sd">            The name of the adsorbate.</span>
+<span class="sd">        SML : str</span>
+<span class="sd">           SMILE representation of molecular chemical formulas</span>
+
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of Atoms objects, each representing a surface structure with a single adsorbate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="c1"># generate surface adsorption configuration</span>
+    <span class="c1">#slabs = Construct_slab()</span>
+    <span class="n">slab_ad</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slabs</span><span class="p">):</span>
+        <span class="n">site</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
+        <span class="c1">#print(site.get_symmetric_sites(unique=False, screen=True))</span>
+        <span class="c1">#print(site.get_periodic_sites(screen=True))</span>
+        <span class="c1">#print(len(site.get_coordinates(unique=False)))</span>
+        <span class="n">builder</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">SML</span><span class="p">:</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads</span><span class="p">))</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            AllChem.EmbedMolecule(mole)</span>
+<span class="sd">            AllChem.MMFFOptimizeMolecule(mole)</span>
+<span class="sd">            conf = mole.GetConformer()</span>
+<span class="sd">            conf_coords = [conf.GetAtomPosition(k) for k in range(mole.GetNumAtoms())]</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads_use</span> <span class="o">=</span> <span class="n">ads_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ads_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coordinates</span><span class="p">):</span>
+            <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads_use</span><span class="p">,</span><span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">site_index</span><span class="o">=</span><span class="n">i</span><span class="p">)]</span> <span class="c1">### wzj</span>
+    <span class="k">return</span> <span class="n">slab_ad</span></div>
+
+<span class="c1">### 4.Construct double sites adsorption configuration</span>
+<div class="viewcode-block" id="Construct_double_adsorption"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_double_adsorption">[docs]</a><span class="k">def</span> <span class="nf">Construct_double_adsorption</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span><span class="n">ads</span><span class="p">,</span><span class="n">SML</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Building a surface model with double adsorption sites.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    slabs : list</span>
+<span class="sd">        A list of Atoms objects, each representing a slab.</span>
+<span class="sd">    ads : str</span>
+<span class="sd">        The name of the adsorbate.</span>
+<span class="sd">    SML : str</span>
+<span class="sd">           SMILE representation of molecular chemical formulas</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        A list of Atoms objects, each representing a surface structure with double adsorption sites.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># generate surface adsorption configuration</span>
+    <span class="n">slab_ad</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slabs</span><span class="p">):</span>
+        <span class="n">site</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="n">builder</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">SML</span><span class="p">:</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads_use</span> <span class="o">=</span> <span class="n">ads_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ads_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">get_adsorption_edges</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">edge01</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">edges</span><span class="p">):</span>
+            <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder</span><span class="o">.</span><span class="n">_double_adsorption</span><span class="p">(</span><span class="n">ads_use</span><span class="p">,</span><span class="n">bonds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">edge_index</span><span class="o">=</span><span class="n">i</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">slab_ad</span></div>
+<span class="c1">### 5.Construct coadsoprtion configuration with mono+mono adsorption</span>
+<div class="viewcode-block" id="Construct_coadsorption_11_pristine"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_coadsorption_11_pristine">[docs]</a><span class="k">def</span> <span class="nf">Construct_coadsorption_11_pristine</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span><span class="n">ads</span><span class="p">,</span><span class="n">dis_inter</span><span class="p">,</span><span class="n">ads_type</span><span class="p">,</span><span class="n">SML</span><span class="p">):</span>
+    <span class="n">slab_ad</span><span class="o">=</span><span class="p">[]</span>
+    <span class="c1">#dis_inter=[3.0,5.5]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slabs</span><span class="p">):</span>
+        <span class="n">site01</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="c1">#print(site01.get_symmetric_sites())</span>
+        <span class="n">builder01</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="n">coordinate01</span> <span class="o">=</span> <span class="n">site01</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
+        <span class="c1">##generate surface adsorption configuration</span>
+        <span class="n">ads1</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">ads2</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">SML</span><span class="p">:</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads1</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads1_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">ads1_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads1_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads2</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads2_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">ads2_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads2_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sitetype</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">site01</span><span class="o">.</span><span class="n">get_symmetric_sites</span><span class="p">()):</span>
+            <span class="n">slab</span> <span class="o">=</span> <span class="n">builder01</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads1_use</span><span class="p">,</span><span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">site_index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="n">auto_construct</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">coord01</span><span class="o">=</span><span class="n">site01</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+            <span class="c1">#view(slab)</span>
+            <span class="n">site02</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="n">coordinates02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">coord02</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coordinates02</span><span class="p">):</span>
+                <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">coord01</span><span class="o">-</span><span class="n">coord02</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">dis</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">dis_inter</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                   <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">dis</span> <span class="o">&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                   <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                   <span class="n">builder02</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+                   <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder02</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span><span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">site_index</span><span class="o">=</span><span class="n">j</span><span class="p">,</span><span class="n">auto_construct</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">slab_ad</span></div>
+<span class="c1">### 5.Construct coadsoprtion configuration with mono+mono adsorption</span>
+<div class="viewcode-block" id="Construct_coadsorption_11"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_coadsorption_11">[docs]</a><span class="k">def</span> <span class="nf">Construct_coadsorption_11</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span><span class="n">ads</span><span class="p">,</span><span class="n">dis_inter</span><span class="p">,</span><span class="n">ads_type</span><span class="p">,</span><span class="n">SML</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Construct coadsoprtion configuration with mono+mono adsorption</span>
+
+<span class="sd">     Parameters</span>
+<span class="sd">     ----------</span>
+<span class="sd">     slabs : list</span>
+<span class="sd">         Crystal structure</span>
+<span class="sd">     ads : str</span>
+<span class="sd">         Adsorbent</span>
+<span class="sd">     dis_inter : list</span>
+<span class="sd">         Distance range between two adsorbents</span>
+<span class="sd">     ads_type : dict</span>
+<span class="sd">         Type of adsorption site</span>
+<span class="sd">     SML : str</span>
+<span class="sd">           SMILE representation of molecular chemical formulas</span>
+
+<span class="sd">     Returns</span>
+<span class="sd">     -------</span>
+<span class="sd">     slab_ad_final : list</span>
+<span class="sd">         Coadsorption structure</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+    <span class="n">slab_ad</span><span class="o">=</span><span class="p">[]</span>
+    <span class="c1">#dis_inter=[3.0,5.5]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slabs</span><span class="p">):</span>
+        <span class="n">site01</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="c1">#print(site01.get_symmetric_sites())</span>
+        <span class="n">builder01</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="n">coordinate01</span> <span class="o">=</span> <span class="n">site01</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
+        <span class="c1">##generate surface adsorption configuration</span>
+        <span class="n">ads1</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">ads2</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">SML</span><span class="p">:</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads1</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads1_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">ads1_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads1_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads2</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads2_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">ads2_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads2_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sitetype</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">site01</span><span class="o">.</span><span class="n">get_symmetric_sites</span><span class="p">()):</span>
+            <span class="n">slab</span> <span class="o">=</span> <span class="n">builder01</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads1_use</span><span class="p">,</span><span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">site_index</span><span class="o">=</span><span class="n">i</span><span class="p">,</span><span class="n">auto_construct</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">coord01</span><span class="o">=</span><span class="n">site01</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+            <span class="c1">#view(slab)</span>
+            <span class="n">site02</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="n">coordinates02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">coord02</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coordinates02</span><span class="p">):</span>
+                <span class="n">dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">coord01</span><span class="o">-</span><span class="n">coord02</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">dis</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">dis_inter</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                   <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">dis</span> <span class="o">&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                   <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                   <span class="n">builder02</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+                   <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder02</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span><span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">site_index</span><span class="o">=</span><span class="n">j</span><span class="p">,</span><span class="n">auto_construct</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+    <span class="c1">#view(slab_ad[0]*(2,2,1))</span>
+    <span class="c1">#ads_type={&#39;NH3&#39;:[1],&#39;NH2&#39;:[2],&#39;NH&#39;:[2,3],&#39;N&#39;:[2,3],&#39;O&#39;:[2,3],&#39;OH&#39;:[1,2,3],&#39;NO&#39;:[1,2,3]}</span>
+    <span class="c1">#ads_type=ads_type</span>
+    <span class="c1">#ads_type={&#39;NH2&#39;: [2], &#39;NH&#39;: [3], &#39;NO&#39;: [3], &#39;NH3&#39;: [1], &#39;N&#39;: [3], &#39;O&#39;: [3], &#39;OH&#39;: [3]}</span>
+    <span class="n">typ</span><span class="o">=</span><span class="p">{</span><span class="kc">None</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;top&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;bri&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;fcc&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;hcp&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;4-fold&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">}</span>
+    <span class="c1">#view(slab_ad)</span>
+    <span class="n">slab_ad_final</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">adslab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slab_ad</span><span class="p">):</span>
+       <span class="n">bind_adatoms</span><span class="p">,</span><span class="n">bind_adatoms_symb</span><span class="p">,</span><span class="n">adspecie</span><span class="p">,</span><span class="n">bind_type_symb</span><span class="p">,</span><span class="n">bind_surfatoms</span><span class="p">,</span><span class="n">bind_surfatoms_symb</span><span class="o">=</span><span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">adslab</span><span class="p">)</span>
+       <span class="n">adspecie_tmp</span><span class="p">,</span><span class="n">bind_type_symb_tmp</span><span class="o">=</span><span class="p">[],[]</span>
+       <span class="c1">#print(adspecie)</span>
+       <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">spe</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">adspecie</span><span class="p">):</span>
+           <span class="k">if</span> <span class="n">spe</span> <span class="ow">in</span> <span class="n">ads_type</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+              <span class="n">adspecie_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">spe</span><span class="p">]</span>
+              <span class="n">bind_type_symb_tmp</span> <span class="o">+=</span><span class="p">[</span><span class="n">bind_type_symb</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span>
+       <span class="c1">#print(adspecie_tmp,bind_type_symb_tmp)</span>
+       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">adspecie_tmp</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+           <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Can not identify the config!&#39;</span><span class="p">)</span>
+           <span class="n">slab_ad_final</span> <span class="o">+=</span> <span class="p">[</span><span class="n">adslab</span><span class="p">]</span>
+       <span class="k">elif</span> <span class="n">typ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bind_type_symb_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">in</span> <span class="n">ads_type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">adspecie_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="n">typ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bind_type_symb_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">in</span> <span class="n">ads_type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">adspecie_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+             <span class="n">slab_ad_final</span> <span class="o">+=</span> <span class="p">[</span><span class="n">adslab</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">slab_ad_final</span>   </div>
+<span class="c1">### 6.Construct coadsoprtion configuration with mono+mono adsorption</span>
+<div class="viewcode-block" id="Construct_coadsorption_12"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_coadsorption_12">[docs]</a><span class="k">def</span> <span class="nf">Construct_coadsorption_12</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span><span class="n">ads</span><span class="p">,</span><span class="n">dis_inter</span><span class="p">,</span><span class="n">SML</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructing coadsorption configuration with single+double adsorption</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    slabs : list</span>
+<span class="sd">        List of crystal structures</span>
+<span class="sd">    ads : str</span>
+<span class="sd">        String containing the names of two adsorbates separated by a space</span>
+<span class="sd">    dis_inter : list</span>
+<span class="sd">        Distance range between two adsorbates in Angstroms, given as a list of two floats</span>
+<span class="sd">    ads_type : dict</span>
+<span class="sd">        Dictionary containing the adsorbate species as keys and a list of possible adsorption types as values.</span>
+<span class="sd">        The possible adsorption types are: &#39;top&#39;, &#39;bri&#39;, &#39;fcc&#39;, &#39;hcp&#39;, &#39;4-fold&#39;. An example for the NH3 molecule is:</span>
+<span class="sd">        {&#39;NH3&#39;: [&#39;top&#39;]}</span>
+<span class="sd">    SML : str</span>
+<span class="sd">        SMILE representation of molecular chemical formulas</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    slab_ad_final : list</span>
+<span class="sd">        the list of coadsorption structures</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">slab_ad</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slabs</span><span class="p">):</span>
+        <span class="n">site01</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="c1">#print(site01.get_symmetric_sites())</span>
+        <span class="n">builder01</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="n">coordinate01</span> <span class="o">=</span> <span class="n">site01</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
+        <span class="c1">#generate surface adsorption configuration</span>
+        <span class="n">ads1</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">ads2</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">SML</span><span class="p">:</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads1</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads1_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">ads1_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads1_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads2</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads2_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">ads2_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads2_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">coord01</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coordinate01</span><span class="p">):</span>
+            <span class="n">slab</span><span class="o">=</span><span class="n">builder01</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads1_use</span><span class="p">,</span><span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">site_index</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+            <span class="c1">## after adsorbing an atoms</span>
+            <span class="c1">#site analysis and surface builder</span>
+            <span class="n">site02</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="n">builder02</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="c1">#obtain the edges and ID and coordinates of all sites</span>
+            <span class="n">edge02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_adsorption_edges</span><span class="p">()</span>
+            <span class="n">site_coord02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">site_type02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_periodic_sites</span><span class="p">(</span><span class="n">screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">dic_site</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="n">site_type02</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">site_type02</span><span class="p">))]</span>
+            <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">site_coord02</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">site_type02</span><span class="p">))]</span>
+            <span class="n">dic_site</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">))</span>
+            <span class="c1"># emiliate the too near site</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">edge02</span><span class="p">):</span>
+                  <span class="n">coord10</span> <span class="o">=</span> <span class="n">dic_site</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                  <span class="n">coord11</span> <span class="o">=</span> <span class="n">dic_site</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                  <span class="k">if</span> <span class="ow">not</span> <span class="n">coord10</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                     <span class="n">dis1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">coord01</span><span class="o">-</span><span class="n">coord10</span><span class="p">)</span>
+                  <span class="k">else</span><span class="p">:</span>
+                     <span class="n">dis1</span><span class="o">=</span><span class="n">dis_inter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span>
+                  <span class="k">if</span> <span class="ow">not</span> <span class="n">coord11</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                     <span class="n">dis2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">coord01</span><span class="o">-</span><span class="n">coord11</span><span class="p">)</span>
+                  <span class="k">else</span><span class="p">:</span>
+                     <span class="n">dis2</span> <span class="o">=</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span>
+                  <span class="n">dis</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">dis1</span><span class="p">,</span><span class="n">dis2</span><span class="p">)</span>
+
+                  <span class="k">if</span>  <span class="n">dis</span> <span class="o">&lt;</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                      <span class="k">continue</span>
+                  <span class="k">elif</span> <span class="n">dis</span> <span class="o">&gt;</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                      <span class="k">continue</span>
+                  <span class="k">else</span><span class="p">:</span>
+                      <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder02</span><span class="o">.</span><span class="n">_double_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span><span class="n">bonds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">edge_index</span><span class="o">=</span><span class="n">j</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">slab_ad</span></div>
+<span class="c1">### 7.Construct coadsoprtion configuration with bi+bi adsorption</span>
+<div class="viewcode-block" id="Construct_coadsorption_22"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_model.Construct_coadsorption_22">[docs]</a><span class="k">def</span> <span class="nf">Construct_coadsorption_22</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span><span class="n">ads</span><span class="p">,</span><span class="n">dis_inter</span><span class="p">,</span><span class="n">SML</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructing coadsorption configuration with double+double adsorption</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    slabs : list</span>
+<span class="sd">        Crystal structure.</span>
+<span class="sd">    ads : str</span>
+<span class="sd">        Adsorbent.</span>
+<span class="sd">    dis_inter : list</span>
+<span class="sd">        Distance range between two adsorbents.</span>
+<span class="sd">    SML : str</span>
+<span class="sd">        SMILE representation of molecular chemical formulas</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    slab_ad_final : list</span>
+<span class="sd">        Coadsorption structure.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">slab_ad</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">slab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slabs</span><span class="p">):</span>
+        <span class="n">site01</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="c1">#print(site01.get_symmetric_sites())</span>
+        <span class="n">builder01</span><span class="o">=</span><span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="c1">#coordinate01 = site01.get_coordinates()</span>
+        <span class="n">edge01</span> <span class="o">=</span> <span class="n">site01</span><span class="o">.</span><span class="n">get_adsorption_edges</span><span class="p">()</span>
+        <span class="n">site_coord01</span> <span class="o">=</span> <span class="n">site01</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">site_type01</span> <span class="o">=</span> <span class="n">site01</span><span class="o">.</span><span class="n">get_periodic_sites</span><span class="p">(</span><span class="n">screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">dic_site01</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="n">site_type01</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">site_type01</span><span class="p">))]</span>
+        <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">site_coord01</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">site_type01</span><span class="p">))]</span>
+        <span class="n">dic_site01</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">))</span>
+        <span class="c1">#generate surface adsorption configuration</span>
+        <span class="n">ads1</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">ads2</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">SML</span><span class="p">:</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads1</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads1_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">ads1_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads1_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+            <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads2</span><span class="p">))</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">MolToNXGraph</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
+            <span class="n">ads2_list</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">))</span>
+            <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">ads2_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ads_</span> <span class="ow">in</span> <span class="n">ads2_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">is_isomorphic</span><span class="p">(</span><span class="n">ads_</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+                    <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">ads_</span>
+                    <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ads1_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">ads2_use</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">ads2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">edge01</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">edge01</span><span class="p">):</span>
+            <span class="n">slab</span> <span class="o">=</span> <span class="n">builder01</span><span class="o">.</span><span class="n">_double_adsorption</span><span class="p">(</span><span class="n">ads1_use</span><span class="p">,</span><span class="n">bonds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">edge_index</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">coord00</span> <span class="o">=</span> <span class="n">dic_site01</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edge01</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">coord01</span> <span class="o">=</span> <span class="n">dic_site01</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edge01</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="c1">## after adsorbing an atoms</span>
+            <span class="c1">#site analysis and surface builder</span>
+            <span class="n">site02</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="n">builder02</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="c1">#obtain the edges and ID and coordinates of all sites</span>
+            <span class="n">edge02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_adsorption_edges</span><span class="p">()</span>
+            <span class="n">site_coord02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">(</span><span class="n">unique</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">site_type02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_periodic_sites</span><span class="p">(</span><span class="n">screen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">dic_site02</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="n">site_type02</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">site_type02</span><span class="p">))]</span>
+            <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="n">site_coord02</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">site_type02</span><span class="p">))]</span>
+            <span class="n">dic_site02</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span><span class="n">values</span><span class="p">))</span>
+            <span class="c1">## emiliate the too near site</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">edge</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">edge02</span><span class="p">):</span>
+                  <span class="n">coord10</span> <span class="o">=</span> <span class="n">dic_site02</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                  <span class="n">coord11</span> <span class="o">=</span> <span class="n">dic_site02</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                  <span class="k">if</span> <span class="ow">not</span> <span class="n">coord10</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                     <span class="n">dis1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">coord01</span><span class="o">-</span><span class="n">coord10</span><span class="p">)</span>
+                  <span class="k">else</span><span class="p">:</span>
+                     <span class="n">dis1</span><span class="o">=</span><span class="n">dis_inter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span>
+                  <span class="k">if</span> <span class="ow">not</span> <span class="n">coord11</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                     <span class="n">dis2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">coord00</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">coord11</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">coord00</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">coord11</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">coord00</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">coord11</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                  <span class="k">else</span><span class="p">:</span>
+                     <span class="n">dis2</span> <span class="o">=</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span>
+                  <span class="n">dis</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">dis1</span><span class="p">,</span><span class="n">dis2</span><span class="p">)</span>
+
+                  <span class="k">if</span>  <span class="n">dis</span> <span class="o">&lt;</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                      <span class="k">continue</span>
+                  <span class="k">elif</span> <span class="n">dis</span> <span class="o">&gt;</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                      <span class="k">continue</span>
+                  <span class="k">else</span><span class="p">:</span>
+                      <span class="n">ads_slab</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder02</span><span class="o">.</span><span class="n">_double_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span><span class="n">bonds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="n">edge_index</span><span class="o">=</span><span class="n">j</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">slab_ad</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
