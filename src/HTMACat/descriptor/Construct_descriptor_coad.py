@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from Extract_info import *
+from HTMACat.Extract_info import *
 from ase.build import molecule
 from HTMACat.configuration import base_info
 

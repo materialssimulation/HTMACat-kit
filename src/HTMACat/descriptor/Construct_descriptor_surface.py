@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
-from Extract_info import *
-from configuration import base_info
+from HTMACat.Extract_info import *
+from HTMACat.configuration import base_info
 
 
 def Construct_descriptor(poscar, feature_surf, feature_ads, feature_site, adspecies, facet='100'):
