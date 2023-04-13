@@ -12,7 +12,9 @@ Welcome to HTMACat-kit's documentation!
 
    Get_start.rst
    Usage.rst
+   Examples.rst
    HTMACat.rst
+   
 
 Indices and tables
 ==================

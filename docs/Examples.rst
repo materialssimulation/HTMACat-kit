@@ -2,6 +2,6 @@
 ============
 
 .. toctree::
-   :maxdepth: 3
-   :caption:
-   ./Examples_docs/description.rst
+   :maxdepth: 2
+
+   Examples_docs/description.rst
