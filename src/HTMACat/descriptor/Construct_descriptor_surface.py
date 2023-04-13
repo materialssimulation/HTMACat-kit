@@ -87,6 +87,24 @@ import operator
 
 #if __name__ == '__main__':
 def Construct_des_module(adspecies, facet, dop_typ_all):
+    """
+    Constructs the descriptor module for a given set of adsorbates on a surface with a particular facet and doping type.
+
+    Parameters
+    ----------
+    adspecies : list of str
+        A list of adsorbate species to consider.
+    facet : str
+        The surface facet to consider.
+    dop_typ_all : list of str
+        A list of doping types to consider.
+
+    Returns
+    -------
+    None
+        The function writes the descriptor and energy information to an output file.
+
+    """
     feature_surf = ['Valence_electron', 'Atomic_radius']
     #feature_ads=['Enegativity','Valence_electron']
     feature_ads = ['Valence_electron', 'Atomic_radius']

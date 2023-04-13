@@ -4,6 +4,36 @@ from configuration import base_info
 
 
 def Construct_descriptor(poscar, feature_surf, feature_ads, feature_site, adspecies, facet='100'):
+    """
+    Construct a descriptor for a given catalytic system based on its geometry and adsorption properties.
+
+    Parameters
+    ----------
+    poscar : str
+        The POSCAR file path of the catalyst-adsorbate system.
+    feature_surf : list
+        A list of strings specifying the features to extract from the surface of the catalytic system. Possible options
+        are 'valence electron', 'atomic radius', 'mean valence electron', and 'mean atomic radius'.
+    feature_ads : list
+        A list of strings specifying the features to extract from the adsorbate molecule. Possible options are 'mean
+        electronegativity' and 'mean valence electron'.
+    feature_site : list
+        A list of strings specifying the features to extract from the binding site of the catalytic system. Possible
+        options are 'mean valence electron', 'mean atomic radius', and 'binding type'.
+    adspecies : list
+        A list of strings specifying the adsorbate species that can bind to the catalytic system.
+    facet : str, optional
+        The surface facet of the catalytic system. Possible options are '100' and '111'. The default is '100'.
+
+    Returns
+    -------
+    descriptor : array_like
+        A 1D array containing the descriptor for the catalytic system. The descriptor is constructed by concatenating the
+        following features: surface valence electron, surface atomic radius, mean valence electron of surface and subsurface
+        atoms, mean atomic radius of surface and subsurface atoms, mean electronegativity of adsorbate molecule, mean valence
+        electron of adsorbate molecule, mean valence electron of binding site atoms, mean atomic radius of binding site atoms,
+        and binding type of binding site ('top', 'bridge', 'fcc', 'hcp', or '4-fold').
+    """
     descriptor = []
     descriptor_surf = []
     ### the features of catalyst surface : surfce valence electron,surface atomic radius,
