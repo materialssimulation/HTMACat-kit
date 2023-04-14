@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-from Extract_info import *
+from HTMACat.Extract_info import *
 import sys
 
 

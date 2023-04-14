@@ -55,7 +55,7 @@ jobs:
           file: src/dist/*.whl
           tag: v${{env.app_version}}
           release_name: v${{env.app_version}}
-          overwrite: true
+          overwrite: false
           file_glob: true
           body: ${{github.event.head_commit.message}}
 
@@ -64,7 +64,6 @@ jobs:
           link=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
             jq -r '.assets[].browser_download_url' | head -n1)
           sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"$link"'~g' README.md
-      
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
