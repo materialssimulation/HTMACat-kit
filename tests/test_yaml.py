@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 def test_sml():
-    dir = Path("./results/yaml-SML/")
+    dir = Path("./tests/results/yaml-SML/")
     cwd = os.getcwd()
     os.chdir(dir)
     os.system('ads_yaml -o yaml')
@@ -19,7 +19,7 @@ def test_sml():
 
 
 def test_coads():
-    dir = Path("./results/yaml/")
+    dir = Path("./tests/results/yaml/")
     cwd = os.getcwd()
     os.chdir(dir)
     os.system('ads_yaml -o yaml')
