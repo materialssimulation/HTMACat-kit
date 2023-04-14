@@ -143,7 +143,7 @@ def Construct_descriptor_info_E(ele, facet, specie, facet_dop=True):
                     continue
 
 
-from Extract_info import *
+from HTMACat.Extract_info import *
 import os
 import numpy as np
 import operator
@@ -251,6 +251,7 @@ def Construct_des_module_2(adspecies, facet, dop_typ_all):
     This function does not return anything. It writes the constructed descriptors to a file.
 
     Notes
+    -----
     This function reads energy information from a file named 'all' and uses the function Construct_descriptor_info_E to
     obtain information on the energy of a given adsorbate on a given facet and dopant type. The function Construct_descriptor
     is then used to construct a descriptor for a given system, and the descriptor is written to a file named

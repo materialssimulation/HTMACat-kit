@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from ase.io import read
 from catkit.gen.utils import to_gratoms
-from collections import Counter
+ 
 import os
 #from catkit.build import molecule
 from ase.build import molecule
@@ -98,6 +98,7 @@ def Extract_energy(Efile, struc):
         -------
         tuple
             A tuple containing two lists:
+
             - Ener : list of float
                 The list of extracted energies.
             - order : list of str
@@ -139,6 +140,7 @@ def Extract_energy_single(Efile, struc):
     -------
     tuple
         A tuple containing the energy and the structure:
+
         - Ener : float
             The extracted energy.
         - struc : str
@@ -484,6 +486,7 @@ def get_atom_neigh(poscar, atom):
     -------
     tuple[list,list]
         A tuple of two lists:
+
         - The indices of the nearest neighbor atoms of the specified atom in the lattice structure.
         - The chemical element symbols of the nearest neighbor atoms.
 
@@ -681,6 +684,7 @@ def get_distance_adatoms(poscar, tol=0.1):
     -------
     tuple[list,list]
         A tuple containing two lists:
+
             - dis_symb_matrix : list of str
                 A list of strings indicating the atomic symbols of the adsorbed atoms and their corresponding distance.
             - dis_matrix : list of float
@@ -848,6 +852,7 @@ def Extract_atomic_info(atoms):
     -------
     tuple[list,list,list,list]
         A tuple containing the following information:
+
         - names_atoms : list of str
             List of strings representing the names of the atoms.
         - radii_atoms : list of float
@@ -1155,6 +1160,7 @@ def cal_Eslab(FEslab, facet):
     -------
     float
         Energy of the given slab facet.
+
     Examples
     --------
     >>> cal_Eslab('path/to/file.csv', [1, 0, 0])
@@ -1178,7 +1184,7 @@ def cal_Eads(Flist, FErad, FEslab, radicals, Erad_property='radical', Facet_prop
     Calculate the adsorption energy based on atom energy.
 
     Parameters
-    -----------
+    ----------
     Flist : str
         The filename of the file that contains the list of adsorption energy configurations.
     FErad : str
@@ -1193,11 +1199,11 @@ def cal_Eads(Flist, FErad, FEslab, radicals, Erad_property='radical', Facet_prop
         The property of the facet energy calculation. Default is 'all'.
 
     Returns
-    ---------
+    -------
     None
 
     Outputs
-    ----------
+    -------
     adsE_{Erad_property}_{Facet_property} : file
     The file that contains the calculated adsorption energies.
 
@@ -1276,7 +1282,7 @@ def cal_adE_coad(Flist, FErad, FEslab, Erad_property='radical'):
     """
     Calculate the adsorption energy of CO on a surface with multiple radicals
 
-    Parameters:
+    Parameters
     ----------
     Flist: str
         File path of a text file that contains the adsorption energy information of the system in each line.
@@ -1292,8 +1298,8 @@ def cal_adE_coad(Flist, FErad, FEslab, Erad_property='radical'):
     Erad_property: str, optional
         The property used to calculate the radical energy. It can be either 'atom' or 'radical'. Default is 'radical'.
 
-    Returns:
-    --------
+    Returns
+    -------
     None
     The function writes the calculated adsorption energy for each system to a file named 'adsE_coad_<Erad_property>'.
 
@@ -1340,14 +1346,14 @@ def Extract_slab_info_1(Flist, facet):
     Extracts structural information and energy of specific slab.
 
     Parameters
-    -------
+    ----------
     Flist : str
         File path to the list of slab energies.
     facet : list
         List of strings representing the surface facets to extract information for.
 
     Returns
-    ---------
+    -------
     tuple[list,list,list,list,list]
         - E_slab : list
             a List of energies for the given facets.
@@ -1361,6 +1367,7 @@ def Extract_slab_info_1(Flist, facet):
             a List containing the number of layers and the number of atoms in each layer of the most stable facet.
 
     Notes
+    -----
     This function extracts the energy and structural information of a specific slab given a list of energies and the
     surface facets to extract information for. The energy and surface information are extracted for all slabs that match
     the given facet. If there is only one matching slab, the energy and surface information are returned directly. If

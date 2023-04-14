@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from Extract_info import *
+from HTMACat.Extract_info import *
 from ase.build import molecule
 from HTMACat.configuration import base_info
 
@@ -16,6 +16,7 @@ def Construct_descriptor_coad(poscar, feature_surf, feature_ads, feature_site):
     feature_surf : list
         A list of features of the catalyst surface for constructing the descriptor.
         The features include:
+        
         - surface valence electron
         - surface atomic radius
         - surf+subsurf mean valence electron
@@ -23,11 +24,13 @@ def Construct_descriptor_coad(poscar, feature_surf, feature_ads, feature_site):
     feature_ads : list
         A list of features of the adsorbate for constructing the descriptor.
         The features include:
+
         - mean enegativity
         - mean valence_electron
     feature_site : list
         A list of features of the binding site for constructing the descriptor.
         The features include:
+
         - mean valence electron
         - mean atomic radius
         - binding type
@@ -36,6 +39,7 @@ def Construct_descriptor_coad(poscar, feature_surf, feature_ads, feature_site):
     -------
     descriptor : numpy.ndarray
         A descriptor array for the catalyst-adsorbate system, including the following features:
+
         - descriptor_surf: the descriptor of the catalyst surface, including the features specified in `feature_surf`.
         - descriptor_ads: the descriptor of the adsorbate, including the features specified in `feature_ads`.
         - descriptor_site: the descriptor of the binding site, including the features specified in `feature_site`.
@@ -181,8 +185,8 @@ def Construct_descriptor_coad(poscar, feature_surf, feature_ads, feature_site):
         print(f'Surface info of {poscar} can not be obtained ')
 
 
-from Extract_info import *
-from Base_tools import *
+from HTMACat.Extract_info import *
+from HTMACat.Base_tools import *
 import os
 import numpy as np
 import operator

@@ -15,9 +15,9 @@ def Construct_bulks(Path_Info,Model):
     Model:str
        a filename,containing surface doping and adsorption modeling parameters
 
-   Returns
-   -------
-   None
+    Returns
+    -------
+    None
 
     """
     model = open(Model,'r')

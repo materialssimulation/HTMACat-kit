@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
-from Extract_info import *
-from configuration import base_info
+from HTMACat.Extract_info import *
+from HTMACat.configuration import base_info
 
 
 def Construct_descriptor(poscar, feature_surf, feature_ads, feature_site, adspecies, facet='100'):
@@ -77,7 +77,7 @@ def Construct_descriptor(poscar, feature_surf, feature_ads, feature_site, adspec
             print(f'Surface info of {poscar} can not be obtained ')
 
 
-from Extract_info import *
+from HTMACat.Extract_info import *
 #from Construct_descriptor import *
 #from Base_tools import *
 import os

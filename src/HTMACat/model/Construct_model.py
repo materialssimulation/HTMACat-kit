@@ -38,6 +38,7 @@ def Construct_slab(Path_info,N_dop_bulk=[],super_cell=[3,3,1],output_bulk=False)
     ---------
     tuple[list,str,str]
         A tuple with the following elements:
+
         slab : list
             A list representing the slabs generated from the bulk crystal structure.
         mname : str
@@ -135,6 +136,7 @@ def Construct_doped_slab(Path_info,Ele_dop,Natom=1):
     -------
     tuple[list,str,str,lsit,lsit]
         A tuple with the following elements:
+
         slabs_dop : list
             A list of Atoms objects, each representing a doped slab.
         mname : str
@@ -191,6 +193,7 @@ def Construct_1stLayer_slab(Path_info,Ele_dop):
     -------
     tuple
         A tuple with the following elements:
+        
         slabs_dop : list
             A list of Atoms objects, each representing a doped slab.
         mname : str
@@ -220,6 +223,7 @@ def MolToNXGraph(m):
     Parameters
     ----------
         m: RDKit Mol object
+    
     Returns
     -------
         G: networkx Graph object of molecule m
