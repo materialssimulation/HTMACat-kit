@@ -133,6 +133,7 @@ class Adsorption(object):
             coordinates = site.get_coordinates()
             builder = Builder(slab)
             ads_use = self.species[0].get_molecule()
+            print(ads_use)
             for j, coord in enumerate(coordinates):
                 slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]  ### wzj
         return slab_ad

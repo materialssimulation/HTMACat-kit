@@ -49,7 +49,7 @@ def Input(filename):
     for key in ['ads', 'coads']:
         for j in ads_model[key]:
             for k in substrates:
-                ads_init_dict = {'SML': False, 'type': key, 'value': j, 'substrate': k}
+                ads_init_dict = {'SML': ads_model['SML'], 'type': key, 'value': j, 'substrate': k}
                 ads.append(ads_from_input(ads_init_dict))
 
     return substrates, ads

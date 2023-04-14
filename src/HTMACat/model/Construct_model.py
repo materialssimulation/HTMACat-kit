@@ -160,6 +160,7 @@ def Construct_single_adsorption(slabs,ads,SML):
     # generate surface adsorption configuration
     #slabs = Construct_slab()
     slab_ad=[]
+    print(ads)
     for i, slab in enumerate(slabs):
         site = AdsorptionSites(slab)
         coordinates = site.get_coordinates()
@@ -184,6 +185,7 @@ def Construct_single_adsorption(slabs,ads,SML):
                     break
         else:
             ads_use = molecule(ads)[0]
+        print(ads_use)
         for i, coord in enumerate(coordinates):
             slab_ad += [builder._single_adsorption(ads_use,bond=0,site_index=i)] ### wzj
     return slab_ad
