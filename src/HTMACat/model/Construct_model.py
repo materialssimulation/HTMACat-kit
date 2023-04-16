@@ -4,6 +4,7 @@ import ase
 from ase.build import bulk
 from ase.visualize import view
 from ase.io.vasp import write_vasp
+from ase.io import read, write
 from catkit.gen.surface import SlabGenerator
 from catkit.build import surface
 from catkit.gen.adsorption import Builder
@@ -16,6 +17,7 @@ import numpy as np
 import math
 from HTMACat.Extract_info import *
 from catkit.build import molecule
+from . import utils
 ### 1.Construct the slab
 def Construct_slab(Path_info,N_dop_bulk=[],super_cell=[3,3,1],output_bulk=False):
   # Construct lattice using the optimized lattice constant
@@ -82,9 +84,40 @@ def Construct_slab(Path_info,N_dop_bulk=[],super_cell=[3,3,1],output_bulk=False)
          
   #LatInfo.close()
     if output_bulk :
-       return mbulk,mname,N_dop_bulk
+        return mbulk,mname,N_dop_bulk
     else:
-       return slab,mname,mfacet
+        print('mbulk:', type(mbulk), '\n', mbulk) ### wzj
+        print('slab:', type(slab), '\n', slab) ### wzj
+        print(len(slab)) ### wzj
+        print('--- test ---')
+        ### read struct file (slab model):
+        fname = 'slab.vasp'
+        #fname = 'slab.vasp'
+        #fname = 'CsPbBr3-no_opt-02cif.cif' # 'slab.cif'
+        try:
+            file_slab = read(fname, format='cif')
+        except:
+            file_slab = read(fname, format='vasp')
+        print(type(file_slab))
+        print('test_slab:')
+        test_slab = Gratoms(positions=file_slab.positions,
+                           numbers=file_slab.get_atomic_numbers(),
+                           magmoms=file_slab.get_initial_magnetic_moments(),
+                           cell=file_slab.cell,
+                           pbc=[True, True, False])
+        print('--- test ---')
+        topsurf_atoms = utils.find_topsurface_atoms(coords=test_slab.positions)
+        bottomsurf_atoms = utils.find_topsurface_atoms(coords=(-1)*test_slab.positions)
+        test_slab.set_surface_atoms(top=topsurf_atoms, bottom=bottomsurf_atoms)
+        print(topsurf_atoms, '\n', bottomsurf_atoms)
+        print(test_slab.get_surface_atoms())
+        c_fix = ase.constraints.FixAtoms(indices=[atom.index for atom in test_slab if (not atom.index in topsurf_atoms) and (not atom.index in bottomsurf_atoms)])
+        test_slab.set_constraint(c_fix)
+        print(test_slab.constraints)
+        print('################################################')
+        print(test_slab.constraints, type(test_slab.constraints))
+        print(test_slab.__dict__)
+        return [test_slab], mname, mfacet # return slab,mname,mfacet
 #slab,mname,mfacet= Construct_slab(Path_info='../Info/StrucInfo')
 #view(slab)
 
@@ -135,24 +168,6 @@ def Construct_1stLayer_slab(Path_info,Ele_dop):
     return slabs_dop,mname,mfacet,surface_atoms
 #Construct_1stLayer_slab(Path_info='./StrucInfo',Ele_dop='Au')
 
-def MolToNXGraph(m):
-    '''
-    convert molecule object to graph in networkx
-    params:
-        m: RDKit Mol object
-    returns:
-        G: networkx Graph object of molecule m
-    '''
-    G = nx.Graph()
-    for i_n in range(m.GetNumAtoms()):
-        G.add_node(i_n)
-    bonds = [m.GetBondWithIdx(k) for k in range(len(m.GetBonds()))]
-    edges = []
-    for edge in bonds:
-        edges.append((edge.GetBeginAtomIdx(),edge.GetEndAtomIdx()))
-    G.add_edges_from(edges)
-    return G
-
 ### 4.Construct single adsorption configuration 
 #from catkit.gen.adsorption import AdsorptionSites
 #from Extract_info import *
@@ -163,6 +178,7 @@ def Construct_single_adsorption(slabs,ads,SML):
     for i, slab in enumerate(slabs):
         site = AdsorptionSites(slab)
         coordinates = site.get_coordinates()
+        print('***', coordinates) ### wzj
         #print(site.get_symmetric_sites(unique=False, screen=True))
         #print(site.get_periodic_sites(screen=True))
         #print(len(site.get_coordinates(unique=False)))
@@ -175,7 +191,7 @@ def Construct_single_adsorption(slabs,ads,SML):
             conf = mole.GetConformer()
             conf_coords = [conf.GetAtomPosition(k) for k in range(mole.GetNumAtoms())]
             '''
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads_use = ads_list[0]
             for ads_ in ads_list:
@@ -197,7 +213,7 @@ def Construct_double_adsorption(slabs,ads,SML):
         builder=Builder(slab)
         if SML:
             mole = Chem.AddHs(Chem.MolFromSmiles(ads))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads_use = ads_list[0]
             for ads_ in ads_list:
@@ -224,7 +240,7 @@ def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type,SML):
         ads2 = ads.split(' ')[1].strip()
         if SML:
             mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads1_use = ads1_list[0]
             for ads_ in ads1_list:
@@ -232,7 +248,7 @@ def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type,SML):
                     ads1_use = ads_
                     break
             mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads2_use = ads2_list[0]
             for ads_ in ads2_list:
@@ -273,7 +289,7 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type,SML):
         ads2 = ads.split(' ')[1].strip()
         if SML:
             mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads1_use = ads1_list[0]
             for ads_ in ads1_list:
@@ -281,7 +297,7 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type,SML):
                     ads1_use = ads_
                     break
             mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads2_use = ads2_list[0]
             for ads_ in ads2_list:
@@ -342,7 +358,7 @@ def Construct_coadsorption_12(slabs,ads,dis_inter,SML):
         ads2 = ads.split(' ')[1].strip()
         if SML:
             mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads1_use = ads1_list[0]
             for ads_ in ads1_list:
@@ -350,7 +366,7 @@ def Construct_coadsorption_12(slabs,ads,dis_inter,SML):
                     ads1_use = ads_
                     break
             mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads2_use = ads2_list[0]
             for ads_ in ads2_list:
@@ -415,7 +431,7 @@ def Construct_coadsorption_22(slabs,ads,dis_inter,SML):
         ads2 = ads.split(' ')[1].strip()
         if SML:
             mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads1_use = ads1_list[0]
             for ads_ in ads1_list:
@@ -423,7 +439,7 @@ def Construct_coadsorption_22(slabs,ads,dis_inter,SML):
                     ads1_use = ads_
                     break
             mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
-            G = MolToNXGraph(mole)
+            G = utils.MolToNXGraph(mole)
             ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads2_use = ads2_list[0]
             for ads_ in ads2_list:

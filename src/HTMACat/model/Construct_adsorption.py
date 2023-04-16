@@ -33,7 +33,7 @@ def Construct_adsorption(Path_Info,Model):
             elif natom_dop == 'b1':
                #N_dop_bulk=[ele_dop]
                for k,ads in enumerate(Ads):
-                   slabs,mname,mfacet=Construct_slab(Path_Info,N_dop_bulk=[ele_dop],super_cell=[2,2,1])
+                   slabs,mname,mfacet=Construct_slab(Path_Info,N_dop_bulk=[ele_dop],super_cell=[2,2,1]) ### wzj note: Formic_acid
                    if Index[k] == '1':
                       slabs_ads=Construct_single_adsorption(slabs,ads,SML)
                    elif Index[k] == '2':
