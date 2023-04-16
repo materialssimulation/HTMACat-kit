@@ -1,0 +1,73 @@
+name: publish HtmaCat-kit to release
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to run the workflow on'
+        required: false
+        default: 'master'
+        type: choice
+        options:
+          - 'master'
+          - 'dev'
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    types:
+      - ready_for_review
+      - review_requested
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref }}
+      - name: Publish Python Package
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Build wheel and source distribution
+        run: |
+          cd src
+          pip install setuptools wheel
+          python setup.py sdist bdist_wheel
+
+      - name: Release version
+        id: release_version
+        run: |
+          cd src
+          app_version=$(cat setup.py | grep version | sed "s/version='\([0-9]\+\.[0-9]\+\.[0-9]\+\)',/\1/" | sed s/[[:space:]]//g)
+          echo "app_version=$app_version" >> $GITHUB_ENV
+          echo "app_version=$app_version"
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: src/dist/*.whl
+          tag: v${{env.app_version}}
+          release_name: v${{env.app_version}}
+          overwrite: false
+          file_glob: true
+          body: ${{github.event.head_commit.message}}
+
+      - name: Replace the install link and Update Readme
+        run: |
+          link=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
+            jq -r '.assets[].browser_download_url' | head -n1)
+          sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"$link"'~g' README.md
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'README.md'
+          message: 'Updated wheel link in README'
+          push: true

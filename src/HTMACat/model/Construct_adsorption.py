@@ -5,6 +5,21 @@ from ase.io.vasp import write_vasp
 from HTMACat.model.Construct_model import *
 from HTMACat.Extract_info import *
 def Construct_adsorption(Path_Info,Model):
+    """
+    Automated batch enumeration and construction of all possible configurations
+
+    Parameters
+    ----------
+    Path_Info:str
+       a filename,containing the crystallographic information for generating the slabs.
+    Model:str
+       a filename,containing surface doping and adsorption modeling parameters
+   
+    Returns
+    -------
+       None
+          No return value, generating a vasp structure file
+   """
     model = open(Model,'r')
     Ele_dop=model.readline().split()
     Natom_dop=model.readline().split()

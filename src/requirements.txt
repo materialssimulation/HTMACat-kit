@@ -1,12 +1,10 @@
 ase >= 3.19
 numpy >= 1.20.0, <= 1.23.5
 argparse
-networkx>=2.1
+networkx>=2.1, <= 2.8.8
 spglib>=1.10
 scipy>=0.1
-sklearn
 matplotlib>=2.2
 future>=0.16
 sqlalchemy>=1.2
-catkit
 rdkit

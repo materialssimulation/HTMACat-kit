@@ -1,15 +1,12 @@
-from setuptools import setup, find_packages
-from setuptools.command.build_py import build_py as _build_py
-from glob import glob
-from os.path import join
-import sys
+from setuptools import setup
+
 
 with open('requirements.txt', 'r') as f:
     requirements = f.readlines()
 
 setup(
     name='HTMACat',
-    version='1.0.1',
+    version='1.0.2',
     description=
     'A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.',
     long_description=
@@ -26,4 +23,5 @@ setup(
             'ads=HTMACat.command:ads',
             'coads=HTMACat.command:coads',
         ]
-    })
+        }
+    )
