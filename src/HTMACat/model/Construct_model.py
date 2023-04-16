@@ -18,106 +18,92 @@ import math
 from HTMACat.Extract_info import *
 from catkit.build import molecule
 from . import utils
+import networkx as nx
+import networkx.algorithms.isomorphism as iso
 ### 1.Construct the slab
-def Construct_slab(Path_info,N_dop_bulk=[],super_cell=[3,3,1],output_bulk=False):
+def Construct_slab(Path_info,N_dop_bulk=[],super_cell=[3,3,1],output_bulk=False,slab_fname='slab.vasp'):
   # Construct lattice using the optimized lattice constant
   #if isinstance(Path_info, str):
   #   LatInfo = open(Path_info,"r+")
   #else:
   #   LatInfo = Path_info   
   #LatInfo = open(Path_info,"r+")
-    slab=[]
     line=Path_info
-    #print(line)
-    #for index, line in enumerate(LatInfo):
     mname = line.split()[0].strip()
     mlat = line.split()[1].strip()
     mlatcon = line.split()[2].strip()
-    # hcp 
-    if mlat == 'hcp':
-       mc = line.split(' ')[3].strip()
-       mfacet = line.split(' ')[4].strip()
-       La,Lb,Lc,Ld=list(mfacet)
-       mbulk = bulk(mname, mlat, a=float(mlatcon), covera=float(mc)/float(mlatcon), cubic=False)
-       #mbulk=mbulk*[2,1,1]
-       #view(mbulk)
-       if N_dop_bulk == []:
-          pass
-       else:
-          for k in range(len(N_dop_bulk)):
-              mbulk[k].symbol=N_dop_bulk[k]
-       gen = SlabGenerator(
-             mbulk,
-             miller_index=(int(La),int(Lb),int(Lc),int(Ld)),
-             layers=4,
-             fixed=2,
-             layer_type = 'trim',
-             vacuum=8,
-             standardize_bulk = True)
-
+    if slab_fname is None:
+        slab=[]
+        #print(line)
+        #for index, line in enumerate(LatInfo):
+        # hcp 
+        if mlat == 'hcp':
+           mc = line.split(' ')[3].strip()
+           mfacet = line.split(' ')[4].strip()
+           La,Lb,Lc,Ld=list(mfacet)
+           mbulk = bulk(mname, mlat, a=float(mlatcon), covera=float(mc)/float(mlatcon), cubic=False)
+           #mbulk=mbulk*[2,1,1]
+           #view(mbulk)
+           if N_dop_bulk == []:
+              pass
+           else:
+              for k in range(len(N_dop_bulk)):
+                  mbulk[k].symbol=N_dop_bulk[k]
+           gen = SlabGenerator(
+                 mbulk,
+                 miller_index=(int(La),int(Lb),int(Lc),int(Ld)),
+                 layers=4,
+                 fixed=2,
+                 layer_type = 'trim',
+                 vacuum=8,
+                 standardize_bulk = True)
+        else:
+           # bcc fcc etc.
+           mfacet = line.split(' ')[3].strip()
+           La,Lb,Lc=list(mfacet)
+           mbulk = bulk(mname, mlat, a=mlatcon, cubic=True)
+           #view(mbulk)
+           if N_dop_bulk == []:
+              pass
+              #return mbulk,mname
+           else:
+              for k in range(len(N_dop_bulk)):
+                  mbulk[k].symbol=N_dop_bulk[k]
+           ##### generate the surfaces #####
+           gen = SlabGenerator(
+                 mbulk,
+                 miller_index=(int(La),int(Lb),int(Lc)),
+                 layers=4,
+                 fixed=2,
+                 layer_type = 'trim',
+                 vacuum=8,
+                 standardize_bulk = True) 
+        terminations = gen.get_unique_terminations()
+        for i, t in enumerate(terminations):
+            slab += [gen.get_slab(iterm=i)*super_cell]
+            #print("%s%s_%s facet is finished!" %(mname,mfacet,i))
+            #write_vasp("%s%s%s.vasp" %(mname,mfacet,i), slab, direct=True, sort=[''], vasp5=True)
+        if output_bulk :
+            return mbulk,mname,N_dop_bulk
+        else:
+            return slab,mname,mfacet
     else:
-       # bcc fcc etc.
-       mfacet = line.split(' ')[3].strip()
-       La,Lb,Lc=list(mfacet)
-       mbulk = bulk(mname, mlat, a=mlatcon, cubic=True)
-       #view(mbulk)
-       if N_dop_bulk == []:
-          pass
-          #return mbulk,mname
-       else:
-          for k in range(len(N_dop_bulk)):
-              mbulk[k].symbol=N_dop_bulk[k]
-       ##### generate the surfaces #####
-       gen = SlabGenerator(
-             mbulk,
-             miller_index=(int(La),int(Lb),int(Lc)),
-             layers=4,
-             fixed=2,
-             layer_type = 'trim',
-             vacuum=8,
-             standardize_bulk = True) 
-    terminations = gen.get_unique_terminations()
-    for i, t in enumerate(terminations):
-        slab += [gen.get_slab(iterm=i)*super_cell]
-        #print("%s%s_%s facet is finished!" %(mname,mfacet,i))
-        #write_vasp("%s%s%s.vasp" %(mname,mfacet,i), slab, direct=True, sort=[''], vasp5=True)
-         
-  #LatInfo.close()
-    if output_bulk :
-        return mbulk,mname,N_dop_bulk
-    else:
-        print('mbulk:', type(mbulk), '\n', mbulk) ### wzj
-        print('slab:', type(slab), '\n', slab) ### wzj
-        print(len(slab)) ### wzj
-        print('--- test ---')
-        ### read struct file (slab model):
-        fname = 'slab.vasp'
-        #fname = 'slab.vasp'
-        #fname = 'CsPbBr3-no_opt-02cif.cif' # 'slab.cif'
         try:
-            file_slab = read(fname, format='cif')
+            file_slab = read(slab_fname, format='cif')
         except:
-            file_slab = read(fname, format='vasp')
-        print(type(file_slab))
-        print('test_slab:')
+            file_slab = read(slab_fname, format='vasp')
         test_slab = Gratoms(positions=file_slab.positions,
                            numbers=file_slab.get_atomic_numbers(),
                            magmoms=file_slab.get_initial_magnetic_moments(),
                            cell=file_slab.cell,
                            pbc=[True, True, False])
-        print('--- test ---')
         topsurf_atoms = utils.find_topsurface_atoms(coords=test_slab.positions)
         bottomsurf_atoms = utils.find_topsurface_atoms(coords=(-1)*test_slab.positions)
         test_slab.set_surface_atoms(top=topsurf_atoms, bottom=bottomsurf_atoms)
-        print(topsurf_atoms, '\n', bottomsurf_atoms)
-        print(test_slab.get_surface_atoms())
         c_fix = ase.constraints.FixAtoms(indices=[atom.index for atom in test_slab if (not atom.index in topsurf_atoms) and (not atom.index in bottomsurf_atoms)])
         test_slab.set_constraint(c_fix)
-        print(test_slab.constraints)
-        print('################################################')
-        print(test_slab.constraints, type(test_slab.constraints))
-        print(test_slab.__dict__)
-        return [test_slab], mname, mfacet # return slab,mname,mfacet
+        mfacet = 'XXX'
+        return [test_slab], mname, mfacet
 #slab,mname,mfacet= Construct_slab(Path_info='../Info/StrucInfo')
 #view(slab)
 
@@ -178,7 +164,6 @@ def Construct_single_adsorption(slabs,ads,SML):
     for i, slab in enumerate(slabs):
         site = AdsorptionSites(slab)
         coordinates = site.get_coordinates()
-        print('***', coordinates) ### wzj
         #print(site.get_symmetric_sites(unique=False, screen=True))
         #print(site.get_periodic_sites(screen=True))
         #print(len(site.get_coordinates(unique=False)))
@@ -195,13 +180,14 @@ def Construct_single_adsorption(slabs,ads,SML):
             ads_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads_use = ads_list[0]
             for ads_ in ads_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads_use = ads_
                     break
         else:
             ads_use = molecule(ads)[0]
         for i, coord in enumerate(coordinates):
-            slab_ad += [builder._single_adsorption(ads_use,bond=0,site_index=i)] ### wzj
+            slab_ad += [builder._single_adsorption(ads_use,bond=0,site_index=i)]
     return slab_ad
 
 ### 4.Construct double sites adsorption configuration
@@ -217,7 +203,8 @@ def Construct_double_adsorption(slabs,ads,SML):
             ads_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads_use = ads_list[0]
             for ads_ in ads_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads_use = ads_
                     break
         else:
@@ -244,7 +231,8 @@ def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type,SML):
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads1_use = ads1_list[0]
             for ads_ in ads1_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads1_use = ads_
                     break
             mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
@@ -252,7 +240,8 @@ def Construct_coadsorption_11_pristine(slabs,ads,dis_inter,ads_type,SML):
             ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads2_use = ads2_list[0]
             for ads_ in ads2_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads2_use = ads_
                     break
         else:
@@ -293,7 +282,8 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type,SML):
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads1_use = ads1_list[0]
             for ads_ in ads1_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads1_use = ads_
                     break
             mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
@@ -301,7 +291,8 @@ def Construct_coadsorption_11(slabs,ads,dis_inter,ads_type,SML):
             ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads2_use = ads2_list[0]
             for ads_ in ads2_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads2_use = ads_
                     break
         else:
@@ -362,7 +353,8 @@ def Construct_coadsorption_12(slabs,ads,dis_inter,SML):
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads1_use = ads1_list[0]
             for ads_ in ads1_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads1_use = ads_
                     break
             mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
@@ -370,7 +362,8 @@ def Construct_coadsorption_12(slabs,ads,dis_inter,SML):
             ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads2_use = ads2_list[0]
             for ads_ in ads2_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads2_use = ads_
                     break
         else:
@@ -435,7 +428,8 @@ def Construct_coadsorption_22(slabs,ads,dis_inter,SML):
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads1_use = ads1_list[0]
             for ads_ in ads1_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads1_use = ads_
                     break
             mole = Chem.AddHs(Chem.MolFromSmiles(ads2))
@@ -443,7 +437,8 @@ def Construct_coadsorption_22(slabs,ads,dis_inter,SML):
             ads2_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
             ads2_use = ads2_list[0]
             for ads_ in ads2_list:
-                if nx.is_isomorphic(ads_._graph, G):
+                nm = iso.categorical_node_match('number', 6)
+                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads2_use = ads_
                     break
         else:
