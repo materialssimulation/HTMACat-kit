@@ -1,6 +1,6 @@
 # HTMACat
 
-# Introduction
+# 1. Introduction
 
 A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes, it provides key tools
 for high-throughput design and screening of catalytic materials. The software mainly includes functional modules such as
@@ -11,16 +11,16 @@ energy calculation and analysis workflow, primitive reaction calculation and ana
 calculation and automated analysis of adsorption energy and reaction potential of catalytic primitive reaction
 processes, etc.
 
-# Installation Guide
+# 2. Installation Guide
 
-## 1. Environment
+## 2.1 Environment
 
 Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; 1.20.0 <= Numpy <= 1.23.5
 
-If you haven‘t installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and
+If you haven't installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and
 install it.
 
-## 2. Installation
+## 2.1 Installation
 
 ### 1) Automatic installation
 
@@ -51,11 +51,11 @@ pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/r
 pip install --upgrade $(curl -s https://api.github.com/repos/stanfordbshan/HTMACat-kit/releases/latest | grep "browser_download_url.*\.whl" | cut -d : -f 2,3 | tr -d \")
 ```
 
-# Getting started
+# 3. Getting started
 
-## 1. High-throughput adsorption modeling
+## 3.1 High-throughput adsorption modeling
 
-### Prepare the input files
+### 1) Prepare the input files
 
 `config.yaml` should be prepared in your working folder.
 `Config.yaml` file Contains two parts: 
@@ -107,7 +107,7 @@ The format of the whole `config.yaml` is as follows:
 **To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.** Users can modify the
 corresponding parameters to achieve customized modeling according to their research needs.
 
-### run script
+### 2) run script
 
 Running command `htmat ads` can automate the enumeration and construction of all possible configurations, and ultimately
 output structure files in the VASP format, like Au_Cu_111_1_NH_0.vasp, 
@@ -117,9 +117,9 @@ where the adsorbate is bound to a surface atom that contains a dopant atom, in o
 output structures.
 
 
-## Automated construction of reaction transition state calculation process
-## Automated extraction of calculation results
-## Automated extraction of descriptors
+## 3.2 Automated construction of reaction transition state calculation process
+## 3.3 Automated extraction of calculation results
+## 3.4 Automated extraction of descriptors
 
 ‍
 
