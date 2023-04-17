@@ -253,7 +253,6 @@ class Coadsorption(Adsorption):
             elif typ.get(bind_type_symb_tmp[0]) in ads_type.get(adspecie_tmp[0]) and typ.get(
                     bind_type_symb_tmp[1]) in ads_type.get(adspecie_tmp[1]):
                 slab_ad_final += [adslab]
-        print('slab_ad_final:%d' % len(slab_ad_final))
         return slab_ad_final
 
     def Construct_coadsorption_12(self):

@@ -1,9 +1,6 @@
 import os
-from HTMACat.model.Construct_adsorption import *
-from HTMACat.model.Construct_Coadsorption import *
 from HTMACat.model.Construct_adsorption_yaml import *
 from pathlib import *
-import argparse
 import shutil
 import typer
 
