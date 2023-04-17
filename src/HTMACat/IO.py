@@ -28,7 +28,7 @@ def Input(filename):
         for i in value:
             dope_init_list.append({'element_dop': key, 'dop_type': i})
 
-    for i in struct_Info['crystalIndices']:
+    for i in struct_Info['facet']:
         surface_init_list.append({'facet': i})
     ## substrates initialization
     substrates = []

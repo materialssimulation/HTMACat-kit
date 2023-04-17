@@ -2,10 +2,13 @@ StrucInfo:
   element: Au
   lattype: fcc
   latcont: 4.16
-  crystalIndices: ['111','100']
+  facet: ['111','100']
   dope:
     Cu: [3]
 
 Model:
+  SML: False
+  ads:
+    - ['NH3',1]
   coads: 
     - ['NH3','O',1,1]
