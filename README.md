@@ -1,16 +1,31 @@
 # HTMACat
 
-# Introduction
+# 1. Introduction
 
-A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes, it provides key tools for high-throughput design and screening of catalytic materials. The software mainly includes functional modules such as surface structure analysis and information extraction, catalytic surface and various adsorption model construction, automatic construction of primitive reaction processes, automatic extraction of computational data and automatic extraction and construction of descriptors.The software can perform the following computational workflows: adsorption energy calculation and analysis workflow, primitive reaction calculation and analysis workflow, high throughput calculation and automated analysis of adsorption energy and reaction potential of catalytic primitive reaction processes, etc.
+A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes, it provides key tools
+for high-throughput design and screening of catalytic materials. The software mainly includes functional modules such as
+surface structure analysis and information extraction, catalytic surface and various adsorption model construction,
+automatic construction of primitive reaction processes, automatic extraction of computational data and automatic
+extraction and construction of descriptors.The software can perform the following computational workflows: adsorption
+energy calculation and analysis workflow, primitive reaction calculation and analysis workflow, high throughput
+calculation and automated analysis of adsorption energy and reaction potential of catalytic primitive reaction
+processes, etc.
 
-# Installation Guide
+# 2. Installation Guide
 
+## 2.1 Environment
 
-## 1.  Environment
-Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; 1.20.0 <= Numpy <= 1.23.5 
+```requirements.txt
+Python >= 3.6, <=3.9
+ASE >= 3.22.1
+CatKit == 0.5.4
+numpy >= 1.20.0, <= 1.23.5
+rdkit
+typer
+```
 
-If you haven‘t installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and install it.
+If you haven't installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and
+install it.
 
 ## 2.  Installation
 
@@ -22,52 +37,75 @@ pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1
 
 ```
 
-# Getting started
+# 3. Getting started
 
-1. **High-throughput single adsorption modeling**
+## 3.1 High-throughput adsorption modeling
 
-    (1) Prepare the input files: ​*StrucInfo ​*and ​*Model*
+### 1) Prepare the input files
 
-    "StrucInfo" file Contains the carrier of lattice type and the crystal parameters, the format is as follows:
+`config.yaml` should be prepared in your working folder.
+`Config.yaml` file Contains two parts: 
+- `StuctInfo` parts 
+- `Model` parts
 
-    ```shell
-    Pt fcc 3.97 111 # Element Lattice_type Lattice_parameter Crystal_plane
-    ```
-    The four parameters above are the bulk phase element, lattice type, lattice parameter and crystal plane. In addition, by adding more rows, more systems can be constructed continuously.  
-    "Model" file contains the surface doping and adsorption modeling parameters, the format is as follows:
+The format of the whole `config.yaml` is as follows:
+   ```yaml
+   StrucInfo:
+    element: Au
+    lattype: fcc
+    latcont: 4.16
+    facet: ['111','100']
+    dope:
+      Cu: [3]
+   
+   Model:
+    SML: False
+    ads:
+      - ['NH3',1]
+      - ['NO', 2]
+    coads: 
+      - ['NH3','O',1,1]
+   ```
 
-    ```shell
-    Cu # Doping elements
-    b1 # Doping type
-    SML C(=O)O # Adsorption species (SMILES of formic acid)
-    1 2 # Adsorption type
-    ```
-    Where the first line of the file is the doping element and the second line is the doping type, 0 corresponds to no doping, 1, 2 and 3 correspond to surface layers doped with 1, 2 and 3 atoms, respectively, and 1L and b1 represent surface layer substitution and bulk equivalent proportional substitution. The third and fourth lines respectively represent the adsorbate species and the adsorption types. <b>Please note that the adsorbates should be declared by their SMILES expressions if the third line starts with 'SML'!</b> If no 'SML' at the beginning of this line, the species are represented in their chemical formula. <b>To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.</b> Users can modify the corresponding parameters to achieve customized modeling according to their research needs.
+`StuctInfo` parts contains the information about substrate, including:
 
-    (2) run script
+- `element`: bulk phase element
+- `lattype`: lattice type
+- `latcont`: lattice parameter
+- `facet`: crystal plane, hould be a *list*, start with `[`, separate with `,` and end with `]`, facet index
+  should
+  be a str start with `'` end with `'`, like `'100'`,`'111'`
+- `dope`: dope of the substrate, the formate is `dope element : [dope type1, dope type2]`
+  before `:` is the doped element, after the `:` is the dope type, the dope type can be chosen as follows：
+  `0` corresponds to no doping, `1`, `2` and `3`correspond to surface layers doped with `1`, `2` and `3` atoms,
+  respectively.
+  `1L` and `b1` represent surface layer substitution and bulk equivalent proportional substitution.
 
-    Running command "ads" can automate the enumeration and construction of all possible configurations, and ultimately output structure files in the VASP format, like Pt_Cu_111_1_NH_0.vasp  
-    Furthermore, for the adsorption models on doped surfaces, we use the get_binding_adatom function to determine the types of surface atoms that the adsorbate binds to in the preliminary configurations. We only select configurations where the adsorbate is bound to a surface atom that contains a dopant atom, in order to reduce the number of final output structures.
-2. **High-throughput co-adsorption modeling**
+`Model` parts contains the adsorption modeling parameters, including:
 
-    (1) Prepare the input files: ​*StrucInfo ​*and ​*Model*
+- `SML`: whether using *Smiles* toe represent the adsorption species
+- `ads`: using `- [ adsorbate formular , adsorption sites type]` to represent one adsorption status, where
+  adsorption formular should be a str start with `'` end with `'`. Different adsorption status should start with
+  new line, adsorption sites type can be chosen from `1` or `2`.
+- `coads`: using `- [ads1, ads2, ads1 sites, ads2 sites]`, *ads1* and *ads2* is two adsorbate species formular,
+  *ads1 sites* and *ads2 sites* is adsorption sites type, can be chosen from `1` and `2`.
 
-    The two input files for the co-adsorption model construction module are still StrucInfo and Model, and StrucInfo has the same file format as the single adsorption model construction module. However, the Model files for the two differ. The format of the Model file for the co-adsorption modeling module is as follows:
+**To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.** Users can modify the
+corresponding parameters to achieve customized modeling according to their research needs.
 
-    ```shell
-    Cu # Doping elements
-    3 # Doping type
-    SML N [O];[NH2] [OH];[N] [N];[N] [O];[N] [N]=O # Co-adsorption species
-    1 1;1 1;1 1;1 1;1 1 # Adsorption type
-    ```
-    The first line represents the dopant element, the second line represents the dopant type, the third and fourth lines respectively represent the co-adsorbate species (also in SMILES format) and the co-adsorption type. Different co-adsorption combinations are separated by ";".
+### 2) run script
 
-    (2) run script
+Running command `htmat ads` can automate the enumeration and construction of all possible configurations, and ultimately
+output structure files in the VASP format, like Au_Cu_111_1_NH_0.vasp, 
+Furthermore, for the adsorption models on doped surfaces, we use the `get_binding_adatom` function to determine the
+types of surface atoms that the adsorbate binds to in the preliminary configurations. We only select configurations
+where the adsorbate is bound to a surface atom that contains a dopant atom, in order to reduce the number of final
+output structures.
 
-    Running command "coads" can automate the enumeration and construction of all possible configurations, and ultimately output structure files in the VASP format, like Pt_Cu_111_2_N_H_0.vasp.
-3. **Automated construction of reaction transition state calculation process**
-4. **Automated extraction of calculation results**
-5. **Automated extraction of descriptors**
+
+## 3.2 Automated construction of reaction transition state calculation process
+## 3.3 Automated extraction of calculation results
+## 3.4 Automated extraction of descriptors
 
 ‍
 

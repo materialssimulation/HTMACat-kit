@@ -6,6 +6,8 @@ import os
 #from catkit.build import molecule
 from ase.build import molecule
 from itertools import chain
+from collections import Counter
+
 
 
 ### 1.Substract the reaction species

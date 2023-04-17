@@ -8,3 +8,4 @@ matplotlib>=2.2
 future>=0.16
 sqlalchemy>=1.2
 rdkit
+typer
