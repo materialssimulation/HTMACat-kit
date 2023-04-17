@@ -48,6 +48,8 @@ def Input(filename):
 
     for key in ['ads', 'coads']:
         for j in ads_model[key]:
+            if not j:
+                continue
             for k in substrates:
                 ads_init_dict = {'SML': ads_model['SML'], 'type': key, 'value': j, 'substrate': k}
                 ads.append(ads_from_input(ads_init_dict))
@@ -57,6 +59,11 @@ def Input(filename):
 
 def out_vasp(struct_class):
     file_name = struct_class.out_file_name()
+    print_str = struct_class.out_print()
     structures = struct_class.construct()
-    for i, structure in enumerate(structures):
-        write_vasp("%s_%s.vasp" % (file_name, i), structure, direct=True, sort=[''], vasp5=True)
+    if structures:
+        for i, structure in enumerate(structures):
+            write_vasp("%s_%s.vasp" % (file_name, i), structure, direct=True, sort=[''], vasp5=True)
+        print(print_str + " are construct with %d configurations!" % (i + 1))
+    else:
+        print(print_str + " are construct with !No! configurations!")

@@ -4,17 +4,16 @@ Created on Sat Mar 18 09:00:12 2023
 
 @author: YuxiaoLan
 """
-from HTMACat.model.Construct_model import *
-from HTMACat.Extract_info import *
+
+from catkit.gen.adsorption import Builder
+from catkit.gratoms import *
 from rdkit import Chem
 from rdkit.Chem import AllChem, rdMolDescriptors
-import os
-import numpy as np
 import math
+from HTMACat.Extract_info import *
 from catkit.build import molecule
-from catkit.gratoms import *
-from catkit.gen.adsorption import AdsorptionSites
 from HTMACat.model.Substrate import Slab
+from catkit.gen.adsorption import AdsorptionSites
 
 
 class Species(object):
@@ -26,6 +25,9 @@ class Species(object):
         return self.form
 
     def out_file_name(self):
+        return self.form
+
+    def out_print(self):
         return self.form
 
     def MolToNXGraph(self, m):
@@ -96,6 +98,16 @@ class Adsorption(object):
         vasp_file_str: str = '_'.join([substrate_str, ads_str])
         return vasp_file_str
 
+    def out_print(self):
+        species_str = []
+        for i in range(len(self.species)):
+            species_str.append(self.species[i].out_print())
+
+        species_str = ' and '.join(species_str)
+        substrate_str = self.substrate.out_print()
+        print_str = "%s adsorption on %s" % (species_str, substrate_str)
+        return print_str
+
     def construct(self):
         if self.get_sites() == '1':
             slabs_ads = self.Construct_single_adsorption()
@@ -133,7 +145,6 @@ class Adsorption(object):
             coordinates = site.get_coordinates()
             builder = Builder(slab)
             ads_use = self.species[0].get_molecule()
-            print(ads_use)
             for j, coord in enumerate(coordinates):
                 slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]  ### wzj
         return slab_ad
@@ -242,6 +253,7 @@ class Coadsorption(Adsorption):
             elif typ.get(bind_type_symb_tmp[0]) in ads_type.get(adspecie_tmp[0]) and typ.get(
                     bind_type_symb_tmp[1]) in ads_type.get(adspecie_tmp[1]):
                 slab_ad_final += [adslab]
+        print('slab_ad_final:%d' % len(slab_ad_final))
         return slab_ad_final
 
     def Construct_coadsorption_12(self):

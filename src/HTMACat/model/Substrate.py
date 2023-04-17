@@ -4,19 +4,12 @@ Created on Fri Mar 17 15:34:47 2023
 
 @author: YuxiaoLan
 """
-from HTMACat.Extract_info import *
-import os
-import numpy as np
+
 import math
-import ase
 from ase.build import bulk
-from ase.visualize import view
-from ase.io.vasp import write_vasp
 from catkit.gen.surface import SlabGenerator
-from catkit.build import surface
-from catkit.gen.adsorption import Builder
-from catkit.gratoms import *
 from catkit.gen.adsorption import AdsorptionSites
+import numpy as np
 
 
 class Bulk(object):
@@ -108,6 +101,9 @@ class Slab(object):
         self.bulk = in_bulk
         self.facet = facet
         self.property = {}
+        if 'p1' not in self.property or 'p1_symb' not in self.property:
+            self.property['p1'] = []
+            self.property['p1_symb'] = []
 
     def get_miller_index(self):
         miller_index = tuple(list(map(int, list(self.facet))))
@@ -132,6 +128,15 @@ class Slab(object):
             ele_dop = self.bulk.get_dop_element()
             natom_dop = self.bulk.get_natom_dop()
             return '_'.join([mname, ele_dop, self.facet, natom_dop])
+
+    def out_print(self):
+        mname = self.bulk.get_main_element()
+        if self.bulk.get_natom_dop() == '0':
+            return '%s (%s) substrate' % (mname, self.facet)
+        else:
+            ele_dop = self.bulk.get_dop_element()
+            natom_dop = self.bulk.get_natom_dop()
+            return '%s %s doped %s (%s) substrate' % (ele_dop, natom_dop, mname, self.facet)
 
     def get_dis_inter(self):
         latcon = self.bulk.lattice_constant
@@ -195,31 +200,40 @@ class Slab(object):
         # generate surface adsorption configuration
         slabs = self.Construct_slab()
         slabs_dop = []
-        p1 = []
-        p1_symb = []
         Natom = int(self.bulk.get_natom_dop())
-        Ele_dop = self.bulk.get_dop_element()
-        for i, slab in enumerate(slabs):
+        for i, slab in enumerate(slabs):  # 修改了fcc的(100)面无法生成dope type 3的bug
             site = AdsorptionSites(slab)
             site_typ = site.get_connectivity()
             topo = site.get_topology()
             # atom_number_dop =[]
-            for j in range(len(site_typ)):
-                if site_typ[j] == Natom:
-                    atom_number_dop = topo[j]
-                    p1 += [slab.get_positions()[k] for k in atom_number_dop]
+            if Natom in site_typ:
+                j = np.argwhere(site_typ == Natom)[0][0]
+                atom_number_dop = topo[j]
+            elif Natom < len(topo[-1]):
+                atom_number_dop = topo[-1]
+            else:
+                raise ValueError('the max dope number for this system is %d' % len(topo[-1]))
+            slb = self.dope_slab(slab, atom_number_dop[0:Natom])
+            slabs_dop += [slb]
 
-                    slb = slab.copy()
-                    symbol = slb.get_chemical_symbols()
-                    for k, item in enumerate(atom_number_dop):
-                        symbol[item] = Ele_dop
-                    slb.set_chemical_symbols(symbol)
-                    p1_symb += [slb.get_chemical_symbols()[k] for k in atom_number_dop]
-                    slabs_dop += [slb]
-                    # view(slb*(2,2,1))
-        self.property['p1'] = p1
-        self.property['p1_symb'] = p1_symb
+            # for j in range(len(site_typ)):
+            #     if site_typ[j] == Natom:
+            #         atom_number_dop = topo[j]
+            #         slb = self.dope_slab(atom_number_dop)
+            #         slabs_dop += [slb]
+
         return slabs_dop
+
+    def dope_slab(self, slab, atom_number_dop):
+        self.property['p1'] += [slab.get_positions()[k] for k in atom_number_dop]
+        Ele_dop = self.bulk.get_dop_element()
+        slb = slab.copy()
+        symbol = slb.get_chemical_symbols()
+        for k, item in enumerate(atom_number_dop):
+            symbol[item] = Ele_dop
+        slb.set_chemical_symbols(symbol)
+        self.property['p1_symb'] += [slb.get_chemical_symbols()[k] for k in atom_number_dop]
+        return slb
 
     @classmethod
     def from_dict(cls, init_dict):
