@@ -10,6 +10,7 @@ from ase.build import bulk
 from catkit.gen.surface import SlabGenerator
 from catkit.gen.adsorption import AdsorptionSites
 import numpy as np
+from HTMACat.model.Structure import Structure
 
 
 class Bulk(object):
@@ -96,7 +97,7 @@ class Bulk(object):
                    ele_dop=ele_dop, natom_dop=natom_dop)
 
 
-class Slab(object):
+class Slab(Structure):
     def __init__(self, in_bulk=Bulk(), facet='100'):
         self.bulk = in_bulk
         self.facet = facet

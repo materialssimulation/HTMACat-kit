@@ -8,7 +8,7 @@ import yaml
 from HTMACat.model.Substrate import substrate_from_input
 from HTMACat.model.Ads import ads_from_input
 from ase.io.vasp import write_vasp
-
+from HTMACat.model.Structure import Structure
 
 def Input(filename):
     with open(filename, 'r', encoding='utf-8') as f:
@@ -57,7 +57,7 @@ def Input(filename):
     return substrates, ads
 
 
-def out_vasp(struct_class):
+def out_vasp(struct_class: Structure):
     file_name = struct_class.out_file_name()
     print_str = struct_class.out_print()
     structures = struct_class.construct()

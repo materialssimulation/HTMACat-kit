@@ -14,7 +14,7 @@ from HTMACat.Extract_info import *
 from catkit.build import molecule
 from HTMACat.model.Substrate import Slab
 from catkit.gen.adsorption import AdsorptionSites
-
+from HTMACat.model.Structure import Structure
 
 class Species(object):
     def __init__(self, form, sml=False):
@@ -64,7 +64,7 @@ class Species(object):
         return ads_molecule
 
 
-class Adsorption(object):
+class Adsorption(Structure):
     def __init__(self, species: list, sites: list, spec_ads_stable=None, substrate=Slab()):
         if spec_ads_stable is None:
             spec_ads_stable = {'NH3': [1], 'NH2': [2], 'NH': [2, 4], 'N': [2, 4], 'O': [2, 4],
