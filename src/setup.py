@@ -6,7 +6,7 @@ with open('requirements.txt', 'r') as f:
 
 setup(
     name='HTMACat',
-    version='1.0.2',
+    version='1.0.3',
     description=
     'A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.',
     long_description=
@@ -20,8 +20,7 @@ setup(
     packages=['HTMACat', "HTMACat.descriptor", "HTMACat.model", "HTMACat.NEB"],
     entry_points={
         'console_scripts': [  # 命令的入口
-            'ads=HTMACat.command:ads',
-            'coads=HTMACat.command:coads',
+            'htmat=HTMACat.command:main',# added by yxlan 2022/04/17
         ]
         }
     )

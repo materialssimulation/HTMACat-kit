@@ -104,3 +104,4 @@ venv.bak/
 # custom
 example/backup*
 example/zjwang*
+.idea/
