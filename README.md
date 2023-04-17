@@ -15,7 +15,14 @@ processes, etc.
 
 ## 2.1 Environment
 
-Python 3.6-3.9; ASE 3.22.1; CatKit 0.5.4; 1.20.0 <= Numpy <= 1.23.5
+```requirements.txt
+Python >= 3.6, <=3.9
+ASE >= 3.22.1
+CatKit == 0.5.4
+numpy >= 1.20.0, <= 1.23.5
+rdkit
+typer
+```
 
 If you haven't installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and
 install it.
