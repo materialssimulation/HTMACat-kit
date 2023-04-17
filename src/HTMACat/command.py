@@ -5,15 +5,15 @@ import shutil
 import typer
 
 htmat = typer.Typer()
-
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 def main():
     htmat()
 
 
-@htmat.callback(invoke_without_command=True)
+@htmat.callback(invoke_without_command=True, context_settings=CONTEXT_SETTINGS)
 def main_command():
-    print('HTMACat-Kit Version:1.0.2')
+    print(f"HTMACat-Kit Version: 1.0.3")
     print('A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.')
 
 

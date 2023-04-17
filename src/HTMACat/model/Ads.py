@@ -248,7 +248,7 @@ class Coadsorption(Adsorption):
                     adspecie_tmp += [spe]
                     bind_type_symb_tmp += [bind_type_symb[k]]
             if len(adspecie_tmp) < 2:
-                print('Can not identify the config!')
+                # print('Can not identify the config!')
                 slab_ad_final += [adslab]
             elif typ.get(bind_type_symb_tmp[0]) in ads_type.get(adspecie_tmp[0]) and typ.get(
                     bind_type_symb_tmp[1]) in ads_type.get(adspecie_tmp[1]):
