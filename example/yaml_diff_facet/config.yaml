@@ -8,7 +8,7 @@ StrucInfo:
 
 Model:
   SML: False
-  ads:
+  ads: 
     - ['NH3',1]
   coads: 
     - ['NH3','O',1,1]

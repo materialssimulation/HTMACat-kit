@@ -1,11 +1,9 @@
-from setuptools import setup, find_packages
-from setuptools.command.build_py import build_py as _build_py
-from glob import glob
-from os.path import join
-import sys
+from setuptools import setup
+
 
 with open('requirements.txt', 'r') as f:
     requirements = f.readlines()
+
 
 setup(
     name='HTMACat',
@@ -25,4 +23,5 @@ setup(
         'console_scripts': [  # 命令的入口
             'htmat=HTMACat.command:main',# added by yxlan 2022/04/17
         ]
-    })
+        }
+    )

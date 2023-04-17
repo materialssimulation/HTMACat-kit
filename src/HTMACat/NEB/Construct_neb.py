@@ -9,6 +9,33 @@ import numpy as np
 
 
 def Construct_neb(struct, method_inter='linear', nimages=6, dcut=0.25, d_scaled=0.5):
+    """
+    Construct a Nudged Elastic Band (NEB) for transitioning between two structures.
+
+    Parameters
+    ----------
+    struct : list
+        List of two strings representing the initial and final states in VASP file format.
+    method_inter : str, optional
+        Method for interpolating the positions of the middle images. Either 'linear' or 'idpp'. Default is 'linear'.
+    nimages : int, optional
+        Number of images in the band, excluding the initial and final states. Default is 6.
+    dcut : float, optional
+        Distance cutoff (in Angstroms) used to determine which atoms need to be fixed during the NEB calculation. Default is 0.25.
+    d_scaled : float, optional
+        Distance (scaled by the cell lengths) used to modify the positions of atoms that are too far apart between the initial and final structures. Default is 0.5.
+
+    Returns
+    -------
+    images : list
+        List of images representing the NEB calculation. The first and last images are the initial and final states, respectively, and the middle images are interpolated.
+
+    Examples
+    --------
+    >>> struct = ['initial.vasp', 'final.vasp']
+    >>> images = Construct_neb(struct, method_inter='idpp', nimages=10, dcut=0.2, d_scaled=0.3)s
+
+    """
     ###Read initial and final states:
     initial = io.read(struct[0], format='vasp')
     final = io.read(struct[1], format='vasp')

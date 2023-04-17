@@ -5,6 +5,32 @@ import os
 
 
 def mig_atoms(Ffile, dis=[0.50, 0.50, 0.00]):
+    """
+    Migrate atoms in VASP POSCAR files.
+
+    Parameters
+    ----------
+    Ffile : str
+        A string that specifies the filename of the VASP POSCAR file.
+    dis : list of float, optional
+        A list of three floats that specifies the displacement of each atom
+        along the x-, y-, and z-axis, respectively. Default is [0.50, 0.50, 0.00].
+
+    Returns
+    -------
+    None
+
+    Notes
+    -----
+    This function reads in a VASP POSCAR file, applies a displacement to each
+    atom in the file, and writes out a new VASP POSCAR file with the migrated
+    atoms. The displacement is specified by the `dis` parameter.
+
+    Examples
+    --------
+    >>> mig_atoms('POSCAR', dis=[0.20, 0.20, 0.20])
+
+    """
     #print(Ffile)
     for i, poscar in enumerate(list(Ffile)):
         poscar_bk = ''.join([poscar, '_bk'])
