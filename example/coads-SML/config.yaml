@@ -1,0 +1,16 @@
+StrucInfo:
+  element: Au
+  lattype: fcc
+  latcont: 4.16
+  crystalIndices: ['111']
+  dope:
+    Cu: [3]
+
+Model:
+  SML: True
+  coads:
+    - ['N','[O]',1,1]
+    - ['[NH2]','[OH]',1,1]
+    - ['[N]','[N]',1,1]
+    - ['[N]','[O]',1,1]
+    - ['[N]','[N]=O',1,1]

@@ -1,0 +1,12 @@
+StrucInfo:
+  element: Au
+  lattype: fcc
+  latcont: 4.16
+  crystalIndices: ['111']
+  dope:
+    Cu: ['b1']
+
+Model:
+  SML: True
+  ads:
+    - ['HCOOH',1]
