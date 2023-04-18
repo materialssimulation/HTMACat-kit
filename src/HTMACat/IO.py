@@ -4,15 +4,16 @@ Created on Sun Mar 19 11:47:30 2023
 
 @author: YuxiaoLan
 """
-import yaml
+from ruamel.yaml import YAML
 from HTMACat.model.Substrate import substrate_from_input, substrate_from_file
 from HTMACat.model.Ads import ads_from_input
 from ase.io.vasp import write_vasp
 from HTMACat.model.Structure import Structure
 
 def Input(filename):
+    yaml = YAML(typ='safe')
     with open(filename, 'r', encoding='utf-8') as f:
-        result = yaml.load(f.read(), Loader=yaml.FullLoader)
+        result = yaml.load(f.read())
 
     # A substrate is one facet with one dop element with on dop_type
     struct_Info = result['StrucInfo']
