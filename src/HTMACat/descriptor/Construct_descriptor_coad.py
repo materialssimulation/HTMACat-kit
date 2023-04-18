@@ -1,11 +1,60 @@
 # -*- coding: UTF-8 -*-
 
-from Extract_info import *
+from HTMACat.Extract_info import *
 from ase.build import molecule
 from HTMACat.configuration import base_info
 
 
 def Construct_descriptor_coad(poscar, feature_surf, feature_ads, feature_site):
+    """   
+    Construct a descriptor for a catalyst-adsorbate system.
+        
+    Parameters
+    ----------
+    poscar : str
+        The POSCAR file path of the catalyst-adsorbate system.
+    feature_surf : list
+        A list of features of the catalyst surface for constructing the descriptor.
+        The features include:
+        
+        - surface valence electron
+        - surface atomic radius
+        - surf+subsurf mean valence electron
+        - surf+subsurf mean atomic radius
+    feature_ads : list
+        A list of features of the adsorbate for constructing the descriptor.
+        The features include:
+
+        - mean enegativity
+        - mean valence_electron
+    feature_site : list
+        A list of features of the binding site for constructing the descriptor.
+        The features include:
+
+        - mean valence electron
+        - mean atomic radius
+        - binding type
+        
+    Returns
+    -------
+    descriptor : numpy.ndarray
+        A descriptor array for the catalyst-adsorbate system, including the following features:
+
+        - descriptor_surf: the descriptor of the catalyst surface, including the features specified in `feature_surf`.
+        - descriptor_ads: the descriptor of the adsorbate, including the features specified in `feature_ads`.
+        - descriptor_site: the descriptor of the binding site, including the features specified in `feature_site`.
+        - descriptor_distance: the distance of adsorbed species.
+
+    Notes
+    -----
+    This function first extracts the atom types and coordinates from the POSCAR file of the catalyst-adsorbate system, 
+    and then distinguishes the adsorbate, surface atoms, and subsurface atoms. The features of the surface and 
+    subsurface atoms are calculated based on the `feature_surf` input list, while the features of the adsorbate and
+    binding site are calculated based on the `feature_ads` and `feature_site` input lists, respectively. If multiple 
+    adsorbates are found in the system, the descriptors are constructed for each adsorbate and then combined into a 
+    single descriptor. If no adsorbate is found, an error message will be printed.
+
+    """
     descriptor = []
     descriptor_surf = []
     typ = {None: 0, 'top': 1, 'bri': 2, 'fcc': 3, 'hcp': 3, '4-fold': 4}
@@ -136,8 +185,8 @@ def Construct_descriptor_coad(poscar, feature_surf, feature_ads, feature_site):
         print(f'Surface info of {poscar} can not be obtained ')
 
 
-from Extract_info import *
-from Base_tools import *
+from HTMACat.Extract_info import *
+from HTMACat.Base_tools import *
 import os
 import numpy as np
 import operator

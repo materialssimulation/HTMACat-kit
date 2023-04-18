@@ -1,6 +1,16 @@
-name: Python package
+name: publish HtmaCat-kit to release
 
 on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'The branch to run the workflow on'
+        required: false
+        default: 'master'
+        type: choice
+        options:
+          - 'master'
+          - 'dev'
   push:
     branches:
       - master
@@ -16,12 +26,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref }}
       - name: Publish Python Package
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
-          publish-package: true
 
       - name: Build wheel and source distribution
         run: |
@@ -44,6 +55,19 @@ jobs:
           file: src/dist/*.whl
           tag: v${{env.app_version}}
           release_name: v${{env.app_version}}
-          overwrite: true
+          overwrite: false
           file_glob: true
           body: ${{github.event.head_commit.message}}
+
+      - name: Replace the install link and Update Readme
+        run: |
+          link=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
+            jq -r '.assets[].browser_download_url' | head -n1)
+          sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"$link"'~g' README.md
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'README.md'
+          message: 'Updated wheel link in README'
+          push: true

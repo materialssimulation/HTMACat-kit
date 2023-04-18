@@ -6,6 +6,24 @@ import numpy as np
 
 ### To get the file names of elememtary reaction steps
 def get_file_name(reaction):
+    """
+    This function constructs the file name for a given reaction.
+
+    Parameters
+    ----------
+    reaction : str
+        The string representing the reaction, in the format "reactants = products".
+
+    Returns
+    -------
+    str
+        The file name constructed based on the reaction, in the format "reactant1+reactant2+...=product1+product2+...".
+
+    Examples
+    --------
+    >>> get_file_name("2H2 + O2 = 2H2O")
+    >>> '2H2+O2=2H2O'
+"""
     specie_f = reaction.split('=')[0].strip()
     specie_b = reaction.split('=')[1].strip()
     ### Construct the reaction name
@@ -15,7 +33,7 @@ def get_file_name(reaction):
         specie_f_list += [specie_f.split('+')[i].strip()]
     specie_f_mol = []
     specie_f_typ = []
-    for j, specie in enumerate(specie_f_list):
+    for j, specie in enumeratemak(specie_f_list):
         specie_f_mol += [specie.split('(', 1)[0].strip()]
         specie_f_typ += [specie.split('(', 1)[1].split(')')[0].strip()]
     ##2.Extract the product molecule and type (a g s)
@@ -34,6 +52,27 @@ def get_file_name(reaction):
 
 ### To get info of catalytic surface
 def get_surface_info(poscar, feature_surf, base_info):
+    """
+    Extract surface information from a given POSCAR file.
+
+    Parameters
+    ----------
+    poscar : str
+        The path to the POSCAR file.
+    feature_surf : list
+        A list of features to be extracted from the surface. Each feature is a string, and can be one of the following:
+            'Valence_electron': the valence electron number of the atom.
+            'Atomic_radius': the atomic radius of the atom.
+    base_info : str
+        The path to the file containing the base information about the atoms.
+
+    Returns
+    ---------
+    descriptor_surf : list
+        A list of the surface descriptors. The order of the descriptors is the same as the order of the features provided.
+        If the structure does not have a standard or integrated surface configuration, an empty list is returned.
+
+    """
     ### Extract the surface info
     descriptor_surf = []
     #base_info='/data3/home/jqyang/high-throughput/script/construction/base-function/codes/Info/Element_Info'
@@ -53,6 +92,23 @@ def get_surface_info(poscar, feature_surf, base_info):
 
 ### Extract the site info
 def get_site_info(poscar):
+    """
+    This function extracts site information from a given POSCAR file.
+
+    Parameters
+    ----------
+        poscar (str): The name of the POSCAR file.
+
+    Returns
+    -------
+        descriptor_site (list): A list of the site descriptors.
+
+    Notes
+    -----
+    The function extracts the binding adatoms, adspecie, binding type symbols, and binding surface atoms from the POSCAR file.
+    The function then assigns numerical values to the binding types based on the following dictionary: {None: 0, 'top': 1, 'bri': 2, 'fcc': 3, 'hcp': 3, '4-fold': 4}.
+    The function then adds up the numerical values for each binding type symbol and returns a list of the resulting descriptor.
+    """
     descriptor_site = []
     bind_adatoms, bind_adatoms_symb, adspecie, bind_type_symb, bind_surfatoms, bind_surfatoms_symb = get_binding_adatom(
         poscar)
@@ -68,6 +124,23 @@ def get_site_info(poscar):
 
 ### Extract the adsorbate info
 def get_adsorbate_info(poscar, feature_ads, base_info):
+    """
+    Extract the adsorbate information from the POSCAR file.
+
+    Parameters
+    ----------
+    poscar : str
+        The path of the POSCAR file.
+    feature_ads : list
+        A list of descriptors to calculate for the adsorbate.
+    base_info : str
+        The path of the file containing information about the elements.
+
+    Returns
+    -------
+        descriptor_ads : list
+            A list of the calculated descriptors for the adsorbate.
+    """
     ### Extract adsorbate info
     bind_adatoms, bind_adatoms_symb, adspecie, bind_type_symb, bind_surfatoms, bind_surfatoms_symb = get_binding_adatom(
         poscar)
@@ -87,6 +160,28 @@ def get_adsorbate_info(poscar, feature_ads, base_info):
 
 
 def get_reaction_info(react='react.log', File_adsE='adsE_coad_radical'):
+    """
+    Extract the information of a chemical reaction, including reaction type, reactant info, product info, barrier and 
+    enthalpy. Extract the reactant and product adsorption energy from a file named adsE_coad_radical in the current 
+    directory.
+
+    Parameters
+    ----------
+    react : str, optional
+        The name of the reaction file, by default 'react.log'.
+    File_adsE : str, optional
+        The name of the adsorption energy file, by default 'adsE_coad_radical'.
+
+    Returns
+    -------
+    tuple of np.ndarray or None
+        A tuple of descriptor reaction array and reaction barrier. If the NEB of the given file is not calculated, return 
+        None for both values.
+        
+    Example
+    -------
+    >>> descriptor_reaction, barrier = get_reaction_info('react.log', 'adsE_coad_radical')
+    """
     ### Extract reaction info
     ##1.Extract reaction type,reactant info,product info,barrier & enthalpy
     react_info = open(react, 'r+')
@@ -151,7 +246,7 @@ if __name__ == '__main__':
         descriptor_site2 = get_site_info('POSend')
         ### Extract adsorbate info
         #descriptor_ads=get_adsorbate_info('POSstart',feature_ads,base_info)
-       '''
+        '''
        bind_adatoms,bind_adatoms_symb,adspecie,bind_type_symb,bind_surfatoms,bind_surfatoms_symb = get_binding_adatom('POSstart')
        descriptor_ads,descriptor_ads_tmp=[],[]
        for i,specie in enumerate(adspecie):
@@ -165,7 +260,7 @@ if __name__ == '__main__':
           descriptor_ads=np.hstack((descriptor_ads_tmp[0],descriptor_ads_tmp[1]))
        else:
           descriptor_ads=np.hstack((descriptor_ads_tmp[0],[0,0]))
-       '''
+        '''
 
         if barrier:
             ### Recombination of descriptor info

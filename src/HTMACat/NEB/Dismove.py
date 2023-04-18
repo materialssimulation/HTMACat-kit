@@ -16,6 +16,27 @@ import math
 
 
 def Dismove(dcut):
+    """
+    calculate the atom moving distance between initial and final structure for NEB calculation.
+
+    Parameters
+    ----------
+    dcut:float
+        when atom moving distance > dcut, the atom id should be exported into Nmoveatom used to NEB calculation.
+
+    Returns
+    -------
+    None
+
+    Notes
+    -----
+    This function needs to read two files named POSstart and POSend, and write the processing results to three files: 
+    POStmp, POStmp2, and POSfinal.At the same time, this function will also create a file called Nmovetatom to record 
+    the sequence numbers of atoms whose movement distance is greater than the threshold. It is necessary to ensure that 
+    there is no folder named remove in the current working directory before calling this function, otherwise the folder 
+    will be deleted.
+
+    """
     #dcut = float(sys.argv[1])
     POSstart = open('POSstart', 'r')
     POSend = open('POSend', 'r')

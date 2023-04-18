@@ -89,6 +89,30 @@ def Construct_descriptor(poscar,
 
 
 def Construct_descriptor_info_E(ele, facet, specie, facet_dop=True):
+    """
+    Construct descriptor information based on element, crystal plane and doping species class.
+
+    Parameters
+    ----------
+    ele : str
+        The chemical symbol of an element.
+    facet : str
+        crystal face
+    specie : str
+        The chemical symbol of the dopant.
+    facet_dop : bool, optional
+        Whether the doping type is included (default True).
+
+    Returns
+    -------
+    str
+        The energy value in the descriptor information.
+
+    Notes
+    -----
+   If 'facet_dop' is True, the doping type will be included when building descriptor information.
+
+    """
     with open('/data3/home/jqyang/general-script/energy_single', 'r+') as Efile:
         f1 = Efile.readline().split()
         EN, EO, label = [], [], []
@@ -119,13 +143,31 @@ def Construct_descriptor_info_E(ele, facet, specie, facet_dop=True):
                     continue
 
 
-from Extract_info import *
+from HTMACat.Extract_info import *
 import os
 import numpy as np
 import operator
 
 
 def Construct_des_module(adspecies, facet, dop_typ_all):
+    """
+    Constructs the descriptor module for a given set of adsorbates on a surface with a particular facet and doping type.
+
+    Parameters
+    ----------
+    adspecies : list of str
+        A list of adsorbate species to consider.
+    facet : str
+        The surface facet to consider.
+    dop_typ_all : list of str
+        A list of doping types to consider.
+
+    Returns
+    -------
+    None
+        The function writes the descriptor and energy information to an output file.
+
+    """
     feature_surf = ['Valence_electron', 'Atomic_radius']
     #feature_ads=['Enegativity','Valence_electron']
     feature_ads = ['Valence_electron', 'Atomic_radius']
@@ -191,6 +233,30 @@ def Construct_des_module(adspecies, facet, dop_typ_all):
 
 
 def Construct_des_module_2(adspecies, facet, dop_typ_all):
+    """
+    Construct descriptor module for a given adsorbate species, facet, and dopant type(s).
+
+    Parameters
+    ----------
+    adspecies : str
+        The adsorbate species to construct the descriptor for.
+    facet : str
+        The facet to construct the descriptor for.
+    dop_typ_all : list
+        A list of dopant types to consider.
+
+    Returns
+    ----------
+    None
+    This function does not return anything. It writes the constructed descriptors to a file.
+
+    Notes
+    -----
+    This function reads energy information from a file named 'all' and uses the function Construct_descriptor_info_E to
+    obtain information on the energy of a given adsorbate on a given facet and dopant type. The function Construct_descriptor
+    is then used to construct a descriptor for a given system, and the descriptor is written to a file named
+    'descriptor-{facet}-{adspecies[0]}'.
+    """
     feature_surf = ['Valence_electron', 'Atomic_radius']
     feature_ads = ['Valence_electron', 'Atomic_radius']
     feature_site = ['Valence_electron', 'Atomic_radius']

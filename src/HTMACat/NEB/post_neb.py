@@ -4,6 +4,29 @@ import os
 
 
 def calE_neb(nimage=6):
+    """
+    Read the data in the 'react.log' file and calculate the energy barrier information, then return the list of reactants,
+     energy barriers, and energy
+
+    Parameters
+    ----------
+    nimage:int
+        how many segments the entire reaction path is divided into,The default value is 6
+
+    Returns
+    -------
+    tuple[str,list,list]
+        reaction: str
+            It represents the name of the chemical reaction, which can be found in the "react.log" file.
+        neb B: list
+            It representing the coordinate axis data in the energy potential curve.
+            The list contains the coordinate axis value of each discrete point, where the odd subscript value in the list
+            represents the x coordinate on the coordinate axis, and the even subscript value represents the y coordinate on
+            the coordinate axis.
+        neb E: list
+            It representing the energy data in the energy potential graph.
+            The list contains the energy value of each discrete point
+    """
     ## read data and calculate barrier
     Ener_neb = open("react.log", "r+")
     neb_E = []
@@ -35,6 +58,26 @@ def calE_neb(nimage=6):
 
 
 def plt_neb(react, neb, show=True, name='neb'):
+    """
+    It is mainly used to draw the reaction potential energy surface. Its parameters include
+
+    Parameters
+    ----------
+    react: str
+        The reaction equation.
+    neb: list
+        Potential energy data of the reaction path,
+        a list of neb_B returned by the calE_neb() function.
+    show: bool
+        Whether to display the image immediately after the drawing is completed, default to True.
+    name:
+        The name of the image file, which defaults to neb.
+
+    Returns
+    -------
+    tuple[float,float]
+        The return value includes the potential barrier and reaction heat values in the reaction path.
+    """
     X = neb[::2]
     Y = neb[1::2]
     barrier = max(Y)

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.descriptor.Construct_descriptor_coad &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Get_start.html"><strong>Get_start</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../HTMACat.html">HTMACat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HTMACat.descriptor.Construct_descriptor_coad</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HTMACat.descriptor.Construct_descriptor_coad</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">HTMACat.Extract_info</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">ase.build</span> <span class="kn">import</span> <span class="n">molecule</span>
+<span class="kn">from</span> <span class="nn">HTMACat.configuration</span> <span class="kn">import</span> <span class="n">base_info</span>
+
+
+<div class="viewcode-block" id="Construct_descriptor_coad"><a class="viewcode-back" href="../../../HTMACat.descriptor.html#HTMACat.descriptor.Construct_descriptor_coad.Construct_descriptor_coad">[docs]</a><span class="k">def</span> <span class="nf">Construct_descriptor_coad</span><span class="p">(</span><span class="n">poscar</span><span class="p">,</span> <span class="n">feature_surf</span><span class="p">,</span> <span class="n">feature_ads</span><span class="p">,</span> <span class="n">feature_site</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;   </span>
+<span class="sd">    Construct a descriptor for a catalyst-adsorbate system.</span>
+<span class="sd">        </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    poscar : str</span>
+<span class="sd">        The POSCAR file path of the catalyst-adsorbate system.</span>
+<span class="sd">    feature_surf : list</span>
+<span class="sd">        A list of features of the catalyst surface for constructing the descriptor.</span>
+<span class="sd">        The features include:</span>
+<span class="sd">        </span>
+<span class="sd">        - surface valence electron</span>
+<span class="sd">        - surface atomic radius</span>
+<span class="sd">        - surf+subsurf mean valence electron</span>
+<span class="sd">        - surf+subsurf mean atomic radius</span>
+<span class="sd">    feature_ads : list</span>
+<span class="sd">        A list of features of the adsorbate for constructing the descriptor.</span>
+<span class="sd">        The features include:</span>
+
+<span class="sd">        - mean enegativity</span>
+<span class="sd">        - mean valence_electron</span>
+<span class="sd">    feature_site : list</span>
+<span class="sd">        A list of features of the binding site for constructing the descriptor.</span>
+<span class="sd">        The features include:</span>
+
+<span class="sd">        - mean valence electron</span>
+<span class="sd">        - mean atomic radius</span>
+<span class="sd">        - binding type</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    descriptor : numpy.ndarray</span>
+<span class="sd">        A descriptor array for the catalyst-adsorbate system, including the following features:</span>
+
+<span class="sd">        - descriptor_surf: the descriptor of the catalyst surface, including the features specified in `feature_surf`.</span>
+<span class="sd">        - descriptor_ads: the descriptor of the adsorbate, including the features specified in `feature_ads`.</span>
+<span class="sd">        - descriptor_site: the descriptor of the binding site, including the features specified in `feature_site`.</span>
+<span class="sd">        - descriptor_distance: the distance of adsorbed species.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function first extracts the atom types and coordinates from the POSCAR file of the catalyst-adsorbate system, </span>
+<span class="sd">    and then distinguishes the adsorbate, surface atoms, and subsurface atoms. The features of the surface and </span>
+<span class="sd">    subsurface atoms are calculated based on the `feature_surf` input list, while the features of the adsorbate and</span>
+<span class="sd">    binding site are calculated based on the `feature_ads` and `feature_site` input lists, respectively. If multiple </span>
+<span class="sd">    adsorbates are found in the system, the descriptors are constructed for each adsorbate and then combined into a </span>
+<span class="sd">    single descriptor. If no adsorbate is found, an error message will be printed.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">descriptor</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">descriptor_surf</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">typ</span> <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;bri&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;fcc&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;hcp&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;4-fold&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+    <span class="n">typ2</span> <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;bri&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;fcc&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;hcp&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;4-fold&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+    <span class="c1">## the features of catalyst surface : surfce valence electron,surface atomic radius, surf+subsurf mean valence electron,surf+subsurf mean atomic radius</span>
+    <span class="c1"># surfatoms,surfatoms_symb=distinguish_atom_binding(poscar, tol=0.03,layer=&#39;surf_atom&#39;)</span>
+    <span class="c1"># subsurfatoms,subsurfatoms_symb=distinguish_atom_binding(poscar, tol=0.03,layer=&#39;subsurf_atom&#39;)</span>
+    <span class="n">adatoms</span><span class="p">,</span> <span class="n">adatoms_symb</span><span class="p">,</span> <span class="n">surfatoms</span><span class="p">,</span> <span class="n">surfatoms_symb</span><span class="p">,</span> <span class="n">subsurfatoms</span><span class="p">,</span> <span class="n">subsurfatoms_symb</span> <span class="o">=</span> <span class="n">distinguish_atom_binding</span><span class="p">(</span>
+        <span class="n">poscar</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">feature_value_surf</span> <span class="o">=</span> <span class="n">Construct_descriptor_info</span><span class="p">(</span><span class="n">base_info</span><span class="p">,</span> <span class="n">surfatoms_symb</span><span class="p">,</span> <span class="n">feature_surf</span><span class="p">)</span>
+    <span class="n">feature_value_subsurf</span> <span class="o">=</span> <span class="n">Construct_descriptor_info</span><span class="p">(</span><span class="n">base_info</span><span class="p">,</span> <span class="n">subsurfatoms_symb</span><span class="p">,</span> <span class="n">feature_surf</span><span class="p">)</span>
+
+    <span class="c1">## Ignore structures without standard or integrated surface configuration</span>
+    <span class="k">if</span> <span class="n">feature_value_surf</span> <span class="o">!=</span> <span class="p">[]:</span>
+        <span class="n">feature_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">feature_value_surf</span><span class="p">,</span> <span class="n">feature_value_subsurf</span><span class="p">))</span>
+        <span class="c1">#print(feature_value)</span>
+        <span class="n">descriptor_surf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">feature_value</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1">## the feature of adspecies and binding sites</span>
+        <span class="n">bind_adatoms</span><span class="p">,</span> <span class="n">bind_adatoms_symb</span><span class="p">,</span> <span class="n">adspecie</span><span class="p">,</span> <span class="n">bind_type_symb</span><span class="p">,</span> <span class="n">bind_surfatoms</span><span class="p">,</span> <span class="n">bind_surfatoms_symb</span> <span class="o">=</span> <span class="n">get_binding_adatom</span><span class="p">(</span>
+            <span class="n">poscar</span><span class="p">)</span>
+        <span class="c1"># print(bind_adatoms,bind_adatoms_symb,adspecie,bind_type_symb,bind_surfatoms,bind_surfatoms_symb)</span>
+        <span class="c1"># print(adspecie,bind_type_symb,bind_surfatoms_symb)</span>
+        <span class="c1"># print(bind_type_symb[0])</span>
+        <span class="c1"># print(adspecie)</span>
+        <span class="k">if</span> <span class="n">adspecie</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The molecule can not adsorb on the </span><span class="si">{</span><span class="n">poscar</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">adspecie</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1">#print(f&quot;More then 1 adspecie are found in {poscar}!&quot;)</span>
+            <span class="n">sys_ad</span> <span class="o">=</span> <span class="n">poscar</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sys_ad</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">adspecie</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adsorbed configuration reconstruct on </span><span class="si">{</span><span class="n">poscar</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">## construct the descriptor of adsorbate: mean enegativity, mean valence_electron</span>
+                <span class="n">descriptor_ads</span><span class="p">,</span> <span class="n">descriptor_ads_tmp</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">specie</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">adspecie</span><span class="p">):</span>
+                    <span class="n">ads</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">specie</span><span class="p">)</span>
+                    <span class="n">ads_symb</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
+                    <span class="c1">#print(ads_symb)</span>
+                    <span class="n">feature_value_ads</span> <span class="o">=</span> <span class="n">Construct_descriptor_info</span><span class="p">(</span><span class="n">base_info</span><span class="p">,</span> <span class="n">ads_symb</span><span class="p">,</span> <span class="n">feature_ads</span><span class="p">)</span>
+                    <span class="c1">#print(feature_value_ads)</span>
+                    <span class="n">descriptor_ads_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">feature_value_ads</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)]</span>
+                <span class="n">descriptor_ads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">descriptor_ads_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">descriptor_ads_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+                <span class="c1">## construct the descriptor of site: mean valence electron, mean atomic radius, bind type</span>
+                <span class="n">descriptor_site</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">site_type</span><span class="p">,</span> <span class="n">descriptor_site_tmp</span><span class="p">,</span> <span class="n">descriptor_site_tmp2</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+                <span class="c1"># typ={None:0,&#39;top&#39;:1,&#39;bri&#39;:2,&#39;fcc&#39;:3,&#39;hcp&#39;:3,&#39;4-fold&#39;:4}</span>
+                <span class="c1"># typ2={None:0,&#39;top&#39;:0,&#39;bri&#39;:0,&#39;fcc&#39;:0,&#39;hcp&#39;:1,&#39;4-fold&#39;:0}</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">typ_site</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bind_type_symb</span><span class="p">):</span>
+                    <span class="n">descriptor_site_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">typ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">typ_site</span><span class="p">),</span> <span class="n">typ2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">typ_site</span><span class="p">)))]</span>
+                    <span class="n">feature_value_site</span> <span class="o">=</span> <span class="n">Construct_descriptor_info</span><span class="p">(</span><span class="n">base_info</span><span class="p">,</span>
+                                                                   <span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+                                                                   <span class="n">feature_site</span><span class="p">)</span>
+                    <span class="n">descriptor_site_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">feature_value_site</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)]</span>
+                    <span class="c1">#print(len(descriptor_site_tmp))</span>
+                    <span class="n">descriptor_site_tmp2</span> <span class="o">+=</span> <span class="p">[</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">descriptor_site_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">descriptor_site_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="p">]</span>
+                    <span class="c1">#print(descriptor_site)</span>
+                <span class="n">descriptor_site</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">descriptor_site_tmp2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">descriptor_site_tmp2</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="c1"># print(descriptor_site)</span>
+
+                <span class="c1">## construct the descriptor:distance of adsorbed species</span>
+                <span class="n">dis_symb</span><span class="p">,</span> <span class="n">descriptor_distance</span> <span class="o">=</span> <span class="n">dis_symb_matrix</span><span class="p">,</span> <span class="n">dis_matrix</span> <span class="o">=</span> <span class="n">get_distance_adatoms</span><span class="p">(</span>
+                    <span class="n">poscar</span><span class="p">)</span>
+                <span class="n">descriptor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">descriptor_surf</span><span class="p">,</span> <span class="n">descriptor_ads</span><span class="p">,</span> <span class="n">descriptor_site</span><span class="p">,</span> <span class="n">descriptor_distance</span><span class="p">))</span>
+                <span class="c1"># print(descriptor)</span>
+                <span class="k">return</span> <span class="n">descriptor</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">## construct the descriptor of adsorbate: mean enegativity, mean valence_electron</span>
+            <span class="n">sys_ad</span> <span class="o">=</span> <span class="n">poscar</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">adspecie_tmp</span> <span class="o">=</span> <span class="n">sys_ad</span>
+            <span class="c1">#print(adspecie_tmp)</span>
+            <span class="n">descriptor_ads</span><span class="p">,</span> <span class="n">descriptor_ads_tmp</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">specie</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">adspecie_tmp</span><span class="p">):</span>
+                <span class="n">ads</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">specie</span><span class="p">)</span>
+                <span class="n">ads_symb</span> <span class="o">=</span> <span class="n">ads</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
+                <span class="c1"># print(ads_symb)</span>
+                <span class="n">feature_value_ads</span> <span class="o">=</span> <span class="n">Construct_descriptor_info</span><span class="p">(</span><span class="n">base_info</span><span class="p">,</span> <span class="n">ads_symb</span><span class="p">,</span> <span class="n">feature_ads</span><span class="p">)</span>
+                <span class="c1"># print(feature_value_ads)</span>
+                <span class="n">descriptor_ads_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">feature_value_ads</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)]</span>
+            <span class="n">descriptor_ads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">descriptor_ads_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">descriptor_ads_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+            <span class="c1">## construct the descriptor of site: mean valence electron, mean atomic radius, bind type</span>
+            <span class="n">descriptor_site</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">site_type</span><span class="p">,</span> <span class="n">descriptor_site_tmp</span><span class="p">,</span> <span class="n">descriptor_site_tmp2</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">typ_site</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bind_type_symb</span><span class="p">):</span>
+                <span class="n">descriptor_site_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">typ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">typ_site</span><span class="p">),</span> <span class="n">typ2</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">typ_site</span><span class="p">)))]</span>
+                <span class="n">feature_value_site</span> <span class="o">=</span> <span class="n">Construct_descriptor_info</span><span class="p">(</span><span class="n">base_info</span><span class="p">,</span> <span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+                                                               <span class="n">feature_site</span><span class="p">)</span>
+                <span class="n">descriptor_site_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">feature_value_site</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)]</span>
+                <span class="c1"># print(len(descriptor_site_tmp))</span>
+                <span class="n">descriptor_site_tmp2</span> <span class="o">+=</span> <span class="p">[</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">descriptor_site_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">descriptor_site_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="p">]</span>
+            <span class="c1"># print(descriptor_site_tmp2)</span>
+            <span class="n">descriptor_site1</span> <span class="o">=</span> <span class="n">descriptor_site_tmp2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1"># print(descriptor_site1)</span>
+
+            <span class="c1">## add the descriptor info about the physical adsorbed site</span>
+            <span class="n">site2_type</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+            <span class="n">site2_surfatom_feature</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">feature_site</span><span class="p">))]</span>
+            <span class="c1"># print(np.hstack((site2_type,site2_surfatom_feature)))</span>
+
+            <span class="k">if</span> <span class="n">adspecie</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">adspecie_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">descriptor_site</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">descriptor_site1</span><span class="p">,</span> <span class="n">site2_type</span><span class="p">,</span> <span class="n">site2_surfatom_feature</span><span class="p">))</span>
+                <span class="c1">## construct the descriptor:distance of adsorbed species</span>
+                <span class="n">descriptor_distance</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">descriptor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">descriptor_surf</span><span class="p">,</span> <span class="n">descriptor_ads</span><span class="p">,</span> <span class="n">descriptor_site</span><span class="p">,</span> <span class="n">descriptor_distance</span><span class="p">))</span>
+                <span class="c1"># print(descriptor)</span>
+                <span class="c1"># return descriptor</span>
+            <span class="k">elif</span> <span class="n">adspecie</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">adspecie_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">descriptor_site</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">site2_type</span><span class="p">,</span> <span class="n">site2_surfatom_feature</span><span class="p">,</span> <span class="n">descriptor_site1</span><span class="p">))</span>
+                <span class="c1">## construct the descriptor:distance of adsorbed species</span>
+                <span class="n">descriptor_distance</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">descriptor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">descriptor_surf</span><span class="p">,</span> <span class="n">descriptor_ads</span><span class="p">,</span> <span class="n">descriptor_site</span><span class="p">,</span> <span class="n">descriptor_distance</span><span class="p">))</span>
+                <span class="c1"># print(descriptor)</span>
+                <span class="c1"># return descriptor</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Adsorbed configuration changes on </span><span class="si">{</span><span class="n">poscar</span><span class="si">}</span><span class="s1">!&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Surface info of </span><span class="si">{</span><span class="n">poscar</span><span class="si">}</span><span class="s1"> can not be obtained &#39;</span><span class="p">)</span></div>
+
+
+<span class="kn">from</span> <span class="nn">HTMACat.Extract_info</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">HTMACat.Base_tools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">feature_surf</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Valence_electron&#39;</span><span class="p">,</span> <span class="s1">&#39;Atomic_radius&#39;</span><span class="p">]</span>
+    <span class="c1"># feature_surf=[&#39;Atomic_radius&#39;]</span>
+    <span class="n">feature_ads</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Enegativity&#39;</span><span class="p">,</span> <span class="s1">&#39;Valence_electron&#39;</span><span class="p">]</span>
+    <span class="n">feature_site</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Valence_electron&#39;</span><span class="p">,</span> <span class="s1">&#39;Atomic_radius&#39;</span><span class="p">]</span>
+    <span class="c1"># feature_site=[&#39;Atomic_radius&#39;]</span>
+    <span class="n">adspecies</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;NH3_OH&#39;</span><span class="p">,</span> <span class="s1">&#39;NH3_O&#39;</span><span class="p">,</span> <span class="s1">&#39;NH2_O&#39;</span><span class="p">,</span> <span class="s1">&#39;NH2_OH&#39;</span><span class="p">,</span> <span class="s1">&#39;NH2_H2O&#39;</span><span class="p">,</span> <span class="s1">&#39;NH_O&#39;</span><span class="p">,</span> <span class="s1">&#39;NH_OH&#39;</span><span class="p">,</span> <span class="s1">&#39;NH_H2O&#39;</span><span class="p">,</span> <span class="s1">&#39;N_O&#39;</span><span class="p">,</span> <span class="s1">&#39;N_OH&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;N_H2O&#39;</span><span class="p">,</span> <span class="s1">&#39;N_N&#39;</span><span class="p">,</span> <span class="s1">&#39;N_NO&#39;</span><span class="p">,</span> <span class="s1">&#39;O_O&#39;</span>
+    <span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----------------------------------------&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Construct descriptor starts:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1st step: Get the whole &#39;Descriptor+Ead&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">file_des</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;descriptor-coad&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+    <span class="n">file_all</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;descriptor-coad-all&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+    <span class="n">file_log</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;descriptor-coad-log&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+
+    <span class="n">EnerInfo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;adsE_coad&#39;</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span>
+    <span class="n">des</span><span class="p">,</span> <span class="n">des_all</span><span class="p">,</span> <span class="n">des_tmp</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">Ener</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">EnerInfo</span><span class="p">):</span>
+        <span class="n">sys</span> <span class="o">=</span> <span class="n">Ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">ene</span> <span class="o">=</span> <span class="n">Ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">poscar</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;./</span><span class="si">{</span><span class="n">sys</span><span class="si">}</span><span class="s1">/optmk/CONTCAR&#39;</span>
+        <span class="c1"># poscar= f&#39;./{sys}/CONTCAR&#39;</span>
+
+        <span class="k">if</span> <span class="n">adspecies</span> <span class="o">!=</span> <span class="p">[]:</span>
+            <span class="n">sys_all</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="n">specie</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">sys_all</span><span class="p">])</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">adspecies</span><span class="p">))</span>
+            <span class="c1"># print(set([sys_all]),set(adspecies),specie)</span>
+            <span class="k">if</span> <span class="n">specie</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+                <span class="n">descriptor</span> <span class="o">=</span> <span class="n">Construct_descriptor_coad</span><span class="p">(</span><span class="n">poscar</span><span class="p">,</span> <span class="n">feature_surf</span><span class="p">,</span> <span class="n">feature_ads</span><span class="p">,</span>
+                                                       <span class="n">feature_site</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">descriptor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="n">sys</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;None&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">ene</span><span class="p">]))</span>
+                    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                            <span class="n">file_all</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">file_all</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="n">sys</span><span class="p">],</span> <span class="n">descriptor</span><span class="p">,</span> <span class="p">[</span><span class="n">ene</span><span class="p">]))</span>
+                    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                            <span class="n">file_all</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">file_all</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                <span class="c1"># file_all.writelines(&#39;%s\n&#39; %tmp)</span>
+                    <span class="n">des_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="n">sys</span><span class="p">],</span> <span class="n">descriptor</span><span class="p">,</span> <span class="p">[</span><span class="n">ene</span><span class="p">]))]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+            <span class="n">descriptor</span> <span class="o">=</span> <span class="n">Construct_descriptor_coad</span><span class="p">(</span><span class="n">poscar</span><span class="p">,</span> <span class="n">feature_surf</span><span class="p">,</span> <span class="n">feature_ads</span><span class="p">,</span> <span class="n">feature_site</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">descriptor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="n">sys</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;None&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">ene</span><span class="p">]))</span>
+                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">file_all</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">file_all</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="n">sys</span><span class="p">],</span> <span class="n">descriptor</span><span class="p">,</span> <span class="p">[</span><span class="n">ene</span><span class="p">]))</span>
+                <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                        <span class="n">file_all</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">file_all</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                <span class="c1">#file_all.writelines(&#39;%s\n&#39; %tmp)</span>
+                <span class="n">des_tmp</span> <span class="o">+=</span> <span class="p">[</span><span class="n">tmp</span><span class="p">]</span>
+    <span class="c1">#print(des_tmp[0])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2nd: Extrate the repeated values&quot;</span><span class="p">)</span>
+    <span class="c1">###Substrate the repeated items according to the feature list</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">des_tmp</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c1"># Extrate the feature value</span>
+    <span class="n">des_feature</span> <span class="o">=</span> <span class="p">[</span><span class="n">des_tmp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">)]</span>
+    <span class="c1"># The feaure list after substrate the repeat</span>
+    <span class="n">des_feature_tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="nb">tuple</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">des_feature</span><span class="p">])))</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">des_feature_tmp</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c1"># The threshold value Ecut of Ead: if Ead &gt; Ecut, ignore it</span>
+    <span class="n">Ecut</span> <span class="o">=</span> <span class="mf">0.25</span>
+    <span class="c1"># Output the feature and energy</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="n">k</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Subtrate Repeat Values Starts:&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">des_feature_tmp</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">d2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">des_tmp</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">d1</span> <span class="o">==</span> <span class="n">d2</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">tmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="n">tmp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">d1</span><span class="p">,</span> <span class="p">[</span><span class="n">d2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]))</span>
+                    <span class="c1">## output</span>
+                    <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">float</span><span class="p">(</span><span class="n">Ecut</span><span class="p">):</span>
+                        <span class="c1"># output des+ene</span>
+                        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                                <span class="n">file_des</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">file_des</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                        <span class="c1"># output des+type: des+&#39;Au&#39;</span>
+                        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">tmp2</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="n">tmp2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                                <span class="n">file_log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">file_log</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">d</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ignore the value </span><span class="si">{</span><span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> &gt;= </span><span class="si">{</span><span class="n">Ecut</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                    <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No Repeated Value&#39;</span><span class="p">)</span>
+    <span class="n">file_all</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">file_des</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">file_log</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Subtrate Repeat Values End !&quot;</span><span class="p">)</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">   print(&#39;---------Raw data---------&#39;)</span>
+<span class="sd">   os.system(&#39;cat descriptor-all&#39;)</span>
+<span class="sd">   print(&#39;---------Final data---------&#39;)</span>
+<span class="sd">   os.system(&#39;cat descriptor&#39;)</span>
+<span class="sd">   &#39;&#39;&#39;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

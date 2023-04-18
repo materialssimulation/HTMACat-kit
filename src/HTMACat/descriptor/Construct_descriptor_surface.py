@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
-from Extract_info import *
-from configuration import base_info
+from HTMACat.Extract_info import *
+from HTMACat.configuration import base_info
 
 
 def Construct_descriptor(poscar, feature_surf, feature_ads, feature_site, adspecies, facet='100'):
@@ -77,7 +77,7 @@ def Construct_descriptor(poscar, feature_surf, feature_ads, feature_site, adspec
             print(f'Surface info of {poscar} can not be obtained ')
 
 
-from Extract_info import *
+from HTMACat.Extract_info import *
 #from Construct_descriptor import *
 #from Base_tools import *
 import os
@@ -87,6 +87,24 @@ import operator
 
 #if __name__ == '__main__':
 def Construct_des_module(adspecies, facet, dop_typ_all):
+    """
+    Constructs the descriptor module for a given set of adsorbates on a surface with a particular facet and doping type.
+
+    Parameters
+    ----------
+    adspecies : list of str
+        A list of adsorbate species to consider.
+    facet : str
+        The surface facet to consider.
+    dop_typ_all : list of str
+        A list of doping types to consider.
+
+    Returns
+    -------
+    None
+        The function writes the descriptor and energy information to an output file.
+
+    """
     feature_surf = ['Valence_electron', 'Atomic_radius']
     #feature_ads=['Enegativity','Valence_electron']
     feature_ads = ['Valence_electron', 'Atomic_radius']

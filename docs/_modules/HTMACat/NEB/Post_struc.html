@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.NEB.Post_struc &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Get_start.html"><strong>Get_start</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../HTMACat.html">HTMACat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HTMACat.NEB.Post_struc</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HTMACat.NEB.Post_struc</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
+<span class="kn">from</span> <span class="nn">catkit.gen.utils</span> <span class="kn">import</span> <span class="n">to_gratoms</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="mig_atoms"><a class="viewcode-back" href="../../../HTMACat.NEB.html#HTMACat.NEB.Post_struc.mig_atoms">[docs]</a><span class="k">def</span> <span class="nf">mig_atoms</span><span class="p">(</span><span class="n">Ffile</span><span class="p">,</span> <span class="n">dis</span><span class="o">=</span><span class="p">[</span><span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Migrate atoms in VASP POSCAR files.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Ffile : str</span>
+<span class="sd">        A string that specifies the filename of the VASP POSCAR file.</span>
+<span class="sd">    dis : list of float, optional</span>
+<span class="sd">        A list of three floats that specifies the displacement of each atom</span>
+<span class="sd">        along the x-, y-, and z-axis, respectively. Default is [0.50, 0.50, 0.00].</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function reads in a VASP POSCAR file, applies a displacement to each</span>
+<span class="sd">    atom in the file, and writes out a new VASP POSCAR file with the migrated</span>
+<span class="sd">    atoms. The displacement is specified by the `dis` parameter.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; mig_atoms(&#39;POSCAR&#39;, dis=[0.20, 0.20, 0.20])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#print(Ffile)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">poscar</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">Ffile</span><span class="p">)):</span>
+        <span class="n">poscar_bk</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">poscar</span><span class="p">,</span> <span class="s1">&#39;_bk&#39;</span><span class="p">])</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;mv </span><span class="si">{</span><span class="n">poscar</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">poscar_bk</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">struc</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">poscar_bk</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;vasp&#39;</span><span class="p">)</span>
+        <span class="n">struc2</span> <span class="o">=</span> <span class="n">to_gratoms</span><span class="p">(</span><span class="n">struc</span><span class="p">)</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="n">struc2</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
+        <span class="n">dic_sym</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">symbols</span><span class="p">))</span>
+        <span class="n">Num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dic_sym</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="n">constraint</span> <span class="o">=</span> <span class="n">struc2</span><span class="o">.</span><span class="n">constraints</span>
+        <span class="k">if</span> <span class="n">constraint</span><span class="p">:</span>
+            <span class="n">Nline</span> <span class="o">=</span> <span class="mi">9</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Nline</span> <span class="o">=</span> <span class="mi">8</span>
+
+        <span class="n">pos</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">poscar_bk</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="c1">#posfile = &#39;&#39;.join([poscar,&#39;-new&#39;])</span>
+        <span class="n">pos_new</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">poscar</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pos</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">Nline</span><span class="p">:</span>
+                <span class="n">pos_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">Nline</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">Num</span><span class="p">)):</span>
+                <span class="n">pos</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">pos_new</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">coord</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">Xtmp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">Ytmp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">Ztmp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">coord</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">Xtmp</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">Xtmp</span> <span class="o">=</span> <span class="n">Xtmp</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">Ytmp</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">Ytmp</span> <span class="o">=</span> <span class="n">Ytmp</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">Ztmp</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">Ztmp</span> <span class="o">=</span> <span class="n">Ztmp</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">coord</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Xtmp</span><span class="p">)</span>
+                <span class="n">coord</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Ytmp</span><span class="p">)</span>
+                <span class="n">coord</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Ztmp</span><span class="p">)</span>
+                <span class="n">coordn</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">coord</span><span class="p">)</span>
+                <span class="n">pos_new</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">coordn</span><span class="p">))</span>
+        <span class="n">pos</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">pos_new</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+    <span class="c1">#os.system(&#39;mv POSstart POSstart_bk&#39;)</span>
+    <span class="c1">#os.system(&#39;mv POSstart-new POSstart&#39;)</span>
+    <span class="c1">#os.system(&#39;mv POSend POSend_bk&#39;)</span>
+    <span class="c1">#os.system(&#39;mv POSend-new POSend&#39;)</span>
+    <span class="c1">#return 0</span>
+
+
+<span class="c1">#mig_atoms([&#39;optmk/CONTCAR&#39;])</span>
+
+<span class="c1">#if __name__ == &#39;__main__&#39;:</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

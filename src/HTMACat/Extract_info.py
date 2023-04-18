@@ -1,15 +1,32 @@
 # -*- coding: UTF-8 -*-
 from ase.io import read
 from catkit.gen.utils import to_gratoms
-from collections import Counter
+ 
 import os
 #from catkit.build import molecule
 from ase.build import molecule
 from itertools import chain
+from collections import Counter
+
 
 
 ### 1.Substract the reaction species
 def Extract_reaction(Efile):
+    """
+    Extract the adsorbate and gas species from a given reaction file.
+
+    Parameters
+    ----------
+    Efile : str
+        Path of the reaction file.The reaction formula can be NH3(a)+O(a)=N(a)+NO(a)
+
+    Returns
+    -------
+    tuple
+        A tuple of two lists containing adsorbate and gas species, respectively.
+
+    """
+
     ReaInfo = open(f"{Efile}", "r+")
     ad_species = []
     gas_species = []
@@ -69,6 +86,26 @@ def Extract_reaction(Efile):
 
 ### 2.Substract energy of adsoprtion configuration
 def Extract_energy(Efile, struc):
+    """
+        Batch extraction of calculated energy for specific species structure
+
+        Parameters
+        ----------
+        Efile : str
+            Energy information file
+        struc : list of str
+            Specific species that want to extract energy
+
+        Returns
+        -------
+        tuple
+            A tuple containing two lists:
+
+            - Ener : list of float
+                The list of extracted energies.
+            - order : list of str
+                The sequential list of the extracted energies.
+    """
     EnerInfo = open(Efile, "r+")
     order = []
     Ener = []
@@ -91,6 +128,27 @@ def Extract_energy(Efile, struc):
 
 ### 3.Extract energy of radical & slab
 def Extract_energy_single(Efile, struc):
+    """
+    Extract energy of radical & slab.
+
+    Parameters
+    ----------
+    Efile : str
+        Energy information file.
+    struc : str
+        Structure that want to extract energy.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the energy and the structure:
+
+        - Ener : float
+            The extracted energy.
+        - struc : str
+            The extracted structure.
+
+    """
     EnerInfo = open(Efile, "r+")
     #Ener=[]
     for i, ads_ener in enumerate(EnerInfo):
@@ -112,12 +170,49 @@ def Extract_energy_single(Efile, struc):
 
 ### 4.Extract adsorption energy
 def Extract_adsE(slab_E, radical_E, tot_E):
+    """
+    Calculates the adsorption energy.
+
+    Parameters
+    ----------
+    slab_E : float
+        The crystal surface energy.
+    radical_E : float
+        The radical energy.
+    tot_E : float
+        The total energy.
+
+    Returns
+    -------
+    float
+        The calculated adsorption energy.
+    """
     ads_E = float(tot_E) - float(slab_E) - float(radical_E)
     return round(ads_E, 3)
 
 
 ### 5.Get the potcar file
 def get_potcar(poscar, path='/data/jqyang/src/mypps/potpaw_PBE/'):
+    """Get the POTCAR file for VASP calculation.
+
+      Parameters
+      ----------
+      poscar : str
+          The file path of POSCAR.
+      path : str, optional
+          The path of the pseudopotential files, by default '/data/jqyang/src/mypps/potpaw_PBE/'.
+
+      Returns
+      -------
+      None
+          The function writes the combined POTCAR file.
+
+      Raises
+      ------
+      ValueError
+          If the elements in the structure files are different.
+
+      """
     # extract the element species:
     list_elem = []
     for i, pos in enumerate(poscar):
@@ -151,6 +246,23 @@ from ase.neighborlist import natural_cutoffs
 
 #from ase.build import molecule
 def get_site(poscar, mole):
+    """Determine the type of adsorption site.
+
+       Parameters
+       ----------
+       poscar : str
+           The name of the POSCAR file.
+       mole : list
+           A list consisting of the chemical formula of the adsorbed molecule
+           and the atoms adsorbed on the point.
+
+       Returns
+       -------
+       tuple
+           A tuple of two lists: binding site types and the chemical symbols for
+           other atoms bound to the binding site.
+
+       """
     struc = read(poscar, format='vasp')
     ### molecule and atom info
     mol = molecule(mole[0])
@@ -225,21 +337,46 @@ import numpy as np
 
 
 def distinguish_atom_binding(poscar, tol_layer=0.01, tol=0.05, base_layer=4, atoms_layer=9):
-    '''
-    To distinguish the atoms at different layer
-    Parameters:
-    ----------------------
-    poscar: 
-       atoms objects
-    tol: 
-       tolerance whether atoms in the same layer 
-    layer: 
-       layer number; eg. surface atoms:'surf_atom',subsurface atom:'subsurf_atom',
-       adsorb layer:'adatom',others could be represented by the corresponding number
-    base_layer:
-       the layer of the substrate 
-    ----------------------
-    '''
+    """
+        Distinguishes different types of atoms in a surface structure and classifies them as adatoms, surface atoms,
+        and subsurface atoms based on their Z coordinates.
+
+        Parameters
+        ----------
+        poscar : str
+            The input structure in POSCAR format
+        tol_layer : float, optional
+            Tolerance for distinguishing the Z coordinate of atoms belonging to different layers. Default is 0.01.
+        tol : float, optional
+            Tolerance for distinguishing the Z coordinate of adatoms and surface atoms. Default is 0.05.
+        base_layer : int, optional
+            The layer number where the surface atoms are located. Default is 4.
+        atoms_layer : int, optional
+            The minimum number of surface atoms required for the structure to be analyzed. Default is 9.
+
+        Returns
+        -------
+        tuple
+            -adatoms : list
+                A list of the indices of adatoms in the structure.
+            -adatoms_symb : list
+                A list of the chemical symbols of adatoms in the structure.
+            -surfatoms : list
+                A list of the indices of surface atoms in the structure.
+            -surfatoms_symb : list
+                A list of the chemical symbols of surface atoms in the structure.
+            -subsurfatoms : list
+                A list of the indices of subsurface atoms in the structure.
+            -subsurfatoms_symb : list
+                A list of the chemical symbols of subsurface atoms in the structure
+
+        Raises
+        ------
+        ValueError
+            If tol is too large and not able to distinguish the layers, or if the structure cannot be analyzed.
+
+        """
+
     if isinstance(poscar, str):
         struct = read(poscar, format='vasp')
     else:
@@ -337,6 +474,26 @@ def distinguish_atom_binding(poscar, tol_layer=0.01, tol=0.05, base_layer=4, ato
 
 ### get the neighboring atoms fo specific adatoms
 def get_atom_neigh(poscar, atom):
+    """
+    Get the neighboring atoms of specific adsorbed atoms.
+
+    Parameters
+    ----------
+    poscar : str or pymatgen.Structure
+        The VASP file or pymatgen.Structure object containing the lattice structure information.
+    atom : str
+        The chemical symbol of the specific adsorbed atom.
+
+    Returns
+    -------
+    tuple[list,list]
+        A tuple of two lists:
+
+        - The indices of the nearest neighbor atoms of the specified atom in the lattice structure.
+        - The chemical element symbols of the nearest neighbor atoms.
+
+    """
+
     if isinstance(poscar, str):
         struct = read(poscar, format='vasp')
     else:
@@ -368,6 +525,39 @@ def get_atom_neigh(poscar, atom):
 
 ### 8. TO get atoms binding with surface among adatoms
 def get_binding_adatom(poscar):
+    """
+        Determine the adsorbed atoms and the surface atoms to which they bind.
+
+        Parameters
+        ----------
+        poscar : str
+            The VASP file path or pymatgen.Structure object.
+
+        Returns
+        -------
+        tuple[list,list,list,list,list,list]
+            A tuple containing the following elements:
+
+            - bind_adatoms :list
+                The list of indices of adsorbed atoms that are bound to surface atoms.
+            - bind_adatoms_symb :list
+                The list of chemical symbols of adsorbed atoms that are bound to surface atoms.
+            - adspecie :list
+                The list of chemical representations of adsorbates.
+            - bind_type_symb :list
+                The list of adsorption types.
+            - bind_surfatoms :list
+                The list of indices of surface atoms that are bound to adsorbed atoms.
+            - bind_surfatoms_symb :list
+                The list of chemical symbols of surface atoms that are bound to adsorbed atoms.
+
+        Notes
+        -----
+        This function extracts adsorbed and surface atoms from the structure, calculates the neighbor list,
+        and determines which adsorbed atoms are bound to which surface atoms. It then extracts the adsorbate species,
+        the adsorption type, and the surface atoms that are bound to each adsorbed atom.
+
+        """
     # extract surface atoms and adsorbed atoms
     #adatoms,adatoms_symb=distinguish_atom_binding(poscar,tol=0.05,layer='adatom')
     #surf_atoms,surf_atom_symb=distinguish_atom_binding(poscar,tol=0.05,layer='surf_atom')
@@ -482,6 +672,32 @@ from catkit.gen import defaults
 
 
 def get_distance_adatoms(poscar, tol=0.1):
+    """
+    Calculate the distance between adsorbed atoms in a VASP file.
+
+    Parameters
+    ----------
+    poscar : str
+        The VASP file or structure object.
+    tol : float, optional
+        A parameter that determines whether atoms are bonded. The default value is 0.1.
+
+    Returns
+    -------
+    tuple[list,list]
+        A tuple containing two lists:
+
+            - dis_symb_matrix : list of str
+                A list of strings indicating the atomic symbols of the adsorbed atoms and their corresponding distance.
+            - dis_matrix : list of float
+                A list of distances between adsorbed atoms.
+
+    Raises
+    ------
+    ValueError
+        If there is only one atom in the VASP file.
+
+    """
     if isinstance(poscar, str):
         struct = read(poscar, format='vasp')
     else:
@@ -552,6 +768,23 @@ from ase.geometry import get_distances
 
 
 def get_min_distance_group(struct, group1, group2):
+    """
+      Compute the minimum distance between two sets of atoms in a crystal structure.
+
+      Parameters
+      ----------
+      struct : ase.Atoms
+          The crystal structure.
+      group1 : list of int
+          Indices of the atoms in the first group.
+      group2 : list of int
+          Indices of the atoms in the second group.
+
+      Returns
+      -------
+      numpy.ndarray
+          A 2D array containing the distances between each pair of atoms in group1 and group2.
+      """
     p1_scaled = [struct.get_scaled_positions()[i] for i in group1]
     p2_scaled = [struct.get_scaled_positions()[i] for i in group2]
     dis_matrix = get_distances(p1_scaled, p2_scaled)
@@ -559,7 +792,24 @@ def get_min_distance_group(struct, group1, group2):
 
 
 ### 11. To peprocess the raw info for descritor construction
+
 def Construct_descriptor_info(raw_file, atoms, feature):
+    """Construct descriptor information from raw data file.
+
+    Parameters
+    ----------
+    raw_file : str
+        Path to the raw data file.
+    atoms : list
+        a list of atoms.
+    feature : list
+        a list of features.
+
+    Returns
+    -------
+    feature_value : list
+        a list of feature values for each atom.
+    """
     comp = open(raw_file, "r+")
     index_line, index_row, matrix_info = [], [], []
     for i, com in enumerate(comp):
@@ -592,6 +842,28 @@ from ase.data import atomic_numbers, atomic_names, atomic_masses, covalent_radii
 
 
 def Extract_atomic_info(atoms):
+    """
+    Extracts information related to the provided atoms.
+
+    Parameters
+    ----------
+    atoms : list of int
+        List of integers representing the atomic numbers of the atoms.
+
+    Returns
+    -------
+    tuple[list,list,list,list]
+        A tuple containing the following information:
+
+        - names_atoms : list of str
+            List of strings representing the names of the atoms.
+        - radii_atoms : list of float
+            List of floats representing the covalent radii of the atoms.
+        - mass_atoms : list of float
+            List of floats representing the atomic masses of the atoms.
+        - vdw_radii_atoms : list of float
+            List of floats representing the van der Waals radii of the atoms.
+    """
     numbers_atoms = [atomic_numbers[i] for i in atoms]
     names_atoms = [atomic_names[i] for i in numbers_atoms]
     radii_atoms = [covalent_radii[i] for i in numbers_atoms]
@@ -602,6 +874,24 @@ def Extract_atomic_info(atoms):
 
 ### 13. Extract the stable adsorption type for single molecule or radical adsorption based on adsorption energy
 def get_site_stable(Efile, Ecut=-0.1):
+    """
+    Extracts the stable adsorption type for single molecule or radical adsorption based on adsorption energy.
+
+    Parameters
+    ----------
+    Efile : str
+        Path to the file containing adsorption energies.
+    Ecut : float, optional
+        The maximum energy cut-off for stable adsorption (default is -0.1).
+
+    Returns
+    -------
+    tuple[dict,dict,list,dict]
+        - spec_ads: a dictionary with species as keys and a list of possible adsorption types as values.
+        - spec_ads_stable: a dictionary with species as keys and the stable adsorption type as values.
+        - dir_list_final: a list of directories containing the stable adsorption configurations.
+        - spec_ads_stable_surfa: a dictionary with species as keys and the symbol of the surface atom bound to the adsorbate in the stable adsorption configuration as values.
+    """
     EnerInfo = open(Efile, "r+")
     species_ads = []
     typ = {None: 0, 'top': 1, 'bri': 2, 'fcc': 3, 'hcp': 3, '4-fold': 4}
@@ -650,6 +940,23 @@ def get_site_stable(Efile, Ecut=-0.1):
 
 ###13-2. Extract the stable adsorption type for single molecule or radical adsorption based on the calculated energy
 def get_site_stable_energy(Efile, Ecut=0.0):
+    """
+    Extract the stable adsorption type for single molecule or radical adsorption based on the calculated energy.
+
+    Parameters
+    ----------
+    Efile : str
+        The path to the file containing the adsorption energy information.
+    Ecut : float, optional
+        The cutoff energy for considering stable adsorption types. Default is 0.0.
+
+    Returns
+    -------
+    tuple[dict,dict,list]
+        The first dictionary contains all the possible adsorption types for each species.
+        The second dictionary contains the stable adsorption type for each species.
+        The third list contains the corresponding directories for each species' stable adsorption type.
+    """
     EnerInfo = open(Efile, "r+")
     species_ads = []
     typ = {None: 0, 'top': 1, 'bri': 2, 'fcc': 3, 'hcp': 3, '4-fold': 4}
@@ -690,6 +997,24 @@ def get_site_stable_energy(Efile, Ecut=0.0):
 
 ### get the energy of  most stable configurationi for single radical
 def get_adsorption_energy_stable(Efile, specie, dop_typ):
+    """get the energy of  most stable configurationi for single radical
+
+    Parameters
+    ----------
+    Efile : str
+        The name of the file storing energy information.
+    specie : str
+        The name of the adsorbed species.
+    dop_typ : str
+        The type of doping.
+
+    Returns
+    -------
+    tuple[list,list]
+        A tuple containing the name of the most stable radical and its energy.
+
+    """
+
     EnerInfo = open(Efile, "r+")
     dir_spe, dir_ene = [], []
     for i, ads_ener in enumerate(EnerInfo):
@@ -712,6 +1037,26 @@ def get_adsorption_energy_stable(Efile, specie, dop_typ):
 
 ### get the file name of reaction dir
 def get_file_name(reaction):
+    """
+    Given a chemical reaction as a string in the form of 'reactants = products',
+    constructs the file name for the corresponding reaction file.
+
+    Parameters
+    ----------
+    reaction : str
+        A chemical reaction in the form of 'reactants = products'.
+
+    Returns
+    -------
+    str
+        The file name for the corresponding reaction file.
+
+    Examples
+    --------
+    >>> get_file_name('H2(g) + Cl2(g) = 2HCl(g)')
+    'H2+Cl2=2HCl'
+
+    """
     specie_f = reaction.split('=')[0].strip()
     specie_b = reaction.split('=')[1].strip()
     ### Construct the reaction name
@@ -740,6 +1085,25 @@ def get_file_name(reaction):
 
 ### calculate the energy of radicals
 def cal_Erad(FErad, Radical):
+    """
+     Calculates the energy of a given radical.
+
+     Parameters
+     ----------
+     FErad : str
+         The name of the file containing the radical energies.
+     Radical : str
+         The name of the radical to calculate the energy for.
+
+     Returns
+     -------
+     float
+         The energy of the given radical.
+
+     Notes
+     -----
+     The file containing the radical energies should be a comma-separated file,Just like this:Pt_100_CO2_0,-226.43504734
+     """
     Erad = 0
     with open(FErad, 'r+') as Eradicals:
         for i, Eradical in enumerate(Eradicals):
@@ -754,6 +1118,21 @@ def cal_Erad(FErad, Radical):
 
 ## calculate the energy of radical relative to atom energy: ExCyHzO=xEC+yEH+zEO
 def cal_Erad_atom(FErad, Radical):
+    """
+    Calculates the energy of each atom in a given radical.
+
+    Parameters
+    ----------
+    FErad : str
+        The name of the file containing the atom energies.
+    Radical : str
+        The name of the radical to calculate the atom energies for.
+
+    Returns
+    -------
+    float
+        The total energy of all atoms in the given radical.
+    """
     Erad = 0
     rad = molecule(Radical)
     for i in rad.get_chemical_symbols():
@@ -769,6 +1148,26 @@ def cal_Erad_atom(FErad, Radical):
 
 
 def cal_Eslab(FEslab, facet):
+    """
+    Calculate the energy of a given slab facet.
+
+    Parameters
+    ----------
+    FEslab : str
+        File path to the file containing the slab energies.
+    facet : list
+        a List containing the Miller indices of the facet.
+
+    Returns
+    -------
+    float
+        Energy of the given slab facet.
+
+    Examples
+    --------
+    >>> cal_Eslab('path/to/file.csv', [1, 0, 0])
+    -123.45
+    """
     E_slab = 0
     with open(FEslab, 'r+') as Eslabs:
         for i, Eslab in enumerate(Eslabs):
@@ -783,6 +1182,34 @@ def cal_Eslab(FEslab, facet):
 
 ## calculate the adE with  atom energy: E(xCyHzO)ad=ECHOsurf-Esurf-xEC-yEH-zEO
 def cal_Eads(Flist, FErad, FEslab, radicals, Erad_property='radical', Facet_property='all'):
+    """
+    Calculate the adsorption energy based on atom energy.
+
+    Parameters
+    ----------
+    Flist : str
+        The filename of the file that contains the list of adsorption energy configurations.
+    FErad : str
+        The filename of the file that contains the atom energies of the radicals.
+    FEslab : str
+        The filename of the file that contains the energies of the slabs.
+    radicals : list
+        The list of radicals to consider.
+    Erad_property : str, optional
+        The property of the radical energy calculation. Default is 'radical'.
+    Facet_property : str, optional
+        The property of the facet energy calculation. Default is 'all'.
+
+    Returns
+    -------
+    None
+
+    Outputs
+    -------
+    adsE_{Erad_property}_{Facet_property} : file
+    The file that contains the calculated adsorption energies.
+
+    """
     EnerInfo = open(Flist, 'r+')
     Foutput = open(f'adsE_{Erad_property}_{Facet_property}', 'w+')
     #num=0
@@ -854,6 +1281,32 @@ def cal_Eads(Flist, FErad, FEslab, radicals, Erad_property='radical', Facet_prop
 
 
 def cal_adE_coad(Flist, FErad, FEslab, Erad_property='radical'):
+    """
+    Calculate the adsorption energy of CO on a surface with multiple radicals
+
+    Parameters
+    ----------
+    Flist: str
+        File path of a text file that contains the adsorption energy information of the system in each line.
+        Each line should be in the following format: facet_radical1_radical2, adsorption_energy, where
+        facet_radical1_radical2 is the identifier of the system, and adsorption_energy is the corresponding
+        adsorption energy.
+    FErad: str
+        File path of a text file that contains the energy of each radical. Each line should be in the following
+        format: radical, energy, where radical is the identifier of the radical, and energy is the corresponding
+        energy.
+    FEslab: str
+        File path of a text file that contains the energy of each slab..
+    Erad_property: str, optional
+        The property used to calculate the radical energy. It can be either 'atom' or 'radical'. Default is 'radical'.
+
+    Returns
+    -------
+    None
+    The function writes the calculated adsorption energy for each system to a file named 'adsE_coad_<Erad_property>'.
+
+    """
+
     EnerInfo = open(Flist, 'r+')
     Foutput = open(f'adsE_coad_{Erad_property}', 'w+')
 
@@ -891,6 +1344,39 @@ def cal_adE_coad(Flist, FErad, FEslab, Erad_property='radical'):
 
 ### TO extract the struct info and energy of specific slab and
 def Extract_slab_info_1(Flist, facet):
+    """
+    Extracts structural information and energy of specific slab.
+
+    Parameters
+    ----------
+    Flist : str
+        File path to the list of slab energies.
+    facet : list
+        List of strings representing the surface facets to extract information for.
+
+    Returns
+    -------
+    tuple[list,list,list,list,list]
+        - E_slab : list
+            a List of energies for the given facets.
+        - surf : list
+            a List of lists of atomic symbols for the surface atoms of the given facets.
+        - E_stable : list
+            a List of the most stable energy value among the given facets.
+        - surf_stable : list
+            a List of atomic symbols for the surface atoms of the most stable facet.
+        - layer_info : list
+            a List containing the number of layers and the number of atoms in each layer of the most stable facet.
+
+    Notes
+    -----
+    This function extracts the energy and structural information of a specific slab given a list of energies and the
+    surface facets to extract information for. The energy and surface information are extracted for all slabs that match
+    the given facet. If there is only one matching slab, the energy and surface information are returned directly. If
+    there are multiple matching slabs, the function determines the most stable facet by finding the slab with the lowest
+    energy, and returns the energy and surface information for that slab.
+
+    """
     E_slab, surf = [], []
     with open(Flist, 'r+') as Eslabs:
         for i, Eslab in enumerate(Eslabs):
@@ -920,6 +1406,21 @@ def Extract_slab_info_1(Flist, facet):
 
 ###TO Extract the struct info and energy of slabs
 def Extract_slab_info_2(Flist, layer=4):
+    """TO Extract the struct info and energy of slabs
+
+    Parameters
+    ----------
+    Flist: str
+        Crystal surface energy information file
+    layer: int
+        Number of crystal layers, default value is 4
+
+    Returns
+    -------
+    None
+
+    """
+
     Fslab = open('energy_facet_f', 'w+')
     with open(Flist, 'r+') as Eslabs:
         for i, Eslab in enumerate(Eslabs):
@@ -942,6 +1443,23 @@ def Extract_slab_info_2(Flist, layer=4):
 
 ###To identify whether the symmetry is keeped###
 def get_symmetry_surfatoms(poscar, tol=0.3):
+    """
+    Determine whether surface atoms are reconstructed
+
+    Parameters
+    ----------
+    poscar : str or Structure
+        Vasp format structure file
+    tol : float, optional
+        Tolerance for determining whether surface atoms are reconstructed. The default is 0.3.
+
+    Returns
+    -------
+    str
+        A sign of whether surface atoms are reconstructed. "When surface atoms are reconstructed,
+        'NO' is returned, otherwise 'YES' is returned.".
+
+    """
     if isinstance(poscar, str):
         struct = read(poscar, format='vasp')
     else:
