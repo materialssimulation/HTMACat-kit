@@ -7,8 +7,11 @@ Created on Fri Mar 17 15:34:47 2023
 
 import math
 from ase.build import bulk
+from ase.io import read
+from ase.constraints import FixAtoms
 from catkit.gen.surface import SlabGenerator
 from catkit.gen.adsorption import AdsorptionSites
+from catkit.gratoms import Gratoms
 import numpy as np
 from HTMACat.model.Structure import Structure
 
@@ -98,13 +101,17 @@ class Bulk(object):
 
 
 class Slab(Structure):
-    def __init__(self, in_bulk=Bulk(), facet='100'):
+    def __init__(self, in_bulk=Bulk(), facet='100', filename=None):
         self.bulk = in_bulk
-        self.facet = facet
-        self.property = {}
-        if 'p1' not in self.property or 'p1_symb' not in self.property:
-            self.property['p1'] = []
-            self.property['p1_symb'] = []
+        if filename:
+            self.file = filename
+        else:
+            self.file = None
+            self.facet = facet
+            self.property = {}
+            if 'p1' not in self.property or 'p1_symb' not in self.property:
+                self.property['p1'] = []
+                self.property['p1_symb'] = []
 
     def get_miller_index(self):
         miller_index = tuple(list(map(int, list(self.facet))))
@@ -122,22 +129,28 @@ class Slab(Structure):
         return self.facet
 
     def out_file_name(self):
-        mname = self.bulk.get_main_element()
-        if self.bulk.get_natom_dop() == '0':
-            return '_'.join([mname, self.facet])
+        if self.file:
+            return self.file
         else:
-            ele_dop = self.bulk.get_dop_element()
-            natom_dop = self.bulk.get_natom_dop()
-            return '_'.join([mname, ele_dop, self.facet, natom_dop])
+            mname = self.bulk.get_main_element()
+            if self.bulk.get_natom_dop() == '0':
+                return '_'.join([mname, self.facet])
+            else:
+                ele_dop = self.bulk.get_dop_element()
+                natom_dop = self.bulk.get_natom_dop()
+                return '_'.join([mname, ele_dop, self.facet, natom_dop])
 
     def out_print(self):
-        mname = self.bulk.get_main_element()
-        if self.bulk.get_natom_dop() == '0':
-            return '%s (%s) substrate' % (mname, self.facet)
+        if self.file:
+            return '%s substrate' % (self.file)
         else:
-            ele_dop = self.bulk.get_dop_element()
-            natom_dop = self.bulk.get_natom_dop()
-            return '%s %s doped %s (%s) substrate' % (ele_dop, natom_dop, mname, self.facet)
+            mname = self.bulk.get_main_element()
+            if self.bulk.get_natom_dop() == '0':
+                return '%s (%s) substrate' % (mname, self.facet)
+            else:
+                ele_dop = self.bulk.get_dop_element()
+                natom_dop = self.bulk.get_natom_dop()
+                return '%s %s doped %s (%s) substrate' % (ele_dop, natom_dop, mname, self.facet)
 
     def get_dis_inter(self):
         latcon = self.bulk.lattice_constant
@@ -153,17 +166,55 @@ class Slab(Structure):
             raise ValueError('Do not support facet: %s for generate inter distance' % self.facet)
         return dis_inter
 
+    def find_topsurface_atoms(self, coords, tol_zdiff=0.7, tol_zangle_min=0): # (Last modified: 20230416, zjwang)
+        """
+        Generate the list of surface atoms (top surface).
+        Parameters
+        ----------
+        coords: array_like
+            Aoordinates of all atoms.
+        tol_zdiff: number
+            If the z_coord of an atom is higher than zmax-tol_zdiff, this atom is recognized as a "surface atom".
+        Returns
+        ----------
+        index_topsurf: list
+            List of the indices of the surface atoms.
+        """
+        index_topsurf = []
+        zmax = np.max(coords[:,2])
+        for i,icoord in enumerate(coords):
+            if icoord[2] > zmax - tol_zdiff:
+                index_topsurf.append(i)
+        return index_topsurf
+
     def construct(self):
-        natom = self.bulk.get_natom_dop()
-        if natom == '0' or natom[0] == 'b':
-            slabs = self.Construct_slab()
-        elif natom == '1L':
-            slabs = self.Construct_1stLayer_slab()
-        elif natom.isdigit():
-            slabs = self.Construct_doped_slab()
+        if self.file:
+            try:
+                file_slab = read(self.file, format='vasp')
+            except:
+                file_slab = read(self.file, format='cif')
+            slab = Gratoms(positions=file_slab.positions,
+                               numbers=file_slab.get_atomic_numbers(),
+                               magmoms=file_slab.get_initial_magnetic_moments(),
+                               cell=file_slab.cell,
+                               pbc=[True, True, False])
+            topsurf_atoms = self.find_topsurface_atoms(coords=slab.positions)
+            bottomsurf_atoms = self.find_topsurface_atoms(coords=(-1)*slab.positions)
+            slab.set_surface_atoms(top=topsurf_atoms, bottom=bottomsurf_atoms)
+            c_fix = FixAtoms(indices=[atom.index for atom in slab if (not atom.index in topsurf_atoms) and (not atom.index in bottomsurf_atoms)])
+            slab.set_constraint(c_fix)
+            return [slab]
         else:
-            raise ValueError('Do not support %s dop type to construct slab' % natom)
-        return slabs
+            natom = self.bulk.get_natom_dop()
+            if natom == '0' or natom[0] == 'b':
+                slabs = self.Construct_slab()
+            elif natom == '1L':
+                slabs = self.Construct_1stLayer_slab()
+            elif natom.isdigit():
+                slabs = self.Construct_doped_slab()
+            else:
+                raise ValueError('Do not support %s dop type to construct slab' % natom)
+            return slabs
 
     def Construct_slab(self):
         slab = []
@@ -241,8 +292,16 @@ class Slab(Structure):
         in_bulk = Bulk.from_dict(init_dict)
         facet = init_dict['facet']
         return cls(in_bulk, facet)
+    
+    @classmethod
+    def from_file(cls, filename):
+        return cls(filename=filename)
 
 
 def substrate_from_input(init_dict):
     substrate = Slab.from_dict(init_dict)
+    return substrate
+
+def substrate_from_file(filename):
+    substrate = Slab.from_file(filename)
     return substrate
