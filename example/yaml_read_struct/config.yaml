@@ -1,0 +1,7 @@
+StrucInfo:
+  structfile: POSCARslab
+
+Model:
+  SML: True
+  ads:
+    - ['C(=O)O',1]

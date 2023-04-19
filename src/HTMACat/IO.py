@@ -4,38 +4,45 @@ Created on Sun Mar 19 11:47:30 2023
 
 @author: YuxiaoLan
 """
-import yaml
-from HTMACat.model.Substrate import substrate_from_input
+from ruamel.yaml import YAML
+from HTMACat.model.Substrate import substrate_from_input, substrate_from_file
 from HTMACat.model.Ads import ads_from_input
 from ase.io.vasp import write_vasp
 from HTMACat.model.Structure import Structure
 
 def Input(filename):
+    yaml = YAML(typ='safe')
     with open(filename, 'r', encoding='utf-8') as f:
-        result = yaml.load(f.read(), Loader=yaml.FullLoader)
+        result = yaml.load(f.read())
 
     # A substrate is one facet with one dop element with on dop_type
     struct_Info = result['StrucInfo']
-    struct_init_dict = {'element': struct_Info['element'],
-                        'lattype': struct_Info['lattype'],
-                        'latcont': struct_Info['latcont']}
-    dope_init_dict = {'element_dop': [], 'dop_type': []}
-    surface_init_dict = {'facet': []}
-    dope_system = struct_Info['dope']
-    dope_init_list = []
-    surface_init_list = []
-    for key, value in dope_system.items():
-        for i in value:
-            dope_init_list.append({'element_dop': key, 'dop_type': i})
-
-    for i in struct_Info['facet']:
-        surface_init_list.append({'facet': i})
+    try:
+        struct_filename = struct_Info['structfile']
+    except:
+        struct_filename = None
+        struct_init_dict = {'element': struct_Info['element'],
+                            'lattype': struct_Info['lattype'],
+                            'latcont': struct_Info['latcont']}
+        dope_init_dict = {'element_dop': [], 'dop_type': []}
+        surface_init_dict = {'facet': []}
+        dope_system = struct_Info['dope']
+        dope_init_list = []
+        surface_init_list = []
+        for key, value in dope_system.items():
+            for i in value:
+                dope_init_list.append({'element_dop': key, 'dop_type': i})
+        for i in struct_Info['facet']:
+            surface_init_list.append({'facet': i})
     ## substrates initialization
     substrates = []
-    for i in range(len(dope_init_list)):
-        for j in range(len(surface_init_list)):
-            init_dict = {**struct_init_dict, **dope_init_list[i], **surface_init_list[j]}
-            substrates.append(substrate_from_input(init_dict))
+    if not struct_filename:
+        for i in range(len(dope_init_list)):
+            for j in range(len(surface_init_list)):
+                init_dict = {**struct_init_dict, **dope_init_list[i], **surface_init_list[j]}
+                substrates.append(substrate_from_input(init_dict))
+    else:
+        substrates.append(substrate_from_file(struct_filename))
 
     ## A adsorption is
     ads_model = result['Model']
