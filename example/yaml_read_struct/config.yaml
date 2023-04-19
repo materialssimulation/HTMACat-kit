@@ -2,6 +2,8 @@ StrucInfo:
   file: POSCARslab
 
 Model:
-  SML: True
+  SML: False
   ads:
-    - ['C(=O)O',1]
+    - ['CO',2]
+  coads:
+    - ['CO','O2',1,1]
