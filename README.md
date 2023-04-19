@@ -17,21 +17,25 @@ processes, etc.
 
 ```requirements.txt
 Python >= 3.6, <=3.9
+typer
+ruamel.yaml
+numpy < 1.24
 ASE >= 3.22.1
 CatKit == 0.5.4
-numpy >= 1.20.0, <= 1.23.5
 rdkit
-typer
 ```
-
-If you haven't installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and
-install it.
-
 ## 2.2  Installation
-
+install wheel file from releases
 ```shell
 pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1.0.3/HTMACat-1.0.3-py3-none-any.whl
 
+```
+or install from source code
+```shell
+# master branch
+pip install git+https://github.com/stanfordbshan/HTMACat-kit.git@master#subdirectory=src
+# or dev branch
+pip install git+https://github.com/stanfordbshan/HTMACat-kit.git@dev#subdirectory=src
 ```
 
 # 3. Getting started

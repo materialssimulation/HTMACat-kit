@@ -59,15 +59,15 @@ jobs:
           file_glob: true
           body: ${{github.event.head_commit.message}}
 
-      - name: Replace the install link and Update Readme
-        run: |
-          link=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
-            jq -r '.assets[].browser_download_url' | head -n1)
-          sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"$link"'~g' README.md
+      # - name: Replace the install link and Update Readme
+      #   run: |
+      #     link=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
+      #       jq -r '.assets[].browser_download_url' | head -n1)
+      #     sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"$link"'~g' README.md
 
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: 'README.md'
-          message: 'Updated wheel link in README'
-          push: true
+      # - name: Commit changes
+      #   uses: EndBug/add-and-commit@v9
+      #   with:
+      #     add: 'README.md'
+      #     message: 'Updated wheel link in README'
+      #     push: true
