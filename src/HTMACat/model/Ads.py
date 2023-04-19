@@ -146,7 +146,7 @@ class Adsorption(Structure):
             builder = Builder(slab)
             ads_use = self.species[0].get_molecule()
             for j, coord in enumerate(coordinates):
-                slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]  ### wzj
+                slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]
         return slab_ad
 
     def Construct_double_adsorption(self):
