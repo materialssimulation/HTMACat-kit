@@ -17,9 +17,15 @@ processes, etc.
 
 ```requirements.txt
 Python >= 3.6, <=3.9
-ASE >= 3.22.1
-CatKit == 0.5.4
+ase >= 3.19
 numpy >= 1.20.0, <= 1.23.5
+networkx>=2.1, <= 2.8.8
+spglib>=1.10
+scipy>=0.1
+matplotlib>=2.2
+future>=0.16
+sqlalchemy>=1.2
+ruamel.yaml
 rdkit
 typer
 ```
@@ -27,7 +33,7 @@ typer
 If you haven't installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and
 install it.
 
-## 2.  Installation
+## 2.2  Installation
 
 ```shell
 pip install ase numpy==1.23.5 scikit-learn
@@ -51,12 +57,14 @@ pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1
 The format of the whole `config.yaml` is as follows:
    ```yaml
    StrucInfo:
-    element: Au
-    lattype: fcc
-    latcont: 4.16
-    facet: ['111','100']
-    dope:
-      Cu: [3]
+     file: POSCARfile
+     struct:
+        element: Au
+        lattype: fcc
+        latcont: 4.16
+        facet: ['111','100'] #This is comment
+        dope:
+          Cu: [3]
    
    Model:
     SML: False
@@ -67,19 +75,21 @@ The format of the whole `config.yaml` is as follows:
       - ['NH3','O',1,1]
    ```
 
-`StuctInfo` parts contains the information about substrate, including:
-
-- `element`: bulk phase element
-- `lattype`: lattice type
-- `latcont`: lattice parameter
-- `facet`: crystal plane, hould be a *list*, start with `[`, separate with `,` and end with `]`, facet index
-  should
-  be a str start with `'` end with `'`, like `'100'`,`'111'`
-- `dope`: dope of the substrate, the formate is `dope element : [dope type1, dope type2]`
-  before `:` is the doped element, after the `:` is the dope type, the dope type can be chosen as follows：
-  `0` corresponds to no doping, `1`, `2` and `3`correspond to surface layers doped with `1`, `2` and `3` atoms,
-  respectively.
-  `1L` and `b1` represent surface layer substitution and bulk equivalent proportional substitution.
+`StuctInfo` parts contains the information about substrate, 
+the keywords should be chosen as following two types: `file` or `struct`
+- `file`: Path , this keywords will read substrate from POSCAR file 
+- `struct`: this keywords will generate substrate according to following parameter:
+  - `element`: bulk phase element
+  - `lattype`: lattice type
+  - `latcont`: lattice parameter
+  - `facet`: crystal plane, hould be a *list*, start with `[`, separate with `,` and end with `]`, facet index
+    should
+    be a str start with `'` end with `'`, like `'100'`,`'111'`
+  - `dope`: dope of the substrate, the formate is `dope element : [dope type1, dope type2]`
+    before `:` is the doped element, after the `:` is the dope type, the dope type can be chosen as follows：
+    `0` corresponds to no doping, `1`, `2` and `3`correspond to surface layers doped with `1`, `2` and `3` atoms,
+    respectively.
+    `1L` and `b1` represent surface layer substitution and bulk equivalent proportional substitution.
 
 `Model` parts contains the adsorption modeling parameters, including:
 

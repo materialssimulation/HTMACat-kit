@@ -18,9 +18,10 @@ def Input(filename):
     # A substrate is one facet with one dop element with on dop_type
     struct_Info = result['StrucInfo']
     try:
-        struct_filename = struct_Info['structfile']
+        struct_filename = struct_Info['file']
     except:
         struct_filename = None
+        struct_Info = result['StrucInfo']['struct']
         struct_init_dict = {'element': struct_Info['element'],
                             'lattype': struct_Info['lattype'],
                             'latcont': struct_Info['latcont']}

@@ -1,5 +1,5 @@
 StrucInfo:
-  structfile: POSCARslab
+  file: POSCARslab
 
 Model:
   SML: True
