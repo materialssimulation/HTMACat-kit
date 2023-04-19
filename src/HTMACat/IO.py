@@ -4,11 +4,14 @@ Created on Sun Mar 19 11:47:30 2023
 
 @author: YuxiaoLan
 """
+import shutil
+
 from ruamel.yaml import YAML
 from HTMACat.model.Substrate import substrate_from_input, substrate_from_file
 from HTMACat.model.Ads import ads_from_input
 from ase.io.vasp import write_vasp
 from HTMACat.model.Structure import Structure
+from pathlib import Path
 
 
 def Input(filename):
@@ -73,6 +76,53 @@ def adsorption_part(ads_model, substrates):
                 ads.append(ads_from_input(ads_init_dict))
 
     return ads
+
+
+def get_templator():
+    templator = \
+        """#Templator for HTMACat-kit input
+StrucInfo:
+# The followting two keywords should be chosen only one
+    file: POSCARfile #read substrate from POSCAR file 
+    struct:
+        element: Au #bulk phase element
+        lattype: fcc #lattice type
+        latcont: 4.16 #lattice parameter
+        facet: ['111','100'] #crystal plane
+        dope: #dopeing part
+          Cu: [3] #dopeing element and dope type
+          Ag: [1,2,3,'b1','1L']
+
+Model:
+    SML: False #whether the species is in Smile style
+    ads: #single adsorption for one species
+      - ['NH3',1] #species name and adsorption sites
+      - ['NO', 2]
+    coads: #co-adsorption for one species
+      - ['NH3','O',1,1] #species name and adsorption sites"""
+    return templator
+
+
+def print_templator():
+    templator = get_templator()
+    print(templator)
+
+
+def out_templator_file():
+    templator = get_templator()
+    workdir = Path('./config.yaml')
+    if workdir.is_file():
+        while True:
+            choose = input('Warning: Replace config.yaml file in your folder? [y/n(default)]:')
+            if choose == 'y':
+                break
+            elif choose == 'n' or choose == '':
+                return
+            else:
+                continue
+
+    with open('config.yaml', 'w') as f:
+        f.write(templator)
 
 
 def out_vasp(struct_class: Structure):

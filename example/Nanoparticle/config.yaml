@@ -1,6 +1,7 @@
 StrucInfo:
-  file: 'Pt43_particle'
+  file: Pt43_particle
 
 Model:
+  SML: False
   ads:
-    - ['H',1]
+    - ['H',2]

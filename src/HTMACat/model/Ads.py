@@ -26,7 +26,11 @@ class Species(object):
         return self.form
 
     def out_file_name(self):
-        return self.form
+        ads1 = self.get_formular()
+        if self.SML:
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+            ads1 = rdMolDescriptors.CalcMolFormula(mole)
+        return ads1
 
     def out_print(self):
         return self.form

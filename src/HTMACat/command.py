@@ -1,11 +1,13 @@
 import os
 from HTMACat.model.Construct_adsorption_yaml import *
+from HTMACat.IO import print_templator, out_templator_file
 from pathlib import *
 import shutil
 import typer
 
 htmat = typer.Typer()
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
+
 
 def main():
     htmat()
@@ -33,3 +35,12 @@ def ads(in_dir: str = typer.Option('./', '-i', '--inputdir',
         shutil.copy(wordir / StrucInfo, outdir)
         os.chdir(outdir)
     Construct_adsorption_yaml(StrucInfo)
+
+
+@htmat.command()
+def templator():
+    """
+    Print out input templator
+    """
+    print_templator()
+    out_templator_file()

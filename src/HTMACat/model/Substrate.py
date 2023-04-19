@@ -264,8 +264,9 @@ class File_Substrate(Structure):
         Generate the list of surface atoms (top surface).
         Parameters
         ----------
-        coords: array_like
-            Aoordinates of all atoms.
+        atomstype: str
+            'top' means find the top surface of slab
+            'bottom' means find the bottom surface of slab
         tol_zdiff: number
             If the z_coord of an atom is higher than zmax-tol_zdiff, this atom is recognized as a "surface atom".
         Returns
