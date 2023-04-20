@@ -21,7 +21,7 @@ setup(
     packages=['HTMACat', "HTMACat.descriptor", "HTMACat.model", "HTMACat.NEB"],
     entry_points={
         'console_scripts': [  # 命令的入口
-            'htmat=HTMACat.command:main',# added by yxlan 2022/04/17
+            'htmat=HTMACat.command:main',
         ]
         }
     )

@@ -12,6 +12,7 @@ from HTMACat.model.Ads import ads_from_input
 from ase.io.vasp import write_vasp
 from HTMACat.model.Structure import Structure
 from pathlib import Path
+from rich import print
 
 
 def Input(filename):
@@ -82,26 +83,26 @@ def adsorption_part(ads_model, substrates):
 
 def get_templator():
     templator = \
-        """#Templator for HTMACat-kit input
+        """#Templator[YAML-format] for HTMACat-kit input
 StrucInfo:
 # The followting two keywords should be chosen only one
-    file: POSCARfile #read substrate from POSCAR file 
+    file: POSCARfile #read substrate from POSCAR file
     struct:
         element: Au #bulk phase element
         lattype: fcc #lattice type
         latcont: 4.16 #lattice parameter
         facet: ['111','100'] #crystal plane
         dope: #dopeing part
-          Cu: [3] #dopeing element and dope type
-          Ag: [1,2,3,'b1','1L']
+            Cu: [3] #dopeing element and dope type
+            Ag: [1,2,3,'b1','1L']
 
 Model:
     SML: False #whether the species is in Smile style
     ads: #single adsorption for one species
-      - ['NH3',1] #species name and adsorption sites
-      - ['NO', 2]
+        - ['NH3',1] #species name and adsorption sites
+        - ['NO', 2]
     coads: #co-adsorption for one species
-      - ['NH3','O',1,1] #species name and adsorption sites"""
+        - ['NH3','O',1,1] #species name and adsorption sites"""
     return templator
 
 
@@ -134,6 +135,6 @@ def out_vasp(struct_class: Structure):
     if structures:
         for i, structure in enumerate(structures):
             write_vasp("%s_%s.vasp" % (file_name, i), structure, direct=True, sort=[''], vasp5=True)
-        print(print_str + " are construct with %d configurations!" % (i + 1))
+        print(f"[i][u]{print_str}[/u][/i] are construct with [i][u]{i+1}[/u][/i] configurations!")
     else:
-        print(print_str + " are construct with !No! configurations!")
+        print(f"[i][u]{print_str}[/u][/i] are construct with !No! configurations!")
