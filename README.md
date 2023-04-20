@@ -17,12 +17,14 @@ processes, etc.
 
 ```requirements.txt
 Python >= 3.6, <=3.9
-typer
+ase >= 3.19
+numpy >= 1.20.0, < 1.24
+networkx >=2.1
+scipy>=0.1
+spglib>=0.1
 ruamel.yaml
-numpy < 1.24
-ASE >= 3.22.1
-CatKit == 0.5.4
 rdkit
+typer
 ```
 ## 2.2  Installation
 install wheel file from releases
