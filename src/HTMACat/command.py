@@ -5,7 +5,7 @@ from pathlib import *
 import shutil
 import typer
 
-htmat = typer.Typer()
+htmat = typer.Typer(add_completion=False)
 CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
@@ -13,16 +13,26 @@ def main():
     htmat()
 
 
-@htmat.callback(invoke_without_command=True, context_settings=CONTEXT_SETTINGS)
+@htmat.callback(invoke_without_command=True,
+                no_args_is_help=True,
+                epilog="HTMACat-Kit Version: 1.0.4",
+                options_metavar='',
+                context_settings=CONTEXT_SETTINGS)
 def main_command():
-    print(f"HTMACat-Kit Version: 1.0.3")
-    print('A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.')
+    print(f"HTMACat-Kit Version: 1.0.4")
+    print(
+        'A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.'
+    )
 
 
-@htmat.command()
-def ads(in_dir: str = typer.Option('./', '-i', '--inputdir',
+@htmat.command(context_settings=CONTEXT_SETTINGS)
+def ads(in_dir: str = typer.Option('./',
+                                   '-i',
+                                   '--inputdir',
                                    help="relative directory of input file"),
-        out_dir: str = typer.Option('./', '-o', '--outputdir',
+        out_dir: str = typer.Option('./',
+                                    '-o',
+                                    '--outputdir',
                                     help="relative directory of output file")):
     """
     Construct adsorption configuration
@@ -37,7 +47,7 @@ def ads(in_dir: str = typer.Option('./', '-i', '--inputdir',
     Construct_adsorption_yaml(StrucInfo)
 
 
-@htmat.command()
+@htmat.command(context_settings=CONTEXT_SETTINGS)
 def templator():
     """
     Print out input templator

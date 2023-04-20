@@ -35,9 +35,11 @@ def substrate_part(struct_Info):
 
     struct_filename = None
     struct_Info = struct_Info['struct']
-    struct_init_dict = {'element': struct_Info['element'],
-                        'lattype': struct_Info['lattype'],
-                        'latcont': struct_Info['latcont']}
+    struct_init_dict = {
+        'element': struct_Info['element'],
+        'lattype': struct_Info['lattype'],
+        'latcont': struct_Info['latcont']
+    }
     dope_init_dict = {'element_dop': [], 'dop_type': []}
     surface_init_dict = {'facet': []}
     dope_system = struct_Info['dope']
