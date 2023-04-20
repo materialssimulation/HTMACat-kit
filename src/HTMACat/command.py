@@ -16,7 +16,6 @@ def main():
 @htmat.callback(invoke_without_command=True,
                 no_args_is_help=True,
                 epilog="HTMACat-Kit Version: 1.0.4",
-                options_metavar='',
                 context_settings=CONTEXT_SETTINGS)
 def main_command():
     print(f"HTMACat-Kit Version: 1.0.4")
