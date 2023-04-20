@@ -5,15 +5,15 @@ Created on Sat Mar 18 09:00:12 2023
 @author: YuxiaoLan
 """
 
-from catkit.gen.adsorption import Builder
-from catkit.gratoms import *
+from HTMACat.catkit.gen.adsorption import Builder
+from HTMACat.catkit.gratoms import *
 from rdkit import Chem
 from rdkit.Chem import AllChem, rdMolDescriptors
 import math
 from HTMACat.Extract_info import *
-from catkit.build import molecule
+from HTMACat.catkit.build import molecule
 from HTMACat.model.Substrate import Slab
-from catkit.gen.adsorption import AdsorptionSites
+from HTMACat.catkit.gen.adsorption import AdsorptionSites
 from HTMACat.model.Structure import Structure
 import networkx.algorithms.isomorphism as iso
 
@@ -156,7 +156,7 @@ class Adsorption(Structure):
             builder = Builder(slab)
             ads_use = self.species[0].get_molecule()
             for j, coord in enumerate(coordinates):
-                slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]  ### wzj
+                slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]
         return slab_ad
 
     def Construct_double_adsorption(self):

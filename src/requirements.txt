@@ -1,11 +1,8 @@
 ase >= 3.19
-numpy >= 1.20.0, <= 1.23.5
-networkx>=2.1, <= 2.8.8
-spglib>=1.10
+numpy >= 1.20.0, < 1.24
+networkx >=2.1
 scipy>=0.1
-matplotlib>=2.2
-future>=0.16
-sqlalchemy>=1.2
+spglib>=0.1
 ruamel.yaml
 rdkit
 typer

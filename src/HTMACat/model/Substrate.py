@@ -9,9 +9,9 @@ import math
 from ase.build import bulk
 from ase.io import read
 from ase.constraints import FixAtoms
-from catkit.gen.surface import SlabGenerator
-from catkit.gen.adsorption import AdsorptionSites
-from catkit.gratoms import Gratoms
+from HTMACat.catkit.gen.surface import SlabGenerator
+from HTMACat.catkit.gen.adsorption import AdsorptionSites
+from HTMACat.catkit.gratoms import Gratoms
 import numpy as np
 from HTMACat.model.Structure import Structure
 

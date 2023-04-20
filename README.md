@@ -18,29 +18,29 @@ processes, etc.
 ```requirements.txt
 Python >= 3.6, <=3.9
 ase >= 3.19
-numpy >= 1.20.0, <= 1.23.5
-networkx>=2.1, <= 2.8.8
-spglib>=1.10
+numpy >= 1.20.0, < 1.24
+networkx >=2.1
 scipy>=0.1
-matplotlib>=2.2
-future>=0.16
-sqlalchemy>=1.2
+spglib>=0.1
 ruamel.yaml
 rdkit
 typer
 ```
 
-If you haven't installed **Python3.x** yet, [download](https://www.python.org) the specified version of package and
-install it.
-
+=======
 ## 2.2  Installation
+install wheel file from releases
 
 ```shell
-pip install ase numpy==1.23.5 scikit-learn
-pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/FireWorks-2.0.3-py3-none-any.whl
-pip install https://raw.githubusercontent.com/stanfordbshan/HTMACat-kit/master/requires_wheel/CatKit-0.5.4-py3-none-any.whl
-pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1.0.2/HTMACat-1.0.2-py3-none-any.whl
+pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1.0.3/HTMACat-1.0.3-py3-none-any.whl
 
+```
+or install from source code
+```shell
+# master branch
+pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master#subdirectory=src
+# or dev branch
+pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev#subdirectory=src
 ```
 
 # 3. Getting started

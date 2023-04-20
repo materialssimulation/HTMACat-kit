@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from ase.io import read
-from catkit.gen.utils import to_gratoms
+from HTMACat.catkit.gen.utils import to_gratoms
  
 import os
 #from catkit.build import molecule
@@ -332,7 +332,7 @@ def get_site(poscar, mole):
 
 
 ### 7. To distinguish the surface and bulk atoms,atom binded with or not the surface
-from catkit.gen.utils import get_unique_coordinates
+from HTMACat.catkit.gen.utils import get_unique_coordinates
 import numpy as np
 
 
@@ -668,7 +668,7 @@ def get_binding_adatom(poscar):
 
 ### 9. To get the distance between adatoms
 from ase.geometry import get_distances
-from catkit.gen import defaults
+from HTMACat.catkit.gen import defaults
 
 
 def get_distance_adatoms(poscar, tol=0.1):
@@ -1523,7 +1523,7 @@ def get_symmetry_surfatoms(poscar, tol=0.3):
         return symmetry_prop
 
 
-from catkit.gen import defaults
+from HTMACat.catkit.gen import defaults
 from ase.data import atomic_numbers, atomic_names, atomic_masses, covalent_radii, chemical_symbols
 import numpy as np
 if __name__ == '__main__':
