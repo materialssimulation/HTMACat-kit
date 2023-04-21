@@ -1,5 +1,0 @@
-global-include *
-global-exclude *.pyc
-global-exclude .git
-global-exclude .idea
-recursive-include HTMACat *.db *.py *.json *.txt Element_Info
