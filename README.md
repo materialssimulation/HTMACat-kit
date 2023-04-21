@@ -26,8 +26,6 @@ ruamel.yaml > 0.15
 rdkit >= 2022.3.3
 typer[all] >= 0.6
 ```
-
-=======
 ## 2.2  Installation
 install wheel file from releases
 
