@@ -18,7 +18,7 @@ setup(
     keywords='high-throughput',
     python_requires=">=3.6, <3.10",
     install_requires=requirements,
-    packages=['HTMACat', "HTMACat.descriptor", "HTMACat.model", "HTMACat.NEB", "HTMACat.catkit"],
+    packages=['HTMACat', "HTMACat.descriptor", "HTMACat.model", "HTMACat.NEB", "HTMACat.catkit", "HTMACat.catkit.gen", "HTMACat.catkit.data", "HTMACat.catkit.gen.utils"],
     entry_points={
         'console_scripts': [  # 命令的入口
             'htmat=HTMACat.command:main',
