@@ -1,9 +1,7 @@
-from setuptools import setup
-
+from setuptools import setup, find_packages
 
 with open('requirements.txt', 'r') as f:
     requirements = f.readlines()
-
 
 setup(
     name='HTMACat',
@@ -18,10 +16,9 @@ setup(
     keywords='high-throughput',
     python_requires=">=3.6, <3.10",
     install_requires=requirements,
-    packages=['HTMACat', "HTMACat.descriptor", "HTMACat.model", "HTMACat.NEB"],
+    packages=find_packages(),
     entry_points={
         'console_scripts': [  # 命令的入口
             'htmat=HTMACat.command:main',
         ]
-        }
-    )
+    })
