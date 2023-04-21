@@ -10,8 +10,8 @@ Welcome to HTMACat-kit's documentation!
    :maxdepth: 3
    :caption: Contents:
 
-   Get_start.rst
-   Usage.rst
+   Installation.rst
+   Getting_started.rst
    Examples.rst
    HTMACat.rst
    

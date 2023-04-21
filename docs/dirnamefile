@@ -10,7 +10,7 @@ Examples.html
 Examples.rst
 Examples_docs
 Get_start.html
-Get_start.rst
+Getting_started.rst
 HTMACat.NEB.html
 HTMACat.NEB.rst
 HTMACat.descriptor.html
@@ -21,9 +21,9 @@ HTMACat.model.rst
 HTMACat.post.html
 HTMACat.post.rst
 HTMACat.rst
+Installation.rst
 Makefile
 Usage.html
-Usage.rst
 _build
 _modules
 _sources
