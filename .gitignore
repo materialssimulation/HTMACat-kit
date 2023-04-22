@@ -105,3 +105,4 @@ venv.bak/
 example/backup*
 example/zjwang*
 .idea/
+*.lock

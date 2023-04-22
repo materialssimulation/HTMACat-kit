@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "HTMACat"
+version = "1.0.4"
+description = "A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes."
+license = "GPLv3"
+keywords = ["high-throughput", "python", "catalysis", "modeling"]
+classifiers = ["Development Status :: 3 - Alpha", "Environment :: Console", "License :: OSI Approved :: GUN General Public License v3 (GPLv3)", "Operating System :: OS Independent"]
+homepage = "https://stanfordbshan.github.io/HTMACat-kit/"
+authors = ["Jiaqiang Yang, Feifeng Wu, Bin Shan <bshan@mail.hust.edu.cn>"]
+documentation = "https://stanfordbshan.github.io/HTMACat-kit/"
+repository = "https://github.com/stanfordbshan/HTMACat-kit"
+include = ["requirements.txt", "setup.py", "setup.cfg", "pyproject.toml", "HTMACat/"]
+
+[tool.poetry.dependencies]
+python = ">=3.7, <3.10"
+ase = ">=3.19"
+networkx = ">=2.1"
+numpy = ">=1.20.0"
+rdkit = ">=2022.3.3"
+"ruamel.yaml" = ">0.15"
+scipy = ">=0.1"
+spglib = ">=0.1"
+typer = {version = ">=0.6", extras = ["all"]}
+
+
+[tool.poetry.scripts]
+htmat = "HTMACat.command:main"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
