@@ -15,11 +15,8 @@ authors = [
 documentation = "https://stanfordbshan.github.io/HTMACat-kit/"
 repository = "https://github.com/stanfordbshan/HTMACat-kit"
 include = [
-    "requirements.txt",
-    "setup.py",
-    "setup.cfg",
-    "pyproject.toml",
     "HTMACat/",]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.7, <3.10"
