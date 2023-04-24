@@ -36,9 +36,9 @@ pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1
 or install from source code
 ```shell
 # master branch
-pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master#subdirectory=src
+pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master
 # or dev branch
-pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev#subdirectory=src
+pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev
 ```
 
 # 3. Getting started
