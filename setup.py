@@ -16,6 +16,7 @@ setup(
     license='GPLv3',
     description=
     'A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.',
+    long_description_content_type="text/markdown",
     long_description=readme,
     author='Jiaqiang Yang, Feifeng Wu, Bin Shan',
     author_email='bshan@mail.hust.edu.cn',
