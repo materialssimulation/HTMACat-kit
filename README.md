@@ -128,3 +128,5 @@ output structures.
 # Links
 
 * Materials Design and Nano-Manufacturing Center@HUST:http://www.materialssimulation.com/
+* Pypi homepage for HTMACat project:https://pypi.org/project/HTMACat/
+* HTMACat-kit’s documentation:https://stanfordbshan.github.io/HTMACat-kit/

@@ -3,6 +3,9 @@ from setuptools import setup, find_packages
 with open('requirements.txt', 'r') as f:
     requirements = f.readlines()
 
+with open('README.md', 'r', encoding='utf-8') as f:
+    readme = f.read()
+
 setup(
     name='HTMACat',
     version='1.0.4',
@@ -13,8 +16,7 @@ setup(
     license='GPLv3',
     description=
     'A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.',
-    long_description=
-    'This kit it provides key tools for high-throughput design and screening of catalytic materials. The software mainly includes functional modules such as surface structure analysis and information extraction, catalytic surface and various adsorption model construction, automatic construction of primitive reaction processes, automatic extraction of computational data and automatic extraction and construction of descriptors.',
+    long_description=readme,
     author='Jiaqiang Yang, Feifeng Wu, Bin Shan',
     author_email='bshan@mail.hust.edu.cn',
     url='https://stanfordbshan.github.io/HTMACat-kit/',
