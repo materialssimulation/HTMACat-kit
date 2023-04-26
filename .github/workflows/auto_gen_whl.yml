@@ -46,16 +46,16 @@ jobs:
           echo "app_version=$app_version" >> $GITHUB_ENV
           echo "app_version=$app_version"
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/*.whl
-          tag: v${{env.app_version}}
-          release_name: v${{env.app_version}}
-          overwrite: false
-          file_glob: true
-          body: ${{github.event.head_commit.message}}
+      # - name: Upload binaries to release
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     file: dist/*.whl
+      #     tag: v${{env.app_version}}
+      #     release_name: v${{env.app_version}}
+      #     overwrite: false
+      #     file_glob: true
+      #     body: ${{github.event.head_commit.message}}
 
       - name: Publish Package and create Tag and Releases
         uses: Commandcracker/pypi-publish@v1
