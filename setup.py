@@ -8,7 +8,6 @@ setup(
     version='1.0.4',
     classifiers=[
         'Development Status :: 3 - Alpha', 'Environment :: Console',
-        'License :: OSI Approved :: GUN General Public License v3 (GPLv3)',
         'Operating System :: OS Independent'
     ],
     license='GPLv3',

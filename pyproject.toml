@@ -7,7 +7,6 @@ keywords = ["high-throughput", "python", "catalysis", "modeling"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",
-    "License :: OSI Approved :: GUN General Public License v3 (GPLv3)",
     "Operating System :: OS Independent",]
 homepage = "https://stanfordbshan.github.io/HTMACat-kit/"
 authors = [
