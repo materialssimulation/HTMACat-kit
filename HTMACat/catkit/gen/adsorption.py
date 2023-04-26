@@ -568,7 +568,7 @@ class Builder(AdsorptionSites):
             bond,
             slab=None,
             site_index=0,
-            auto_construct=True,
+            auto_construct=False,
             symmetric=True):
         """Bond and adsorbate by a single atom."""
         if slab is None:
@@ -595,11 +595,13 @@ class Builder(AdsorptionSites):
         branches = nx.bfs_successors(atoms.graph, bond)
         atoms.translate(-atoms.positions[bond])
 
+        ''' ### zjwang 20230426
         if auto_construct:
             atoms = catkit.gen.molecules.get_3D_positions(atoms, bond)
 
             # Align with the adsorption vector
             atoms.rotate([0, 0, 1], vector)
+        '''
 
         atoms.translate(base_position)
         n = len(slab)
@@ -651,6 +653,7 @@ class Builder(AdsorptionSites):
         uvec2 /= -np.linalg.norm(uvec2, axis=1)[:, None]
         uvec1 = np.cross(uvec2, uvec0)
 
+        ''' ### zjwang 20230426
         branches0 = list(nx.bfs_successors(atoms.graph, bonds[0]))
         if len(branches0[0][1]) != 0:
             uvec = [-uvec0, uvec1[0], uvec2[0]]
@@ -666,6 +669,7 @@ class Builder(AdsorptionSites):
             for branch in branches1[1:]:
                 catkit.gen.molecules._branch_molecule(
                     atoms, branch, adsorption=True)
+        '''
 
         n = len(slab)
         slab += atoms
