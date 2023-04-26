@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.pdm-python
 
 # Distribution / packaging
 .Python
@@ -105,3 +106,4 @@ venv.bak/
 example/backup*
 example/zjwang*
 .idea/
+*.lock
