@@ -30,7 +30,7 @@ typer[all] >= 0.6
 install wheel file from releases
 
 ```shell
-pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1.0.3/HTMACat-1.0.3-py3-none-any.whl
+pip install -U HTMACat
 
 ```
 or install from source code
