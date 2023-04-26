@@ -16,6 +16,7 @@ from HTMACat.model.Substrate import Slab
 from HTMACat.catkit.gen.adsorption import AdsorptionSites
 from HTMACat.model.Structure import Structure
 import networkx.algorithms.isomorphism as iso
+from ase import Atoms
 
 class Species(object):
     def __init__(self, form, sml=False):
@@ -60,6 +61,7 @@ class Species(object):
     def get_molecule(self):
         ads1 = self.get_formular()
         if self.SML:
+            '''
             mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
             G = self.MolToNXGraph(mole)
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
@@ -68,7 +70,32 @@ class Species(object):
                 nm = iso.categorical_node_match('number', 6)
                 if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads_molecule = ads_
+                    print(ads_molecule._graph)
                     break
+            '''
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+            stat = AllChem.EmbedMolecule(mole)
+            if stat == -1:
+                print('[WARNING]: No 3D conformer of specie %s can be generated, using the 2D version instead! (could be unreasonable)' % ads1)
+            conf = mole.GetConformer()
+            atomicnums_list = []
+            coords_list = []
+            for i in range(mole.GetNumAtoms()):
+                atomicnums_list.append(mole.GetAtomWithIdx(i).GetAtomicNum())
+                coords_list.append(tuple(conf.GetAtomPosition(i)))
+            print('*** atomicnums_list:\n', atomicnums_list)
+            print('*** coords_list:\n', coords_list)
+            edges_list = []
+            for b in mole.GetBonds():
+                edges_list.append((b.GetBeginAtomIdx(),b.GetEndAtomIdx()))
+            print('*** edges_list:\n', edges_list)
+            atoms = Atoms(rdMolDescriptors.CalcMolFormula(mole), coords_list)
+            print(atoms._get_atomic_numbers())
+            atoms.set_atomic_numbers(atomicnums_list)
+            print(atoms._get_atomic_numbers())
+            # G = self.MolToNXGraph(mole)
+            ads_molecule = to_gratoms(atoms, edges=edges_list)
+            #'''
         else:
             ads_molecule = molecule(ads1)[0]
         return ads_molecule
