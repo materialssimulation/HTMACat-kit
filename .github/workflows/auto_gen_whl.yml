@@ -46,32 +46,19 @@ jobs:
           echo "app_version=$app_version" >> $GITHUB_ENV
           echo "app_version=$app_version"
 
-      # - name: Upload binaries to release
-      #   uses: svenstaro/upload-release-action@v2
-      #   with:
-      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-      #     file: dist/*.whl
-      #     tag: v${{env.app_version}}
-      #     release_name: v${{env.app_version}}
-      #     overwrite: false
-      #     file_glob: true
-      #     body: ${{github.event.head_commit.message}}
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/*.whl
+          tag: v${{env.app_version}}
+          release_name: v${{env.app_version}}
+          overwrite: false
+          file_glob: true
+          body: ${{github.event.head_commit.message}}
 
       - name: Publish package to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           password: ${{secrets.PYPI_API_TOKEN}}
           skip_existing: true
-
-      # - name: Replace the install link and Update Readme
-      #   run: |
-      #     link=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
-      #       jq -r '.assets[].browser_download_url' | head -n1)
-      #     sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"$link"'~g' README.md
-
-      # - name: Commit changes
-      #   uses: EndBug/add-and-commit@v9
-      #   with:
-      #     add: 'README.md'
-      #     message: 'Updated wheel link in README'
-      #     push: true
