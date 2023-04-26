@@ -11,7 +11,6 @@ from rdkit import Chem
 from rdkit.Chem import AllChem, rdMolDescriptors
 import math
 from HTMACat.Extract_info import *
-from HTMACat.catkit.build import molecule
 from HTMACat.model.Substrate import Slab
 from HTMACat.catkit.gen.adsorption import AdsorptionSites
 from HTMACat.model.Structure import Structure
@@ -83,19 +82,12 @@ class Species(object):
             for i in range(mole.GetNumAtoms()):
                 atomicnums_list.append(mole.GetAtomWithIdx(i).GetAtomicNum())
                 coords_list.append(tuple(conf.GetAtomPosition(i)))
-            print('*** atomicnums_list:\n', atomicnums_list)
-            print('*** coords_list:\n', coords_list)
             edges_list = []
             for b in mole.GetBonds():
                 edges_list.append((b.GetBeginAtomIdx(),b.GetEndAtomIdx()))
-            print('*** edges_list:\n', edges_list)
             atoms = Atoms(rdMolDescriptors.CalcMolFormula(mole), coords_list)
-            print(atoms._get_atomic_numbers())
             atoms.set_atomic_numbers(atomicnums_list)
-            print(atoms._get_atomic_numbers())
-            # G = self.MolToNXGraph(mole)
             ads_molecule = to_gratoms(atoms, edges=edges_list)
-            #'''
         else:
             ads_molecule = molecule(ads1)[0]
         return ads_molecule
