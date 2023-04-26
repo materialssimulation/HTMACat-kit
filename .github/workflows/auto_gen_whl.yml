@@ -57,11 +57,11 @@ jobs:
           file_glob: true
           body: ${{github.event.head_commit.message}}
 
-      - name: Publish package to TestPyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Publish Package and create Tag and Releases
+        uses: Commandcracker/pypi-publish@v1
         with:
           password: ${{ secrets.PYPI_API_TOKEN }}
-          skip_existing: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Replace the install link and Update Readme
       #   run: |
