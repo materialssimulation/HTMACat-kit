@@ -41,8 +41,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Get_start.html"><strong>Get_start</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting_started.html"><strong>Getting started</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Examples.html"><strong>Examples</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../HTMACat.html">HTMACat package</a></li>
 </ul>
@@ -73,53 +73,64 @@
              
   <h1>Source code for HTMACat.command</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">HTMACat.model.Construct_adsorption</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">HTMACat.model.Construct_Coadsorption</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">HTMACat.model.Construct_adsorption_yaml</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">HTMACat.IO</span> <span class="kn">import</span> <span class="n">print_templator</span><span class="p">,</span> <span class="n">out_templator_file</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">argparse</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">typer</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span>
 
-<div class="viewcode-block" id="ads"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.command.ads">[docs]</a><span class="k">def</span> <span class="nf">ads</span><span class="p">():</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;High-throughput single adsorption modeling&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--inputdir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The folder path of input files&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--outputdir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The folder path of output files&quot;</span><span class="p">)</span>
-    <span class="c1">#添加了定向输出到指定路径 by Yuxiao-Lan 2023/03/03</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-    <span class="n">wordir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">inputdir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-    <span class="n">outdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">outputdir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-    <span class="n">StrucInfo</span> <span class="o">=</span> <span class="s1">&#39;StrucInfo&#39;</span>
-    <span class="n">ModelInfo</span> <span class="o">=</span> <span class="s1">&#39;Model&#39;</span>
+<span class="n">htmat</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Typer</span><span class="p">(</span><span class="n">add_completion</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">CONTEXT_SETTINGS</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">help_option_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.command.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">htmat</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="main_command"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.command.main_command">[docs]</a><span class="nd">@htmat</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">invoke_without_command</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">no_args_is_help</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">epilog</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;+--------------------------------------------------------------------------------------------------------+</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">|                                           HTMACat-Kit                                                  |</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">|                                          Version: 1.0.4                                                |</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">|    A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.   |</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">|              More information, please visit https://stanfordbshan.github.io/HTMACat-kit/.              |</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">+--------------------------------------------------------------------------------------------------------+&quot;&quot;&quot;</span><span class="p">,</span>
+                <span class="n">context_settings</span><span class="o">=</span><span class="n">CONTEXT_SETTINGS</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main_command</span><span class="p">():</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ads"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.command.ads">[docs]</a><span class="nd">@htmat</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">context_settings</span><span class="o">=</span><span class="n">CONTEXT_SETTINGS</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">ads</span><span class="p">(</span><span class="n">in_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;-i&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;--inputdir&#39;</span><span class="p">,</span>
+                                   <span class="n">help</span><span class="o">=</span><span class="s2">&quot;relative directory of input file&quot;</span><span class="p">),</span>
+        <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">typer</span><span class="o">.</span><span class="n">Option</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;-o&#39;</span><span class="p">,</span>
+                                    <span class="s1">&#39;--outputdir&#39;</span><span class="p">,</span>
+                                    <span class="n">help</span><span class="o">=</span><span class="s2">&quot;relative directory of output file&quot;</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct adsorption configuration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Construct adsorption configuration ... ...&quot;</span><span class="p">)</span>
+    <span class="n">wordir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">in_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="n">outdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="n">StrucInfo</span> <span class="o">=</span> <span class="s1">&#39;config.yaml&#39;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">outdir</span> <span class="o">==</span> <span class="n">wordir</span><span class="p">:</span>
         <span class="n">outdir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">wordir</span><span class="o">/</span><span class="n">StrucInfo</span><span class="p">,</span><span class="n">outdir</span><span class="p">)</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">wordir</span><span class="o">/</span><span class="n">ModelInfo</span><span class="p">,</span><span class="n">outdir</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">wordir</span> <span class="o">/</span> <span class="n">StrucInfo</span><span class="p">,</span> <span class="n">outdir</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">StrucInfo</span><span class="p">,</span><span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-            <span class="n">Construct_adsorption</span><span class="p">(</span><span class="n">item</span><span class="p">,</span><span class="n">ModelInfo</span><span class="p">)</span></div>
+    <span class="n">Construct_adsorption_yaml</span><span class="p">(</span><span class="n">StrucInfo</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="coads"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.command.coads">[docs]</a><span class="k">def</span> <span class="nf">coads</span><span class="p">():</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;High-throughput co-adsorption modeling&#39;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;--inputdir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The folder path of input files&quot;</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;--outputdir&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The folder path of output files&quot;</span><span class="p">)</span>
-    <span class="c1">#添加了定向输出到指定路径 by Yuxiao-Lan 2023/03/03</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
-    <span class="n">wordir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">inputdir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-    <span class="n">outdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">outputdir</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
-    <span class="n">StrucInfo</span> <span class="o">=</span> <span class="s1">&#39;StrucInfo&#39;</span>
-    <span class="n">ModelInfo</span> <span class="o">=</span> <span class="s1">&#39;Model&#39;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">outdir</span> <span class="o">==</span> <span class="n">wordir</span><span class="p">:</span>
-        <span class="n">outdir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">wordir</span><span class="o">/</span><span class="n">StrucInfo</span><span class="p">,</span><span class="n">outdir</span><span class="p">)</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">wordir</span><span class="o">/</span><span class="n">ModelInfo</span><span class="p">,</span><span class="n">outdir</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">outdir</span><span class="p">)</span>
-    <span class="c1">#spec_ads,spec_ads_stable=get_site_stable(Efile,Ecut=-0.1)</span>
-    <span class="c1">#spec_ads_stable={&#39;NH3&#39;:[1,2],&#39;NH2&#39;:[2],&#39;NH&#39;:[2,4],&#39;N&#39;:[2,4],&#39;O&#39;:[2,4],&#39;OH&#39;:[2,4],&#39;NO&#39;:[2,4],&#39;H2O&#39;:[1],&#39;H&#39;:[2,4]}</span>
-    <span class="n">spec_ads_stable</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;NH3&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;NH2&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;NH&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span><span class="s1">&#39;N&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span><span class="s1">&#39;O&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span><span class="s1">&#39;OH&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span><span class="s1">&#39;NO&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span><span class="s1">&#39;H2O&#39;</span><span class="p">:[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;H&#39;</span><span class="p">:[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]}</span>
-    <span class="c1">#spec_ads_stable={&#39;NH2&#39;:[2],&#39;NH&#39;:[3],&#39;NO&#39;:[3],&#39;NH3&#39;:[1],&#39;N&#39;:[3],&#39;O&#39;:[3],&#39;OH&#39;:[3]} </span>
-    <span class="n">Construct_coadsorption</span><span class="p">(</span><span class="n">StrucInfo</span><span class="p">,</span><span class="n">ModelInfo</span><span class="p">,</span><span class="n">spec_ads_stable</span><span class="p">)</span></div>
+<div class="viewcode-block" id="templator"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.command.templator">[docs]</a><span class="nd">@htmat</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">context_settings</span><span class="o">=</span><span class="n">CONTEXT_SETTINGS</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">templator</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print out input templator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">print_templator</span><span class="p">()</span>
+    <span class="n">out_templator_file</span><span class="p">()</span></div>
 </pre></div>
 
            </div>

@@ -6,7 +6,7 @@ The description of Example
 Introduction
 ------------
 
-This example is main about xxx, contributed by A.
+This example is mainly about xxx, contributed by A.
 
 Inputs
 ------

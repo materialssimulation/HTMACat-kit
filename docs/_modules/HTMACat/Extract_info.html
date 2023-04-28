@@ -41,8 +41,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Get_start.html"><strong>Get_start</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting_started.html"><strong>Getting started</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Examples.html"><strong>Examples</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../HTMACat.html">HTMACat package</a></li>
 </ul>
@@ -74,12 +74,14 @@
   <h1>Source code for HTMACat.Extract_info</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
 <span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
-<span class="kn">from</span> <span class="nn">catkit.gen.utils</span> <span class="kn">import</span> <span class="n">to_gratoms</span>
+<span class="kn">from</span> <span class="nn">HTMACat.catkit.gen.utils</span> <span class="kn">import</span> <span class="n">to_gratoms</span>
  
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="c1">#from catkit.build import molecule</span>
 <span class="kn">from</span> <span class="nn">ase.build</span> <span class="kn">import</span> <span class="n">molecule</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+
 
 
 <span class="c1">### 1.Substract the reaction species</span>
@@ -404,7 +406,7 @@
 
 
 <span class="c1">### 7. To distinguish the surface and bulk atoms,atom binded with or not the surface</span>
-<span class="kn">from</span> <span class="nn">catkit.gen.utils</span> <span class="kn">import</span> <span class="n">get_unique_coordinates</span>
+<span class="kn">from</span> <span class="nn">HTMACat.catkit.gen.utils</span> <span class="kn">import</span> <span class="n">get_unique_coordinates</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
@@ -740,7 +742,7 @@
 
 <span class="c1">### 9. To get the distance between adatoms</span>
 <span class="kn">from</span> <span class="nn">ase.geometry</span> <span class="kn">import</span> <span class="n">get_distances</span>
-<span class="kn">from</span> <span class="nn">catkit.gen</span> <span class="kn">import</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">HTMACat.catkit.gen</span> <span class="kn">import</span> <span class="n">defaults</span>
 
 
 <div class="viewcode-block" id="get_distance_adatoms"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.Extract_info.get_distance_adatoms">[docs]</a><span class="k">def</span> <span class="nf">get_distance_adatoms</span><span class="p">(</span><span class="n">poscar</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
@@ -1595,7 +1597,7 @@
         <span class="k">return</span> <span class="n">symmetry_prop</span></div>
 
 
-<span class="kn">from</span> <span class="nn">catkit.gen</span> <span class="kn">import</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">HTMACat.catkit.gen</span> <span class="kn">import</span> <span class="n">defaults</span>
 <span class="kn">from</span> <span class="nn">ase.data</span> <span class="kn">import</span> <span class="n">atomic_numbers</span><span class="p">,</span> <span class="n">atomic_names</span><span class="p">,</span> <span class="n">atomic_masses</span><span class="p">,</span> <span class="n">covalent_radii</span><span class="p">,</span> <span class="n">chemical_symbols</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>

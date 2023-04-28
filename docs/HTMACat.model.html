@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HTMACat.model package &mdash; HTMACat-kit 1.0.2 documentation</title>
@@ -44,8 +44,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Get_start.html"><strong>Get_start</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html"><strong>Getting started</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Examples.html"><strong>Examples</strong></a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="HTMACat.html">HTMACat package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="HTMACat.html#subpackages">Subpackages</a><ul class="current">
@@ -53,11 +53,11 @@
 <li class="toctree-l3"><a class="reference internal" href="HTMACat.descriptor.html">HTMACat.descriptor package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">HTMACat.model package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Construct_Coadsorption">HTMACat.model.Construct_Coadsorption module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Construct_adsorption">HTMACat.model.Construct_adsorption module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Construct_bulk">HTMACat.model.Construct_bulk module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Construct_model">HTMACat.model.Construct_model module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Construct_slabs">HTMACat.model.Construct_slabs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-model-construct-coadsorption-module">HTMACat.model.Construct_Coadsorption module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-model-construct-adsorption-module">HTMACat.model.Construct_adsorption module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-model-construct-bulk-module">HTMACat.model.Construct_bulk module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-model-construct-model-module">HTMACat.model.Construct_model module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-model-construct-slabs-module">HTMACat.model.Construct_slabs module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model">Module contents</a></li>
 </ul>
 </li>
@@ -104,373 +104,20 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
-<section id="module-HTMACat.model.Construct_Coadsorption">
-<span id="htmacat-model-construct-coadsorption-module"></span><h2>HTMACat.model.Construct_Coadsorption module<a class="headerlink" href="#module-HTMACat.model.Construct_Coadsorption" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_Coadsorption.Construct_coadsorption">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_Coadsorption.</span></span><span class="sig-name descname"><span class="pre">Construct_coadsorption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_Info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_ads_stable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_Coadsorption.html#Construct_coadsorption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_Coadsorption.Construct_coadsorption" title="Permalink to this definition"></a></dt>
-<dd><p>Construct co-adsorption systems based on input adsorbates, surface
-dopants and slab configurations.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Path_Info</strong><span class="classifier">str</span></dt><dd><p>The path to the file containing slab and lattice information.</p>
-</dd>
-<dt><strong>Model</strong><span class="classifier">str</span></dt><dd><p>The path to the file containing dopant and adsorbate information.</p>
-</dd>
-<dt><strong>spec_ads_stable</strong><span class="classifier">dict</span></dt><dd><p>A dictionary containing information about stable adsorbates</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>None</dt><dd><p>This function does not return any values. It writes VASP input files
-for the co-adsorption systems generated by the function.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="htmacat-model-construct-coadsorption-module">
+<h2>HTMACat.model.Construct_Coadsorption module<a class="headerlink" href="#htmacat-model-construct-coadsorption-module" title="Permalink to this heading"></a></h2>
 </section>
-<section id="module-HTMACat.model.Construct_adsorption">
-<span id="htmacat-model-construct-adsorption-module"></span><h2>HTMACat.model.Construct_adsorption module<a class="headerlink" href="#module-HTMACat.model.Construct_adsorption" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_adsorption.Construct_adsorption">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_adsorption.</span></span><span class="sig-name descname"><span class="pre">Construct_adsorption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_Info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_adsorption.html#Construct_adsorption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_adsorption.Construct_adsorption" title="Permalink to this definition"></a></dt>
-<dd><p>Automated batch enumeration and construction of all possible configurations</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Path_Info:str</strong></dt><dd><p>a filename,containing the crystallographic information for generating the slabs.</p>
-</dd>
-<dt><strong>Model:str</strong></dt><dd><p>a filename,containing surface doping and adsorption modeling parameters</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>None</dt><dd><p>No return value, generating a vasp structure file</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="htmacat-model-construct-adsorption-module">
+<h2>HTMACat.model.Construct_adsorption module<a class="headerlink" href="#htmacat-model-construct-adsorption-module" title="Permalink to this heading"></a></h2>
 </section>
-<section id="module-HTMACat.model.Construct_bulk">
-<span id="htmacat-model-construct-bulk-module"></span><h2>HTMACat.model.Construct_bulk module<a class="headerlink" href="#module-HTMACat.model.Construct_bulk" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_bulk.Construct_bulks">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_bulk.</span></span><span class="sig-name descname"><span class="pre">Construct_bulks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_Info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_bulk.html#Construct_bulks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_bulk.Construct_bulks" title="Permalink to this definition"></a></dt>
-<dd><p>Construct bulk systems write the generated structures in VASP format.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Path_Info:str</strong></dt><dd><p>a filename,containing the crystallographic information for generating the slabs.</p>
-</dd>
-<dt><strong>Model:str</strong></dt><dd><p>a filename,containing surface doping and adsorption modeling parameters</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>None</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="htmacat-model-construct-bulk-module">
+<h2>HTMACat.model.Construct_bulk module<a class="headerlink" href="#htmacat-model-construct-bulk-module" title="Permalink to this heading"></a></h2>
 </section>
-<section id="module-HTMACat.model.Construct_model">
-<span id="htmacat-model-construct-model-module"></span><h2>HTMACat.model.Construct_model module<a class="headerlink" href="#module-HTMACat.model.Construct_model" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_1stLayer_slab">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_1stLayer_slab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ele_dop</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_1stLayer_slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_1stLayer_slab" title="Permalink to this definition"></a></dt>
-<dd><p>Construct doped surfaces with layer substitution as the substitution type.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Path_info</strong><span class="classifier">str</span></dt><dd><p>The file path to the structure information.</p>
-</dd>
-<dt><strong>Ele_dop</strong><span class="classifier">str</span></dt><dd><p>The symbol of the doped element.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
-<dt>tuple</dt><dd><p>A tuple with the following elements:</p>
-<dl class="simple">
-<dt>slabs_dop<span class="classifier">list</span></dt><dd><p>A list of Atoms objects, each representing a doped slab.</p>
-</dd>
-<dt>mname<span class="classifier">str</span></dt><dd><p>The name of the crystal.</p>
-</dd>
-<dt>mfacet<span class="classifier">str</span></dt><dd><p>The facet of the crystal.</p>
-</dd>
-<dt>surface_atoms<span class="classifier">list</span></dt><dd><p>A list of the indices of the surface atoms in the original slab.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_coadsorption_11">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_coadsorption_11</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dis_inter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SML</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_coadsorption_11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_coadsorption_11" title="Permalink to this definition"></a></dt>
-<dd><p>Construct coadsoprtion configuration with mono+mono adsorption</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>slabs</strong><span class="classifier">list</span></dt><dd><p>Crystal structure</p>
-</dd>
-<dt><strong>ads</strong><span class="classifier">str</span></dt><dd><p>Adsorbent</p>
-</dd>
-<dt><strong>dis_inter</strong><span class="classifier">list</span></dt><dd><p>Distance range between two adsorbents</p>
-</dd>
-<dt><strong>ads_type</strong><span class="classifier">dict</span></dt><dd><p>Type of adsorption site</p>
-</dd>
-<dt><strong>SML</strong><span class="classifier">str</span></dt><dd><p>SMILE representation of molecular chemical formulas</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>slab_ad_final</strong><span class="classifier">list</span></dt><dd><p>Coadsorption structure</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_coadsorption_11_pristine">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_coadsorption_11_pristine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dis_inter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SML</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_coadsorption_11_pristine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_coadsorption_11_pristine" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_coadsorption_12">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_coadsorption_12</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dis_inter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SML</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_coadsorption_12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_coadsorption_12" title="Permalink to this definition"></a></dt>
-<dd><p>Constructing coadsorption configuration with single+double adsorption</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>slabs</strong><span class="classifier">list</span></dt><dd><p>List of crystal structures</p>
-</dd>
-<dt><strong>ads</strong><span class="classifier">str</span></dt><dd><p>String containing the names of two adsorbates separated by a space</p>
-</dd>
-<dt><strong>dis_inter</strong><span class="classifier">list</span></dt><dd><p>Distance range between two adsorbates in Angstroms, given as a list of two floats</p>
-</dd>
-<dt><strong>ads_type</strong><span class="classifier">dict</span></dt><dd><p>Dictionary containing the adsorbate species as keys and a list of possible adsorption types as values.
-The possible adsorption types are: ‘top’, ‘bri’, ‘fcc’, ‘hcp’, ‘4-fold’. An example for the NH3 molecule is:
-{‘NH3’: [‘top’]}</p>
-</dd>
-<dt><strong>SML</strong><span class="classifier">str</span></dt><dd><p>SMILE representation of molecular chemical formulas</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>slab_ad_final</strong><span class="classifier">list</span></dt><dd><p>the list of coadsorption structures</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_coadsorption_22">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_coadsorption_22</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dis_inter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SML</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_coadsorption_22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_coadsorption_22" title="Permalink to this definition"></a></dt>
-<dd><p>Constructing coadsorption configuration with double+double adsorption</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>slabs</strong><span class="classifier">list</span></dt><dd><p>Crystal structure.</p>
-</dd>
-<dt><strong>ads</strong><span class="classifier">str</span></dt><dd><p>Adsorbent.</p>
-</dd>
-<dt><strong>dis_inter</strong><span class="classifier">list</span></dt><dd><p>Distance range between two adsorbents.</p>
-</dd>
-<dt><strong>SML</strong><span class="classifier">str</span></dt><dd><p>SMILE representation of molecular chemical formulas</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>slab_ad_final</strong><span class="classifier">list</span></dt><dd><p>Coadsorption structure.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_doped_slab">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_doped_slab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ele_dop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Natom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_doped_slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_doped_slab" title="Permalink to this definition"></a></dt>
-<dd><p>Construct the doped surface configuration</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Path_info</strong><span class="classifier">str</span></dt><dd><p>The file path to the structure information</p>
-</dd>
-<dt><strong>Ele_dop</strong><span class="classifier">str</span></dt><dd><p>The symbol of the doped element</p>
-</dd>
-<dt><strong>Natom</strong><span class="classifier">int, optional</span></dt><dd><p>Number of doped atoms, by default 1</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
-<dt>tuple[list,str,str,lsit,lsit]</dt><dd><p>A tuple with the following elements:</p>
-<dl class="simple">
-<dt>slabs_dop<span class="classifier">list</span></dt><dd><p>A list of Atoms objects, each representing a doped slab.</p>
-</dd>
-<dt>mname<span class="classifier">str</span></dt><dd><p>The name of the crystal.</p>
-</dd>
-<dt>mfacet<span class="classifier">str</span></dt><dd><p>The facet of the crystal.</p>
-</dd>
-<dt>p1<span class="classifier">list</span></dt><dd><p>A list of the coordinates of the doped atoms in the slabs.</p>
-</dd>
-<dt>p1_symb<span class="classifier">list</span></dt><dd><p>A list of the symbols of the doped atoms in the slabs.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_double_adsorption">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_double_adsorption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SML</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_double_adsorption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_double_adsorption" title="Permalink to this definition"></a></dt>
-<dd><p>Building a surface model with double adsorption sites.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>slabs</strong><span class="classifier">list</span></dt><dd><p>A list of Atoms objects, each representing a slab.</p>
-</dd>
-<dt><strong>ads</strong><span class="classifier">str</span></dt><dd><p>The name of the adsorbate.</p>
-</dd>
-<dt><strong>SML</strong><span class="classifier">str</span></dt><dd><p>SMILE representation of molecular chemical formulas</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>list</dt><dd><p>A list of Atoms objects, each representing a surface structure with double adsorption sites.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_single_adsorption">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_single_adsorption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SML</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_single_adsorption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_single_adsorption" title="Permalink to this definition"></a></dt>
-<dd><p>Building a surface model with a single adsorption site.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>slabs</strong><span class="classifier">list</span></dt><dd><p>A list of Atoms objects, each representing a slab.</p>
-</dd>
-<dt><strong>ads</strong><span class="classifier">str</span></dt><dd><p>The name of the adsorbate.</p>
-</dd>
-<dt><strong>SML</strong><span class="classifier">str</span></dt><dd><p>SMILE representation of molecular chemical formulas</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>list</dt><dd><p>A list of Atoms objects, each representing a surface structure with a single adsorbate.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.Construct_slab">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">Construct_slab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_dop_bulk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">super_cell</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[3,</span> <span class="pre">3,</span> <span class="pre">1]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_bulk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#Construct_slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.Construct_slab" title="Permalink to this definition"></a></dt>
-<dd><p>Constructs slabs of bulk crystal structures using the provided crystallographic information and settings.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
-<dt><strong>Path_info</strong><span class="classifier">str</span></dt><dd><p>A string containing the crystallographic information for generating the slabs. It should be in the format
-“element lattice_type lattice_constant crystal face”. For hcp lattices, c /a ratio information should also</p>
-<blockquote>
-<div><p>be provided,It should be in the format “element lattice_type lattice_constant c/a crystal face”</p>
-</div></blockquote>
-</dd>
-<dt><strong>N_dop_bulk</strong><span class="classifier">list of str, optional</span></dt><dd><p>A list of strings representing the doping elements for the bulk material. Defaults to an empty list.</p>
-</dd>
-<dt><strong>super_cell</strong><span class="classifier">list of int, optional</span></dt><dd><p>A list of 3 integers representing the supercell size in each dimension. Defaults to [3, 3, 1].</p>
-</dd>
-<dt><strong>output_bulk</strong><span class="classifier">bool, optional</span></dt><dd><p>A flag indicating whether the function should output the bulk crystal structure information. Defaults to False.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
-<dt>tuple[list,str,str]</dt><dd><p>A tuple with the following elements:</p>
-<dl class="simple">
-<dt>slab<span class="classifier">list</span></dt><dd><p>A list representing the slabs generated from the bulk crystal structure.</p>
-</dd>
-<dt>mname<span class="classifier">str</span></dt><dd><p>A string representing the material name.</p>
-</dd>
-<dt>mfacet<span class="classifier">str</span></dt><dd><p>A string representing the Miller index of the slab.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_model.MolToNXGraph">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_model.</span></span><span class="sig-name descname"><span class="pre">MolToNXGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_model.html#MolToNXGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_model.MolToNXGraph" title="Permalink to this definition"></a></dt>
-<dd><p>convert molecule object to graph in networkx</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>m: RDKit Mol object</strong></dt><dd></dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>G: networkx Graph object of molecule m</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="htmacat-model-construct-model-module">
+<h2>HTMACat.model.Construct_model module<a class="headerlink" href="#htmacat-model-construct-model-module" title="Permalink to this heading"></a></h2>
 </section>
-<section id="module-HTMACat.model.Construct_slabs">
-<span id="htmacat-model-construct-slabs-module"></span><h2>HTMACat.model.Construct_slabs module<a class="headerlink" href="#module-HTMACat.model.Construct_slabs" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.model.Construct_slabs.Construct_slabs">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_slabs.</span></span><span class="sig-name descname"><span class="pre">Construct_slabs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Path_Info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_slabs.html#Construct_slabs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_slabs.Construct_slabs" title="Permalink to this definition"></a></dt>
-<dd><blockquote>
-<div><p>Build a simple surface and write the generated structures in VASP format.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>Path_Info: str</strong></dt><dd><p>a filename,containing the crystallographic information for generating the slabs.</p>
-</dd>
-<dt><strong>Model:str</strong></dt><dd><p>a filename,containing surface doping and adsorption modeling parameters</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>None</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="htmacat-model-construct-slabs-module">
+<h2>HTMACat.model.Construct_slabs module<a class="headerlink" href="#htmacat-model-construct-slabs-module" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-HTMACat.model">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-HTMACat.model" title="Permalink to this heading"></a></h2>
