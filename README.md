@@ -26,21 +26,19 @@ ruamel.yaml > 0.15
 rdkit >= 2022.3.3
 typer[all] >= 0.6
 ```
-
-=======
 ## 2.2  Installation
 install wheel file from releases
 
 ```shell
-pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1.0.3/HTMACat-1.0.3-py3-none-any.whl
+pip install -U HTMACat
 
 ```
 or install from source code
 ```shell
 # master branch
-pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master#subdirectory=src
+pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master
 # or dev branch
-pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev#subdirectory=src
+pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev
 ```
 
 # 3. Getting started
@@ -130,3 +128,5 @@ output structures.
 # Links
 
 * Materials Design and Nano-Manufacturing Center@HUST:http://www.materialssimulation.com/
+* Pypi homepage for HTMACat project:https://pypi.org/project/HTMACat/
+* HTMACat-kit’s documentation:https://stanfordbshan.github.io/HTMACat-kit/

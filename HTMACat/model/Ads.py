@@ -11,11 +11,11 @@ from rdkit import Chem
 from rdkit.Chem import AllChem, rdMolDescriptors
 import math
 from HTMACat.Extract_info import *
-from HTMACat.catkit.build import molecule
 from HTMACat.model.Substrate import Slab
 from HTMACat.catkit.gen.adsorption import AdsorptionSites
 from HTMACat.model.Structure import Structure
 import networkx.algorithms.isomorphism as iso
+from ase import Atoms
 
 class Species(object):
     def __init__(self, form, sml=False):
@@ -60,6 +60,7 @@ class Species(object):
     def get_molecule(self):
         ads1 = self.get_formular()
         if self.SML:
+            '''
             mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
             G = self.MolToNXGraph(mole)
             ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
@@ -68,7 +69,25 @@ class Species(object):
                 nm = iso.categorical_node_match('number', 6)
                 if nx.is_isomorphic(ads_._graph, G, node_match=nm):
                     ads_molecule = ads_
+                    print(ads_molecule._graph)
                     break
+            '''
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+            stat = AllChem.EmbedMolecule(mole)
+            if stat == -1:
+                print('[WARNING]: No 3D conformer of specie %s can be generated, using the 2D version instead! (could be unreasonable)' % ads1)
+            conf = mole.GetConformer()
+            atomicnums_list = []
+            coords_list = []
+            for i in range(mole.GetNumAtoms()):
+                atomicnums_list.append(mole.GetAtomWithIdx(i).GetAtomicNum())
+                coords_list.append(tuple(conf.GetAtomPosition(i)))
+            edges_list = []
+            for b in mole.GetBonds():
+                edges_list.append((b.GetBeginAtomIdx(),b.GetEndAtomIdx()))
+            atoms = Atoms(rdMolDescriptors.CalcMolFormula(mole), coords_list)
+            atoms.set_atomic_numbers(atomicnums_list)
+            ads_molecule = to_gratoms(atoms, edges=edges_list)
         else:
             ads_molecule = molecule(ads1)[0]
         return ads_molecule
