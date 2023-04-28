@@ -30,13 +30,13 @@ Installation from releases
 
 .. code-block:: console
 
-    pip install -U https://github.com/stanfordbshan/HTMACat-kit/releases/download/v1.0.3/HTMACat-1.0.3-py3-none-any.whl
+    pip install -U HTMACat
 
 or install from source code
 
 .. code-block:: console
 
     # master branch
-    pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master#subdirectory=src
+    pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master
     # or dev branch
-    pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev#subdirectory=src
+    pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev
