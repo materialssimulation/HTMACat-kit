@@ -1,0 +1,13 @@
+StrucInfo:
+  struct:
+    element: Cu
+    lattype: fcc
+    latcont: 3.58
+    facet: ['111']
+    dope:
+      Cu: [0]
+
+Model:
+  SML: True
+  ads:
+    - ['C[Al](C)C',1]

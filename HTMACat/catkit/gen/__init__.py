@@ -31,6 +31,5 @@ defaults = Defaults()
 from . import symmetry
 from . import adsorption
 from . import surface
-from . import molecules
 
-__all__ = ['defaults', 'symmetry', 'adsorption', 'surface', 'molecules']
+__all__ = ['defaults', 'symmetry', 'adsorption', 'surface']
