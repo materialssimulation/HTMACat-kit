@@ -29,7 +29,7 @@ The content of input file is as follow:
         ads:
             - ['HCOOH',1]
 
-In the directory where the yaml file is located, use the command line to enter ``htamt ads`` to generate 9 vasp structure files.
+In the directory where the yaml file is located, use the command line to enter ``htmat ads`` to generate 9 vasp structure files.
 
 Results
 -------

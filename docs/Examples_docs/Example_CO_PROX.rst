@@ -35,7 +35,7 @@ The content of input file is as follow:
             coads:
                 - ['O','H',1,1]
 
-In the directory where the yaml file is located, use the command line to enter ads to generate 27 vasp structure files.
+In the directory where the yaml file is located, use the command line to enter ``htmat ads``  to generate 27 vasp structure files.
 
 Results
 -------
