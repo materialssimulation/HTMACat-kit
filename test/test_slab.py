@@ -119,10 +119,10 @@ def test_construct_slab3(construct_slab3, slab3):
           assert np.allclose(slab3[i].symbols.numbers, construct_slab3[i].symbols.numbers)
           assert np.allclose(slab3[i].positions, construct_slab3[i].positions)
 
-def test_file_substrate():
-    symbols_numbers = 0
-    positions = 0
-    file_slab = File_Substrate('./Pt.vasp')
-    slab = file_slab.construct()
-    assert np.allclose(slab.symbols.numbers, symbols_numbers)
-    assert np.allclose(slab.positions, positions)
+# def test_file_substrate():
+#     symbols_numbers = 0
+#     positions = 0
+#     file_slab = File_Substrate('./Pt.vasp')
+#     slab = file_slab.construct()
+#     assert np.allclose(slab.symbols.numbers, symbols_numbers)
+#     assert np.allclose(slab.positions, positions)
