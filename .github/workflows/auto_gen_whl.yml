@@ -37,7 +37,7 @@ jobs:
       - name: Build wheel and source distribution
         run: |
           pip install setuptools wheel
-          python setup.py sdist bdist_wheel
+          python setup.py bdist_wheel
 
       - name: Release version
         id: release_version
