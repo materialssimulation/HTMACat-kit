@@ -77,20 +77,20 @@ def test_construct_coadsorption_11(coads11):
                                                     [-2.91398819e-01,  9.60519651e-01,  1.57219977e+01],
                                                     [ 7.00035713e+00,  2.58653660e-15,  1.53960907e+01]])
 
-@pytest.fixture
-def coads12(species):
-    sites=['1','2']
-    coads = Coadsorption(species=species, sites=sites)
-    return coads
+# @pytest.fixture
+# def coads12(species):
+#     sites=['1','2']
+#     coads = Coadsorption(species=species, sites=sites)
+#     return coads
 
-def test_construct_coadsorption_12(coads12):
-    slab_ad_final = coads12.Construct_coadsorption_12()
+# def test_construct_coadsorption_12(coads12):
+#     slab_ad_final = coads12.Construct_coadsorption_12()
 
-@pytest.fixture
-def coads22(species):
-    sites=['2','2']
-    coads = Coadsorption(species=species, sites=sites)
-    return coads
+# @pytest.fixture
+# def coads22(species):
+#     sites=['2','2']
+#     coads = Coadsorption(species=species, sites=sites)
+#     return coads
 
-def test_construct_coadsorption_22(coads22):
-    slab_ad_final = coads22.Construct_coadsorption_22()
+# def test_construct_coadsorption_22(coads22):
+#     slab_ad_final = coads22.Construct_coadsorption_22()

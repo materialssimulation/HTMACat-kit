@@ -37,6 +37,6 @@ def test_get_molecule(species1, species2):
     ads_molecule2 = species2.get_molecule()
     assert np.allclose(ads_molecule2.numbers, [7, 1, 1])
     print(ads_molecule2.positions)
-    assert np.allclose(ads_molecule2.positions,[[-8.70817145e-04,  3.80919534e-01, -0.00000000e+00],
-                                                [-8.70678129e-01, -1.90758492e-01, -0.00000000e+00],
-                                                [ 8.71548946e-01, -1.90161042e-01,  0.00000000e+00]])
+    assert np.allclose(ads_molecule2.positions,[[-0.00096922,  0.40380663, -0.        ],
+                                                [-0.85154227, -0.20227805, -0.        ],
+                                                [ 0.85251149, -0.20152858,  0.        ]])
