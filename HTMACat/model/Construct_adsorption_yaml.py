@@ -4,6 +4,6 @@ from HTMACat.IO import Input, out_vasp
 
 
 def Construct_adsorption_yaml(filename):
-    substrates, adsorptions = Input(filename)
+    substrates, species_dict, adsorptions = Input(filename)
     for ads in adsorptions:
         out_vasp(ads)

@@ -16,81 +16,7 @@ from HTMACat.catkit.gen.adsorption import AdsorptionSites
 from HTMACat.model.Structure import Structure
 import networkx.algorithms.isomorphism as iso
 from ase import Atoms
-
-class Species(object):
-    def __init__(self, form, sml=False):
-        self.SML = sml
-        self.form = form.strip()
-
-    def get_formular(self):
-        return self.form
-
-    def out_file_name(self):
-        ads1 = self.get_formular()
-        if self.SML:
-            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-            ads1 = rdMolDescriptors.CalcMolFormula(mole)
-        return ads1
-
-    def out_print(self):
-        return self.form
-
-    def MolToNXGraph(self, m):
-        """
-        Convert a molecule object to a graph.
-        Parameters
-        ----------
-        m : mol
-            The RDKit molecule object to be converted into a networkx graph.
-        Returns
-        ----------
-        G : Graph
-            The networkx Graph object derived from m.
-        """
-        G = nx.Graph()
-        for i_n in range(m.GetNumAtoms()):
-            G.add_nodes_from([(i_n, {'number':m.GetAtomWithIdx(i_n).GetAtomicNum()})])
-        bonds = [m.GetBondWithIdx(k) for k in range(len(m.GetBonds()))]
-        edges = []
-        for edge in bonds:
-            edges.append((edge.GetBeginAtomIdx(),edge.GetEndAtomIdx()))
-        G.add_edges_from(edges)
-        return G
-
-    def get_molecule(self):
-        ads1 = self.get_formular()
-        if self.SML:
-            '''
-            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-            G = self.MolToNXGraph(mole)
-            ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-            ads_molecule = ads1_list[0]
-            for ads_ in ads1_list:
-                nm = iso.categorical_node_match('number', 6)
-                if nx.is_isomorphic(ads_._graph, G, node_match=nm):
-                    ads_molecule = ads_
-                    print(ads_molecule._graph)
-                    break
-            '''
-            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-            stat = AllChem.EmbedMolecule(mole)
-            if stat == -1:
-                print('[WARNING]: No 3D conformer of specie %s can be generated, using the 2D version instead! (could be unreasonable)' % ads1)
-            conf = mole.GetConformer()
-            atomicnums_list = []
-            coords_list = []
-            for i in range(mole.GetNumAtoms()):
-                atomicnums_list.append(mole.GetAtomWithIdx(i).GetAtomicNum())
-                coords_list.append(tuple(conf.GetAtomPosition(i)))
-            edges_list = []
-            for b in mole.GetBonds():
-                edges_list.append((b.GetBeginAtomIdx(),b.GetEndAtomIdx()))
-            atoms = Atoms(rdMolDescriptors.CalcMolFormula(mole), coords_list)
-            atoms.set_atomic_numbers(atomicnums_list)
-            ads_molecule = to_gratoms(atoms, edges=edges_list)
-        else:
-            ads_molecule = molecule(ads1)[0]
-        return ads_molecule
+from HTMACat.model.Species import init_from_ads, ABS_Species
 
 
 class Adsorption(Structure):
@@ -99,7 +25,7 @@ class Adsorption(Structure):
             spec_ads_stable = {'NH3': [1], 'NH2': [2], 'NH': [2, 4], 'N': [2, 4], 'O': [2, 4],
                                'OH': [2, 4], 'NO': [2, 4], 'H2O': [1], 'H': [2, 4]}
         assert isinstance(species, list), "species should be a list of Species class"
-        assert isinstance(species[0], Species), "species should be a list of Species class"
+        assert isinstance(species[0], ABS_Species), "species should be a list of Species class"
         assert isinstance(sites, list), "sites should be a list"
         assert sites[0] in ['1', '2'], 'Supports only "1" "2" adsorption sites type for ads!'
         assert len(species) == len(sites), "The species number and the sites number is not equal"
@@ -191,11 +117,14 @@ class Adsorption(Structure):
         return slab_ad
 
     @classmethod
-    def from_input_dict(cls, init_dict):
-        spec1 = Species(init_dict['value'][0], init_dict['SML'])
-        sites = str(init_dict['value'][1])
-        substrate = init_dict['substrate']
-        return cls([spec1], [sites], substrate=substrate)
+    def from_input(cls, init_list, substrates, species_dict=None):
+        ads = []
+        for i in init_list:
+            spec1 = init_from_ads(i[0], species_dict)
+            sites1 = str(i[1])
+            for j in substrates:
+                ads.append(cls([spec1], [sites1], substrate=j))
+        return ads
 
 
 class Coadsorption(Adsorption):
@@ -390,21 +319,30 @@ class Coadsorption(Adsorption):
         return slab_ad
 
     @classmethod
-    def from_input_dict(cls, init_dict):
-        spec1 = Species(init_dict['value'][0], init_dict['SML'])
-        spec2 = Species(init_dict['value'][1], init_dict['SML'])
-        sites1 = str(init_dict['value'][2])
-        sites2 = str(init_dict['value'][3])
-        substrate = init_dict['substrate']
-        return cls([spec1, spec2], [sites1, sites2], substrate=substrate)
+    def from_input(cls, init_list, substrates, species_dict=None):
+        ads = []
+        for i in init_list:
+            spec1 = init_from_ads(i[0], species_dict)
+            spec2 = init_from_ads(i[1], species_dict)
+            sites1 = str(i[2])
+            sites2 = str(i[3])
+            for j in substrates:
+                ads.append(cls([spec1, spec2], [sites1, sites2], substrate=j))
+        return ads
 
 
-def ads_from_input(init_dict):
-    # ads_init_dict = {'SML':False,'type':[],'value':[]}
-    if init_dict['type'] == 'coads':
-        ads = Coadsorption.from_input_dict(init_dict)
-    elif init_dict['type'] == 'ads':
-        ads = Adsorption.from_input_dict(init_dict)
-    else:
-        raise TypeError('Supports only "Ads" and "Coads" adsorption type!')
+def ads_from_input(ads_model, substrate, species_dict=None):
+    ads = []
+    new_ads = []
+    ads_type_list = ['ads', 'coads']
+    for key, value in ads_model.items():
+        if key == 'coads':
+            new_ads = Coadsorption.from_input(value, substrate, species_dict)
+        elif key == 'ads':
+            new_ads = Adsorption.from_input(value, substrate, species_dict)
+        else:
+            msg = ','.join(ads_type_list)
+            warn_msg = 'Only support species type: %s, Your input %s part in Species will be dismiss' % (msg, key)
+            raise Warning(warn_msg)
+        ads = ads + new_ads
     return ads
