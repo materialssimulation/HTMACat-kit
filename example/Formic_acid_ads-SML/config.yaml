@@ -8,6 +8,5 @@ StrucInfo:
       Cu: ['b1']
 
 Model:
-  SML: True
   ads:
-    - ['C(=O)O',1]
+    - [s: 'C(=O)O',1]
