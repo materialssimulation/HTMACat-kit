@@ -22,11 +22,10 @@ setup(
     author_email='bshan@mail.hust.edu.cn',
     url='https://stanfordbshan.github.io/HTMACat-kit/',
     keywords=['high-throughput', 'python', 'catalysis', 'modeling'],
-    python_requires=">=3.6, <3.10",
+    python_requires=">=3.6",
     install_requires=requirements,
     packages=find_packages(),
     include_package_data=True,
-    readme='README.md',
     package_data={'': ["*.db", "*.txt", "*.json", "*.yaml", "*.md", "*.rst", "Element_Info"]},
     entry_points={
         'console_scripts': [  # 命令的入口
