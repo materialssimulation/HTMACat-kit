@@ -8,7 +8,6 @@ StrucInfo:
       Cu: [3]
 
 Model:
-  SML: False
   ads: 
     - ['NH3',1]
   coads: 

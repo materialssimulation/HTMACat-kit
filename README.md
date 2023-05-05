@@ -48,9 +48,10 @@ pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev
 ### 1) Prepare the input files
 
 `config.yaml` should be prepared in your working folder.
-`Config.yaml` file Contains two parts: 
-- `StuctInfo` parts 
-- `Model` parts
+`Config.yaml` file Contains three parts: 
+- `StuctInfo` part 
+- `Species` part (optional)
+- `Model` part
 
 The format of the whole `config.yaml` is as follows:
    ```yaml
@@ -64,11 +65,20 @@ The format of the whole `config.yaml` is as follows:
         dope:
           Cu: [3]
    
+   # This part alias for Species
+   Species:
+    file:
+      'NH3+': NH3+.xyz #struct_file
+      'NH3-': NH3-.xyz #struct_file
+    sml:
+      'O2': O=O #smiles
+    
    Model:
-    SML: False
     ads:
-      - ['NH3',1]
+      - ['NH3+',1]
       - ['NO', 2]
+      - [s: 'C(=O)O',1]
+      - [f: 'NH3+',1]
     coads: 
       - ['NH3','O',1,1]
    ```
@@ -89,14 +99,24 @@ the keywords should be chosen as following two types: `file` or `struct`
     respectively.
     `1L` and `b1` represent surface layer substitution and bulk equivalent proportional substitution.
 
-`Model` parts contains the adsorption modeling parameters, including:
+`Species` part is an optional part, which used to alias the species name, including:
+- `sml`: using *Smiles* toe represent the adsorption species
+- `file`: adsorption species reading from structure file, such as *xyz* format and 
+          *vasp* format
 
-- `SML`: whether using *Smiles* toe represent the adsorption species
+`Model` part contains the adsorption modeling parameters, including:
 - `ads`: using `- [ adsorbate formular , adsorption sites type]` to represent one adsorption status, where
   adsorption formular should be a str start with `'` end with `'`. Different adsorption status should start with
   new line, adsorption sites type can be chosen from `1` or `2`.
 - `coads`: using `- [ads1, ads2, ads1 sites, ads2 sites]`, *ads1* and *ads2* is two adsorbate species formular,
   *ads1 sites* and *ads2 sites* is adsorption sites type, can be chosen from `1` and `2`.
+- Each *adsorbate species formular* has three representation:
+  - *str* format such as `'ads1'`, this format will automatically generate species according to
+    chemical formular
+  - *smile* format such as `s: 'ads1'` or `sml: 'ads1'`, this format will generate spcecies according to
+    the *smile* formular
+  - *file* format such as `f: 'ads1'` or `file: 'ads1'`, this format will read structure from
+    file 'ads1', now only 'xyz' and 'vasp' structure file format is supported  
 
 **To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.** Users can modify the
 corresponding parameters to achieve customized modeling according to their research needs.

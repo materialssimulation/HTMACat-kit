@@ -8,6 +8,5 @@ StrucInfo:
       Cu: [0]
 
 Model:
-  SML: True
   ads:
-    - ['C[Al](C)C',1]
+    - [s: 'C[Al](C)C',1]

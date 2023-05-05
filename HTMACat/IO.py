@@ -5,10 +5,10 @@ Created on Sun Mar 19 11:47:30 2023
 @author: YuxiaoLan
 """
 import shutil
-
 from ruamel.yaml import YAML
-from HTMACat.model.Substrate import substrate_from_input, substrate_from_file
+from HTMACat.model.Substrate import substrate_from_input
 from HTMACat.model.Ads import ads_from_input
+from HTMACat.model.Species import species_from_input
 from ase.io.vasp import write_vasp
 from HTMACat.model.Structure import Structure
 from pathlib import Path
@@ -18,66 +18,51 @@ from rich import print
 def Input(filename):
     yaml = YAML(typ='safe')
     with open(filename, 'r', encoding='utf-8') as f:
-        result = yaml.load(f.read())
-    struct_Info = result['StrucInfo']
-    substrates = substrate_part(struct_Info)
-    ads_model = result['Model']
-    ads = adsorption_part(ads_model, substrates)
-    return substrates, ads
+        result: dict = yaml.load(f.read())
+
+    substrates = substrate_part(result)
+    species_dict = species_part(result)
+    ads = adsorption_part(result)
+    return substrates, species_dict, ads
 
 
-def substrate_part(struct_Info):
+def substrate_part(result):
     # A substrate is one facet with one dop element with on dop_type
-    substrates = []
+    struct_Info = result['StrucInfo']
+    file_default = []
+    struct_default = {'element': 'Pt', 'lattype': 'fcc', 'latcont': 3.92, 'facet': ['111'], 'dope': {}}
     if 'file' in struct_Info:
-        struct_filename = struct_Info['file']
-        substrates.append(substrate_from_file(struct_filename))
-        return substrates
-
-    struct_filename = None
-    struct_Info = struct_Info['struct']
-    struct_init_dict = {
-        'element': struct_Info['element'],
-        'lattype': struct_Info['lattype'],
-        'latcont': struct_Info['latcont']
-    }
-    dope_init_dict = {'element_dop': [], 'dop_type': []}
-    surface_init_dict = {'facet': []}
-    dope_system = struct_Info['dope']
-    dope_init_list = []
-    surface_init_list = []
-    for key, value in dope_system.items():
-        for i in value:
-            dope_init_list.append({'element_dop': key, 'dop_type': i})
-    for i in struct_Info['facet']:
-        surface_init_list.append({'facet': i})
-
-    ## substrates initialization
-    if not struct_filename:
-        for i in range(len(dope_init_list)):
-            for j in range(len(surface_init_list)):
-                init_dict = {**struct_init_dict, **dope_init_list[i], **surface_init_list[j]}
-                substrates.append(substrate_from_input(init_dict))
+        if isinstance(struct_Info['file'], list):
+            file_default = struct_Info['file']
+        else:
+            file_default = [struct_Info['file']]
+    if 'struct' in struct_Info:
+        struct_default.update(struct_Info['struct'])
+    else:
+        struct_default = {}
+    substrate_init_dict = {'file': file_default, 'struct': struct_default}
+    substrates = substrate_from_input(substrate_init_dict)
     return substrates
 
 
-def adsorption_part(ads_model, substrates):
-    ## Adsorption Part
-    ads_default_dict = {'SML': False, 'ads': [], 'coads': []}
-    ads = []
+def species_part(result: dict):
+    if 'Species' not in result.keys():
+        return {}
+    species_info = result['Species']
+    species_dict = species_from_input(species_info)
+    return species_dict
 
-    for key in ['SML', 'ads', 'coads']:
+
+def adsorption_part(result):
+    # Adsorption Part
+    substrates = substrate_part(result)
+    species_dict = species_part(result)
+    ads_model = result['Model']
+    ads_default_dict = {'ads': [], 'coads': []}
+    for key in ['ads', 'coads']:
         if key not in ads_model:
             ads_model[key] = ads_default_dict[key]
-
-    for key in ['ads', 'coads']:
-        for j in ads_model[key]:
-            if not j:
-                continue
-            for k in substrates:
-                ads_init_dict = {'SML': ads_model['SML'], 'type': key, 'value': j, 'substrate': k}
-                ads.append(ads_from_input(ads_init_dict))
-
+    ads = ads_from_input(ads_model, substrates, species_dict)
     return ads
 
 
@@ -135,6 +120,6 @@ def out_vasp(struct_class: Structure):
     if structures:
         for i, structure in enumerate(structures):
             write_vasp("%s_%s.vasp" % (file_name, i), structure, direct=True, sort=[''], vasp5=True)
-        print(f"[i][u]{print_str}[/u][/i] are construct with [i][u]{i+1}[/u][/i] configurations!")
+        print(f"[i][u]{print_str}[/u][/i] are construct with [i][u]{i + 1}[/u][/i] configurations!")
     else:
         print(f"[i][u]{print_str}[/u][/i] are construct with !No! configurations!")

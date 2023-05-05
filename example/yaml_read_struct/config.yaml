@@ -2,7 +2,6 @@ StrucInfo:
   file: POSCARslab
 
 Model:
-  SML: False
   ads:
     - ['CO',2]
   coads:

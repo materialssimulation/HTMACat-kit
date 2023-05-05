@@ -239,6 +239,37 @@ class Slab(Structure):
         facet = init_dict['facet']
         return cls(in_bulk, facet)
 
+    @classmethod
+    def from_input(cls, struct_Info: dict):
+        assert isinstance(struct_Info, dict), 'Substrates init by self defined struct should be dict!'
+        if struct_Info == {}:
+            return []
+        substrates = []
+
+        struct_init_dict = {
+            'element': struct_Info['element'],
+            'lattype': struct_Info['lattype'],
+            'latcont': struct_Info['latcont']
+        }
+        dope_init_dict = {'element_dop': [], 'dop_type': []}
+        surface_init_dict = {'facet': []}
+        dope_system = struct_Info['dope']
+        dope_init_list = []
+        surface_init_list = []
+        for key, value in dope_system.items():
+            for i in value:
+                dope_init_list.append({'element_dop': key, 'dop_type': i})
+        for i in struct_Info['facet']:
+            surface_init_list.append({'facet': i})
+
+        # substrates initialization
+        for i in range(len(dope_init_list)):
+            for j in range(len(surface_init_list)):
+                init_dict = {**struct_init_dict, **dope_init_list[i], **surface_init_list[j]}
+                substrates.append(cls.from_dict(init_dict))
+
+        return substrates
+
 
 class File_Substrate(Structure):
     def __init__(self, filename):
@@ -302,16 +333,23 @@ class File_Substrate(Structure):
     def out_file_name(self) -> str:
         return self.filename
 
+    @classmethod
+    def from_dict(cls, init_dict):
+        return cls(init_dict['filename'])
+
+    @classmethod
+    def from_input(cls, input_list: list):
+        assert isinstance(input_list, list), 'Substrates reading from file should be list!'
+        substrates = []
+        for filename in input_list:
+            assert isinstance(filename, str), 'Filename should be str!'
+            substrates.append(cls(filename))
+        return substrates
+
 
 def substrate_from_input(init_dict):
-    substrate = Slab.from_dict(init_dict)
-    return substrate
+    substrates = []
+    substrates = substrates + File_Substrate.from_input(init_dict['file'])
+    substrates = substrates + Slab.from_input(init_dict['struct'])
+    return substrates
 
-
-# def substrate_from_file(filename):
-#     substrate = Slab.from_file(filename)
-#     return substrate
-
-def substrate_from_file(filename):
-    substrate = File_Substrate(filename)
-    return substrate
