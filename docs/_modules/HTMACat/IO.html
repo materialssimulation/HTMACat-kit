@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.IO &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting_started.html"><strong>Getting started</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../HTMACat.html">HTMACat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HTMACat.IO</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HTMACat.IO</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Sun Mar 19 11:47:30 2023</span>
+
+<span class="sd">@author: YuxiaoLan</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">ruamel.yaml</span> <span class="kn">import</span> <span class="n">YAML</span>
+<span class="kn">from</span> <span class="nn">HTMACat.model.Substrate</span> <span class="kn">import</span> <span class="n">substrate_from_input</span>
+<span class="kn">from</span> <span class="nn">HTMACat.model.Ads</span> <span class="kn">import</span> <span class="n">ads_from_input</span>
+<span class="kn">from</span> <span class="nn">HTMACat.model.Species</span> <span class="kn">import</span> <span class="n">species_from_input</span>
+<span class="kn">from</span> <span class="nn">ase.io.vasp</span> <span class="kn">import</span> <span class="n">write_vasp</span>
+<span class="kn">from</span> <span class="nn">HTMACat.model.Structure</span> <span class="kn">import</span> <span class="n">Structure</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span>
+
+
+<div class="viewcode-block" id="Input"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.Input">[docs]</a><span class="k">def</span> <span class="nf">Input</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">yaml</span> <span class="o">=</span> <span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s1">&#39;safe&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrate_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">species_dict</span> <span class="o">=</span> <span class="n">species_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">ads</span> <span class="o">=</span> <span class="n">adsorption_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">substrates</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">,</span> <span class="n">ads</span></div>
+
+
+<div class="viewcode-block" id="substrate_part"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.substrate_part">[docs]</a><span class="k">def</span> <span class="nf">substrate_part</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+    <span class="c1"># A substrate is one facet with one dop element with on dop_type</span>
+    <span class="n">struct_Info</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;StrucInfo&#39;</span><span class="p">]</span>
+    <span class="n">file_default</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">struct_default</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="s1">&#39;Pt&#39;</span><span class="p">,</span> <span class="s1">&#39;lattype&#39;</span><span class="p">:</span> <span class="s1">&#39;fcc&#39;</span><span class="p">,</span> <span class="s1">&#39;latcont&#39;</span><span class="p">:</span> <span class="mf">3.92</span><span class="p">,</span> <span class="s1">&#39;facet&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;111&#39;</span><span class="p">],</span> <span class="s1">&#39;dope&#39;</span><span class="p">:</span> <span class="p">{}}</span>
+    <span class="k">if</span> <span class="s1">&#39;file&#39;</span> <span class="ow">in</span> <span class="n">struct_Info</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">file_default</span> <span class="o">=</span> <span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">file_default</span> <span class="o">=</span> <span class="p">[</span><span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="s1">&#39;struct&#39;</span> <span class="ow">in</span> <span class="n">struct_Info</span><span class="p">:</span>
+        <span class="n">struct_default</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;struct&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">struct_default</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">substrate_init_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">file_default</span><span class="p">,</span> <span class="s1">&#39;struct&#39;</span><span class="p">:</span> <span class="n">struct_default</span><span class="p">}</span>
+    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrate_from_input</span><span class="p">(</span><span class="n">substrate_init_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">substrates</span></div>
+
+
+<div class="viewcode-block" id="species_part"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.species_part">[docs]</a><span class="k">def</span> <span class="nf">species_part</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s1">&#39;Species&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="n">species_info</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span>
+    <span class="n">species_dict</span> <span class="o">=</span> <span class="n">species_from_input</span><span class="p">(</span><span class="n">species_info</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">species_dict</span></div>
+
+
+<div class="viewcode-block" id="adsorption_part"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.adsorption_part">[docs]</a><span class="k">def</span> <span class="nf">adsorption_part</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+    <span class="c1"># Adsorption Part</span>
+    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrate_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">species_dict</span> <span class="o">=</span> <span class="n">species_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">ads_model</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">]</span>
+    <span class="n">ads_default_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ads&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;coads&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ads&#39;</span><span class="p">,</span> <span class="s1">&#39;coads&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ads_model</span><span class="p">:</span>
+            <span class="n">ads_model</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ads_default_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="n">ads</span> <span class="o">=</span> <span class="n">ads_from_input</span><span class="p">(</span><span class="n">ads_model</span><span class="p">,</span> <span class="n">substrates</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ads</span></div>
+
+
+<div class="viewcode-block" id="get_templator"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.get_templator">[docs]</a><span class="k">def</span> <span class="nf">get_templator</span><span class="p">():</span>
+    <span class="n">templator</span> <span class="o">=</span> \
+        <span class="sd">&quot;&quot;&quot;#Templator[YAML-format] for HTMACat-kit input</span>
+<span class="sd">StrucInfo:</span>
+<span class="sd"># The followting two keywords should be chosen only one</span>
+<span class="sd">    file: POSCARfile #read substrate from POSCAR file</span>
+<span class="sd">    struct:</span>
+<span class="sd">        element: Au #bulk phase element</span>
+<span class="sd">        lattype: fcc #lattice type</span>
+<span class="sd">        latcont: 4.16 #lattice parameter</span>
+<span class="sd">        facet: [&#39;111&#39;,&#39;100&#39;] #crystal plane</span>
+<span class="sd">        dope: #dopeing part</span>
+<span class="sd">            Cu: [3] #dopeing element and dope type</span>
+<span class="sd">            Ag: [1,2,3,&#39;b1&#39;,&#39;1L&#39;]</span>
+
+<span class="sd">Model:</span>
+<span class="sd">    SML: False #whether the species is in Smile style</span>
+<span class="sd">    ads: #single adsorption for one species</span>
+<span class="sd">        - [&#39;NH3&#39;,1] #species name and adsorption sites</span>
+<span class="sd">        - [&#39;NO&#39;, 2]</span>
+<span class="sd">    coads: #co-adsorption for one species</span>
+<span class="sd">        - [&#39;NH3&#39;,&#39;O&#39;,1,1] #species name and adsorption sites&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">templator</span></div>
+
+
+<div class="viewcode-block" id="print_templator"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.print_templator">[docs]</a><span class="k">def</span> <span class="nf">print_templator</span><span class="p">():</span>
+    <span class="n">templator</span> <span class="o">=</span> <span class="n">get_templator</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">templator</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="out_templator_file"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.out_templator_file">[docs]</a><span class="k">def</span> <span class="nf">out_templator_file</span><span class="p">():</span>
+    <span class="n">templator</span> <span class="o">=</span> <span class="n">get_templator</span><span class="p">()</span>
+    <span class="n">workdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;./config.yaml&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">workdir</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">choose</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Warning: Replace config.yaml file in your folder? [y/n(default)]:&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">choose</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">choose</span> <span class="o">==</span> <span class="s1">&#39;n&#39;</span> <span class="ow">or</span> <span class="n">choose</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">templator</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="out_vasp"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.out_vasp">[docs]</a><span class="k">def</span> <span class="nf">out_vasp</span><span class="p">(</span><span class="n">struct_class</span><span class="p">:</span> <span class="n">Structure</span><span class="p">):</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">struct_class</span><span class="o">.</span><span class="n">out_file_name</span><span class="p">()</span>
+    <span class="n">print_str</span> <span class="o">=</span> <span class="n">struct_class</span><span class="o">.</span><span class="n">out_print</span><span class="p">()</span>
+    <span class="n">structures</span> <span class="o">=</span> <span class="n">struct_class</span><span class="o">.</span><span class="n">construct</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">structures</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">structure</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">structures</span><span class="p">):</span>
+            <span class="n">write_vasp</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">.vasp&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">structure</span><span class="p">,</span> <span class="n">direct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">vasp5</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[i][u]</span><span class="si">{</span><span class="n">print_str</span><span class="si">}</span><span class="s2">[/u][/i] are construct with [i][u]</span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">[/u][/i] configurations!&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[i][u]</span><span class="si">{</span><span class="n">print_str</span><span class="si">}</span><span class="s2">[/u][/i] are construct with !No! configurations!&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
