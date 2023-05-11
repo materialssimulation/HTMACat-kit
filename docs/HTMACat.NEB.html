@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.NEB package &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="HTMACat.catkit package" href="HTMACat.catkit.html" />
+    <link rel="prev" title="HTMACat package" href="HTMACat.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html"><strong>Getting started</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="HTMACat.html">HTMACat package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="HTMACat.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">HTMACat.NEB package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.NEB.Construct_neb">HTMACat.NEB.Construct_neb module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-neb-construct-network-module">HTMACat.NEB.Construct_network module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.NEB.Dismove">HTMACat.NEB.Dismove module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.NEB.Post_struc">HTMACat.NEB.Post_struc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.NEB.post_neb">HTMACat.NEB.post_neb module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#htmacat-neb-vaspneb6-module">HTMACat.NEB.vaspneb6 module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.NEB">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.html">HTMACat.catkit package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.descriptor.html">HTMACat.descriptor package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.model.html">HTMACat.model package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.post.html">HTMACat.post package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Base_tools">HTMACat.Base_tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Extract_info">HTMACat.Extract_info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.IO">HTMACat.IO module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.command">HTMACat.command module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.configuration">HTMACat.configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="HTMACat.html">HTMACat package</a></li>
+      <li class="breadcrumb-item active">HTMACat.NEB package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/HTMACat.NEB.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="htmacat-neb-package">
+<h1>HTMACat.NEB package<a class="headerlink" href="#htmacat-neb-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-HTMACat.NEB.Construct_neb">
+<span id="htmacat-neb-construct-neb-module"></span><h2>HTMACat.NEB.Construct_neb module<a class="headerlink" href="#module-HTMACat.NEB.Construct_neb" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.NEB.Construct_neb.Construct_neb">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.NEB.Construct_neb.</span></span><span class="sig-name descname"><span class="pre">Construct_neb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method_inter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nimages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dcut</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d_scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/NEB/Construct_neb.html#Construct_neb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.NEB.Construct_neb.Construct_neb" title="Permalink to this definition"></a></dt>
+<dd><p>Construct a Nudged Elastic Band (NEB) for transitioning between two structures.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>struct</strong><span class="classifier">list</span></dt><dd><p>List of two strings representing the initial and final states in VASP file format.</p>
+</dd>
+<dt><strong>method_inter</strong><span class="classifier">str, optional</span></dt><dd><p>Method for interpolating the positions of the middle images. Either ‘linear’ or ‘idpp’. Default is ‘linear’.</p>
+</dd>
+<dt><strong>nimages</strong><span class="classifier">int, optional</span></dt><dd><p>Number of images in the band, excluding the initial and final states. Default is 6.</p>
+</dd>
+<dt><strong>dcut</strong><span class="classifier">float, optional</span></dt><dd><p>Distance cutoff (in Angstroms) used to determine which atoms need to be fixed during the NEB calculation. Default is 0.25.</p>
+</dd>
+<dt><strong>d_scaled</strong><span class="classifier">float, optional</span></dt><dd><p>Distance (scaled by the cell lengths) used to modify the positions of atoms that are too far apart between the initial and final structures. Default is 0.5.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>images</strong><span class="classifier">list</span></dt><dd><p>List of images representing the NEB calculation. The first and last images are the initial and final states, respectively, and the middle images are interpolated.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">struct</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;initial.vasp&#39;</span><span class="p">,</span> <span class="s1">&#39;final.vasp&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">images</span> <span class="o">=</span> <span class="n">Construct_neb</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">method_inter</span><span class="o">=</span><span class="s1">&#39;idpp&#39;</span><span class="p">,</span> <span class="n">nimages</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">dcut</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">d_scaled</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span><span class="n">s</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="htmacat-neb-construct-network-module">
+<h2>HTMACat.NEB.Construct_network module<a class="headerlink" href="#htmacat-neb-construct-network-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-HTMACat.NEB.Dismove">
+<span id="htmacat-neb-dismove-module"></span><h2>HTMACat.NEB.Dismove module<a class="headerlink" href="#module-HTMACat.NEB.Dismove" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.NEB.Dismove.Dismove">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.NEB.Dismove.</span></span><span class="sig-name descname"><span class="pre">Dismove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dcut</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/NEB/Dismove.html#Dismove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.NEB.Dismove.Dismove" title="Permalink to this definition"></a></dt>
+<dd><p>calculate the atom moving distance between initial and final structure for NEB calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dcut:float</strong></dt><dd><p>when atom moving distance &gt; dcut, the atom id should be exported into Nmoveatom used to NEB calculation.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function needs to read two files named POSstart and POSend, and write the processing results to three files: 
+POStmp, POStmp2, and POSfinal.At the same time, this function will also create a file called Nmovetatom to record 
+the sequence numbers of atoms whose movement distance is greater than the threshold. It is necessary to ensure that 
+there is no folder named remove in the current working directory before calling this function, otherwise the folder 
+will be deleted.</p>
+</dd></dl>
+
+</section>
+<section id="module-HTMACat.NEB.Post_struc">
+<span id="htmacat-neb-post-struc-module"></span><h2>HTMACat.NEB.Post_struc module<a class="headerlink" href="#module-HTMACat.NEB.Post_struc" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.NEB.Post_struc.mig_atoms">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.NEB.Post_struc.</span></span><span class="sig-name descname"><span class="pre">mig_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ffile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0.5,</span> <span class="pre">0.5,</span> <span class="pre">0.0]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/NEB/Post_struc.html#mig_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.NEB.Post_struc.mig_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Migrate atoms in VASP POSCAR files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>Ffile</strong><span class="classifier">str</span></dt><dd><p>A string that specifies the filename of the VASP POSCAR file.</p>
+</dd>
+<dt><strong>dis</strong><span class="classifier">list of float, optional</span></dt><dd><p>A list of three floats that specifies the displacement of each atom
+along the x-, y-, and z-axis, respectively. Default is [0.50, 0.50, 0.00].</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>None</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function reads in a VASP POSCAR file, applies a displacement to each
+atom in the file, and writes out a new VASP POSCAR file with the migrated
+atoms. The displacement is specified by the <cite>dis</cite> parameter.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mig_atoms</span><span class="p">(</span><span class="s1">&#39;POSCAR&#39;</span><span class="p">,</span> <span class="n">dis</span><span class="o">=</span><span class="p">[</span><span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-HTMACat.NEB.post_neb">
+<span id="htmacat-neb-post-neb-module"></span><h2>HTMACat.NEB.post_neb module<a class="headerlink" href="#module-HTMACat.NEB.post_neb" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.NEB.post_neb.calE_neb">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.NEB.post_neb.</span></span><span class="sig-name descname"><span class="pre">calE_neb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nimage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/NEB/post_neb.html#calE_neb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.NEB.post_neb.calE_neb" title="Permalink to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Read the data in the ‘react.log’ file and calculate the energy barrier information, then return the list of reactants,</dt><dd><p>energy barriers, and energy</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>nimage:int</strong></dt><dd><p>how many segments the entire reaction path is divided into,The default value is 6</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[str,list,list]</dt><dd><dl class="simple">
+<dt>reaction: str</dt><dd><p>It represents the name of the chemical reaction, which can be found in the “react.log” file.</p>
+</dd>
+<dt>neb B: list</dt><dd><p>It representing the coordinate axis data in the energy potential curve.
+The list contains the coordinate axis value of each discrete point, where the odd subscript value in the list
+represents the x coordinate on the coordinate axis, and the even subscript value represents the y coordinate on
+the coordinate axis.</p>
+</dd>
+<dt>neb E: list</dt><dd><p>It representing the energy data in the energy potential graph.
+The list contains the energy value of each discrete point</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.NEB.post_neb.plt_neb">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.NEB.post_neb.</span></span><span class="sig-name descname"><span class="pre">plt_neb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">react</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'neb'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/NEB/post_neb.html#plt_neb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.NEB.post_neb.plt_neb" title="Permalink to this definition"></a></dt>
+<dd><p>It is mainly used to draw the reaction potential energy surface. Its parameters include</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>react: str</strong></dt><dd><p>The reaction equation.</p>
+</dd>
+<dt><strong>neb: list</strong></dt><dd><p>Potential energy data of the reaction path,
+a list of neb_B returned by the calE_neb() function.</p>
+</dd>
+<dt><strong>show: bool</strong></dt><dd><p>Whether to display the image immediately after the drawing is completed, default to True.</p>
+</dd>
+<dt><strong>name:</strong></dt><dd><p>The name of the image file, which defaults to neb.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>tuple[float,float]</dt><dd><p>The return value includes the potential barrier and reaction heat values in the reaction path.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="htmacat-neb-vaspneb6-module">
+<h2>HTMACat.NEB.vaspneb6 module<a class="headerlink" href="#htmacat-neb-vaspneb6-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-HTMACat.NEB">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-HTMACat.NEB" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="HTMACat.html" class="btn btn-neutral float-left" title="HTMACat package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="HTMACat.catkit.html" class="btn btn-neutral float-right" title="HTMACat.catkit package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

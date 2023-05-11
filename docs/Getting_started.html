@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting started &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="Examples.html" />
+    <link rel="prev" title="Installation Guide" href="Installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><strong>Getting started</strong></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#high-throughput-adsorption-modeling"><strong>1.High-throughput adsorption modeling</strong></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-the-input-files">(1) Prepare the input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-script">(2) Run script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#automated-construction-of-reaction-transition-state-calculation-process"><strong>2.Automated construction of reaction transition state calculation process</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#automated-extraction-of-calculation-results"><strong>3.Automated extraction of calculation results</strong></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#automated-extraction-of-descriptors"><strong>4.Automated extraction of descriptors</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="HTMACat.html">HTMACat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><strong>Getting started</strong></li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Getting_started.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started">
+<h1><strong>Getting started</strong><a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
+<section id="high-throughput-adsorption-modeling">
+<h2><strong>1.High-throughput adsorption modeling</strong><a class="headerlink" href="#high-throughput-adsorption-modeling" title="Permalink to this heading"></a></h2>
+<section id="prepare-the-input-files">
+<h3>(1) Prepare the input files<a class="headerlink" href="#prepare-the-input-files" title="Permalink to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> should be prepared in your working folder.</p>
+<p><code class="docutils literal notranslate"><span class="pre">Config.yaml</span></code> file Contains two parts:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">StuctInfo</span></code> parts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Species</span></code> parts (optional)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Model</span></code> parts</p></li>
+</ul>
+<p>The format of the whole <cite>config.yaml</cite> is as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">StrucInfo:</span>
+<span class="go">  file: POSCARfile</span>
+<span class="go">  struct:</span>
+<span class="go">    element: Au</span>
+<span class="go">    lattype: fcc</span>
+<span class="go">    latcont: 4.16</span>
+<span class="go">    facet: [&#39;111&#39;,&#39;100&#39;] #This is comment</span>
+<span class="go">    dope:</span>
+<span class="go">      Cu: [3]</span>
+
+<span class="gp"># </span>This part <span class="nb">alias</span> <span class="k">for</span> Species
+<span class="go">Species:</span>
+<span class="go">  file:</span>
+<span class="go">    &#39;NH3+&#39;: NH3+.xyz #struct_file</span>
+<span class="go">    &#39;NH3-&#39;: NH3-.xyz #struct_file</span>
+<span class="go">  sml:</span>
+<span class="go">    &#39;O2&#39;: O=O #smiles</span>
+
+<span class="go">Model:</span>
+<span class="go">  ads:</span>
+<span class="go">    - [&#39;NH3+&#39;,1]</span>
+<span class="go">    - [&#39;NO&#39;, 2]</span>
+<span class="go">    - [s: &#39;C(=O)O&#39;,1]</span>
+<span class="go">    - [f: &#39;NH3+&#39;,1]</span>
+<span class="go">  coads:</span>
+<span class="go">    - [&#39;NH3&#39;,&#39;O&#39;,1,1]</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">StuctInfo</span></code> parts contains the information about substrate,
+the keywords should be chosen as following two types: <code class="docutils literal notranslate"><span class="pre">file</span></code> or <code class="docutils literal notranslate"><span class="pre">struct</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: Path , this keywords will read substrate from POSCAR file</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">struct</span></code>: this keywords will generate substrate according to following parameter:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">element</span></code>: bulk phase element</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lattype</span></code>: lattice type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latcont</span></code>: lattice parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">facet</span></code>: crystal plane, hould be a <em>list</em>, start with <code class="docutils literal notranslate"><span class="pre">[</span></code>, separate with <code class="docutils literal notranslate"><span class="pre">,</span></code> and end with <code class="docutils literal notranslate"><span class="pre">]</span></code>,
+facet index should be a str start with <code class="docutils literal notranslate"><span class="pre">'</span></code> end with <code class="docutils literal notranslate"><span class="pre">'</span></code>, like <code class="docutils literal notranslate"><span class="pre">'100'</span></code>, <code class="docutils literal notranslate"><span class="pre">'111'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dope</span></code>: dope of the substrate, the formate is <code class="docutils literal notranslate"><span class="pre">dope</span> <span class="pre">element</span> <span class="pre">:</span> <span class="pre">[dope</span> <span class="pre">type1,</span> <span class="pre">dope</span> <span class="pre">type2]</span></code>
+before <code class="docutils literal notranslate"><span class="pre">:</span></code> is the doped element, after the <code class="docutils literal notranslate"><span class="pre">:</span></code> is the dope type, the dope type can be
+chosen as follows: <code class="docutils literal notranslate"><span class="pre">0</span></code> corresponds to no doping, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">3</span></code> correspond to surface
+layers doped with <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">3</span></code> atoms, respectively. <code class="docutils literal notranslate"><span class="pre">1L</span></code> and <code class="docutils literal notranslate"><span class="pre">b1</span></code> represent surface layer
+substitution and bulk equivalent proportional substitution.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Species</span></code> part is an optional part, which used to alias the species name, including:</p>
+<ul class="simple">
+<li><p><cite>sml</cite>: using <em>Smiles</em> toe represent the adsorption species</p></li>
+<li><p><cite>file</cite>: adsorption species reading from structure file, such as <em>xyz</em> format and <em>vasp</em> format</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Model</span></code> part contains the adsorption modeling parameters, including:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ads</span></code>: using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[</span> <span class="pre">adsorbate</span> <span class="pre">formular</span> <span class="pre">,</span> <span class="pre">adsorption</span> <span class="pre">sites</span> <span class="pre">type]</span></code> to represent one adsorption status, where
+adsorption formular should be a str start with <code class="docutils literal notranslate"><span class="pre">'</span></code> end with <code class="docutils literal notranslate"><span class="pre">'</span></code>. Different adsorption status should start with
+new line, adsorption sites type can be chosen from <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coads</span></code>: using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[ads1,</span> <span class="pre">ads2,</span> <span class="pre">ads1</span> <span class="pre">sites,</span> <span class="pre">ads2</span> <span class="pre">sites]</span></code>, <em>ads1</em> and <em>ads2</em> is two adsorbate species formular,
+<em>ads1 sites</em> and <em>ads2 sites</em> is adsorption sites type, can be chosen from <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><dl class="simple">
+<dt>Each <em>adsorbate species formular</em> has three representation:</dt><dd><ul>
+<li><p><em>str</em> format such as <code class="docutils literal notranslate"><span class="pre">'ads1'</span></code>, this format will automatically generate species according to
+chemical formular</p></li>
+<li><p><em>smile</em> format such as <code class="docutils literal notranslate"><span class="pre">s:</span> <span class="pre">'ads1'</span></code> or <code class="docutils literal notranslate"><span class="pre">sml:</span> <span class="pre">'ads1'</span></code>, this format will generate spcecies according to
+the <em>smile</em> formular</p></li>
+<li><p><em>file</em> format such as <code class="docutils literal notranslate"><span class="pre">f:</span> <span class="pre">'ads1'</span></code> or <code class="docutils literal notranslate"><span class="pre">file:</span> <span class="pre">'ads1'</span></code>, this format will read structure from
+file ‘ads1’, now only ‘xyz’ and ‘vasp’ structure file format is supported</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p><strong>To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.</strong> Users can modify the
+corresponding parameters to achieve customized modeling according to their research needs.</p>
+</section>
+<section id="run-script">
+<h3>(2) Run script<a class="headerlink" href="#run-script" title="Permalink to this heading"></a></h3>
+<p>Running command <code class="docutils literal notranslate"><span class="pre">htmat</span> <span class="pre">ads</span></code> can automate the enumeration and construction of all possible configurations, and ultimately
+output structure files in the VASP format, like Au_Cu_111_1_NH_0.vasp,
+Furthermore, for the adsorption models on doped surfaces, we use the <code class="docutils literal notranslate"><span class="pre">get_binding_adatom</span></code> function to determine the
+types of surface atoms that the adsorbate binds to in the preliminary configurations. We only select configurations
+where the adsorbate is bound to a surface atom that contains a dopant atom, in order to reduce the number of final
+output structures.</p>
+</section>
+</section>
+<section id="automated-construction-of-reaction-transition-state-calculation-process">
+<h2><strong>2.Automated construction of reaction transition state calculation process</strong><a class="headerlink" href="#automated-construction-of-reaction-transition-state-calculation-process" title="Permalink to this heading"></a></h2>
+</section>
+<section id="automated-extraction-of-calculation-results">
+<h2><strong>3.Automated extraction of calculation results</strong><a class="headerlink" href="#automated-extraction-of-calculation-results" title="Permalink to this heading"></a></h2>
+</section>
+<section id="automated-extraction-of-descriptors">
+<h2><strong>4.Automated extraction of descriptors</strong><a class="headerlink" href="#automated-extraction-of-descriptors" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Installation.html" class="btn btn-neutral float-left" title="Installation Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

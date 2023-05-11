@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.model package &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="HTMACat.post package" href="HTMACat.post.html" />
+    <link rel="prev" title="HTMACat.descriptor package" href="HTMACat.descriptor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html"><strong>Getting started</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="HTMACat.html">HTMACat package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="HTMACat.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.NEB.html">HTMACat.NEB package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.html">HTMACat.catkit package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.descriptor.html">HTMACat.descriptor package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">HTMACat.model package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Ads">HTMACat.model.Ads module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Construct_adsorption_yaml">HTMACat.model.Construct_adsorption_yaml module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Species">HTMACat.model.Species module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Structure">HTMACat.model.Structure module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model.Substrate">HTMACat.model.Substrate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.model">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.post.html">HTMACat.post package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Base_tools">HTMACat.Base_tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Extract_info">HTMACat.Extract_info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.IO">HTMACat.IO module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.command">HTMACat.command module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.configuration">HTMACat.configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="HTMACat.html">HTMACat package</a></li>
+      <li class="breadcrumb-item active">HTMACat.model package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/HTMACat.model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="htmacat-model-package">
+<h1>HTMACat.model package<a class="headerlink" href="#htmacat-model-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-HTMACat.model.Ads">
+<span id="htmacat-model-ads-module"></span><h2>HTMACat.model.Ads module<a class="headerlink" href="#module-HTMACat.model.Ads" title="Permalink to this heading"></a></h2>
+<p>Created on Sat Mar 18 09:00:12 2023</p>
+<p>&#64;author: YuxiaoLan</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Ads.</span></span><span class="sig-name descname"><span class="pre">Adsorption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species:</span> <span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites:</span> <span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_ads_stable=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substrate=&lt;HTMACat.model.Substrate.Slab</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#HTMACat.model.Structure.Structure" title="HTMACat.model.Structure.Structure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Structure</span></code></a></p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Construct_double_adsorption</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>Construct_single_adsorption</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>add_sites</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>add_species</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>construct</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>from_input</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_sites</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>remove_same</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>set_species</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.Construct_double_adsorption">
+<span class="sig-name descname"><span class="pre">Construct_double_adsorption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.Construct_double_adsorption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.Construct_double_adsorption" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.Construct_single_adsorption">
+<span class="sig-name descname"><span class="pre">Construct_single_adsorption</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.Construct_single_adsorption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.Construct_single_adsorption" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.add_sites">
+<span class="sig-name descname"><span class="pre">add_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sites</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.add_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.add_sites" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.add_species">
+<span class="sig-name descname"><span class="pre">add_species</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.add_species"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.add_species" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.construct">
+<span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.construct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.construct" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.from_input">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substrates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.from_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.get_sites">
+<span class="sig-name descname"><span class="pre">get_sites</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.get_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.get_sites" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.out_file_name">
+<span class="sig-name descname"><span class="pre">out_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.out_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.out_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.out_print">
+<span class="sig-name descname"><span class="pre">out_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.out_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.out_print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.remove_same">
+<span class="sig-name descname"><span class="pre">remove_same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs_ads</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.remove_same"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.remove_same" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Adsorption.set_species">
+<span class="sig-name descname"><span class="pre">set_species</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Adsorption.set_species"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Adsorption.set_species" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Coadsorption">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Ads.</span></span><span class="sig-name descname"><span class="pre">Coadsorption</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species:</span> <span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sites:</span> <span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec_ads_stable=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substrate=&lt;HTMACat.model.Substrate.Slab</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Coadsorption"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Coadsorption" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#HTMACat.model.Ads.Adsorption" title="HTMACat.model.Ads.Adsorption"><code class="xref py py-class docutils literal notranslate"><span class="pre">Adsorption</span></code></a></p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Construct_coadsorption_11</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>Construct_coadsorption_12</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Construct_coadsorption_22</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>Construct_double_adsorption</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Construct_single_adsorption</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>add_sites</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>add_species</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>construct</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>from_input</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_sites</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>remove_same</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>set_species</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Coadsorption.Construct_coadsorption_11">
+<span class="sig-name descname"><span class="pre">Construct_coadsorption_11</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Coadsorption.Construct_coadsorption_11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Coadsorption.Construct_coadsorption_11" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Coadsorption.Construct_coadsorption_12">
+<span class="sig-name descname"><span class="pre">Construct_coadsorption_12</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Coadsorption.Construct_coadsorption_12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Coadsorption.Construct_coadsorption_12" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Coadsorption.Construct_coadsorption_22">
+<span class="sig-name descname"><span class="pre">Construct_coadsorption_22</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Coadsorption.Construct_coadsorption_22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Coadsorption.Construct_coadsorption_22" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Coadsorption.construct">
+<span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Coadsorption.construct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Coadsorption.construct" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Coadsorption.from_input">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substrates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Coadsorption.from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Coadsorption.from_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Coadsorption.out_file_name">
+<span class="sig-name descname"><span class="pre">out_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Coadsorption.out_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Coadsorption.out_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.Coadsorption.remove_same">
+<span class="sig-name descname"><span class="pre">remove_same</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs_ads</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#Coadsorption.remove_same"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.Coadsorption.remove_same" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.model.Ads.ads_from_input">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Ads.</span></span><span class="sig-name descname"><span class="pre">ads_from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ads_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">substrate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Ads.html#ads_from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Ads.ads_from_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-HTMACat.model.Construct_adsorption_yaml">
+<span id="htmacat-model-construct-adsorption-yaml-module"></span><h2>HTMACat.model.Construct_adsorption_yaml module<a class="headerlink" href="#module-HTMACat.model.Construct_adsorption_yaml" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.model.Construct_adsorption_yaml.Construct_adsorption_yaml">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Construct_adsorption_yaml.</span></span><span class="sig-name descname"><span class="pre">Construct_adsorption_yaml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Construct_adsorption_yaml.html#Construct_adsorption_yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Construct_adsorption_yaml.Construct_adsorption_yaml" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-HTMACat.model.Species">
+<span id="htmacat-model-species-module"></span><h2>HTMACat.model.Species module<a class="headerlink" href="#module-HTMACat.model.Species" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Species.ABS_Species">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Species.</span></span><span class="sig-name descname"><span class="pre">ABS_Species</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sim'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#ABS_Species"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.ABS_Species" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>from_input</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>from_input_dict</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_formular</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_molecule</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.ABS_Species.from_input">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#ABS_Species.from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.ABS_Species.from_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.ABS_Species.from_input_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_input_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#ABS_Species.from_input_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.ABS_Species.from_input_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.ABS_Species.get_formular">
+<span class="sig-name descname"><span class="pre">get_formular</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#ABS_Species.get_formular"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.ABS_Species.get_formular" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.ABS_Species.get_molecule">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_molecule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="HTMACat.catkit.html#HTMACat.catkit.gratoms.Gratoms" title="HTMACat.catkit.gratoms.Gratoms"><span class="pre">Gratoms</span></a></span></span><a class="reference internal" href="_modules/HTMACat/model/Species.html#ABS_Species.get_molecule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.ABS_Species.get_molecule" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.ABS_Species.out_file_name">
+<span class="sig-name descname"><span class="pre">out_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#ABS_Species.out_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.ABS_Species.out_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.ABS_Species.out_print">
+<span class="sig-name descname"><span class="pre">out_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#ABS_Species.out_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.ABS_Species.out_print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Species.File_Species">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Species.</span></span><span class="sig-name descname"><span class="pre">File_Species</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'file'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#File_Species"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.File_Species" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#HTMACat.model.Species.ABS_Species" title="HTMACat.model.Species.ABS_Species"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABS_Species</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>atoms</strong></dt><dd></dd>
+<dt><strong>edges_list</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>from_input</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>from_input_dict</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_formular</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_molecule</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>set_filetype</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.model.Species.File_Species.atoms">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">atoms</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Atoms</span></em><a class="headerlink" href="#HTMACat.model.Species.File_Species.atoms" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.model.Species.File_Species.edges_list">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edges_list</span></span><a class="headerlink" href="#HTMACat.model.Species.File_Species.edges_list" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.File_Species.get_molecule">
+<span class="sig-name descname"><span class="pre">get_molecule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="HTMACat.catkit.html#HTMACat.catkit.gratoms.Gratoms" title="HTMACat.catkit.gratoms.Gratoms"><span class="pre">Gratoms</span></a></span></span><a class="reference internal" href="_modules/HTMACat/model/Species.html#File_Species.get_molecule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.File_Species.get_molecule" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.File_Species.out_file_name">
+<span class="sig-name descname"><span class="pre">out_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#File_Species.out_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.File_Species.out_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.File_Species.set_filetype">
+<span class="sig-name descname"><span class="pre">set_filetype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#File_Species.set_filetype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.File_Species.set_filetype" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Species.Sim_Species">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Species.</span></span><span class="sig-name descname"><span class="pre">Sim_Species</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sim'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#Sim_Species"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.Sim_Species" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#HTMACat.model.Species.ABS_Species" title="HTMACat.model.Species.ABS_Species"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABS_Species</span></code></a></p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>from_input</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>from_input_dict</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_formular</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_molecule</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.Sim_Species.get_molecule">
+<span class="sig-name descname"><span class="pre">get_molecule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#Sim_Species.get_molecule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.Sim_Species.get_molecule" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Species.Sml_Species">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Species.</span></span><span class="sig-name descname"><span class="pre">Sml_Species</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sml'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#Sml_Species"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.Sml_Species" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#HTMACat.model.Species.ABS_Species" title="HTMACat.model.Species.ABS_Species"><code class="xref py py-class docutils literal notranslate"><span class="pre">ABS_Species</span></code></a></p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.model.Species.Sml_Species.MolToNXGraph" title="HTMACat.model.Species.Sml_Species.MolToNXGraph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MolToNXGraph</span></code></a>(m)</p></td>
+<td><p>Convert a molecule object to a graph. Parameters ---------- m : mol     The RDKit molecule object to be converted into a networkx graph. Returns ---------- G : Graph     The networkx Graph object derived from m.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.model.Species.Sml_Species.get_molecule" title="HTMACat.model.Species.Sml_Species.get_molecule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_molecule</span></code></a>()</p></td>
+<td><p>mole = Chem.AddHs(Chem.MolFromSmiles(ads1)) G = self.MolToNXGraph(mole) ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole)) ads_molecule = ads1_list[0] for <a href="#id1"><span class="problematic" id="id2">ads_</span></a> in ads1_list:     nm = iso.categorical_node_match('number', 6)     if nx.is_isomorphic(<a href="#id3"><span class="problematic" id="id4">ads_</span></a>._graph, G, node_match=nm):         ads_molecule = <a href="#id5"><span class="problematic" id="id6">ads_</span></a>         print(ads_molecule._graph)         break</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>from_input</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>from_input_dict</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_formular</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.Sml_Species.MolToNXGraph">
+<span class="sig-name descname"><span class="pre">MolToNXGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#Sml_Species.MolToNXGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.Sml_Species.MolToNXGraph" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a molecule object to a graph.
+Parameters
+———-
+m : mol</p>
+<blockquote>
+<div><p>The RDKit molecule object to be converted into a networkx graph.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>G<span class="classifier">Graph</span></dt><dd><p>The networkx Graph object derived from m.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.Sml_Species.get_molecule">
+<span class="sig-name descname"><span class="pre">get_molecule</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="HTMACat.catkit.html#HTMACat.catkit.gratoms.Gratoms" title="HTMACat.catkit.gratoms.Gratoms"><span class="pre">Gratoms</span></a></span></span><a class="reference internal" href="_modules/HTMACat/model/Species.html#Sml_Species.get_molecule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.Sml_Species.get_molecule" title="Permalink to this definition"></a></dt>
+<dd><p>mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+G = self.MolToNXGraph(mole)
+ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
+ads_molecule = ads1_list[0]
+for <a href="#id7"><span class="problematic" id="id8">ads_</span></a> in ads1_list:</p>
+<blockquote>
+<div><p>nm = iso.categorical_node_match(‘number’, 6)
+if nx.is_isomorphic(<a href="#id9"><span class="problematic" id="id10">ads_</span></a>._graph, G, node_match=nm):</p>
+<blockquote>
+<div><p>ads_molecule = <a href="#id11"><span class="problematic" id="id12">ads_</span></a>
+print(ads_molecule._graph)
+break</p>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Species.Sml_Species.out_file_name">
+<span class="sig-name descname"><span class="pre">out_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#Sml_Species.out_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.Sml_Species.out_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.model.Species.init_from_ads">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Species.</span></span><span class="sig-name descname"><span class="pre">init_from_ads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#init_from_ads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.init_from_ads" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.model.Species.species_from_input">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Species.</span></span><span class="sig-name descname"><span class="pre">species_from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Species.html#species_from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Species.species_from_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-HTMACat.model.Structure">
+<span id="htmacat-model-structure-module"></span><h2>HTMACat.model.Structure module<a class="headerlink" href="#module-HTMACat.model.Structure" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Structure.Structure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Structure.</span></span><span class="sig-name descname"><span class="pre">Structure</span></span><a class="reference internal" href="_modules/HTMACat/model/Structure.html#Structure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Structure.Structure" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>construct</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Structure.Structure.construct">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Atoms</span></span></span><a class="reference internal" href="_modules/HTMACat/model/Structure.html#Structure.construct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Structure.Structure.construct" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Structure.Structure.out_file_name">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">out_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/HTMACat/model/Structure.html#Structure.out_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Structure.Structure.out_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Structure.Structure.out_print">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">out_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/HTMACat/model/Structure.html#Structure.out_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Structure.Structure.out_print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-HTMACat.model.Substrate">
+<span id="htmacat-model-substrate-module"></span><h2>HTMACat.model.Substrate module<a class="headerlink" href="#module-HTMACat.model.Substrate" title="Permalink to this heading"></a></h2>
+<p>Created on Fri Mar 17 15:34:47 2023</p>
+<p>&#64;author: YuxiaoLan</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Substrate.</span></span><span class="sig-name descname"><span class="pre">Bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_element</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Pt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lattice_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fcc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lattice_constant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ele_dop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Cu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">natom_dop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">super_cell</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>construct</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>dop_bulk</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>from_dict</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_dop_element</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_ele_dop</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_main_element</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_natom_dop</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_super_cell</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>set_lattice_constant</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.construct">
+<span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.construct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.construct" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.dop_bulk">
+<span class="sig-name descname"><span class="pre">dop_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mbulk</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.dop_bulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.dop_bulk" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.get_dop_element">
+<span class="sig-name descname"><span class="pre">get_dop_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.get_dop_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.get_dop_element" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.get_ele_dop">
+<span class="sig-name descname"><span class="pre">get_ele_dop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.get_ele_dop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.get_ele_dop" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.get_main_element">
+<span class="sig-name descname"><span class="pre">get_main_element</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.get_main_element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.get_main_element" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.get_natom_dop">
+<span class="sig-name descname"><span class="pre">get_natom_dop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.get_natom_dop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.get_natom_dop" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.get_super_cell">
+<span class="sig-name descname"><span class="pre">get_super_cell</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.get_super_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.get_super_cell" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Bulk.set_lattice_constant">
+<span class="sig-name descname"><span class="pre">set_lattice_constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latcont</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Bulk.set_lattice_constant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Bulk.set_lattice_constant" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Substrate.</span></span><span class="sig-name descname"><span class="pre">File_Substrate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#HTMACat.model.Structure.Structure" title="HTMACat.model.Structure.Structure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Structure</span></code></a></p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.model.Substrate.File_Substrate.find_surface_atoms" title="HTMACat.model.Substrate.File_Substrate.find_surface_atoms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">find_surface_atoms</span></code></a>(atomstype[, tol_zdiff, ...])</p></td>
+<td><p>Generate the list of surface atoms (top surface). Parameters ---------- atomstype: str     'top' means find the top surface of slab     'bottom' means find the bottom surface of slab tol_zdiff: number     If the z_coord of an atom is higher than zmax-tol_zdiff, this atom is recognized as a &quot;surface atom&quot;. Returns ---------- index_topsurf: list     List of the indices of the surface atoms.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>construct</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>from_dict</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>from_input</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_dis_inter</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>is_dope</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate.construct">
+<span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate.construct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate.construct" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate.find_surface_atoms">
+<span class="sig-name descname"><span class="pre">find_surface_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atomstype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol_zdiff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol_zangle_min</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate.find_surface_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate.find_surface_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Generate the list of surface atoms (top surface).
+Parameters
+———-
+atomstype: str</p>
+<blockquote>
+<div><p>‘top’ means find the top surface of slab
+‘bottom’ means find the bottom surface of slab</p>
+</div></blockquote>
+<dl class="simple">
+<dt>tol_zdiff: number</dt><dd><p>If the z_coord of an atom is higher than zmax-tol_zdiff, this atom is recognized as a “surface atom”.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>index_topsurf: list</dt><dd><p>List of the indices of the surface atoms.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate.from_input">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate.from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate.from_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate.get_dis_inter">
+<span class="sig-name descname"><span class="pre">get_dis_inter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate.get_dis_inter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate.get_dis_inter" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate.is_dope">
+<span class="sig-name descname"><span class="pre">is_dope</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate.is_dope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate.is_dope" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate.out_file_name">
+<span class="sig-name descname"><span class="pre">out_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate.out_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate.out_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.File_Substrate.out_print">
+<span class="sig-name descname"><span class="pre">out_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#File_Substrate.out_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.File_Substrate.out_print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.model.Substrate.</span></span><span class="sig-name descname"><span class="pre">Slab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_bulk=&lt;HTMACat.model.Substrate.Bulk</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet='100'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#HTMACat.model.Structure.Structure" title="HTMACat.model.Structure.Structure"><code class="xref py py-class docutils literal notranslate"><span class="pre">Structure</span></code></a></p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>Construct_1stLayer_slab</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>Construct_doped_slab</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Construct_slab</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>construct</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>dope_slab</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>from_dict</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>from_input</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_dis_inter</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>get_facet</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_miller_index</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>is_dope</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>out_file_name</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>out_print</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.Construct_1stLayer_slab">
+<span class="sig-name descname"><span class="pre">Construct_1stLayer_slab</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.Construct_1stLayer_slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.Construct_1stLayer_slab" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.Construct_doped_slab">
+<span class="sig-name descname"><span class="pre">Construct_doped_slab</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.Construct_doped_slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.Construct_doped_slab" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.Construct_slab">
+<span class="sig-name descname"><span class="pre">Construct_slab</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.Construct_slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.Construct_slab" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.construct">
+<span class="sig-name descname"><span class="pre">construct</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.construct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.construct" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.dope_slab">
+<span class="sig-name descname"><span class="pre">dope_slab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom_number_dop</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.dope_slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.dope_slab" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.from_dict">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.from_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.from_input">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct_Info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.from_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.get_dis_inter">
+<span class="sig-name descname"><span class="pre">get_dis_inter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.get_dis_inter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.get_dis_inter" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.get_facet">
+<span class="sig-name descname"><span class="pre">get_facet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.get_facet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.get_facet" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.get_miller_index">
+<span class="sig-name descname"><span class="pre">get_miller_index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.get_miller_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.get_miller_index" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.is_dope">
+<span class="sig-name descname"><span class="pre">is_dope</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.is_dope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.is_dope" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.out_file_name">
+<span class="sig-name descname"><span class="pre">out_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.out_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.out_file_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.Slab.out_print">
+<span class="sig-name descname"><span class="pre">out_print</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#Slab.out_print"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.Slab.out_print" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.model.Substrate.substrate_from_input">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.model.Substrate.</span></span><span class="sig-name descname"><span class="pre">substrate_from_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/model/Substrate.html#substrate_from_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.model.Substrate.substrate_from_input" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-HTMACat.model">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-HTMACat.model" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="HTMACat.descriptor.html" class="btn btn-neutral float-left" title="HTMACat.descriptor package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="HTMACat.post.html" class="btn btn-neutral float-right" title="HTMACat.post package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

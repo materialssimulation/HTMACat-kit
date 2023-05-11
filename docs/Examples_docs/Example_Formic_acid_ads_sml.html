@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formic acid adsorption (SMILES) &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Nanoparticle (pristine Pt)" href="Example_Nanoparticle.html" />
+    <link rel="prev" title="Formic acid adsorption (Cu-doped Au)" href="Example_Formic_acid_ads.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Getting_started.html"><strong>Getting started</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../Examples.html"><strong>Examples</strong></a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Example_Formic_acid_ads.html">Formic acid adsorption (Cu-doped Au)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Formic acid adsorption (SMILES)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Example_Nanoparticle.html">Nanoparticle (pristine Pt)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example_CO2Reduction_ads.html">CO2 reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example_CO_PROX.html">PROX adsorption (Pt)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example_TMA_ads.html">TMA (Cu111)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html">The description of Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../HTMACat.html">HTMACat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../Examples.html"><strong>Examples</strong></a></li>
+      <li class="breadcrumb-item active">Formic acid adsorption (SMILES)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Examples_docs/Example_Formic_acid_ads_sml.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="formic-acid-adsorption-smiles">
+<h1>Formic acid adsorption (SMILES)<a class="headerlink" href="#formic-acid-adsorption-smiles" title="Permalink to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>This example is mainly about adsorption of formic acid on the surface of Cu-doped Au, contributed by the developers of the project.</p>
+</section>
+<section id="inputs">
+<h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this heading"></a></h2>
+<p>The content of input file is as follow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">StrucInfo</span><span class="p">:</span>
+  <span class="n">struct</span><span class="p">:</span>
+    <span class="n">element</span><span class="p">:</span> <span class="n">Au</span>
+    <span class="n">lattype</span><span class="p">:</span> <span class="n">fcc</span>
+    <span class="n">latcont</span><span class="p">:</span> <span class="mf">4.16</span>
+    <span class="n">facet</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;111&#39;</span><span class="p">]</span>
+    <span class="n">dope</span><span class="p">:</span>
+    <span class="n">Cu</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;b1&#39;</span><span class="p">]</span>
+
+<span class="n">Model</span><span class="p">:</span>
+  <span class="n">ads</span><span class="p">:</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">s</span><span class="p">:</span> <span class="s1">&#39;C(=O)O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>In the directory where the yaml file is located, use the command line to enter <code class="docutils literal notranslate"><span class="pre">htmat</span> <span class="pre">ads</span></code> to generate 9 vasp structure files.</p>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading"></a></h2>
+<p>9 vasp structure files are generated. The visualization result generated by VESTA are as follow:</p>
+<ul class="simple">
+<li><p>Three of these visualizations are shown here</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Au_Cu_111_b1_CH2O2_1.png"><img alt="../_images/Au_Cu_111_b1_CH2O2_1.png" src="../_images/Au_Cu_111_b1_CH2O2_1.png" style="width: 20cm;" /></a>
+<a class="reference internal image-reference" href="../_images/Au_Cu_111_b1_CH2O2_3.png"><img alt="../_images/Au_Cu_111_b1_CH2O2_3.png" src="../_images/Au_Cu_111_b1_CH2O2_3.png" style="width: 20cm;" /></a>
+<a class="reference internal image-reference" href="../_images/Au_Cu_111_b1_CH2O2_8.png"><img alt="../_images/Au_Cu_111_b1_CH2O2_8.png" src="../_images/Au_Cu_111_b1_CH2O2_8.png" style="width: 20cm;" /></a>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Example_Formic_acid_ads.html" class="btn btn-neutral float-left" title="Formic acid adsorption (Cu-doped Au)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Example_Nanoparticle.html" class="btn btn-neutral float-right" title="Nanoparticle (pristine Pt)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
