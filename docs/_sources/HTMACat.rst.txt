@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    HTMACat.NEB
+   HTMACat.catkit
    HTMACat.descriptor
    HTMACat.model
    HTMACat.post
@@ -27,6 +28,14 @@ HTMACat.Extract\_info module
 ----------------------------
 
 .. automodule:: HTMACat.Extract_info
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+HTMACat.IO module
+-----------------
+
+.. automodule:: HTMACat.IO
    :members:
    :undoc-members:
    :show-inheritance:
