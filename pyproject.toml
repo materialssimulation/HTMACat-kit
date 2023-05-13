@@ -18,7 +18,7 @@ include = [
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.7, <3.10"
+python = ">=3.7"
 ase = ">=3.19"
 networkx = ">=2.1"
 numpy = ">=1.20.0"

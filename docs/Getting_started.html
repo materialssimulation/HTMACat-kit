@@ -94,26 +94,36 @@
 <p><code class="docutils literal notranslate"><span class="pre">Config.yaml</span></code> file Contains two parts:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">StuctInfo</span></code> parts</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Species</span></code> parts (optional)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Model</span></code> parts</p></li>
 </ul>
 <p>The format of the whole <cite>config.yaml</cite> is as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">StrucInfo:</span>
-<span class="go">    file: POSCARfile</span>
-<span class="go">    struct:</span>
-<span class="go">        element: Au</span>
-<span class="go">        lattype: fcc</span>
-<span class="go">        latcont: 4.16</span>
-<span class="go">        facet: [&#39;111&#39;,&#39;100&#39;] #This is comment</span>
-<span class="go">        dope:</span>
-<span class="go">            Cu: [3]</span>
+<span class="go">  file: POSCARfile</span>
+<span class="go">  struct:</span>
+<span class="go">    element: Au</span>
+<span class="go">    lattype: fcc</span>
+<span class="go">    latcont: 4.16</span>
+<span class="go">    facet: [&#39;111&#39;,&#39;100&#39;] #This is comment</span>
+<span class="go">    dope:</span>
+<span class="go">      Cu: [3]</span>
+
+<span class="gp"># </span>This part <span class="nb">alias</span> <span class="k">for</span> Species
+<span class="go">Species:</span>
+<span class="go">  file:</span>
+<span class="go">    &#39;NH3+&#39;: NH3+.xyz #struct_file</span>
+<span class="go">    &#39;NH3-&#39;: NH3-.xyz #struct_file</span>
+<span class="go">  sml:</span>
+<span class="go">    &#39;O2&#39;: O=O #smiles</span>
 
 <span class="go">Model:</span>
-<span class="go">    SML: False</span>
-<span class="go">    ads:</span>
-<span class="go">        - [&#39;NH3&#39;,1]</span>
-<span class="go">        - [&#39;NO&#39;, 2]</span>
-<span class="go">    coads:</span>
-<span class="go">        - [&#39;NH3&#39;,&#39;O&#39;,1,1]</span>
+<span class="go">  ads:</span>
+<span class="go">    - [&#39;NH3+&#39;,1]</span>
+<span class="go">    - [&#39;NO&#39;, 2]</span>
+<span class="go">    - [s: &#39;C(=O)O&#39;,1]</span>
+<span class="go">    - [f: &#39;NH3+&#39;,1]</span>
+<span class="go">  coads:</span>
+<span class="go">    - [&#39;NH3&#39;,&#39;O&#39;,1,1]</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">StuctInfo</span></code> parts contains the information about substrate,
@@ -137,14 +147,30 @@ substitution and bulk equivalent proportional substitution.</p></li>
 </dl>
 </li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">Model</span></code> parts contains the adsorption modeling parameters, including:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Species</span></code> part is an optional part, which used to alias the species name, including:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">SML</span></code>: whether using <em>Smiles</em> toe represent the adsorption species</p></li>
+<li><p><cite>sml</cite>: using <em>Smiles</em> toe represent the adsorption species</p></li>
+<li><p><cite>file</cite>: adsorption species reading from structure file, such as <em>xyz</em> format and <em>vasp</em> format</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">Model</span></code> part contains the adsorption modeling parameters, including:</p>
+<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ads</span></code>: using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[</span> <span class="pre">adsorbate</span> <span class="pre">formular</span> <span class="pre">,</span> <span class="pre">adsorption</span> <span class="pre">sites</span> <span class="pre">type]</span></code> to represent one adsorption status, where
-adsorption formular should be a str start with <code class="docutils literal notranslate"><span class="pre">'</span></code> end with <code class="docutils literal notranslate"><span class="pre">'</span></code> . Different adsorption status should start with
+adsorption formular should be a str start with <code class="docutils literal notranslate"><span class="pre">'</span></code> end with <code class="docutils literal notranslate"><span class="pre">'</span></code>. Different adsorption status should start with
 new line, adsorption sites type can be chosen from <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">coads</span></code>: using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[ads1,</span> <span class="pre">ads2,</span> <span class="pre">ads1</span> <span class="pre">sites,</span> <span class="pre">ads2</span> <span class="pre">sites]</span></code>, <em>ads1</em> and <em>ads2</em> is two adsorbate species formular,
 <em>ads1 sites</em> and <em>ads2 sites</em> is adsorption sites type, can be chosen from <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><dl class="simple">
+<dt>Each <em>adsorbate species formular</em> has three representation:</dt><dd><ul>
+<li><p><em>str</em> format such as <code class="docutils literal notranslate"><span class="pre">'ads1'</span></code>, this format will automatically generate species according to
+chemical formular</p></li>
+<li><p><em>smile</em> format such as <code class="docutils literal notranslate"><span class="pre">s:</span> <span class="pre">'ads1'</span></code> or <code class="docutils literal notranslate"><span class="pre">sml:</span> <span class="pre">'ads1'</span></code>, this format will generate spcecies according to
+the <em>smile</em> formular</p></li>
+<li><p><em>file</em> format such as <code class="docutils literal notranslate"><span class="pre">f:</span> <span class="pre">'ads1'</span></code> or <code class="docutils literal notranslate"><span class="pre">file:</span> <span class="pre">'ads1'</span></code>, this format will read structure from
+file ‘ads1’, now only ‘xyz’ and ‘vasp’ structure file format is supported</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 <p><strong>To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.</strong> Users can modify the
 corresponding parameters to achieve customized modeling according to their research needs.</p>
