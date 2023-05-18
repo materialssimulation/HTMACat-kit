@@ -30,7 +30,7 @@ def substrate_part(result):
     # A substrate is one facet with one dop element with on dop_type
     struct_Info = result['StrucInfo']
     file_default = []
-    struct_default = {'element': 'Pt', 'lattype': 'fcc', 'latcont': 3.92, 'facet': ['111'], 'dope': {}, 'supercell':[3,3,1]}
+    struct_default = {'element': 'Pt', 'lattype': 'fcc', 'latcont': 3.92, 'facet': ['111'], 'dope': {}, 'supercell':[3,3], 'layers':4}
     if 'file' in struct_Info:
         if isinstance(struct_Info['file'], list):
             file_default = struct_Info['file']

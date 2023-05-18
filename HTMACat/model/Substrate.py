@@ -35,10 +35,7 @@ class Bulk(object):
         self.lattice_type = lattice_type
         self.ele_dop = ele_dop
         self.natom_dop = natom_dop
-        if self.natom_dop[0] == 'b':
-            self.super_cell = [2, 2, 1]
-        else:
-            self.super_cell = super_cell
+        self.super_cell = [i for i in super_cell] + [1]
 
     def set_lattice_constant(self, latcont):
         if not isinstance(latcont, list):
@@ -102,9 +99,11 @@ class Bulk(object):
 
 
 class Slab(Structure):
-    def __init__(self, in_bulk=Bulk(), facet='100'):
+    def __init__(self, in_bulk=Bulk(), facet='100', layers=4, fixed=2):
         self.bulk = in_bulk
         self.file = None
+        self.layers = layers
+        self.fixed = fixed
         self.facet = facet
         self.property = {}
         if 'p1' not in self.property or 'p1_symb' not in self.property:
@@ -158,6 +157,12 @@ class Slab(Structure):
             raise ValueError('Do not support facet: %s for generate inter distance' % self.facet)
         return dis_inter
 
+    def get_layers(self):
+        return self.layers
+
+    def get_fixed(self):
+        return self.fixed
+    
     def construct(self):
         natom = self.bulk.get_natom_dop()
         if natom == '0' or natom[0] == 'b':
@@ -175,12 +180,14 @@ class Slab(Structure):
         miller_index = self.get_miller_index()
         mbulk = self.bulk.construct()
         super_cell = self.bulk.get_super_cell()
+        layers = self.get_layers()
+        fixed = self.get_fixed()
         ##### generate the surfaces #####   
         gen = SlabGenerator(
             mbulk,
             miller_index=miller_index,
-            layers=4,
-            fixed=2,
+            layers=layers,
+            fixed=fixed,
             layer_type='trim',
             vacuum=8,
             standardize_bulk=True)
@@ -238,7 +245,8 @@ class Slab(Structure):
     def from_dict(cls, init_dict):
         in_bulk = Bulk.from_dict(init_dict)
         facet = init_dict['facet']
-        return cls(in_bulk, facet)
+        layers = init_dict['layers']
+        return cls(in_bulk, facet, layers)
 
     @classmethod
     def from_input(cls, struct_Info: dict):
@@ -251,7 +259,9 @@ class Slab(Structure):
             'element': struct_Info['element'],
             'lattype': struct_Info['lattype'],
             'latcont': struct_Info['latcont'],
-            'supercell': struct_Info['supercell']
+            'supercell': struct_Info['supercell'],
+            'layers': struct_Info['layers'],
+            'fixed': struct_Info['fixed']
         }
         dope_init_dict = {'element_dop': [], 'dop_type': []}
         surface_init_dict = {'facet': []}

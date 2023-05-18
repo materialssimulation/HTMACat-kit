@@ -4,9 +4,11 @@ StrucInfo:
     lattype: fcc
     latcont: 4.16
     facet: ['111']
-    supercell: [4,4,1]
+    supercell: [3,3]
+    layers: 5
+    fixed: 2
     dope:
-      Cu: ['1']
+      Cu: ['0']
 
 Model:
   ads:
