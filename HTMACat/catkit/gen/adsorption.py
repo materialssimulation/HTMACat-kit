@@ -602,7 +602,7 @@ class Builder(AdsorptionSites):
             # Align with the adsorption vector
             atoms.rotate([0, 0, 1], vector)
         '''
-        if auto_construct: ### zjwang 20230510
+        if auto_construct: ### wzj 20230510
             atoms.rotate([0, 0, 1], vector)
 
         atoms.translate(base_position)
