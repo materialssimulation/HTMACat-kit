@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+from HTMACat.__version__ import __title__, __version__
 
 with open("requirements.txt") as f:
     requirements = f.readlines()
@@ -8,7 +9,7 @@ with open("README.md", encoding="utf-8") as f:
 
 setup(
     name="HTMACat",
-    version="1.0.5",
+    version=__version__,
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",

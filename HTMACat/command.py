@@ -1,6 +1,7 @@
 import os
 from HTMACat.model.Construct_adsorption_yaml import *
 from HTMACat.IO import print_templator, out_templator_file
+from HTMACat.__version__ import __title__, __version__
 from pathlib import *
 import shutil
 import typer
@@ -17,9 +18,9 @@ def main():
 @htmat.callback(
     invoke_without_command=True,
     no_args_is_help=True,
-    epilog="""+--------------------------------------------------------------------------------------------------------+\n
+    epilog=f"""+--------------------------------------------------------------------------------------------------------+\n
 |                                           HTMACat-Kit                                                  |\n
-|                                          Version: 1.0.4                                                |\n
+|                                          Version: {__version__}                                                |\n
 |    A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.   |\n
 |              More information, please visit https://stanfordbshan.github.io/HTMACat-kit/.              |\n
 +--------------------------------------------------------------------------------------------------------+""",
