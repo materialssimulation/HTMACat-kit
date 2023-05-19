@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'The branch to run the workflow on'
+        description: "The branch to run the workflow on"
         required: false
-        default: 'master'
+        default: "master"
         type: choice
         options:
-          - 'master'
-          - 'dev'
+          - "master"
+          - "dev"
   push:
     branches:
       - master

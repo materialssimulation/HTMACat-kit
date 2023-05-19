@@ -5,7 +5,7 @@ import spglib
 
 def get_standardized_cell(atoms, primitive=False, tol=1e-5):
     """Atoms object interface with spglib primitive cell finder:
-    https://atztogo.github.io/spglib/python-spglib.html#python-spglib
+    https://atztogo.github.io/spglib/python-spglib.html#python-spglib.
 
     The function also builds in limited functionality for initial
     magnetic moments. Only integer values are supported.
@@ -48,12 +48,12 @@ def get_standardized_cell(atoms, primitive=False, tol=1e-5):
     return atoms
 
 
-class Symmetry():
+class Symmetry:
     """Wrapper for the spglib package."""
 
     def __init__(self, atoms, tol=1e-5, ang_tol=-1):
         """Atoms object interface with spglib symmetry finder:
-        https://atztogo.github.io/spglib/python-spglib.html#python-spglib
+        https://atztogo.github.io/spglib/python-spglib.html#python-spglib.
 
         Parameters
         ----------
@@ -66,13 +66,11 @@ class Symmetry():
         self.positions = atoms.get_scaled_positions()
         self.numbers = atoms.get_atomic_numbers()
         self.magmoms = atoms.get_initial_magnetic_moments()
-        self.modified_numbers = get_modified_spin_symbols(
-            self.numbers, self.magmoms)
+        self.modified_numbers = get_modified_spin_symbols(self.numbers, self.magmoms)
         self.tol = tol
 
         cell = (self.lattice, self.positions, self.modified_numbers)
-        self.data = spglib.get_symmetry_dataset(
-            cell, symprec=tol, angle_tolerance=ang_tol)
+        self.data = spglib.get_symmetry_dataset(cell, symprec=tol, angle_tolerance=ang_tol)
 
     def get_symmetry_operations(self, affine=True):
         """Return the symmetry operations for a given atomic structure.
@@ -92,8 +90,8 @@ class Symmetry():
             Affine matrix operations, combinations of the rotation and
             translation with ones along the diagonal.
         """
-        rotations = self.data['rotations'][1:]
-        translations = self.data['translations'][1:]
+        rotations = self.data["rotations"][1:]
+        translations = self.data["translations"][1:]
 
         if affine:
             affine_matrices = np.zeros((rotations.shape[0], 4, 4))
@@ -119,11 +117,10 @@ class Symmetry():
         is_laue : bool
             Whether the pointgroup is a laue symmetry.
         """
-        pointgroup = self.data['pointgroup']
+        pointgroup = self.data["pointgroup"]
 
         if check_laue:
-            laue = ['-1', '2/m', 'mmm', '4/m', '4/mmm',
-                    '-3', '-3m', '6/m', '6/mmm', 'm-3', 'm-3m']
+            laue = ["-1", "2/m", "mmm", "4/m", "4/mmm", "-3", "-3m", "6/m", "6/mmm", "m-3", "m-3m"]
             is_laue = pointgroup in laue
 
             return pointgroup, is_laue
@@ -131,27 +128,27 @@ class Symmetry():
         return pointgroup
 
     def get_lattice_name(self):
-        """Return the lattice name of an atoms object based
-        on its spacegroup number:
-        https://en.wikipedia.org/wiki/List_of_space_groups
+        """Return the lattice name of an atoms object based on its spacegroup number:
+        https://en.wikipedia.org/wiki/List_of_space_groups.
 
         Returns
         -------
         lattice : str
             The name of the structures lattice.
         """
-        space_group_number = self.data['number']
+        space_group_number = self.data["number"]
 
         if space_group_number in [146, 148, 155, 160, 161, 166, 167]:
-            return 'rhombohedral'
+            return "rhombohedral"
 
         lattices = {
-            'triclinic': 2,
-            'monoclinic': 15,
-            'orthorhombic': 74,
-            'tetragonal': 142,
-            'hexagonal': 194,
-            'cubic': 230}
+            "triclinic": 2,
+            "monoclinic": 15,
+            "orthorhombic": 74,
+            "tetragonal": 142,
+            "hexagonal": 194,
+            "cubic": 230,
+        }
 
         for lattice, max_number in lattices.items():
             if space_group_number <= max_number:
@@ -159,8 +156,7 @@ class Symmetry():
 
 
 def get_modified_spin_symbols(numbers, magmoms):
-    """Return a representation of atomic symbols which is
-    unique to the magnetic moment as well.
+    """Return a representation of atomic symbols which is unique to the magnetic moment as well.
 
     This is effectivly creating a single integer which contains the
     atomic number and the magnetic moment multiplied by 10.
@@ -191,8 +187,8 @@ def get_modified_spin_symbols(numbers, magmoms):
 
 
 def get_unmodified_spin_symbols(spin_mod_symbols):
-    """Return the origional atomic numbers and magnetic moments from
-    the get_modified_spin_symbols function.
+    """Return the origional atomic numbers and magnetic moments from the get_modified_spin_symbols
+    function.
 
     Parameters
     ----------

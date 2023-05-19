@@ -2,7 +2,7 @@
 # (see accompanying license files for details).
 """Catalysis Generator."""
 
-from collections import MutableMapping
+from collections.abc import MutableMapping
 import numpy as np
 import ase
 
@@ -14,11 +14,9 @@ class Defaults(MutableMapping, dict):
     """No frills default dictionary class."""
 
     def __init__(self):
-        self.update({
-            'radii': ase.data.covalent_radii.copy(),
-            'radicals': radicals,
-            'orthogonal': False
-        })
+        self.update(
+            {"radii": ase.data.covalent_radii.copy(), "radicals": radicals, "orthogonal": False}
+        )
 
     def __setitem__(self, key, val):
         dict.__setitem__(self, key, val)
@@ -26,10 +24,11 @@ class Defaults(MutableMapping, dict):
     def __getitem__(self, key):
         return dict.__getitem__(self, key)
 
+
 defaults = Defaults()
 
 from . import symmetry
 from . import adsorption
 from . import surface
 
-__all__ = ['defaults', 'symmetry', 'adsorption', 'surface']
+__all__ = ["defaults", "symmetry", "adsorption", "surface"]

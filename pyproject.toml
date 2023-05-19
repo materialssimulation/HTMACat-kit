@@ -10,8 +10,8 @@ classifiers = [
     "Operating System :: OS Independent",]
 homepage = "https://stanfordbshan.github.io/HTMACat-kit/"
 authors = [
-    "Jiaqiang Yang <jqyang_hust@hust.edu.cn>", 
-    "Feifeng Wu <wufeifeng_hust@163.com>", 
+    "Jiaqiang Yang <jqyang_hust@hust.edu.cn>",
+    "Feifeng Wu <wufeifeng_hust@163.com>",
     "Bin Shan <bshan@mail.hust.edu.cn>",
     "Zhaojie Wang <zhihongzh_chem@126.com>",
     "Yuxiao Lan <husterlanxxt@163.com>",

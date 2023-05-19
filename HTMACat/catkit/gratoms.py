@@ -3,44 +3,59 @@ import numpy as np
 import ase
 import copy
 import warnings
+
 try:
     from builtins import super
-except(ImportError):
+except ImportError:
     from __builtin__ import super
 
 sym = np.array(ase.data.chemical_symbols)
-em = nx.algorithms.isomorphism.numerical_edge_match('bonds', 1)
-nm = nx.algorithms.isomorphism.numerical_node_match('number', 1)
+em = nx.algorithms.isomorphism.numerical_edge_match("bonds", 1)
+nm = nx.algorithms.isomorphism.numerical_node_match("number", 1)
 
 
 class Gratoms(ase.Atoms):
     """Graph based atoms object.
 
-    An Integrated class for an ASE atoms object with a corresponding
-    Networkx Graph.
+    An Integrated class for an ASE atoms object with a corresponding Networkx Graph.
     """
 
-    def __init__(self,
-                 symbols=None,
-                 positions=None,
-                 numbers=None,
-                 tags=None,
-                 momenta=None,
-                 masses=None,
-                 magmoms=None,
-                 charges=None,
-                 scaled_positions=None,
-                 cell=None,
-                 pbc=None,
-                 celldisp=None,
-                 constraint=None,
-                 calculator=None,
-                 info=None,
-                 edges=None):
+    def __init__(
+        self,
+        symbols=None,
+        positions=None,
+        numbers=None,
+        tags=None,
+        momenta=None,
+        masses=None,
+        magmoms=None,
+        charges=None,
+        scaled_positions=None,
+        cell=None,
+        pbc=None,
+        celldisp=None,
+        constraint=None,
+        calculator=None,
+        info=None,
+        edges=None,
+    ):
         super().__init__(
-            symbols, positions, numbers, tags, momenta,
-            masses, magmoms, charges, scaled_positions, cell,
-            pbc, celldisp, constraint, calculator, info)
+            symbols,
+            positions,
+            numbers,
+            tags,
+            momenta,
+            masses,
+            magmoms,
+            charges,
+            scaled_positions,
+            cell,
+            pbc,
+            celldisp,
+            constraint,
+            calculator,
+            info,
+        )
 
         if isinstance(edges, np.ndarray):
             if self.pbc.any():
@@ -53,8 +68,7 @@ class Gratoms(ase.Atoms):
             else:
                 self._graph = nx.Graph()
 
-        nodes = [[i, {'number': n}]
-                 for i, n in enumerate(self.arrays['numbers'])]
+        nodes = [[i, {"number": n}] for i, n in enumerate(self.arrays["numbers"])]
         self._graph.add_nodes_from(nodes)
 
         if isinstance(edges, list):
@@ -89,7 +103,7 @@ class Gratoms(ase.Atoms):
 
     def get_surface_atoms(self):
         """Return surface atoms."""
-        surf_atoms = np.where(self.get_array('surface_atoms') > 0)[0]
+        surf_atoms = np.where(self.get_array("surface_atoms") > 0)[0]
         return surf_atoms
 
     def set_surface_atoms(self, top, bottom=None):
@@ -99,45 +113,41 @@ class Gratoms(ase.Atoms):
             n[bottom] = -1
         # Overwrites bottom indexing
         n[top] = 1
-        self.set_array('surface_atoms', n)
+        self.set_array("surface_atoms", n)
 
     def get_neighbor_symbols(self, u):
         """Get chemical symbols for neighboring atoms of u."""
         neighbors = list(self._graph[u])
 
-        return sym[self.arrays['numbers'][neighbors]]
+        return sym[self.arrays["numbers"][neighbors]]
 
     def is_isomorph(self, other):
         """Check if isomorphic by bond count and atomic number."""
-        isomorphic = nx.is_isomorphic(
-            self._graph, other._graph, edge_match=em, node_match=nm)
+        isomorphic = nx.is_isomorphic(self._graph, other._graph, edge_match=em, node_match=nm)
 
         return isomorphic
 
     def get_chemical_tags(self, rank=2):
-        """Generate a hash descriptive of the chemical formula (rank 0)
-        or include bonding (rank 1).
-        """
-        cnt = np.bincount(self.arrays['numbers'])
-        composition = ','.join(cnt.astype(str))
+        """Generate a hash descriptive of the chemical formula (rank 0) or include bonding (rank
+        1)."""
+        cnt = np.bincount(self.arrays["numbers"])
+        composition = ",".join(cnt.astype(str))
 
         if rank == 1:
             return composition[2:]
 
         for adj in self.adj.items():
-
-            num = self.arrays['numbers'][list(adj[1].keys())]
+            num = self.arrays["numbers"][list(adj[1].keys())]
             cnt += np.bincount(num, minlength=len(cnt))
 
-        bonding = ','.join(cnt.astype(str))
+        bonding = ",".join(cnt.astype(str))
 
         return composition[2:], bonding[2:]
 
     def get_unsaturated_nodes(self, screen=None):
-
         unsaturated = []
         for node, data in self.nodes(data=True):
-            radicals = data['valence']
+            radicals = data["valence"]
 
             if screen in data:
                 continue
@@ -155,7 +165,7 @@ class Gratoms(ase.Atoms):
         for name, a in self.arrays.items():
             atoms.arrays[name] = a.copy()
         atoms.constraints = copy.deepcopy(self.constraints)
-        if hasattr(self, '_graph'):
+        if hasattr(self, "_graph"):
             atoms._graph = self._graph.copy()
 
         return atoms
@@ -176,7 +186,7 @@ class Gratoms(ase.Atoms):
         if isinstance(i, (int, np.int64)):
             natoms = len(self)
             if i < -natoms or i >= natoms:
-                raise IndexError('Index out of range.')
+                raise IndexError("Index out of range.")
 
             return ase.Atom(atoms=self, index=i)
         elif isinstance(i, list) and len(i) > 0:
@@ -203,17 +213,16 @@ class Gratoms(ase.Atoms):
         conadd = []
         # Constraints need to be deepcopied, but only the relevant ones.
         for con in copy.deepcopy(self.constraints):
-            if isinstance(con, (
-                    ase.constraints.FixConstraint,
-                    ase.constraints.FixBondLengths)):
+            if isinstance(con, (ase.constraints.FixConstraint, ase.constraints.FixBondLengths)):
                 try:
                     con.index_shuffle(self, i)
                     conadd.append(con)
                 except IndexError:
                     pass
 
-        atoms = self.__class__(cell=self.cell, pbc=self.pbc, info=self.info,
-                               celldisp=self._celldisp)
+        atoms = self.__class__(
+            cell=self.cell, pbc=self.pbc, info=self.info, celldisp=self._celldisp
+        )
 
         atoms.arrays = {}
         for name, a in self.arrays.items():
@@ -221,8 +230,7 @@ class Gratoms(ase.Atoms):
 
         # Copy the graph, conserving correct indexing
         if self.nodes:
-            nodes = [[_, {'number': n}]
-                     for _, n in enumerate(self.arrays['numbers'])]
+            nodes = [[_, {"number": n}] for _, n in enumerate(self.arrays["numbers"])]
             atoms.graph.add_nodes_from(nodes)
 
             j = i.tolist()
@@ -243,9 +251,9 @@ class Gratoms(ase.Atoms):
         n2 = len(other)
 
         for name, a1 in self.arrays.items():
-            a = np.zeros((n1 + n2, ) + a1.shape[1:], a1.dtype)
+            a = np.zeros((n1 + n2,) + a1.shape[1:], a1.dtype)
             a[:n1] = a1
-            if name == 'masses':
+            if name == "masses":
                 a2 = other.get_masses()
             else:
                 a2 = other.arrays.get(name)
@@ -256,9 +264,9 @@ class Gratoms(ase.Atoms):
         for name, a2 in other.arrays.items():
             if name in self.arrays:
                 continue
-            a = np.empty((n1 + n2, ) + a2.shape[1:], a2.dtype)
+            a = np.empty((n1 + n2,) + a2.shape[1:], a2.dtype)
             a[n1:] = a2
-            if name == 'masses':
+            if name == "masses":
                 a[:n1] = self.get_masses()[:n1]
             else:
                 a[:n1] = 0
@@ -266,8 +274,7 @@ class Gratoms(ase.Atoms):
             self.set_array(name, a)
 
         if isinstance(other, Gratoms):
-            if isinstance(self._graph, nx.MultiGraph) & \
-               isinstance(other._graph, nx.Graph):
+            if isinstance(self._graph, nx.MultiGraph) & isinstance(other._graph, nx.Graph):
                 other._graph = nx.MultiGraph(other._graph)
 
             self._graph = nx.disjoint_union(self._graph, other._graph)
@@ -276,10 +283,12 @@ class Gratoms(ase.Atoms):
 
     def __delitem__(self, i):
         from ase.constraints import FixAtoms
+
         for c in self._constraints:
             if not isinstance(c, FixAtoms):
-                raise RuntimeError('Remove constraint using set_constraint() '
-                                   'before deleting atoms.')
+                raise RuntimeError(
+                    "Remove constraint using set_constraint() " "before deleting atoms."
+                )
 
         if isinstance(i, (list, int)):
             # Make sure a list of booleans will work correctly and not be
@@ -317,17 +326,16 @@ class Gratoms(ase.Atoms):
 
         for x, vec in zip(m, self.cell):
             if x != 1 and not vec.any():
-                raise ValueError(
-                    'Cannot repeat along undefined lattice vector')
+                raise ValueError("Cannot repeat along undefined lattice vector")
 
         M = np.product(m)
         n = len(self)
 
         for name, a in self.arrays.items():
-            self.arrays[name] = np.tile(a, (M, ) + (1, ) * (len(a.shape) - 1))
+            self.arrays[name] = np.tile(a, (M,) + (1,) * (len(a.shape) - 1))
             cgraph = self._graph.copy()
 
-        positions = self.arrays['positions']
+        positions = self.arrays["positions"]
         i0 = 0
 
         for m0 in range(m[0]):

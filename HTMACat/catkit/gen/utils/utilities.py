@@ -2,6 +2,7 @@ from HTMACat.catkit import Gratoms
 import numpy as np
 import ase
 import re
+
 try:
     from math import gcd
 except ImportError:
@@ -40,7 +41,7 @@ def to_gratoms(atoms, edges=None):
         positions=atoms.positions,
         pbc=atoms.pbc,
         cell=atoms.cell,
-        edges=edges
+        edges=edges,
     )
 
     if atoms.constraints:
@@ -66,7 +67,7 @@ def get_atomic_numbers(formula, return_count=False):
     counts : ndarray (n,)
         Count of each element in a species.
     """
-    parse = re.findall('[A-Z][a-z]?|[0-9]+', formula)
+    parse = re.findall("[A-Z][a-z]?|[0-9]+", formula)
 
     values = {}
     for i, e in enumerate(parse):
@@ -78,8 +79,7 @@ def get_atomic_numbers(formula, return_count=False):
             else:
                 values[e] += 1
 
-    numbers = np.array([
-        ase.data.chemical_symbols.index(k) for k in values.keys()])
+    numbers = np.array([ase.data.chemical_symbols.index(k) for k in values.keys()])
     srt = np.argsort(numbers)
     numbers = numbers[srt]
 
@@ -151,9 +151,8 @@ def parse_slice(slice_name):
             _slice = slice(i, i + 1)
 
         else:
-            split = slice_name.split(':')
-            split = [int(_) if _.lstrip('-').isdigit()
-                     else None for _ in split]
+            split = slice_name.split(":")
+            split = [int(_) if _.lstrip("-").isdigit() else None for _ in split]
             _slice = slice(*split)
 
     return _slice

@@ -1,6 +1,19 @@
+<div align="center">
+
 # HTMACat
 
-# 1. Introduction
+[![python](https://img.shields.io/badge/Python-3.6--3.9-brightgreen)](https://www.python.org/)
+[![MDNM](https://img.shields.io/badge/MDNM-%40HUST-orange)](http://www.materialssimulation.com/)
+
+[![license](https://img.shields.io/badge/license-GPLv3-brightgreen)](https://github.com/stanfordbshan/HTMACat-kit/blob/dev/LICENSE)
+[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ashleve/lightning-hydra-template/pulls)
+[![contributors](https://img.shields.io/badge/contributors-6-brightgreen)](https://github.com/stanfordbshan/HTMACat-kit/graphs/contributors)
+
+</div>
+
+<br>
+
+# 📌 1. Introduction
 
 A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes, it provides key tools
 for high-throughput design and screening of catalytic materials. The software mainly includes functional modules such as
@@ -11,7 +24,7 @@ energy calculation and analysis workflow, primitive reaction calculation and ana
 calculation and automated analysis of adsorption energy and reaction potential of catalytic primitive reaction
 processes, etc.
 
-# 2. Installation Guide
+# 🚀 2. Installation Guide
 
 ## 2.1 Environment
 
@@ -26,39 +39,41 @@ ruamel.yaml > 0.15
 rdkit >= 2022.3.3
 typer[all] >= 0.6
 ```
+
 ## 2.2  Installation
+
 Install from PyPI
 
-```shell
+```bash
 pip install HTMACat
-
 ```
+
 or install from source code
-```shell
+
+```bash
 # master branch
 pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master
 # or dev branch
 pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev
 ```
 
-# 3. Getting started
+# ⚡ 3. Getting started
 
 Please Visit [HTMACat-kit’s documentation](https://stanfordbshan.github.io/HTMACat-kit/) for more information.
 
+# ❤️ Author
 
-# Author
+- Jiaqiang Yang email:[jqyang_hust@hust.edu.cn](mailto:jqyang_hust@hust.edu.cn)
+- Feifeng Wu email:[wufeifeng_hust@163.com](wufeifeng_hust@163.com)
+- Bin Shan email:[bshan@mail.hust.edu.cn](bshan@mail.hust.edu.cn)
+- Zhaojie Wang email:[yczgwangzhaojie@163.com](yczgwangzhaojie@163.com)
+- Yuxiao Lan email:[husterlanxxt@163.com](husterlanxxt@163.com)
+- Haojie Li email:[1197946404@qq.com](1197946404@qq.com)
+- Zhang Liu email:[zhangliu@hust.edu.cn](zhangliu@hust.edu.cn)
+- Zhihong Zhang email:[zhihongzh_chem@126.com](zhihongzh_chem@126.com)
 
-* Jiaqiang Yang email:[jqyang_hust@hust.edu.cn](mailto:jqyang_hust@hust.edu.cn)
-* Feifeng Wu email:[wufeifeng_hust@163.com](wufeifeng_hust@163.com)
-* Bin Shan email:[bshan@mail.hust.edu.cn](bshan@mail.hust.edu.cn)
-* Zhaojie Wang email:[yczgwangzhaojie@163.com](yczgwangzhaojie@163.com)
-* Yuxiao Lan email:[husterlanxxt@163.com](husterlanxxt@163.com)
-* Haojie Li email:[1197946404@qq.com](1197946404@qq.com)
-* Zhang Liu email:[zhangliu@hust.edu.cn](zhangliu@hust.edu.cn)
-* Zhihong Zhang email:[zhihongzh_chem@126.com](zhihongzh_chem@126.com)
+# 🐤 Links
 
-# Links
-
-* Materials Design and Nano-Manufacturing Center@HUST:http://www.materialssimulation.com/
-* Pypi homepage for HTMACat project:https://pypi.org/project/HTMACat/
-* HTMACat-kit’s documentation:https://stanfordbshan.github.io/HTMACat-kit/
+- Materials Design and Nano-Manufacturing Center@HUST:http://www.materialssimulation.com/
+- Pypi homepage for HTMACat project:https://pypi.org/project/HTMACat/
+- HTMACat-kit’s documentation:https://stanfordbshan.github.io/HTMACat-kit/

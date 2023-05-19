@@ -1,5 +1,4 @@
 #!/data/jqyang/miniconda3/bin/python
-# -*- coding: UTF-8 -*-
 from HTMACat.IO import Input, out_vasp
 
 

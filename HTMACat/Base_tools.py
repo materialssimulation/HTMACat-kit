@@ -1,4 +1,4 @@
-### Function1: a is inclued in b return True
+# Function1: a is inclued in b return True
 def isinclude(a, b):
     item = []
     for i in a:
@@ -13,7 +13,7 @@ def isinclude(a, b):
         return False
 
 
-### Function2: a and b are equal return True
+# Function2: a and b are equal return True
 def isequal(a, b):
     item = []
     if len(a) == len(b):
@@ -30,7 +30,7 @@ def isequal(a, b):
         return False
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     a = [1, 2, 3, 4]
     b = [1, 2, 3, 4, 5]
     print(isequal(a, b))

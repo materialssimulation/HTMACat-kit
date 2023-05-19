@@ -9,7 +9,7 @@
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
+
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
@@ -17,17 +17,17 @@
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-          
-          
+
+
           <a href="../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,7 +70,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+
   <h1>Source code for HTMACat.model.Construct_model</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/data/jqyang/miniconda3/bin/python</span>
 <span class="c1"># -*- coding: UTF-8 -*-</span>
@@ -175,13 +175,13 @@
              <span class="n">fixed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
              <span class="n">layer_type</span> <span class="o">=</span> <span class="s1">&#39;trim&#39;</span><span class="p">,</span>
              <span class="n">vacuum</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
-             <span class="n">standardize_bulk</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> 
+             <span class="n">standardize_bulk</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
     <span class="n">terminations</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">get_unique_terminations</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">terminations</span><span class="p">):</span>
         <span class="n">slab</span> <span class="o">+=</span> <span class="p">[</span><span class="n">gen</span><span class="o">.</span><span class="n">get_slab</span><span class="p">(</span><span class="n">iterm</span><span class="o">=</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">super_cell</span><span class="p">]</span>
         <span class="c1">#print(&quot;%s%s_%s facet is finished!&quot; %(mname,mfacet,i))</span>
         <span class="c1">#write_vasp(&quot;%s%s%s.vasp&quot; %(mname,mfacet,i), slab, direct=True, sort=[&#39;&#39;], vasp5=True)</span>
-         
+
   <span class="c1">#LatInfo.close()</span>
     <span class="k">if</span> <span class="n">output_bulk</span> <span class="p">:</span>
        <span class="k">return</span> <span class="n">mbulk</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">N_dop_bulk</span>
@@ -222,7 +222,7 @@
 <span class="sd">        p1_symb : list</span>
 <span class="sd">            A list of the symbols of the doped atoms in the slabs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-          
+
     <span class="c1"># generate surface adsorption configuration</span>
     <span class="n">slabs</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">mfacet</span> <span class="o">=</span> <span class="n">Construct_slab</span><span class="p">(</span><span class="n">Path_info</span><span class="p">)</span>
     <span class="n">slabs_dop</span><span class="o">=</span><span class="p">[]</span>
@@ -235,9 +235,9 @@
         <span class="c1">#atom_number_dop =[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">site_typ</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">site_typ</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">Natom</span><span class="p">:</span>
-               <span class="n">atom_number_dop</span> <span class="o">=</span> <span class="n">topo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> 
+               <span class="n">atom_number_dop</span> <span class="o">=</span> <span class="n">topo</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
                <span class="n">p1</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slab</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">atom_number_dop</span><span class="p">]</span>
-               
+
                <span class="n">slb</span><span class="o">=</span><span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
                <span class="n">symbol</span> <span class="o">=</span> <span class="n">slb</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
                <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">atom_number_dop</span><span class="p">):</span>
@@ -247,7 +247,7 @@
                <span class="n">slabs_dop</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="p">]</span>
                <span class="c1">#view(slb*(2,2,1))</span>
     <span class="k">return</span> <span class="n">slabs_dop</span><span class="p">,</span><span class="n">mname</span><span class="p">,</span><span class="n">mfacet</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p1_symb</span></div>
-      
+
 <span class="c1">#slab_dop,mname,mfacet=Construct_doped_slab(Path_info=&#39;./StrucInfo&#39;,Ele_dop=&#39;Au&#39;,Natom=1)</span>
 <span class="c1">#view(slab_dop)</span>
 
@@ -741,7 +741,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+
 
 </footer>
         </div>
@@ -752,7 +752,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
 
 </body>
 </html>

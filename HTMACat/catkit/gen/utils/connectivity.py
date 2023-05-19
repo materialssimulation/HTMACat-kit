@@ -6,8 +6,8 @@ import warnings
 
 
 def get_voronoi_neighbors(atoms, cutoff=5.0, return_distances=False):
-    """Return the connectivity matrix from the Voronoi
-    method. Multi-bonding occurs through periodic boundary conditions.
+    """Return the connectivity matrix from the Voronoi method. Multi-bonding occurs through
+    periodic boundary conditions.
 
     Parameters
     ----------
@@ -29,7 +29,7 @@ def get_voronoi_neighbors(atoms, cutoff=5.0, return_distances=False):
     L = int(len(offsets) / 2)
     origional_indices = np.arange(L * len(atoms), (L + 1) * len(atoms))
 
-    voronoi = scipy.spatial.Voronoi(coords, qhull_options='QbB Qc Qs')
+    voronoi = scipy.spatial.Voronoi(coords, qhull_options="QbB Qc Qs")
     points = voronoi.ridge_points
 
     connectivity = np.zeros((len(atoms), len(atoms)))
@@ -43,8 +43,9 @@ def get_voronoi_neighbors(atoms, cutoff=5.0, return_distances=False):
 
         if not edges.size:
             warnings.warn(
-                ("scipy.spatial.Voronoi returned an atom which has "
-                 "no neighbors. This may result in incorrect connectivity."))
+                "scipy.spatial.Voronoi returned an atom which has "
+                "no neighbors. This may result in incorrect connectivity."
+            )
             continue
 
         unique_edge = np.unique(edges, axis=0)
@@ -69,21 +70,19 @@ def get_voronoi_neighbors(atoms, cutoff=5.0, return_distances=False):
         return connectivity.astype(int)
 
     if len(distances) > 0:
-        distance_indices, unique_idx_idx = \
-            np.unique(distance_indices, axis=0, return_index=True)
+        distance_indices, unique_idx_idx = np.unique(distance_indices, axis=0, return_index=True)
         distance_indices = distance_indices.tolist()
 
         distances = [distances[i] for i in unique_idx_idx]
 
-    pair_distances = {'indices': distance_indices,
-                      'distances': distances}
+    pair_distances = {"indices": distance_indices, "distances": distances}
 
     return connectivity.astype(int), pair_distances
 
 
 def get_cutoff_neighbors(atoms, cutoff=None, scale_cov_radii=1.2, atol=1e-8):
-    """Return the connectivity matrix from a simple radial cutoff.
-    Multi-bonding occurs through periodic boundary conditions.
+    """Return the connectivity matrix from a simple radial cutoff. Multi-bonding occurs through
+    periodic boundary conditions.
 
     Parameters
     ----------
@@ -103,7 +102,7 @@ def get_cutoff_neighbors(atoms, cutoff=None, scale_cov_radii=1.2, atol=1e-8):
     connectivity : ndarray (n, n)
         Number of edges formed between atoms in a system.
     """
-    cov_radii = HTMACat.catkit.gen.defaults.get('radii') * scale_cov_radii
+    cov_radii = HTMACat.catkit.gen.defaults.get("radii") * scale_cov_radii
     numbers = atoms.numbers
     index, coords = coordinates.expand_cell(atoms)[:2]
 

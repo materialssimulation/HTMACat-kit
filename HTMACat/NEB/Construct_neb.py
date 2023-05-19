@@ -1,4 +1,3 @@
-# -*- coding: UTF-8 -*-
 from ase import io
 from ase.geometry import get_distances, Cell
 from ase.neb import NEB
@@ -8,9 +7,8 @@ from ase.visualize import view
 import numpy as np
 
 
-def Construct_neb(struct, method_inter='linear', nimages=6, dcut=0.25, d_scaled=0.5):
-    """
-    Construct a Nudged Elastic Band (NEB) for transitioning between two structures.
+def Construct_neb(struct, method_inter="linear", nimages=6, dcut=0.25, d_scaled=0.5):
+    """Construct a Nudged Elastic Band (NEB) for transitioning between two structures.
 
     Parameters
     ----------
@@ -34,11 +32,10 @@ def Construct_neb(struct, method_inter='linear', nimages=6, dcut=0.25, d_scaled=
     --------
     >>> struct = ['initial.vasp', 'final.vasp']
     >>> images = Construct_neb(struct, method_inter='idpp', nimages=10, dcut=0.2, d_scaled=0.3)s
-
     """
     ###Read initial and final states:
-    initial = io.read(struct[0], format='vasp')
-    final = io.read(struct[1], format='vasp')
+    initial = io.read(struct[0], format="vasp")
+    final = io.read(struct[1], format="vasp")
 
     ###fixed atoms distance and indices,modify the positions
     p1_scaled = initial.get_scaled_positions()
@@ -46,7 +43,7 @@ def Construct_neb(struct, method_inter='linear', nimages=6, dcut=0.25, d_scaled=
     p1 = initial.get_positions()
     p2 = final.get_positions()
 
-    #print(p2[-1],final.get_scaled_positions()[-1])
+    # print(p2[-1],final.get_scaled_positions()[-1])
     length = initial.get_cell_lengths_and_angles()[0:3]
     Mask = []
     Natom = []
@@ -57,15 +54,17 @@ def Construct_neb(struct, method_inter='linear', nimages=6, dcut=0.25, d_scaled=
             # If larger, add the length to modify the position
             for j in range(3):
                 if (p2_scaled[i][j] - p1_scaled[i][j]) > d_scaled:
-                    if abs(p2_scaled[i][j] - p1_scaled[i][j]) > abs(p2_scaled[i][j] -
-                                                                    (p1_scaled[i][j] + 1)):
+                    if abs(p2_scaled[i][j] - p1_scaled[i][j]) > abs(
+                        p2_scaled[i][j] - (p1_scaled[i][j] + 1)
+                    ):
                         p1_scaled[i][j] = p1_scaled[i][j] + 1
                         initial.set_scaled_positions(p1_scaled)
                     else:
                         pass
                 elif (p2_scaled[i][j] - p1_scaled[i][j]) < -d_scaled:
-                    if abs(p2_scaled[i][j] - p1_scaled[i][j]) > abs(p2_scaled[i][j] + 1 -
-                                                                    p1_scaled[i][j]):
+                    if abs(p2_scaled[i][j] - p1_scaled[i][j]) > abs(
+                        p2_scaled[i][j] + 1 - p1_scaled[i][j]
+                    ):
                         p2_scaled[i][j] = p2_scaled[i][j] + 1
                         final.set_scaled_positions(p2_scaled)
                     else:
@@ -74,12 +73,12 @@ def Construct_neb(struct, method_inter='linear', nimages=6, dcut=0.25, d_scaled=
                     continue
 
             # get the Euclidean Distance
-            #vector1,vector2=p1[i],p2[i];dis = np.sqrt(np.sum(np.square(vector1-vector2)))
+            # vector1,vector2=p1[i],p2[i];dis = np.sqrt(np.sum(np.square(vector1-vector2)))
             dis = get_distances(p1[i], p2[i])[1][0][0]
-            #p1_t=np.array([p1_scaled[i][0]*length[0],p1_scaled[i][1]*length[1],p1_scaled[i][2]*length[2]])
-            #p2_t=np.array([p2_scaled[i][0]*length[0],p2_scaled[i][1]*length[1],p2_scaled[i][2]*length[2]])
-            #dis_t= np.sqrt(np.sum(np.square(p1_t-p2_t)))
-            #print(dis,dis_t)
+            # p1_t=np.array([p1_scaled[i][0]*length[0],p1_scaled[i][1]*length[1],p1_scaled[i][2]*length[2]])
+            # p2_t=np.array([p2_scaled[i][0]*length[0],p2_scaled[i][1]*length[1],p2_scaled[i][2]*length[2]])
+            # dis_t= np.sqrt(np.sum(np.square(p1_t-p2_t)))
+            # print(dis,dis_t)
             # according to the dcut(unit:Angstrom),choose the atoms needed to be fixed
             if dis > dcut:
                 Mask += [False]
@@ -88,38 +87,39 @@ def Construct_neb(struct, method_inter='linear', nimages=6, dcut=0.25, d_scaled=
                 Natom += [i]
 
     else:
-        print('The numbers of atoms between two structure are not equal !!!')
-    #view(final)
+        print("The numbers of atoms between two structure are not equal !!!")
+    # view(final)
     ###Make a band consisting of 6 images:
     images = [initial]
     images += [initial.copy() for i in range(nimages)]
     images += [final]
     neb = NEB(images)
     ###Interpolate idpp or linear the potisions of the six middle images:
-    if method_inter == 'linear':
-        neb.interpolate(method='linear')
-    elif method_inter == 'idpp':
-        neb.interpolate(method='idpp')
+    if method_inter == "linear":
+        neb.interpolate(method="linear")
+    elif method_inter == "idpp":
+        neb.interpolate(method="idpp")
     else:
-        print('the interpolate method no exist!')
-        #ima=neb.iterimages()
+        print("the interpolate method no exist!")
+        # ima=neb.iterimages()
 
     ###fixed atoms
     ##method 1:constraint = FixAtoms(indices=Natom)
     ##method 2:constraint = FixAtoms(mask=Mask)
     constraint = FixAtoms(mask=Mask)
     for image in images:
-        #image.calc = Vasp(xc='PBE')
+        # image.calc = Vasp(xc='PBE')
         image.set_constraint(constraint)
     return images
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import os
     from ase.io.vasp import write_vasp, read_vasp
-    os.system('rm -rf 0*')
-    ima = Construct_neb(['POSstart', 'POSend'], method_inter='idpp', d_scaled=0.75, dcut=0.25)
+
+    os.system("rm -rf 0*")
+    ima = Construct_neb(["POSstart", "POSend"], method_inter="idpp", d_scaled=0.75, dcut=0.25)
     for i in range(len(ima)):
-        os.mkdir(f'0{i}', 0o777)
-        write_vasp('0%s/POSCAR' % (i), ima[i], direct=True, sort=[''], vasp5=True)
-    print(f'{int(i)-1} images are constructed')
+        os.mkdir(f"0{i}", 0o777)
+        write_vasp("0%s/POSCAR" % (i), ima[i], direct=True, sort=[""], vasp5=True)
+    print(f"{int(i)-1} images are constructed")

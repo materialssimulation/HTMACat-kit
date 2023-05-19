@@ -35,14 +35,14 @@ Results
 
 * Three of these visualizations are shown here
 
-.. image:: 
+.. image::
     image/Formic_acid/Au_Cu_111_b1_HCOOH_0.png
     :width: 20cm
 
-.. image:: 
+.. image::
     image/Formic_acid/Au_Cu_111_b1_HCOOH_2.png
     :width: 20cm
 
-.. image:: 
+.. image::
     image/Formic_acid/Au_Cu_111_b1_HCOOH_4.png
     :width: 20cm

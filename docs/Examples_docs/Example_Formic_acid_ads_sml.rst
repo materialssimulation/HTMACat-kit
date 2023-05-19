@@ -35,14 +35,14 @@ Results
 
 * Three of these visualizations are shown here
 
-.. image:: 
+.. image::
     image/Formic_acid_SML/Au_Cu_111_b1_CH2O2_1.png
     :width: 20cm
 
-.. image:: 
+.. image::
     image/Formic_acid_SML/Au_Cu_111_b1_CH2O2_3.png
     :width: 20cm
 
-.. image:: 
+.. image::
     image/Formic_acid_SML/Au_Cu_111_b1_CH2O2_8.png
     :width: 20cm

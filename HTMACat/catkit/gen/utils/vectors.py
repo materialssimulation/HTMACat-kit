@@ -34,8 +34,7 @@ def plane_normal(xyz):
 
 
 def get_basis_vectors(coordinates):
-    """Return a set of basis vectors for a given array of
-    3D coordinates.
+    """Return a set of basis vectors for a given array of 3D coordinates.
 
     Parameters
     ----------
@@ -61,7 +60,6 @@ def get_basis_vectors(coordinates):
     basis3 = np.cross(basis1, basis2)
 
     basis_vectors = np.vstack([basis1, basis2, basis3])
-    basis_vectors /= np.linalg.norm(
-        basis_vectors, axis=1, keepdims=True)
+    basis_vectors /= np.linalg.norm(basis_vectors, axis=1, keepdims=True)
 
     return basis_vectors

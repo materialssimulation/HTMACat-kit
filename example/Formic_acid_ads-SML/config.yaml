@@ -3,10 +3,10 @@ StrucInfo:
     element: Au
     lattype: fcc
     latcont: 4.16
-    facet: ['111']
+    facet: ["111"]
     dope:
-      Cu: ['b1']
+      Cu: ["b1"]
 
 Model:
   ads:
-    - [s: 'C(=O)O',1]
+    - [s: "C(=O)O", 1]

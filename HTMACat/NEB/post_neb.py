@@ -1,12 +1,10 @@
-# -*- coding: UTF-8 -*-
 import matplotlib.pyplot as plt
 import os
 
 
 def calE_neb(nimage=6):
-    """
-    Read the data in the 'react.log' file and calculate the energy barrier information, then return the list of reactants,
-     energy barriers, and energy
+    """Read the data in the 'react.log' file and calculate the energy barrier information, then
+    return the list of reactants, energy barriers, and energy.
 
     Parameters
     ----------
@@ -33,14 +31,14 @@ def calE_neb(nimage=6):
     neb_B = []
     Ei, Ef, Er = 0, 0, 0
     for i, line in enumerate(Ener_neb):
-        #print(line)
+        # print(line)
         if i == 0:
             reaction = line.strip()
         elif i == 1:
             tmp = line.strip()
-            Ei = tmp.split(',', 2)[0].split('=')[1].split()[0]
-            Ef = tmp.split(',', 2)[1].split('=')[1].split()[0]
-            Ent = tmp.split(',', 2)[2].split('=')[1].split()[0]
+            Ei = tmp.split(",", 2)[0].split("=")[1].split()[0]
+            Ef = tmp.split(",", 2)[1].split("=")[1].split()[0]
+            Ent = tmp.split(",", 2)[2].split("=")[1].split()[0]
             neb_E += [Ei]
             neb_B += [i - 1, round(float(0), 2)]
         elif i < (2 + nimage):
@@ -57,9 +55,8 @@ def calE_neb(nimage=6):
     ## plot the figure
 
 
-def plt_neb(react, neb, show=True, name='neb'):
-    """
-    It is mainly used to draw the reaction potential energy surface. Its parameters include
+def plt_neb(react, neb, show=True, name="neb"):
+    """It is mainly used to draw the reaction potential energy surface. Its parameters include.
 
     Parameters
     ----------
@@ -83,21 +80,21 @@ def plt_neb(react, neb, show=True, name='neb'):
     barrier = max(Y)
     enthalpy = Y[-1]
     plt.figure()
-    path = plt.plot(X, Y, 'go-')
+    path = plt.plot(X, Y, "go-")
     for x, y in zip(X, Y):
-        plt.text(x, y, '%.2f' % y, ha='center', va='bottom', fontsize=11)
+        plt.text(x, y, "%.2f" % y, ha="center", va="bottom", fontsize=11)
     plt.xlabel("Reaction Coordination")
     plt.ylabel("Reaction Energy(eV)")
     plt.title("Reaction Pathway")
     plt.legend(labels=[f"{react}:Ea={barrier}eV;Ef={enthalpy}eV"], loc=8)
     if show:
         plt.show()
-        plt.savefig(f'{name}.png', dpi=300, bbox_inches='tight')
+        plt.savefig(f"{name}.png", dpi=300, bbox_inches="tight")
     return barrier, enthalpy
 
 
 ### post processing
-if __name__ == '__main__':
+if __name__ == "__main__":
     react, neb_B, neb_E = calE_neb()
     Ea, Ef = plt_neb(react, neb_B, show=True)
     print(react)

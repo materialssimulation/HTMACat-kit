@@ -12,7 +12,7 @@ import copy
 
 
 class ABS_Species(ABC):
-    def __init__(self, form, formtype='sim', alias_name=None):
+    def __init__(self, form, formtype="sim", alias_name=None):
         self.__type = formtype
         self.form = form.strip()
         if alias_name is None:
@@ -35,7 +35,7 @@ class ABS_Species(ABC):
 
     @classmethod
     def from_input_dict(cls, init_dict):
-        return cls(init_dict['name'], init_dict['form'], init_dict['formtype'])
+        return cls(init_dict["name"], init_dict["form"], init_dict["formtype"])
 
     @classmethod
     def from_input(cls, input_dict):
@@ -47,7 +47,7 @@ class ABS_Species(ABC):
 
 
 class Sim_Species(ABS_Species):
-    def __init__(self, form, formtype='sim', alias_name=None):
+    def __init__(self, form, formtype="sim", alias_name=None):
         super().__init__(form, formtype, alias_name)
 
     def get_molecule(self):
@@ -67,10 +67,10 @@ class Sim_Species(ABS_Species):
 
 
 class File_Species(ABS_Species):
-    def __init__(self, form, formtype='file', alias_name=None):
+    def __init__(self, form, formtype="file", alias_name=None):
         super().__init__(form, formtype, alias_name)
-        if '.' in form:
-            str_list = form.split('.')
+        if "." in form:
+            str_list = form.split(".")
         self.filetype = str_list[-1]
 
     def set_filetype(self, typename):
@@ -106,7 +106,7 @@ class File_Species(ABS_Species):
 
 
 class Sml_Species(ABS_Species):
-    def __init__(self, form, formtype='sml', alias_name=None):
+    def __init__(self, form, formtype="sml", alias_name=None):
         super().__init__(form, formtype, alias_name)
 
     def out_file_name(self):
@@ -129,7 +129,7 @@ class Sml_Species(ABS_Species):
         """
         G = nx.Graph()
         for i_n in range(m.GetNumAtoms()):
-            G.add_nodes_from([(i_n, {'number': m.GetAtomWithIdx(i_n).GetAtomicNum()})])
+            G.add_nodes_from([(i_n, {"number": m.GetAtomWithIdx(i_n).GetAtomicNum()})])
         bonds = [m.GetBondWithIdx(k) for k in range(len(m.GetBonds()))]
         edges = []
         for edge in bonds:
@@ -138,7 +138,7 @@ class Sml_Species(ABS_Species):
         return G
 
     def get_molecule(self) -> Gratoms:
-        '''
+        """
         mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
         G = self.MolToNXGraph(mole)
         ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
@@ -149,13 +149,15 @@ class Sml_Species(ABS_Species):
                 ads_molecule = ads_
                 print(ads_molecule._graph)
                 break
-        '''
+        """
         ads1 = self.get_formular()
         mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
         stat = AllChem.EmbedMolecule(mole)
         if stat == -1:
             print(
-                '[WARNING]: No 3D conformer of specie %s can be generated, using the 2D version instead! (could be unreasonable)' % ads1)
+                "[WARNING]: No 3D conformer of specie %s can be generated, using the 2D version instead! (could be unreasonable)"
+                % ads1
+            )
         conf = mole.GetConformer()
         atomicnums_list = []
         coords_list = []
@@ -174,17 +176,20 @@ class Sml_Species(ABS_Species):
 def species_from_input(init_dict):
     # ads_init_dict = {'SML':False,'type':[],'value':[]}
     species_dict = {}
-    species_type_list = ['sim', 'sml', 'file']
+    species_type_list = ["sim", "sml", "file"]
     for key, value in init_dict.items():
-        if key == 'sim':
-            new_dict = Sim_Species.from_input(init_dict['sim'])
-        elif key == 'sml':
-            new_dict = Sml_Species.from_input(init_dict['sml'])
-        elif key == 'file':
-            new_dict = File_Species.from_input(init_dict['file'])
+        if key == "sim":
+            new_dict = Sim_Species.from_input(init_dict["sim"])
+        elif key == "sml":
+            new_dict = Sml_Species.from_input(init_dict["sml"])
+        elif key == "file":
+            new_dict = File_Species.from_input(init_dict["file"])
         else:
-            msg = ','.join(species_type_list)
-            warn_msg = 'Only support species type: %s, Your input %s part in Species will be dismiss' % (msg, key)
+            msg = ",".join(species_type_list)
+            warn_msg = (
+                "Only support species type: %s, Your input %s part in Species will be dismiss"
+                % (msg, key)
+            )
             raise Warning(warn_msg)
         species_dict.update(new_dict)
 
@@ -200,13 +205,13 @@ def init_from_ads(init_str, species_dict=None):
         else:
             return Sim_Species(init_str)
 
-    assert isinstance(init_str, dict), 'The species in adsorption must be dict or str'
+    assert isinstance(init_str, dict), "The species in adsorption must be dict or str"
 
     for key, value in init_str.items():
-        if key == 's' or key == 'sml':
+        if key == "s" or key == "sml":
             return Sml_Species(value)
-        elif key == 'f' or key == 'file':
+        elif key == "f" or key == "file":
             return File_Species(value)
         else:
-            wrn_msg = ', '.join(['s', 'sml', 'f', 'file'])
-            raise Warning('The key of initial dict should be one of the following:\n %s' % wrn_msg)
+            wrn_msg = ", ".join(["s", "sml", "f", "file"])
+            raise Warning("The key of initial dict should be one of the following:\n %s" % wrn_msg)

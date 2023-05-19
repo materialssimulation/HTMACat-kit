@@ -3,11 +3,11 @@ StrucInfo:
     element: Au
     lattype: fcc
     latcont: 4.16
-    facet: ['111']
-    supercell: [4,4,1]
+    facet: ["111"]
+    supercell: [4, 4, 1]
     dope:
-      Cu: ['1']
+      Cu: ["1"]
 
 Model:
   ads:
-    - ['HCOOH',1]
+    - ["HCOOH", 1]
