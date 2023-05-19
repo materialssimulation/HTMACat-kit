@@ -28,7 +28,6 @@ class Adsorption(Structure):
         assert isinstance(species[0], ABS_Species), "species should be a list of Species class"
         assert isinstance(sites, list), "sites should be a list"
         assert sites[0] in ['1', '2'], 'Supports only "1" "2" adsorption sites type for ads!'
-        assert len(species) == len(sites), "The species number and the sites number is not equal"
         self.species = species
         self.sites = sites
         self.spec_ads_stable = spec_ads_stable
@@ -44,7 +43,7 @@ class Adsorption(Structure):
         self.sites.append(sites)
 
     def get_sites(self):
-        return ' '.join(self.sites)
+        return self.sites # ' '.join(self.sites)
 
     def out_file_name(self):
         ads = []
@@ -64,9 +63,13 @@ class Adsorption(Structure):
         return print_str
 
     def construct(self):
-        if self.get_sites() == '1':
-            slabs_ads = self.Construct_single_adsorption()
-        elif self.get_sites() == '2':
+        if self.get_sites()[0] == '1':
+            if len(self.get_sites()) == 1:
+                slabs_ads = self.Construct_single_adsorption()
+            else:
+                ele = ''.join(self.get_sites()[1:]) ### wzj 20230518
+                slabs_ads = self.Construct_single_adsorption(ele=ele)
+        elif self.get_sites()[0] == '2':
             slabs_ads = self.Construct_double_adsorption()
         else:
             raise ValueError('Supports only "1" "2" adsorption sites for ads!')
@@ -91,7 +94,7 @@ class Adsorption(Structure):
                 slabs_ads_near += [slb]
         return slabs_ads_near
 
-    def Construct_single_adsorption(self):
+    def Construct_single_adsorption(self, ele=None):
         # generate surface adsorption configuration
         slab_ad = []
         slabs = self.substrate.construct()
@@ -100,8 +103,17 @@ class Adsorption(Structure):
             coordinates = site.get_coordinates()
             builder = Builder(slab)
             ads_use = self.species[0].get_molecule()
-            for j, coord in enumerate(coordinates):
-                slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]
+            if not ele is None:
+                chemical_symbols = np.array(ads_use.get_chemical_symbols())
+                bond_atom_ids = chemical_symbols[chemical_symbols==ele]
+                bond_atom_ids = np.where(chemical_symbols==ele)[0]
+                ### print('bond_atom_ids =', bond_atom_ids, bond_atom_ids.shape)
+                for bond_id in bond_atom_ids:
+                    for j, coord in enumerate(coordinates):
+                        slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j)]
+            else:
+                for j, coord in enumerate(coordinates):
+                    slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]
         return slab_ad
 
     def Construct_double_adsorption(self):
@@ -123,7 +135,7 @@ class Adsorption(Structure):
             spec1 = init_from_ads(i[0], species_dict)
             sites1 = str(i[1])
             for j in substrates:
-                ads.append(cls([spec1], [sites1], substrate=j))
+                ads.append(cls([spec1], list(sites1), substrate=j))
         return ads
 
 

@@ -568,7 +568,7 @@ class Builder(AdsorptionSites):
             bond,
             slab=None,
             site_index=0,
-            auto_construct=False,
+            auto_construct=True,
             symmetric=True):
         """Bond and adsorbate by a single atom."""
         if slab is None:
@@ -602,6 +602,8 @@ class Builder(AdsorptionSites):
             # Align with the adsorption vector
             atoms.rotate([0, 0, 1], vector)
         '''
+        if auto_construct: ### zjwang 20230510
+            atoms.rotate([0, 0, 1], vector)
 
         atoms.translate(base_position)
         n = len(slab)

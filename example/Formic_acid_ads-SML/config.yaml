@@ -9,4 +9,4 @@ StrucInfo:
 
 Model:
   ads:
-    - [s: 'C(=O)O',1]
+    - [s: 'C(=O)O',1O]
