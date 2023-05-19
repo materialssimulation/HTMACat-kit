@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="HTMACat package" href="../HTMACat.html" />
+    <link rel="next" title="TMA (Cu111)" href="Example_TMA_ads.html" />
     <link rel="prev" title="CO2 reduction" href="Example_CO2Reduction_ads.html" /> 
 </head>
 
@@ -47,7 +47,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html"><strong>Installation Guide</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Getting_started.html"><strong>Getting started</strong></a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Examples.html"><strong>Examples</strong></a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="description.html">The description of Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Example_Formic_acid_ads.html">Formic acid adsorption (Cu-doped Au)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Example_Formic_acid_ads_sml.html">Formic acid adsorption (SMILES)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Example_Nanoparticle.html">Nanoparticle (pristine Pt)</a></li>
@@ -58,6 +57,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#results">Results</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="Example_TMA_ads.html">TMA (Cu111)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html">The description of Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../HTMACat.html">HTMACat package</a></li>
@@ -98,47 +99,60 @@
 <h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this heading"></a></h2>
 <p>The content of input file is as follow:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">StrucInfo</span><span class="p">:</span>
-    <span class="n">file</span><span class="p">:</span> <span class="n">POSCARfile</span>
-    <span class="n">struct</span><span class="p">:</span>
-        <span class="n">element</span><span class="p">:</span> <span class="n">Pt</span>
-        <span class="n">lattype</span><span class="p">:</span> <span class="n">fcc</span>
-        <span class="n">latcont</span><span class="p">:</span> <span class="mf">4.16</span>
-        <span class="n">facet</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
-        <span class="n">dope</span><span class="p">:</span>
-            <span class="n">Cu</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+  <span class="n">struct</span><span class="p">:</span>
+    <span class="n">element</span><span class="p">:</span> <span class="n">Pt</span>
+    <span class="n">lattype</span><span class="p">:</span> <span class="n">fcc</span>
+    <span class="n">latcont</span><span class="p">:</span> <span class="mf">4.16</span>
+    <span class="n">facet</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;100&#39;</span><span class="p">]</span>
+    <span class="n">dope</span><span class="p">:</span>
+    <span class="n">Cu</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
 
 <span class="n">Model</span><span class="p">:</span>
-    <span class="n">SML</span><span class="p">:</span> <span class="kc">False</span>
-    <span class="n">ads</span><span class="p">:</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;OH&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;O2&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;H2&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;H2O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;CO2&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">coads</span><span class="p">:</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">ads</span><span class="p">:</span>
+    <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;OH&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;O2&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;H2&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;H2O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;CO2&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">coads</span><span class="p">:</span>
+    <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;O&#39;</span><span class="p">,</span><span class="s1">&#39;H&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>In the directory where the yaml file is located, use the command line to enter <code class="docutils literal notranslate"><span class="pre">htmat</span> <span class="pre">ads</span></code>  to generate 27 vasp structure files.</p>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Permalink to this heading"></a></h2>
-<p>OH adsorption on POSCARslab substrate are construct with 3 configurations!</p>
-<p>O2 adsorption on POSCARslab substrate are construct with 3 configurations!</p>
-<p>H2 adsorption on POSCARslab substrate are construct with 3 configurations!</p>
-<p>H2O adsorption on POSCARslab substrate are construct with 3 configurations!</p>
-<p>CO2 adsorption on POSCARslab substrate are construct with 3 configurations!</p>
-<p>CO adsorption on POSCARslab substrate are construct with 3 configurations!</p>
-<p>O and H adsorption on POSCARslab substrate are construct with 9 configurations!</p>
-<p>27 vasp structure files named “POSCARslab_x_i.vasp” (x is type of adsorbate,i from 0 to 9) are generated. The visualization results generated by VESTA are as follow:</p>
-<a class="reference internal image-reference" href="../_images/POSCARslab_O_H.png"><img alt="../_images/POSCARslab_O_H.png" src="../_images/POSCARslab_O_H.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/POSCARslab_O_H.png"><img alt="../_images/POSCARslab_O_H.png" src="../_images/POSCARslab_O_H.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/POSCARslab_CO2.png"><img alt="../_images/POSCARslab_CO2.png" src="../_images/POSCARslab_CO2.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/POSCARslab_H2.png"><img alt="../_images/POSCARslab_H2.png" src="../_images/POSCARslab_H2.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/POSCARslab_OH.png"><img alt="../_images/POSCARslab_OH.png" src="../_images/POSCARslab_OH.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/POSCARslab_O2.png"><img alt="../_images/POSCARslab_O2.png" src="../_images/POSCARslab_O2.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/POSCARslab_H2O.png"><img alt="../_images/POSCARslab_H2O.png" src="../_images/POSCARslab_H2O.png" style="width: 20cm;" /></a>
+<p>OH adsorption on Pt (100) substrate are construct with 3 configurations!</p>
+<p>O2 adsorption on Pt (100) substrate are construct with 3 configurations!</p>
+<p>H2 adsorption on Pt (100) substrate are construct with 3 configurations!</p>
+<p>H2O adsorption on Pt (100) substrate are construct with 3 configurations!</p>
+<p>CO2 adsorption on Pt (100) substrate are construct with 3 configurations!</p>
+<p>CO adsorption on Pt (100) substrate are construct with 3 configurations!</p>
+<p>O and H adsorption on Pt (100) substrate are construct with 10 configurations!</p>
+<p>27 vasp structure files are generated. The visualization results generated by VESTA are as follow:</p>
+<ul>
+<li><dl>
+<dt>Four of these visualizations are shown here</dt><dd><ul class="simple">
+<li><p>OH on top site</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Pt_100_OH_0.png"><img alt="../_images/Pt_100_OH_0.png" src="../_images/Pt_100_OH_0.png" style="width: 20cm;" /></a>
+<ul class="simple">
+<li><p>CO2 on bridge site</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Pt_100_CO2_1.png"><img alt="../_images/Pt_100_CO2_1.png" src="../_images/Pt_100_CO2_1.png" style="width: 20cm;" /></a>
+<ul class="simple">
+<li><p>O2 on fourfold hollow site</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Pt_100_O2_2.png"><img alt="../_images/Pt_100_O2_2.png" src="../_images/Pt_100_O2_2.png" style="width: 20cm;" /></a>
+<ul class="simple">
+<li><p>O and H co-adsorption</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Pt_100_O_H_6.png"><img alt="../_images/Pt_100_O_H_6.png" src="../_images/Pt_100_O_H_6.png" style="width: 20cm;" /></a>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 </section>
 
@@ -147,7 +161,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="Example_CO2Reduction_ads.html" class="btn btn-neutral float-left" title="CO2 reduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../HTMACat.html" class="btn btn-neutral float-right" title="HTMACat package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Example_TMA_ads.html" class="btn btn-neutral float-right" title="TMA (Cu111)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

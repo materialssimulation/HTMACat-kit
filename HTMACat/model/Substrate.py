@@ -96,8 +96,9 @@ class Bulk(object):
         lattice_const = init_dict['latcont']
         ele_dop = init_dict['element_dop']
         natom_dop = init_dict['dop_type']
+        supercell = init_dict['supercell']
         return cls(main_element=main_element, lattice_type=lattice_type, lattice_constant=lattice_const,
-                   ele_dop=ele_dop, natom_dop=natom_dop)
+                   ele_dop=ele_dop, natom_dop=natom_dop, super_cell=supercell)
 
 
 class Slab(Structure):
@@ -249,7 +250,8 @@ class Slab(Structure):
         struct_init_dict = {
             'element': struct_Info['element'],
             'lattype': struct_Info['lattype'],
-            'latcont': struct_Info['latcont']
+            'latcont': struct_Info['latcont'],
+            'supercell': struct_Info['supercell']
         }
         dope_init_dict = {'element_dop': [], 'dop_type': []}
         surface_init_dict = {'facet': []}

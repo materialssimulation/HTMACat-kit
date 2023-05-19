@@ -1,0 +1,13 @@
+StrucInfo:
+  struct:
+    element: Au
+    lattype: fcc
+    latcont: 4.16
+    facet: ['111']
+    supercell: [4,4,1]
+    dope:
+      Cu: ['1']
+
+Model:
+  ads:
+    - ['HCOOH',1]
