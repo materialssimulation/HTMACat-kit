@@ -4,9 +4,8 @@
 
 [![python](https://img.shields.io/badge/Python-3.6--3.9-brightgreen)](https://www.python.org/)
 [![MDNM](https://img.shields.io/badge/MDNM-%40HUST-orange)](http://www.materialssimulation.com/)
-
-[![license](https://img.shields.io/badge/license-GPLv3-brightgreen)](https://github.com/stanfordbshan/HTMACat-kit/blob/dev/LICENSE)
-[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/ashleve/lightning-hydra-template/pulls)
+![license](https://img.shields.io/badge/license-GPLv3-brightgreen)
+[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/stanfordbshan/HTMACat-kit/pulls)
 [![contributors](https://img.shields.io/badge/contributors-6-brightgreen)](https://github.com/stanfordbshan/HTMACat-kit/graphs/contributors)
 
 </div>
