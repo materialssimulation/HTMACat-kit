@@ -18,7 +18,7 @@ setup(
     'A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes.',
     long_description_content_type="text/markdown",
     long_description=readme,
-    author='Jiaqiang Yang, Feifeng Wu, Bin Shan',
+    author='Jiaqiang Yang, Feifeng Wu, Zhaojie Wang, Yuxiao Lan, Haojie Li, Zhang Liu, Zhihong Zhang, Bin Shan*',
     author_email='bshan@mail.hust.edu.cn',
     url='https://stanfordbshan.github.io/HTMACat-kit/',
     keywords=['high-throughput', 'python', 'catalysis', 'modeling'],
@@ -28,7 +28,7 @@ setup(
     include_package_data=True,
     package_data={'': ["*.db", "*.txt", "*.json", "*.yaml", "*.md", "*.rst", "Element_Info"]},
     entry_points={
-        'console_scripts': [  # 命令的入口
+        'console_scripts': [
             'htmat=HTMACat.command:main',
         ]
     })
