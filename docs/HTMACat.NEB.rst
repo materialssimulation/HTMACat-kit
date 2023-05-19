@@ -28,14 +28,6 @@ HTMACat.NEB.Dismove module
    :undoc-members:
    :show-inheritance:
 
-HTMACat.NEB.Extract\_info module
---------------------------------
-
-.. automodule:: HTMACat.NEB.Extract_info
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 HTMACat.NEB.Post\_struc module
 ------------------------------
 

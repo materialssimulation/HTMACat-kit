@@ -36,14 +36,6 @@ HTMACat.post.Extract\_cal\_fre module
    :undoc-members:
    :show-inheritance:
 
-HTMACat.post.Extract\_info module
----------------------------------
-
-.. automodule:: HTMACat.post.Extract_info
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 HTMACat.post.cal\_adsE module
 -----------------------------
 

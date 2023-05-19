@@ -47,7 +47,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../Installation.html"><strong>Installation Guide</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Getting_started.html"><strong>Getting started</strong></a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../Examples.html"><strong>Examples</strong></a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="description.html">The description of Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Example_Formic_acid_ads.html">Formic acid adsorption (Cu-doped Au)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Example_Formic_acid_ads_sml.html">Formic acid adsorption (SMILES)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Example_Nanoparticle.html">Nanoparticle (pristine Pt)</a></li>
@@ -58,6 +57,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="Example_CO_PROX.html">PROX adsorption (Pt)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example_TMA_ads.html">TMA (Cu111)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="description.html">The description of Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../HTMACat.html">HTMACat package</a></li>
@@ -98,37 +99,61 @@
 <h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this heading"></a></h2>
 <p>The content of input file is as follow:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">StrucInfo</span><span class="p">:</span>
-    <span class="n">file</span><span class="p">:</span> <span class="n">POSCARfile</span>
-    <span class="n">struct</span><span class="p">:</span>
-        <span class="n">element</span><span class="p">:</span> <span class="n">Au</span>
-        <span class="n">lattype</span><span class="p">:</span> <span class="n">fcc</span>
-        <span class="n">latcont</span><span class="p">:</span> <span class="mf">4.16</span>
-        <span class="n">facet</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;111&#39;</span><span class="p">]</span>
-        <span class="n">dope</span><span class="p">:</span>
-            <span class="n">Cu</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
+  <span class="n">struct</span><span class="p">:</span>
+    <span class="n">element</span><span class="p">:</span> <span class="n">Au</span>
+    <span class="n">lattype</span><span class="p">:</span> <span class="n">fcc</span>
+    <span class="n">latcont</span><span class="p">:</span> <span class="mf">4.16</span>
+    <span class="n">facet</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;111&#39;</span><span class="p">]</span>
+    <span class="n">dope</span><span class="p">:</span>
+        <span class="n">Cu</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0&#39;</span><span class="p">]</span>
 
 <span class="n">Model</span><span class="p">:</span>
-    <span class="n">SML</span><span class="p">:</span> <span class="kc">True</span>
-    <span class="n">ads</span><span class="p">:</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;O[C][O]&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;[O][CH][O]&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;O[C]O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;[CH2]O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;[CH][O]&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-        <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;[CH]O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">ads</span><span class="p">:</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">s</span><span class="p">:</span> <span class="s1">&#39;O[C][O]&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">s</span><span class="p">:</span> <span class="s1">&#39;[O][CH][O]&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">s</span><span class="p">:</span> <span class="s1">&#39;O[C]O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">s</span><span class="p">:</span> <span class="s1">&#39;[CH2]O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">s</span><span class="p">:</span> <span class="s1">&#39;[CH][O]&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">-</span> <span class="p">[</span><span class="n">s</span><span class="p">:</span> <span class="s1">&#39;[CH]O&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>In the directory where the yaml file is located, use the command line to enter <code class="docutils literal notranslate"><span class="pre">htmat</span> <span class="pre">ads</span></code> to generate 9 vasp structure files.</p>
+<p>In the directory where the yaml file is located, use the command line to enter <code class="docutils literal notranslate"><span class="pre">htmat</span> <span class="pre">ads</span></code> to generate 24 vasp structure files.</p>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Permalink to this heading"></a></h2>
-<p>24 vasp structure files named “Au_111_CO_x.vasp”(x is from 0 to 3).etc are generated. The visualization results generated by VESTA are as follow:</p>
-<a class="reference internal image-reference" href="../_images/Au_111_[CH][O]_0.png"><img alt="../_images/Au_111_[CH][O]_0.png" src="../_images/Au_111_[CH][O]_0.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/Au_111_[CH]O_0.png"><img alt="../_images/Au_111_[CH]O_0.png" src="../_images/Au_111_[CH]O_0.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/Au_111_[CH2]O_0.png"><img alt="../_images/Au_111_[CH2]O_0.png" src="../_images/Au_111_[CH2]O_0.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/Au_111_[O][CH][O]_0.png"><img alt="../_images/Au_111_[O][CH][O]_0.png" src="../_images/Au_111_[O][CH][O]_0.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/Au_111_O[C][O]_0.png"><img alt="../_images/Au_111_O[C][O]_0.png" src="../_images/Au_111_O[C][O]_0.png" style="width: 20cm;" /></a>
-<a class="reference internal image-reference" href="../_images/Au_111_O[C]O_0.png"><img alt="../_images/Au_111_O[C]O_0.png" src="../_images/Au_111_O[C]O_0.png" style="width: 20cm;" /></a>
+<p>O[C][O] adsorption on Au (111) substrate are construct with 4 configurations!</p>
+<p>[O][CH][O] adsorption on Au (111) substrate are construct with 4 configurations!</p>
+<p>O[C]O adsorption on Au (111) substrate are construct with 4 configurations!</p>
+<p>[CH2]O adsorption on Au (111) substrate are construct with 4 configurations!</p>
+<p>[CH][O] adsorption on Au (111) substrate are construct with 4 configurations!</p>
+<p>[CH]O adsorption on Au (111) substrate are construct with 4 configurations!</p>
+<p>24 vasp structure files are generated. The visualization results generated by VESTA are as follow:</p>
+<ul>
+<li><dl>
+<dt>Five of these visualizations are shown here</dt><dd><ul class="simple">
+<li><p>CH2O</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Au_111_CH2O_0.png"><img alt="../_images/Au_111_CH2O_0.png" src="../_images/Au_111_CH2O_0.png" style="width: 20cm;" /></a>
+<ul class="simple">
+<li><p>CH2O2</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Au_111_CH2O2_1.png"><img alt="../_images/Au_111_CH2O2_1.png" src="../_images/Au_111_CH2O2_1.png" style="width: 20cm;" /></a>
+<ul class="simple">
+<li><p>CH3O</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Au_111_CH3O_3.png"><img alt="../_images/Au_111_CH3O_3.png" src="../_images/Au_111_CH3O_3.png" style="width: 20cm;" /></a>
+<ul class="simple">
+<li><p>CHO</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Au_111_CHO_2.png"><img alt="../_images/Au_111_CHO_2.png" src="../_images/Au_111_CHO_2.png" style="width: 20cm;" /></a>
+<ul class="simple">
+<li><p>CHO2</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/Au_111_CHO2_2.png"><img alt="../_images/Au_111_CHO2_2.png" src="../_images/Au_111_CHO2_2.png" style="width: 20cm;" /></a>
+</dd>
+</dl>
+</li>
+</ul>
 </section>
 </section>
 
