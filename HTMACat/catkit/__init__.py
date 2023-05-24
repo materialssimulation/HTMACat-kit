@@ -6,5 +6,5 @@ from .gratoms import Gratoms
 from . import gen
 from . import build
 
-__all__ = ['Gratoms', 'gen', 'build']
-__version__ = '0.5.4'
+__all__ = ["Gratoms", "gen", "build"]
+__version__ = "0.5.4"

@@ -3,10 +3,10 @@ StrucInfo:
     element: Cu
     lattype: fcc
     latcont: 3.58
-    facet: ['111']
+    facet: ["111"]
     dope:
       Cu: [0]
 
 Model:
   ads:
-    - [s: 'C[Al](C)C',1]
+    - [s: "C[Al](C)C", 1]

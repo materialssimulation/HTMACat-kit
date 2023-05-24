@@ -2,9 +2,8 @@ import numpy as np
 
 
 def expand_cell(atoms, cutoff=None, padding=None):
-    """Return Cartesian coordinates atoms within a supercell
-    which contains repetitions of the unit cell which contains
-    at least one neighboring atom.
+    """Return Cartesian coordinates atoms within a supercell which contains repetitions of the unit
+    cell which contains at least one neighboring atom.
 
     Parameters
     ----------
@@ -32,32 +31,27 @@ def expand_cell(atoms, cutoff=None, padding=None):
     pos = atoms.positions
 
     if padding is None and cutoff is None:
-        diags = np.sqrt((
-            np.dot([[1, 1, 1],
-                    [-1, 1, 1],
-                    [1, -1, 1],
-                    [-1, -1, 1]],
-                   cell)**2).sum(1))
+        diags = np.sqrt(
+            (np.dot([[1, 1, 1], [-1, 1, 1], [1, -1, 1], [-1, -1, 1]], cell) ** 2).sum(1)
+        )
 
         if pos.shape[0] == 1:
-            cutoff = max(diags) / 2.
+            cutoff = max(diags) / 2.0
         else:
             dpos = (pos - pos[:, None]).reshape(-1, 3)
             Dr = np.dot(dpos, np.linalg.inv(cell))
             D = np.dot(Dr - np.round(Dr) * pbc, cell)
             D_len = np.sqrt((D**2).sum(1))
 
-            cutoff = min(max(D_len), max(diags) / 2.)
+            cutoff = min(max(D_len), max(diags) / 2.0)
 
     latt_len = np.sqrt((cell**2).sum(1))
     V = abs(np.linalg.det(cell))
-    padding = pbc * np.array(np.ceil(cutoff * np.prod(latt_len) /
-                                     (V * latt_len)), dtype=int)
+    padding = pbc * np.array(np.ceil(cutoff * np.prod(latt_len) / (V * latt_len)), dtype=int)
 
     offsets = np.mgrid[
-        -padding[0]:padding[0] + 1,
-        -padding[1]:padding[1] + 1,
-        -padding[2]:padding[2] + 1].T
+        -padding[0] : padding[0] + 1, -padding[1] : padding[1] + 1, -padding[2] : padding[2] + 1
+    ].T
     tvecs = np.dot(offsets, cell)
     coords = pos[None, None, None, :, :] + tvecs[:, :, :, None, :]
 
@@ -70,9 +64,8 @@ def expand_cell(atoms, cutoff=None, padding=None):
 
 
 def trilaterate(centers, r, zvector=None):
-    """Find the intersection of two or three spheres. In the case
-    of two sphere intersection, the z-coordinate is assumed to be
-    an intersection of a plane whose normal is aligned with the
+    """Find the intersection of two or three spheres. In the case of two sphere intersection, the
+    z-coordinate is assumed to be an intersection of a plane whose normal is aligned with the
     points and perpendicular to the positive z-coordinate.
 
     If more than three spheres are supplied, the centroid of the
@@ -108,9 +101,9 @@ def trilaterate(centers, r, zvector=None):
     d = np.linalg.norm(vec1)
 
     if len(r) == 2:
-        x0 = (d**2 - r[0]**2 + r[1]**2)
+        x0 = d**2 - r[0] ** 2 + r[1] ** 2
         x = d - x0 / (2 * d)
-        a = np.sqrt(4 * d**2 * r[1]**2 - x0**2)
+        a = np.sqrt(4 * d**2 * r[1] ** 2 - x0**2)
         z = 0.5 * (1 / d) * a
         if np.isnan(z):
             z = 0.01
@@ -126,9 +119,9 @@ def trilaterate(centers, r, zvector=None):
         uvec3 = np.cross(uvec1, uvec2)
         j = np.dot(uvec2, vec2)
 
-        x = (r[0]**2 - r[1]**2 + d**2) / (2 * d)
-        y = (r[0]**2 - r[2]**2 - 2 * i * x + i**2 + j**2) / (2 * j)
-        z = np.sqrt(r[0]**2 - x**2 - y**2)
+        x = (r[0] ** 2 - r[1] ** 2 + d**2) / (2 * d)
+        y = (r[0] ** 2 - r[2] ** 2 - 2 * i * x + i**2 + j**2) / (2 * j)
+        z = np.sqrt(r[0] ** 2 - x**2 - y**2)
         if np.isnan(z):
             z = 0.01
         intersection = centers[0] + x * uvec1 + y * uvec2 + z * uvec3
@@ -137,9 +130,8 @@ def trilaterate(centers, r, zvector=None):
 
 
 def get_unique_xy(xyz_coords, cutoff=0.1):
-    """Return the unique coordinates of an atoms object
-    for the requrested atoms indices. Z-coordinates are projected
-    to maximum z-coordinate by default.
+    """Return the unique coordinates of an atoms object for the requrested atoms indices.
+    Z-coordinates are projected to maximum z-coordinate by default.
 
     Parameters
     ----------
@@ -170,9 +162,8 @@ def get_unique_xy(xyz_coords, cutoff=0.1):
 
 
 def matching_sites(position, comparators, tol=1e-8):
-    """Get the indices of all points in a comparator list that are
-    equal to a given position (with a tolerance), taking into
-    account periodic boundary conditions (adaptation from Pymatgen).
+    """Get the indices of all points in a comparator list that are equal to a given position (with
+    a tolerance), taking into account periodic boundary conditions (adaptation from Pymatgen).
 
     This will only accept a fractional coordinate scheme.
 
@@ -201,9 +192,8 @@ def matching_sites(position, comparators, tol=1e-8):
 
 
 def matching_coordinates(position, comparators, tol=1e-8):
-    """Get the indices of all points in a comparator list that are
-    equal to a given position (with a tolerance), taking into
-    account periodic boundary conditions (adaptation from Pymatgen).
+    """Get the indices of all points in a comparator list that are equal to a given position (with
+    a tolerance), taking into account periodic boundary conditions (adaptation from Pymatgen).
 
     This will only accept a Cartesian coordinate scheme.
     TODO: merge this with matching_sites.
@@ -232,8 +222,7 @@ def matching_coordinates(position, comparators, tol=1e-8):
 
 
 def get_unique_coordinates(atoms, axis=2, tag=False, tol=1e-3):
-    """Return unique coordinate values of a given atoms object
-    for a specified axis.
+    """Return unique coordinate values of a given atoms object for a specified axis.
 
     Parameters
     ----------
@@ -271,8 +260,8 @@ def get_unique_coordinates(atoms, axis=2, tag=False, tol=1e-3):
 
 
 def get_integer_enumeration(N=3, span=[0, 2]):
-    """Return the enumerated array of a span of integer values.
-    These enumerations are limited to the length N.
+    """Return the enumerated array of a span of integer values. These enumerations are limited to
+    the length N.
 
     For the default span of [0, 2], the enumeration equates to
     the corners of an N-dimensional hypercube.

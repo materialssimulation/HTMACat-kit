@@ -56,26 +56,24 @@ O and H adsorption on Pt (100) substrate are construct with 10 configurations!
 * Four of these visualizations are shown here
     * OH on top site
 
-    .. image:: 
+    .. image::
         image/CO_PROX/Pt_100_OH_0.png
         :width: 20cm
 
     * CO2 on bridge site
 
-    .. image:: 
+    .. image::
         image/CO_PROX/Pt_100_CO2_1.png
         :width: 20cm
 
     * O2 on fourfold hollow site
 
-    .. image:: 
+    .. image::
         image/CO_PROX/Pt_100_O2_2.png
         :width: 20cm
 
     * O and H co-adsorption
 
-    .. image:: 
+    .. image::
         image/CO_PROX/Pt_100_O_H_6.png
         :width: 20cm
-
-

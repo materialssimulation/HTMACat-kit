@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Mar 19 11:47:30 2023
+"""Created on Sun Mar 19 11:47:30 2023.
 
 @author: YuxiaoLan
 """
@@ -16,8 +14,8 @@ from rich import print
 
 
 def Input(filename):
-    yaml = YAML(typ='safe')
-    with open(filename, 'r', encoding='utf-8') as f:
+    yaml = YAML(typ="safe")
+    with open(filename, encoding="utf-8") as f:
         result: dict = yaml.load(f.read())
 
     substrates = substrate_part(result)
@@ -28,27 +26,34 @@ def Input(filename):
 
 def substrate_part(result):
     # A substrate is one facet with one dop element with on dop_type
-    struct_Info = result['StrucInfo']
+    struct_Info = result["StrucInfo"]
     file_default = []
-    struct_default = {'element': 'Pt', 'lattype': 'fcc', 'latcont': 3.92, 'facet': ['111'], 'dope': {}, 'supercell':[3,3,1]}
-    if 'file' in struct_Info:
-        if isinstance(struct_Info['file'], list):
-            file_default = struct_Info['file']
+    struct_default = {
+        "element": "Pt",
+        "lattype": "fcc",
+        "latcont": 3.92,
+        "facet": ["111"],
+        "dope": {},
+        "supercell": [3, 3, 1],
+    }
+    if "file" in struct_Info:
+        if isinstance(struct_Info["file"], list):
+            file_default = struct_Info["file"]
         else:
-            file_default = [struct_Info['file']]
-    if 'struct' in struct_Info:
-        struct_default.update(struct_Info['struct'])
+            file_default = [struct_Info["file"]]
+    if "struct" in struct_Info:
+        struct_default.update(struct_Info["struct"])
     else:
         struct_default = {}
-    substrate_init_dict = {'file': file_default, 'struct': struct_default}
+    substrate_init_dict = {"file": file_default, "struct": struct_default}
     substrates = substrate_from_input(substrate_init_dict)
     return substrates
 
 
 def species_part(result: dict):
-    if 'Species' not in result.keys():
+    if "Species" not in result.keys():
         return {}
-    species_info = result['Species']
+    species_info = result["Species"]
     species_dict = species_from_input(species_info)
     return species_dict
 
@@ -57,9 +62,9 @@ def adsorption_part(result):
     # Adsorption Part
     substrates = substrate_part(result)
     species_dict = species_part(result)
-    ads_model = result['Model']
-    ads_default_dict = {'ads': [], 'coads': []}
-    for key in ['ads', 'coads']:
+    ads_model = result["Model"]
+    ads_default_dict = {"ads": [], "coads": []}
+    for key in ["ads", "coads"]:
         if key not in ads_model:
             ads_model[key] = ads_default_dict[key]
     ads = ads_from_input(ads_model, substrates, species_dict)
@@ -67,8 +72,7 @@ def adsorption_part(result):
 
 
 def get_templator():
-    templator = \
-        """#Templator[YAML-format] for HTMACat-kit input
+    templator = """#Templator[YAML-format] for HTMACat-kit input
 StrucInfo:
 # The followting two keywords should be chosen only one
     file: POSCARfile #read substrate from POSCAR file
@@ -98,18 +102,18 @@ def print_templator():
 
 def out_templator_file():
     templator = get_templator()
-    workdir = Path('./config.yaml')
+    workdir = Path("./config.yaml")
     if workdir.is_file():
         while True:
-            choose = input('Warning: Replace config.yaml file in your folder? [y/n(default)]:')
-            if choose == 'y':
+            choose = input("Warning: Replace config.yaml file in your folder? [y/n(default)]:")
+            if choose == "y":
                 break
-            elif choose == 'n' or choose == '':
+            elif choose == "n" or choose == "":
                 return
             else:
                 continue
 
-    with open('config.yaml', 'w') as f:
+    with open("config.yaml", "w") as f:
         f.write(templator)
 
 
@@ -119,7 +123,9 @@ def out_vasp(struct_class: Structure):
     structures = struct_class.construct()
     if structures:
         for i, structure in enumerate(structures):
-            write_vasp("%s_%s.vasp" % (file_name, i), structure, direct=True, sort=[''], vasp5=True)
-        print(f"[i][u]{print_str}[/u][/i] are construct with [i][u]{i + 1}[/u][/i] configurations!")
+            write_vasp(f"{file_name}_{i}.vasp", structure, direct=True, sort=[""], vasp5=True)
+        print(
+            f"[i][u]{print_str}[/u][/i] are construct with [i][u]{i + 1}[/u][/i] configurations!"
+        )
     else:
         print(f"[i][u]{print_str}[/u][/i] are construct with !No! configurations!")

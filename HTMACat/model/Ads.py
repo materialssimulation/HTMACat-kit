@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 18 09:00:12 2023
+"""Created on Sat Mar 18 09:00:12 2023.
 
 @author: YuxiaoLan
 """
@@ -22,8 +20,17 @@ from HTMACat.model.Species import init_from_ads, ABS_Species
 class Adsorption(Structure):
     def __init__(self, species: list, sites: list, spec_ads_stable=None, substrate=Slab()):
         if spec_ads_stable is None:
-            spec_ads_stable = {'NH3': [1], 'NH2': [2], 'NH': [2, 4], 'N': [2, 4], 'O': [2, 4],
-                               'OH': [2, 4], 'NO': [2, 4], 'H2O': [1], 'H': [2, 4]}
+            spec_ads_stable = {
+                "NH3": [1],
+                "NH2": [2],
+                "NH": [2, 4],
+                "N": [2, 4],
+                "O": [2, 4],
+                "OH": [2, 4],
+                "NO": [2, 4],
+                "H2O": [1],
+                "H": [2, 4],
+            }
         assert isinstance(species, list), "species should be a list of Species class"
         assert isinstance(species[0], ABS_Species), "species should be a list of Species class"
         assert isinstance(sites, list), "sites should be a list"
@@ -49,7 +56,7 @@ class Adsorption(Structure):
         ads = []
         ads_str = self.species[0].out_file_name()
         substrate_str = self.substrate.out_file_name()
-        vasp_file_str: str = '_'.join([substrate_str, ads_str])
+        vasp_file_str: str = "_".join([substrate_str, ads_str])
         return vasp_file_str
 
     def out_print(self):
@@ -57,9 +64,9 @@ class Adsorption(Structure):
         for i in range(len(self.species)):
             species_str.append(self.species[i].out_print())
 
-        species_str = ' and '.join(species_str)
+        species_str = " and ".join(species_str)
         substrate_str = self.substrate.out_print()
-        print_str = "%s adsorption on %s" % (species_str, substrate_str)
+        print_str = f"{species_str} adsorption on {substrate_str}"
         return print_str
 
     def construct(self):
@@ -81,16 +88,25 @@ class Adsorption(Structure):
 
     def remove_same(self, slabs_ads):
         # To choose the config whose neighbor list includes the doped atoms
-        p1 = self.substrate.property['p1']
-        p1_symb = self.substrate.property['p1_symb']
+        p1 = self.substrate.property["p1"]
+        p1_symb = self.substrate.property["p1_symb"]
         slabs_ads_near = []
         for slb in slabs_ads:
-            bind_adatoms, bind_adatoms_symb, bind_type_symb, adspecie, bind_surfatoms, bind_surfatoms_symb = \
-                get_binding_adatom(slb)
-            if self.get_sites() == '1' and (set(p1_symb) & set(bind_surfatoms_symb[0])):
+            (
+                bind_adatoms,
+                bind_adatoms_symb,
+                bind_type_symb,
+                adspecie,
+                bind_surfatoms,
+                bind_surfatoms_symb,
+            ) = get_binding_adatom(slb)
+            if self.get_sites() == "1" and (set(p1_symb) & set(bind_surfatoms_symb[0])):
                 slabs_ads_near += [slb]
-            elif self.get_sites() == '2' and \
-                    (set(p1_symb) & set(bind_surfatoms_symb[0])) or (set(p1_symb) & set(bind_surfatoms_symb[0])):
+            elif (
+                self.get_sites() == "2"
+                and (set(p1_symb) & set(bind_surfatoms_symb[0]))
+                or (set(p1_symb) & set(bind_surfatoms_symb[0]))
+            ):
                 slabs_ads_near += [slb]
         return slabs_ads_near
 
@@ -144,14 +160,16 @@ class Adsorption(Structure):
 class Coadsorption(Adsorption):
     def __init__(self, species: list, sites: list, spec_ads_stable=None, substrate=Slab()):
         super().__init__(species, sites, spec_ads_stable, substrate)
-        assert len(species) == 2, 'Coads need Two adsorption Species, but %d was given' % len(species)
+        assert len(species) == 2, "Coads need Two adsorption Species, but %d was given" % len(
+            species
+        )
 
     def construct(self):
-        if self.get_sites() == '1 1':
+        if self.get_sites() == "1 1":
             slabs_ads = self.Construct_coadsorption_11()
-        elif self.get_sites() == '1 2':
+        elif self.get_sites() == "1 2":
             slabs_ads = self.Construct_coadsorption_12()
-        elif self.get_sites() == '2 2':
+        elif self.get_sites() == "2 2":
             slabs_ads = self.Construct_coadsorption_22()
         else:
             raise ValueError('Supports only "1 1" "1 2" "2 2" adsorption sites for coads!')
@@ -163,19 +181,25 @@ class Coadsorption(Adsorption):
         ads = []
         for every_species in self.species:
             ads.append(every_species.out_file_name())
-        ads_str = '_'.join(ads)
+        ads_str = "_".join(ads)
         substrate_str = self.substrate.out_file_name()
-        vasp_file_str = '_'.join([substrate_str, ads_str])
+        vasp_file_str = "_".join([substrate_str, ads_str])
         return vasp_file_str
 
     def remove_same(self, slabs_ads):
         # To choose the config whose neighbor list includes the doped atoms
-        p1 = self.substrate.property['p1']
-        p1_symb = self.substrate.property['p1_symb']
+        p1 = self.substrate.property["p1"]
+        p1_symb = self.substrate.property["p1_symb"]
         slabs_ads_near = []
         for slb in slabs_ads:
-            bind_adatoms, bind_adatoms_symb, bind_type_symb, adspecie, bind_surfatoms, bind_surfatoms_symb = \
-                get_binding_adatom(slb)
+            (
+                bind_adatoms,
+                bind_adatoms_symb,
+                bind_type_symb,
+                adspecie,
+                bind_surfatoms,
+                bind_surfatoms_symb,
+            ) = get_binding_adatom(slb)
             bind_surfatoms_symb_all = sum(bind_surfatoms_symb, [])
             if set(p1_symb) & set(bind_surfatoms_symb_all):
                 slabs_ads_near += [slb]
@@ -194,7 +218,9 @@ class Coadsorption(Adsorption):
             ads1_use = self.species[0].get_molecule()
             ads2_use = self.species[1].get_molecule()
             for k, sitetype in enumerate(site01.get_symmetric_sites()):
-                slab = builder01._single_adsorption(ads1_use, bond=0, site_index=k, auto_construct=True)
+                slab = builder01._single_adsorption(
+                    ads1_use, bond=0, site_index=k, auto_construct=True
+                )
                 coord01 = site01.get_coordinates()[k]
                 site02 = AdsorptionSites(slab)
                 coordinates02 = site02.get_coordinates()
@@ -206,14 +232,24 @@ class Coadsorption(Adsorption):
                         continue
                     else:
                         builder02 = Builder(slab)
-                        slab_ad += [builder02._single_adsorption(ads2_use, bond=0, site_index=j, auto_construct=True)]
+                        slab_ad += [
+                            builder02._single_adsorption(
+                                ads2_use, bond=0, site_index=j, auto_construct=True
+                            )
+                        ]
 
-        typ = {None: 0, 'top': 1, 'bri': 2, 'fcc': 3, 'hcp': 3, '4-fold': 4}
+        typ = {None: 0, "top": 1, "bri": 2, "fcc": 3, "hcp": 3, "4-fold": 4}
         # view(slab_ad)
         slab_ad_final = []
         for j, adslab in enumerate(slab_ad):
-            bind_adatoms, bind_adatoms_symb, adspecie, bind_type_symb, bind_surfatoms, bind_surfatoms_symb = \
-                get_binding_adatom(adslab)
+            (
+                bind_adatoms,
+                bind_adatoms_symb,
+                adspecie,
+                bind_type_symb,
+                bind_surfatoms,
+                bind_surfatoms_symb,
+            ) = get_binding_adatom(adslab)
             adspecie_tmp, bind_type_symb_tmp = [], []
             for k, spe in enumerate(adspecie):
                 if spe in ads_type.keys():
@@ -223,7 +259,8 @@ class Coadsorption(Adsorption):
                 # print('Can not identify the config!')
                 slab_ad_final += [adslab]
             elif typ.get(bind_type_symb_tmp[0]) in ads_type.get(adspecie_tmp[0]) and typ.get(
-                    bind_type_symb_tmp[1]) in ads_type.get(adspecie_tmp[1]):
+                bind_type_symb_tmp[1]
+            ) in ads_type.get(adspecie_tmp[1]):
                 slab_ad_final += [adslab]
         return slab_ad_final
 
@@ -272,7 +309,9 @@ class Coadsorption(Adsorption):
                     elif dis > dis_inter[1]:
                         continue
                     else:
-                        slab_ad += [builder02._double_adsorption(ads2_use, bonds=[0, 1], edge_index=j)]
+                        slab_ad += [
+                            builder02._double_adsorption(ads2_use, bonds=[0, 1], edge_index=j)
+                        ]
         return slab_ad
 
     def Construct_coadsorption_22(self):
@@ -319,7 +358,11 @@ class Coadsorption(Adsorption):
                     else:
                         dis1 = dis_inter[0] + 0.1
                     if not coord11 is None:
-                        dis2 = math.hypot(coord00[0] - coord11[0], coord00[1] - coord11[1], coord00[2] - coord11[2])
+                        dis2 = math.hypot(
+                            coord00[0] - coord11[0],
+                            coord00[1] - coord11[1],
+                            coord00[2] - coord11[2],
+                        )
                     else:
                         dis2 = dis_inter[1] + 0.1
                     dis = min(dis1, dis2)
@@ -329,7 +372,9 @@ class Coadsorption(Adsorption):
                     elif dis > dis_inter[1]:
                         continue
                     else:
-                        slab_ad += [builder02._double_adsorption(ads2_use, bonds=[0, 1], edge_index=j)]
+                        slab_ad += [
+                            builder02._double_adsorption(ads2_use, bonds=[0, 1], edge_index=j)
+                        ]
         return slab_ad
 
     @classmethod
@@ -348,15 +393,18 @@ class Coadsorption(Adsorption):
 def ads_from_input(ads_model, substrate, species_dict=None):
     ads = []
     new_ads = []
-    ads_type_list = ['ads', 'coads']
+    ads_type_list = ["ads", "coads"]
     for key, value in ads_model.items():
-        if key == 'coads':
+        if key == "coads":
             new_ads = Coadsorption.from_input(value, substrate, species_dict)
-        elif key == 'ads':
+        elif key == "ads":
             new_ads = Adsorption.from_input(value, substrate, species_dict)
         else:
-            msg = ','.join(ads_type_list)
-            warn_msg = 'Only support species type: %s, Your input %s part in Species will be dismiss' % (msg, key)
+            msg = ",".join(ads_type_list)
+            warn_msg = (
+                "Only support species type: %s, Your input %s part in Species will be dismiss"
+                % (msg, key)
+            )
             raise Warning(warn_msg)
         ads = ads + new_ads
     return ads

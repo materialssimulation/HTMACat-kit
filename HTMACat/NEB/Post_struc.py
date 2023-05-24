@@ -5,8 +5,7 @@ import os
 
 
 def mig_atoms(Ffile, dis=[0.50, 0.50, 0.00]):
-    """
-    Migrate atoms in VASP POSCAR files.
+    """Migrate atoms in VASP POSCAR files.
 
     Parameters
     ----------
@@ -29,14 +28,13 @@ def mig_atoms(Ffile, dis=[0.50, 0.50, 0.00]):
     Examples
     --------
     >>> mig_atoms('POSCAR', dis=[0.20, 0.20, 0.20])
-
     """
-    #print(Ffile)
+    # print(Ffile)
     for i, poscar in enumerate(list(Ffile)):
-        poscar_bk = ''.join([poscar, '_bk'])
-        os.system(f'mv {poscar} {poscar_bk}')
+        poscar_bk = "".join([poscar, "_bk"])
+        os.system(f"mv {poscar} {poscar_bk}")
 
-        struc = read(poscar_bk, format='vasp')
+        struc = read(poscar_bk, format="vasp")
         struc2 = to_gratoms(struc)
         symbols = struc2.get_chemical_symbols()
         dic_sym = dict(Counter(symbols))
@@ -47,9 +45,9 @@ def mig_atoms(Ffile, dis=[0.50, 0.50, 0.00]):
         else:
             Nline = 8
 
-        pos = open(poscar_bk, 'r')
-        #posfile = ''.join([poscar,'-new'])
-        pos_new = open(poscar, 'w')
+        pos = open(poscar_bk)
+        # posfile = ''.join([poscar,'-new'])
+        pos_new = open(poscar, "w")
         for j, line in enumerate(pos):
             if j < Nline:
                 pos_new.write(line)
@@ -71,17 +69,17 @@ def mig_atoms(Ffile, dis=[0.50, 0.50, 0.00]):
                 coord[0] = str(Xtmp)
                 coord[1] = str(Ytmp)
                 coord[2] = str(Ztmp)
-                coordn = ' '.join(coord)
-                pos_new.write('%s\n' % (coordn))
+                coordn = " ".join(coord)
+                pos_new.write("%s\n" % (coordn))
         pos.close()
         pos_new.close()
-    #os.system('mv POSstart POSstart_bk')
-    #os.system('mv POSstart-new POSstart')
-    #os.system('mv POSend POSend_bk')
-    #os.system('mv POSend-new POSend')
-    #return 0
+    # os.system('mv POSstart POSstart_bk')
+    # os.system('mv POSstart-new POSstart')
+    # os.system('mv POSend POSend_bk')
+    # os.system('mv POSend-new POSend')
+    # return 0
 
 
-#mig_atoms(['optmk/CONTCAR'])
+# mig_atoms(['optmk/CONTCAR'])
 
-#if __name__ == '__main__':
+# if __name__ == '__main__':

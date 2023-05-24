@@ -8,7 +8,6 @@ about: 如有新功能需要需要提交，请按此模板创建issues
 > HTMACat 版本: x.x.x
 >
 > 环境: python x.x in windows or linux, install_requires
->
 
 ## 你想要新增或者改进什么功能？
 

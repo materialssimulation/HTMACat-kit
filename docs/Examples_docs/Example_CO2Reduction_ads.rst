@@ -18,7 +18,7 @@ The content of input file is as follow:
         element: Au
         lattype: fcc
         latcont: 4.16
-        facet: ['111'] 
+        facet: ['111']
         dope:
             Cu: ['0']
 
@@ -52,31 +52,30 @@ O[C]O adsorption on Au (111) substrate are construct with 4 configurations!
 * Five of these visualizations are shown here
     * CH2O
 
-    .. image:: 
+    .. image::
         image/CO2_reduction/Au_111_CH2O_0.png
         :width: 20cm
 
     * CH2O2
 
-    .. image:: 
+    .. image::
         image/CO2_reduction/Au_111_CH2O2_1.png
         :width: 20cm
 
     * CH3O
 
-    .. image:: 
+    .. image::
         image/CO2_reduction/Au_111_CH3O_3.png
         :width: 20cm
 
     * CHO
 
-    .. image:: 
+    .. image::
         image/CO2_reduction/Au_111_CHO_2.png
         :width: 20cm
 
     * CHO2
 
-    .. image:: 
+    .. image::
         image/CO2_reduction/Au_111_CHO2_2.png
         :width: 20cm
-

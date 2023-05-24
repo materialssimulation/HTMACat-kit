@@ -5,9 +5,8 @@ import ase
 
 
 def bulk(name, crystalstructure=None, primitive=False, **kwargs):
-    """Return the standard conventional cell of a bulk structure
-    created using ASE. Accepts all keyword arguments for the ase
-    bulk generator.
+    """Return the standard conventional cell of a bulk structure created using ASE. Accepts all
+    keyword arguments for the ase bulk generator.
 
     Parameters
     ----------
@@ -29,23 +28,16 @@ def bulk(name, crystalstructure=None, primitive=False, **kwargs):
         atoms = ase.build.bulk(name, crystalstructure, **kwargs)
     else:
         atoms = name
-    standardized_bulk = catkit.gen.symmetry.get_standardized_cell(
-        atoms, primitive=primitive)
+    standardized_bulk = catkit.gen.symmetry.get_standardized_cell(atoms, primitive=primitive)
 
     return standardized_bulk
 
 
 def surface(
-        elements,
-        size,
-        miller=(1, 1, 1),
-        termination=0,
-        fixed=0,
-        vacuum=10,
-        orthogonal=False,
-        **kwargs):
-    """A helper function to return the surface associated with a
-    given set of input parameters to the general surface generator.
+    elements, size, miller=(1, 1, 1), termination=0, fixed=0, vacuum=10, orthogonal=False, **kwargs
+):
+    """A helper function to return the surface associated with a given set of input parameters to
+    the general surface generator.
 
     Parameters
     ----------
@@ -75,8 +67,7 @@ def surface(
         atoms = elements
     else:
         bkwargs = kwargs.copy()
-        keys = ['crystalstructure', 'a', 'c', 'covera',
-                'u', 'orthorhombic', 'cubic']
+        keys = ["crystalstructure", "a", "c", "covera", "u", "orthorhombic", "cubic"]
         for key in kwargs:
             if key not in keys:
                 del bkwargs[key]
@@ -88,10 +79,10 @@ def surface(
         layers=size[-1],
         vacuum=vacuum,
         fixed=fixed,
-        layer_type=kwargs.get('layer_type', 'trim'),
-        attach_graph=kwargs.get('attach_graph', True),
-        standardize_bulk=kwargs.get('standardize_bulk', True),
-        tol=kwargs.get('tol', 1e-8)
+        layer_type=kwargs.get("layer_type", "trim"),
+        attach_graph=kwargs.get("attach_graph", True),
+        standardize_bulk=kwargs.get("standardize_bulk", True),
+        tol=kwargs.get("tol", 1e-8),
     )
 
     if len(size) == 2:
@@ -100,7 +91,7 @@ def surface(
         size = size[:2]
 
     if orthogonal:
-        catkit.gen.defaults['orthogonal'] = True
+        catkit.gen.defaults["orthogonal"] = True
         if isinstance(size, (list, tuple)):
             size = np.prod(size[:2])
 
@@ -110,8 +101,7 @@ def surface(
 
 
 def molecule(species, bond_index=None, vacuum=0):
-    """Return list of enumerated gas-phase molecule structures based
-    on species and topology.
+    """Return list of enumerated gas-phase molecule structures based on species and topology.
 
     Parameters
     ----------

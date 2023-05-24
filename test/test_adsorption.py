@@ -13,48 +13,99 @@ import networkx.algorithms.isomorphism as iso
 from ase import Atoms
 import pytest
 
+
 @pytest.fixture
 def species():
-    species1 = Sml_Species(form='N')
+    species1 = Sml_Species(form="N")
     return [species1]
+
 
 @pytest.fixture
 def ads(species):
-    sites=['1']
+    sites = ["1"]
     ads = Adsorption(species=species, sites=sites)
     return ads
 
+
 def test_set_species(ads):
-    species1 = Sml_Species(form='[O]')
+    species1 = Sml_Species(form="[O]")
     ads.set_species([species1])
-    assert ads.species[0].get_formular() == '[O]'
+    assert ads.species[0].get_formular() == "[O]"
+
 
 def test_add_species(ads):
-    species='[NH2]'
-    species = Sml_Species(form='[NH2]')
+    species = "[NH2]"
+    species = Sml_Species(form="[NH2]")
     ads.add_species(species)
-    assert ads.species[1].get_formular() == '[NH2]'
+    assert ads.species[1].get_formular() == "[NH2]"
+
 
 def test_add_sites(ads):
-    sites = '1'
+    sites = "1"
     ads.add_sites(sites)
-    assert ads.sites[1] == '1'
+    assert ads.sites[1] == "1"
+
 
 def test_get_sites(ads):
-    assert ads.get_sites() == '1'
+    assert ads.get_sites() == "1"
+
 
 def test_out_file_name(ads):
-    assert ads.out_file_name() == 'Pt_100_H3N'
+    assert ads.out_file_name() == "Pt_100_H3N"
+
 
 def test_out_print(ads):
-    assert ads.out_print() == 'N adsorption on Pt (100) substrate'
+    assert ads.out_print() == "N adsorption on Pt (100) substrate"
+
 
 def test_construct_single_adsorption(ads):
     slab_ads = ads.construct()
     assert len(slab_ads) == 3
-    assert np.allclose(slab_ads[0].numbers, [78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 
-                                             78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
-                                             78, 78,  7,  1,  1,  1])
+    assert np.allclose(
+        slab_ads[0].numbers,
+        [
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            7,
+            1,
+            1,
+            1,
+        ],
+    )
     # assert np.allclose(slab_ads[0].positions,   [[ 1.40007143e+00,  1.40007143e+00,  8.00000000e+00],
     #                                             [-1.03582051e-16, -1.47387144e-16,  9.98000000e+00],
     #                                             [ 1.40007143e+00,  1.40007143e+00,  1.19600000e+01],
@@ -96,18 +147,62 @@ def test_construct_single_adsorption(ads):
     #                                             [-6.47564215e-01, -7.57175539e-01,  1.56911076e+01],
     #                                             [-2.90195569e-01,  9.49032278e-01,  1.56877405e+01]])
 
+
 @pytest.fixture
 def ads2(species):
-    sites=['2']
+    sites = ["2"]
     ads = Adsorption(species=species, sites=sites)
     return ads
+
 
 def test_construct_double_adsorption(ads2):
     slab_ads = ads2.construct()
     assert len(slab_ads) == 4
-    assert np.allclose(slab_ads[0].numbers, [78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
-                                            78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78, 78,
-                                            78, 78,  7,  1,  1,  1])
+    assert np.allclose(
+        slab_ads[0].numbers,
+        [
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            78,
+            7,
+            1,
+            1,
+            1,
+        ],
+    )
     print(slab_ads[0].positions)
     # assert np.allclose(slab_ads[0].positions, [[ 1.40007143e+00,  1.40007143e+00,  8.00000000e+00],
     #                                             [-1.03582051e-16, -1.47387144e-16,  9.98000000e+00],
