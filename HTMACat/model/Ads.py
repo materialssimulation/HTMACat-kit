@@ -108,9 +108,11 @@ class Adsorption(Structure):
                 bond_atom_ids = chemical_symbols[chemical_symbols==ele]
                 bond_atom_ids = np.where(chemical_symbols==ele)[0]
                 ### print('bond_atom_ids =', bond_atom_ids, bond_atom_ids.shape)
-                for bond_id in bond_atom_ids:
-                    for j, coord in enumerate(coordinates):
-                        slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j)]
+                for j, coord in enumerate(coordinates):
+                    for bond_id in bond_atom_ids:
+                        slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j, direction_mode='decision_boundary')]
+                        #if len(bond_atom_ids) > 1:
+                        #    slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j, direction_mode='decision_boundary', direction_args=bond_atom_ids)]
             else:
                 for j, coord in enumerate(coordinates):
                     slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j)]

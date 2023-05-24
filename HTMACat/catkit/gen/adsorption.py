@@ -569,6 +569,8 @@ class Builder(AdsorptionSites):
             slab=None,
             site_index=0,
             auto_construct=True,
+            direction_mode='default', # wzj 20230524 指定确定位向的方式
+            direction_args=[], # wzj 20230524 为后续扩展预留的参数
             symmetric=True):
         """Bond and adsorbate by a single atom."""
         if slab is None:
@@ -603,7 +605,11 @@ class Builder(AdsorptionSites):
             atoms.rotate([0, 0, 1], vector)
         '''
         if auto_construct: ### wzj 20230510
-            atoms.rotate([0, 0, 1], vector)
+            if direction_mode == 'default':
+                atoms.rotate([0, 0, 1], vector)
+            elif direction_mode == 'decision_boundary':
+                adsorption_vector, flag = utils.solve_normal_vector_linearsvc(adsorbate.get_positions(), bond)
+                atoms.rotate(adsorption_vector, [0, 0, 1])
 
         atoms.translate(base_position)
         n = len(slab)

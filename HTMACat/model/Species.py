@@ -115,41 +115,7 @@ class Sml_Species(ABS_Species):
         ads1 = rdMolDescriptors.CalcMolFormula(mole)
         return ads1
 
-    def MolToNXGraph(self, m):
-        """
-        Convert a molecule object to a graph.
-        Parameters
-        ----------
-        m : mol
-            The RDKit molecule object to be converted into a networkx graph.
-        Returns
-        ----------
-        G : Graph
-            The networkx Graph object derived from m.
-        """
-        G = nx.Graph()
-        for i_n in range(m.GetNumAtoms()):
-            G.add_nodes_from([(i_n, {'number': m.GetAtomWithIdx(i_n).GetAtomicNum()})])
-        bonds = [m.GetBondWithIdx(k) for k in range(len(m.GetBonds()))]
-        edges = []
-        for edge in bonds:
-            edges.append((edge.GetBeginAtomIdx(), edge.GetEndAtomIdx()))
-        G.add_edges_from(edges)
-        return G
-
     def get_molecule(self) -> Gratoms:
-        '''
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-        G = self.MolToNXGraph(mole)
-        ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))
-        ads_molecule = ads1_list[0]
-        for ads_ in ads1_list:
-            nm = iso.categorical_node_match('number', 6)
-            if nx.is_isomorphic(ads_._graph, G, node_match=nm):
-                ads_molecule = ads_
-                print(ads_molecule._graph)
-                break
-        '''
         ads1 = self.get_formular()
         mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
         stat = AllChem.EmbedMolecule(mole)
