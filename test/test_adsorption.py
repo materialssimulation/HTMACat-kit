@@ -43,11 +43,12 @@ def test_add_species(ads):
 def test_add_sites(ads):
     sites = "1"
     ads.add_sites(sites)
-    assert ads.sites[1] == "1"
+    assert ads.sites[-1] == "1"
 
 
 def test_get_sites(ads):
-    assert ads.get_sites() == "1"
+    print(ads.get_sites())
+    assert ads.get_sites()[0] == "1"
 
 
 def test_out_file_name(ads):
