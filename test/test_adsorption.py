@@ -47,7 +47,6 @@ def test_add_sites(ads):
 
 
 def test_get_sites(ads):
-    print(ads.get_sites())
     assert ads.get_sites()[0] == "1"
 
 
