@@ -117,13 +117,26 @@ def out_templator_file():
         f.write(templator)
 
 
+def generate_unique_filename(filename):
+    base_name, extension = os.path.splitext(filename)
+    counter = 1
+    unique_filename = filename
+
+    while os.path.exists(unique_filename):
+        unique_filename = f"{base_name}_{counter}{extension}"
+        counter += 1
+
+    return unique_filename
+
+
 def out_vasp(struct_class: Structure):
     file_name = struct_class.out_file_name()
     print_str = struct_class.out_print()
     structures = struct_class.construct()
     if structures:
         for i, structure in enumerate(structures):
-            write_vasp(f"{file_name}_{i}.vasp", structure, direct=True, sort=[""], vasp5=True)
+            unique_filename = generate_unique_filename(f"{file_name}_{i}.vasp")
+            write_vasp(f"{unique_filename}", structure, direct=True, sort=[""], vasp5=True)
         print(
             f"[i][u]{print_str}[/u][/i] are construct with [i][u]{i + 1}[/u][/i] configurations!"
         )
