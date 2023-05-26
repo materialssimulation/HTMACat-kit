@@ -24,8 +24,18 @@ include = [
     "HTMACat/",]
 readme = "README.md"
 
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+[tool.poetry.dependencies]
+python = ">=3.7"
+ase = ">=3.19"
+networkx = ">=2.1"
+numpy = ">=1.20.0"
+rdkit = ">=2022.3.3"
+"ruamel.yaml" = ">0.15"
+scipy = ">=0.1"
+spglib = ">=0.1"
+typer = { version = ">=0.6", extras = ["all"] }
+scikit-learn = ">= 1.0.1"
+
 
 [tool.poetry.scripts]
 htmat = "HTMACat.command:main"
