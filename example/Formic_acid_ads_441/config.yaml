@@ -1,10 +1,11 @@
 StrucInfo:
   struct:
     element: Au
-    lattype: fcc
-    latcont: 4.16
+    lattice_type: fcc
+    lattice_constant: 4.16
     facet: ["111"]
-    supercell: [4, 4, 1]
+    supercell: [4, 4]
+    layers: 4
     dope:
       Cu: ["1"]
 

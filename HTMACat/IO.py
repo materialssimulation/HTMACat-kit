@@ -11,7 +11,7 @@ from ase.io.vasp import write_vasp
 from HTMACat.model.Structure import Structure
 from pathlib import Path
 from rich import print
-
+import os
 
 def Input(filename):
     yaml = YAML(typ="safe")
@@ -34,7 +34,7 @@ def substrate_part(result):
         "latcont": 3.92,
         "facet": ["111"],
         "dope": {},
-        "supercell": [3, 3, 1],
+        "supercell": [3, 3],
     }
     if "file" in struct_Info:
         if isinstance(struct_Info["file"], list):

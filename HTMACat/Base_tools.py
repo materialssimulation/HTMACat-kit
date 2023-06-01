@@ -29,6 +29,13 @@ def isequal(a, b):
     else:
         return False
 
+# Function3: Find the corresponding key and value from the dictionary to form a new dictionary
+def get_new_dict(list, dict):
+    new_dict = {}
+    for key, value in dict.items():
+        if key in list:
+            new_dict[key] = value
+    return new_dict
 
 if __name__ == "__main__":
     a = [1, 2, 3, 4]

@@ -7,10 +7,10 @@ import numpy as np
 def test_bulk():
     a = Bulk(natom_dop=1)
     assert a.lattice_constant["a"] == 3.96
-    assert a.super_cell == [3, 3, 1]
+    assert a.supercell == [3, 3, 1]
     assert a.natom_dop == "1"
     b = Bulk(natom_dop=["b"], lattice_constant=3)
-    assert b.super_cell == [2, 2, 1]
+    assert b.supercell == [2, 2, 1]
     assert b.lattice_constant["a"] == 3
 
 
@@ -35,11 +35,11 @@ def bulk_b():
 
 
 def test_construct(bulk_a, bulk_b):
-    a = Bulk(lattice_type="hcp", lattice_constant=[3.96, 4.96], main_element="Pt")
+    a = Bulk(lattice_type="hcp", lattice_constant=[3.96, 4.96], element="Pt")
     a = a.construct()
     assert np.allclose(a.arrays["numbers"], bulk_a.arrays["numbers"])
     assert np.allclose(a.arrays["positions"], bulk_a.arrays["positions"])
-    b = Bulk(lattice_type="fcc", lattice_constant=3.96, main_element="Pt")
+    b = Bulk(lattice_type="fcc", lattice_constant=3.96, element="Pt")
     b = b.construct()
     assert np.allclose(b.arrays["numbers"], bulk_b.arrays["numbers"])
     assert np.allclose(b.arrays["positions"], bulk_b.arrays["positions"])
@@ -56,7 +56,7 @@ def dop_bulk(bulk_b):
 
 def test_dop_bulk(dop_bulk):
     a = Bulk(
-        lattice_type="fcc", lattice_constant=3.96, ele_dop="Cu", natom_dop="b1", main_element="Pt"
+        lattice_type="fcc", lattice_constant=3.96, ele_dop="Cu", natom_dop="b1", element="Pt"
     )
     a = a.construct()
     assert np.allclose(a.arrays["numbers"], dop_bulk.arrays["numbers"])
