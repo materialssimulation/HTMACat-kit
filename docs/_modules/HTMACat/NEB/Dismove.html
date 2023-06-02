@@ -9,25 +9,23 @@
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,10 +68,10 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for HTMACat.NEB.Dismove</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/python</span>
-<span class="c1">#calculate the atom moving distance between initial and final structure for NEB calculation.</span>
+<span class="c1"># calculate the atom moving distance between initial and final structure for NEB calculation.</span>
 <span class="c1">#     1.Usage : Dismove.py dcut</span>
 <span class="c1">#     2.dcut : when atom moving distance &gt; dcut, the atom id should be exported into Nmoveatom used to NEB calculation.</span>
 <span class="c1">#     3.the distance in fraction coord  is exported into POStmp file</span>
@@ -81,7 +79,7 @@
 <span class="c1">#     5.the diatance &gt; dcut is exported into POSfinal file</span>
 <span class="c1">#     6.the POStmp POStmp2 POSfinal are put into dismove dir</span>
 <span class="c1">#     7.the POSstart &amp; POSend are used in vasp coord file (tansforming cif into vasp in vesta)</span>
-<span class="c1">#writen by JqYang in 20160512</span>
+<span class="c1"># writen by JqYang in 20160512</span>
 <span class="c1">#####################################################################################################################</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -90,8 +88,7 @@
 
 
 <div class="viewcode-block" id="Dismove"><a class="viewcode-back" href="../../../HTMACat.NEB.html#HTMACat.NEB.Dismove.Dismove">[docs]</a><span class="k">def</span> <span class="nf">Dismove</span><span class="p">(</span><span class="n">dcut</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    calculate the atom moving distance between initial and final structure for NEB calculation.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;calculate the atom moving distance between initial and final structure for NEB calculation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -104,25 +101,24 @@
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    This function needs to read two files named POSstart and POSend, and write the processing results to three files: </span>
-<span class="sd">    POStmp, POStmp2, and POSfinal.At the same time, this function will also create a file called Nmovetatom to record </span>
-<span class="sd">    the sequence numbers of atoms whose movement distance is greater than the threshold. It is necessary to ensure that </span>
-<span class="sd">    there is no folder named remove in the current working directory before calling this function, otherwise the folder </span>
+<span class="sd">    This function needs to read two files named POSstart and POSend, and write the processing results to three files:</span>
+<span class="sd">    POStmp, POStmp2, and POSfinal.At the same time, this function will also create a file called Nmovetatom to record</span>
+<span class="sd">    the sequence numbers of atoms whose movement distance is greater than the threshold. It is necessary to ensure that</span>
+<span class="sd">    there is no folder named remove in the current working directory before calling this function, otherwise the folder</span>
 <span class="sd">    will be deleted.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1">#dcut = float(sys.argv[1])</span>
-    <span class="n">POSstart</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;POSstart&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">POSend</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;POSend&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="n">POStmp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;POStmp&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-    <span class="n">POStmp2</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;POStmp2&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+    <span class="c1"># dcut = float(sys.argv[1])</span>
+    <span class="n">POSstart</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;POSstart&quot;</span><span class="p">)</span>
+    <span class="n">POSend</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;POSend&quot;</span><span class="p">)</span>
+    <span class="n">POStmp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;POStmp&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">POStmp2</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;POStmp2&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
         <span class="n">head</span> <span class="o">=</span> <span class="n">POSstart</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
         <span class="n">head2</span> <span class="o">=</span> <span class="n">POSend</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
         <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
         <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
 
-<span class="c1">#to x lattice parameter</span>
+    <span class="c1"># to x lattice parameter</span>
     <span class="n">head</span> <span class="o">=</span> <span class="n">POSstart</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
     <span class="n">head2</span> <span class="o">=</span> <span class="n">POSend</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
     <span class="n">xcoord</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -130,7 +126,7 @@
     <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
     <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
 
-    <span class="c1">#to y lattice parameter</span>
+    <span class="c1"># to y lattice parameter</span>
     <span class="n">head</span> <span class="o">=</span> <span class="n">POSstart</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
     <span class="n">head2</span> <span class="o">=</span> <span class="n">POSend</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
     <span class="n">ycoord</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -138,7 +134,7 @@
     <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
     <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
 
-    <span class="c1">#to z lattice parameter</span>
+    <span class="c1"># to z lattice parameter</span>
     <span class="n">head</span> <span class="o">=</span> <span class="n">POSstart</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
     <span class="n">head2</span> <span class="o">=</span> <span class="n">POSend</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
     <span class="n">zcoord</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -156,7 +152,7 @@
     <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
     <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
 
-    <span class="c1">#to the number of atoms</span>
+    <span class="c1"># to the number of atoms</span>
     <span class="n">Nelement</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
     <span class="n">Tatom</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Nelement</span><span class="p">)):</span>
@@ -167,14 +163,24 @@
     <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
     <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
 
-    <span class="n">POSftmp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;POSfinal&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-    <span class="n">Nmovefile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;Nmoveatom&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-    <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Natom&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="s2">&quot;x&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="s2">&quot;y&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="s2">&quot;z&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Natom&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="s2">&quot;x&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="s2">&quot;y&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="s2">&quot;z&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t\t\t</span><span class="s1">&#39;</span> <span class="o">+</span>
-                  <span class="s2">&quot;Dmove&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">POSftmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;dcut=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dcut</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">POSftmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Natom&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t\t\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s2">&quot;Dmove-final&quot;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="c1">#to atom move distance</span>
+    <span class="n">POSftmp</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;POSfinal&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">Nmovefile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;Nmoveatom&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Natom&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t\t\t</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="s2">&quot;x&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t\t\t</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="s2">&quot;y&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t\t\t</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="s2">&quot;z&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+        <span class="s2">&quot;Natom&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t\t\t</span><span class="s2"> &quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;x&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t\t\t</span><span class="s2"> &quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;y&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t\t\t</span><span class="s2"> &quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;z&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t\t\t</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;Dmove&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+    <span class="n">POSftmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;dcut=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dcut</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">POSftmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Natom&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t\t\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;Dmove-final&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># to atom move distance</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">Tatom</span><span class="p">)):</span>
         <span class="n">head</span> <span class="o">=</span> <span class="n">POSstart</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
         <span class="n">head2</span> <span class="o">=</span> <span class="n">POSend</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
@@ -196,34 +202,47 @@
         <span class="n">yvalue</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">ycoord</span><span class="p">)</span>
         <span class="n">zvalue</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">zcoord</span><span class="p">)</span>
         <span class="n">Dmove</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
-            <span class="nb">float</span><span class="p">(</span><span class="n">xvalue</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">xvalue</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">yvalue</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">yvalue</span><span class="p">)</span> <span class="o">+</span>
-            <span class="nb">float</span><span class="p">(</span><span class="n">zvalue</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">zvalue</span><span class="p">))</span>
+            <span class="nb">float</span><span class="p">(</span><span class="n">xvalue</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">xvalue</span><span class="p">)</span>
+            <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">yvalue</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">yvalue</span><span class="p">)</span>
+            <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">zvalue</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">zvalue</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">Dmove</span> <span class="o">&gt;</span> <span class="n">dcut</span><span class="p">:</span>
-            <span class="n">POSftmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Dmove</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">Nmovefile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">POSftmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Dmove</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">Nmovefile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
 
-
-<span class="c1">#     print  xvalue</span>
-<span class="c1">#     print x</span>
-<span class="c1">#     print y</span>
-<span class="c1">#     print z</span>
+        <span class="c1">#     print  xvalue</span>
+        <span class="c1">#     print x</span>
+        <span class="c1">#     print y</span>
+        <span class="c1">#     print z</span>
         <span class="k">if</span> <span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">z</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span>
-                         <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-            <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">xvalue</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">yvalue</span><span class="p">)</span> <span class="o">+</span>
-                          <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1"> &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">zvalue</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Dmove</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">POStmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; </span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+            <span class="n">POStmp2</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">xvalue</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">yvalue</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2"> &quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">zvalue</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t\t</span><span class="s2">&quot;</span>
+                <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">Dmove</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot; </span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
     <span class="n">POSstart</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">POSend</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">Nmovefile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">POStmp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">POStmp2</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">POSftmp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm -rf dismove&#39;</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;mkdir dismove&#39;</span><span class="p">)</span>
-    <span class="c1">#os.system(&#39;pwd&#39;)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;cp POStmp* POSf* dismove&#39;</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm POStmp* POSf*&#39;</span><span class="p">)</span></div>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;rm -rf dismove&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;mkdir dismove&quot;</span><span class="p">)</span>
+    <span class="c1"># os.system(&#39;pwd&#39;)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;cp POStmp* POSf* dismove&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;rm POStmp* POSf*&quot;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -239,7 +258,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -250,7 +269,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

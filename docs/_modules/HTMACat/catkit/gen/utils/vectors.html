@@ -9,25 +9,23 @@
   <!--[if lt IE 9]>
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
-        <script src="../../../../../_static/jquery.js"></script>
-        <script src="../../../../../_static/underscore.js"></script>
-        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../../../_static/doctools.js"></script>
+        <script src="../../../../../_static/sphinx_highlight.js"></script>
     <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,14 +68,14 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for HTMACat.catkit.gen.utils.vectors</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
 
 
 <div class="viewcode-block" id="get_reciprocal_vectors"><a class="viewcode-back" href="../../../../../HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.vectors.get_reciprocal_vectors">[docs]</a><span class="k">def</span> <span class="nf">get_reciprocal_vectors</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the reciprocal lattice vectors to a atoms unit cell.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the reciprocal lattice vectors to a atoms unit cell.&quot;&quot;&quot;</span>
     <span class="n">rotation1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">cell</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">rotation2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">cell</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">normal_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">rotation1</span><span class="p">,</span> <span class="n">rotation2</span><span class="p">)</span>
@@ -86,7 +84,7 @@
 
 
 <div class="viewcode-block" id="plane_normal"><a class="viewcode-back" href="../../../../../HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.vectors.plane_normal">[docs]</a><span class="k">def</span> <span class="nf">plane_normal</span><span class="p">(</span><span class="n">xyz</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the surface normal vector to a plane of best fit.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the surface normal vector to a plane of best fit.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -108,8 +106,7 @@
 
 
 <div class="viewcode-block" id="get_basis_vectors"><a class="viewcode-back" href="../../../../../HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.vectors.get_basis_vectors">[docs]</a><span class="k">def</span> <span class="nf">get_basis_vectors</span><span class="p">(</span><span class="n">coordinates</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return a set of basis vectors for a given array of</span>
-<span class="sd">    3D coordinates.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a set of basis vectors for a given array of 3D coordinates.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -135,8 +132,7 @@
     <span class="n">basis3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis2</span><span class="p">)</span>
 
     <span class="n">basis_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">basis1</span><span class="p">,</span> <span class="n">basis2</span><span class="p">,</span> <span class="n">basis3</span><span class="p">])</span>
-    <span class="n">basis_vectors</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
-        <span class="n">basis_vectors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">basis_vectors</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">basis_vectors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">basis_vectors</span></div>
 </pre></div>
@@ -154,7 +150,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -165,7 +161,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

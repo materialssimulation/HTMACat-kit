@@ -9,25 +9,23 @@
   <!--[if lt IE 9]>
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-        <script src="../../../../_static/jquery.js"></script>
-        <script src="../../../../_static/underscore.js"></script>
-        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,7 +68,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for HTMACat.catkit.gen.symmetry</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">Gratoms</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -78,8 +76,8 @@
 
 
 <div class="viewcode-block" id="get_standardized_cell"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.get_standardized_cell">[docs]</a><span class="k">def</span> <span class="nf">get_standardized_cell</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">primitive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Atoms object interface with spglib primitive cell finder:</span>
-<span class="sd">    https://atztogo.github.io/spglib/python-spglib.html#python-spglib</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Atoms object interface with spglib primitive cell finder:</span>
+<span class="sd">    https://atztogo.github.io/spglib/python-spglib.html#python-spglib.</span>
 
 <span class="sd">    The function also builds in limited functionality for initial</span>
 <span class="sd">    magnetic moments. Only integer values are supported.</span>
@@ -122,12 +120,12 @@
     <span class="k">return</span> <span class="n">atoms</span></div>
 
 
-<div class="viewcode-block" id="Symmetry"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry">[docs]</a><span class="k">class</span> <span class="nc">Symmetry</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Wrapper for the spglib package.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Symmetry"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry">[docs]</a><span class="k">class</span> <span class="nc">Symmetry</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrapper for the spglib package.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">ang_tol</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Atoms object interface with spglib symmetry finder:</span>
-<span class="sd">        https://atztogo.github.io/spglib/python-spglib.html#python-spglib</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Atoms object interface with spglib symmetry finder:</span>
+<span class="sd">        https://atztogo.github.io/spglib/python-spglib.html#python-spglib.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -140,16 +138,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_scaled_positions</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">numbers</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">magmoms</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_initial_magnetic_moments</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">modified_numbers</span> <span class="o">=</span> <span class="n">get_modified_spin_symbols</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">numbers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">magmoms</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modified_numbers</span> <span class="o">=</span> <span class="n">get_modified_spin_symbols</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numbers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">magmoms</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
 
         <span class="n">cell</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lattice</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">modified_numbers</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">spglib</span><span class="o">.</span><span class="n">get_symmetry_dataset</span><span class="p">(</span>
-            <span class="n">cell</span><span class="p">,</span> <span class="n">symprec</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">angle_tolerance</span><span class="o">=</span><span class="n">ang_tol</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">spglib</span><span class="o">.</span><span class="n">get_symmetry_dataset</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span> <span class="n">symprec</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span> <span class="n">angle_tolerance</span><span class="o">=</span><span class="n">ang_tol</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Symmetry.get_symmetry_operations"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry.get_symmetry_operations">[docs]</a>    <span class="k">def</span> <span class="nf">get_symmetry_operations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">affine</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the symmetry operations for a given atomic structure.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the symmetry operations for a given atomic structure.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -166,8 +162,8 @@
 <span class="sd">            Affine matrix operations, combinations of the rotation and</span>
 <span class="sd">            translation with ones along the diagonal.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">rotations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;rotations&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
-        <span class="n">translations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;translations&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">rotations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;rotations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">translations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;translations&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
 
         <span class="k">if</span> <span class="n">affine</span><span class="p">:</span>
             <span class="n">affine_matrices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">rotations</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -179,7 +175,7 @@
         <span class="k">return</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span></div>
 
 <div class="viewcode-block" id="Symmetry.get_pointgroup"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry.get_pointgroup">[docs]</a>    <span class="k">def</span> <span class="nf">get_pointgroup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">check_laue</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the point group operations of a systems.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the point group operations of a systems.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -193,11 +189,10 @@
 <span class="sd">        is_laue : bool</span>
 <span class="sd">            Whether the pointgroup is a laue symmetry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">pointgroup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pointgroup&#39;</span><span class="p">]</span>
+        <span class="n">pointgroup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pointgroup&quot;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">check_laue</span><span class="p">:</span>
-            <span class="n">laue</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-1&#39;</span><span class="p">,</span> <span class="s1">&#39;2/m&#39;</span><span class="p">,</span> <span class="s1">&#39;mmm&#39;</span><span class="p">,</span> <span class="s1">&#39;4/m&#39;</span><span class="p">,</span> <span class="s1">&#39;4/mmm&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;-3&#39;</span><span class="p">,</span> <span class="s1">&#39;-3m&#39;</span><span class="p">,</span> <span class="s1">&#39;6/m&#39;</span><span class="p">,</span> <span class="s1">&#39;6/mmm&#39;</span><span class="p">,</span> <span class="s1">&#39;m-3&#39;</span><span class="p">,</span> <span class="s1">&#39;m-3m&#39;</span><span class="p">]</span>
+            <span class="n">laue</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-1&quot;</span><span class="p">,</span> <span class="s2">&quot;2/m&quot;</span><span class="p">,</span> <span class="s2">&quot;mmm&quot;</span><span class="p">,</span> <span class="s2">&quot;4/m&quot;</span><span class="p">,</span> <span class="s2">&quot;4/mmm&quot;</span><span class="p">,</span> <span class="s2">&quot;-3&quot;</span><span class="p">,</span> <span class="s2">&quot;-3m&quot;</span><span class="p">,</span> <span class="s2">&quot;6/m&quot;</span><span class="p">,</span> <span class="s2">&quot;6/mmm&quot;</span><span class="p">,</span> <span class="s2">&quot;m-3&quot;</span><span class="p">,</span> <span class="s2">&quot;m-3m&quot;</span><span class="p">]</span>
             <span class="n">is_laue</span> <span class="o">=</span> <span class="n">pointgroup</span> <span class="ow">in</span> <span class="n">laue</span>
 
             <span class="k">return</span> <span class="n">pointgroup</span><span class="p">,</span> <span class="n">is_laue</span>
@@ -205,27 +200,27 @@
         <span class="k">return</span> <span class="n">pointgroup</span></div>
 
 <div class="viewcode-block" id="Symmetry.get_lattice_name"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry.get_lattice_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_lattice_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the lattice name of an atoms object based</span>
-<span class="sd">        on its spacegroup number:</span>
-<span class="sd">        https://en.wikipedia.org/wiki/List_of_space_groups</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the lattice name of an atoms object based on its spacegroup number:</span>
+<span class="sd">        https://en.wikipedia.org/wiki/List_of_space_groups.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        lattice : str</span>
 <span class="sd">            The name of the structures lattice.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">space_group_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]</span>
+        <span class="n">space_group_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;number&quot;</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">space_group_number</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">146</span><span class="p">,</span> <span class="mi">148</span><span class="p">,</span> <span class="mi">155</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">161</span><span class="p">,</span> <span class="mi">166</span><span class="p">,</span> <span class="mi">167</span><span class="p">]:</span>
-            <span class="k">return</span> <span class="s1">&#39;rhombohedral&#39;</span>
+            <span class="k">return</span> <span class="s2">&quot;rhombohedral&quot;</span>
 
         <span class="n">lattices</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;triclinic&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="s1">&#39;monoclinic&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-            <span class="s1">&#39;orthorhombic&#39;</span><span class="p">:</span> <span class="mi">74</span><span class="p">,</span>
-            <span class="s1">&#39;tetragonal&#39;</span><span class="p">:</span> <span class="mi">142</span><span class="p">,</span>
-            <span class="s1">&#39;hexagonal&#39;</span><span class="p">:</span> <span class="mi">194</span><span class="p">,</span>
-            <span class="s1">&#39;cubic&#39;</span><span class="p">:</span> <span class="mi">230</span><span class="p">}</span>
+            <span class="s2">&quot;triclinic&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;monoclinic&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+            <span class="s2">&quot;orthorhombic&quot;</span><span class="p">:</span> <span class="mi">74</span><span class="p">,</span>
+            <span class="s2">&quot;tetragonal&quot;</span><span class="p">:</span> <span class="mi">142</span><span class="p">,</span>
+            <span class="s2">&quot;hexagonal&quot;</span><span class="p">:</span> <span class="mi">194</span><span class="p">,</span>
+            <span class="s2">&quot;cubic&quot;</span><span class="p">:</span> <span class="mi">230</span><span class="p">,</span>
+        <span class="p">}</span>
 
         <span class="k">for</span> <span class="n">lattice</span><span class="p">,</span> <span class="n">max_number</span> <span class="ow">in</span> <span class="n">lattices</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">space_group_number</span> <span class="o">&lt;=</span> <span class="n">max_number</span><span class="p">:</span>
@@ -233,8 +228,7 @@
 
 
 <div class="viewcode-block" id="get_modified_spin_symbols"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.get_modified_spin_symbols">[docs]</a><span class="k">def</span> <span class="nf">get_modified_spin_symbols</span><span class="p">(</span><span class="n">numbers</span><span class="p">,</span> <span class="n">magmoms</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return a representation of atomic symbols which is</span>
-<span class="sd">    unique to the magnetic moment as well.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a representation of atomic symbols which is unique to the magnetic moment as well.</span>
 
 <span class="sd">    This is effectivly creating a single integer which contains the</span>
 <span class="sd">    atomic number and the magnetic moment multiplied by 10.</span>
@@ -265,8 +259,8 @@
 
 
 <div class="viewcode-block" id="get_unmodified_spin_symbols"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.get_unmodified_spin_symbols">[docs]</a><span class="k">def</span> <span class="nf">get_unmodified_spin_symbols</span><span class="p">(</span><span class="n">spin_mod_symbols</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the origional atomic numbers and magnetic moments from</span>
-<span class="sd">    the get_modified_spin_symbols function.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the origional atomic numbers and magnetic moments from the get_modified_spin_symbols</span>
+<span class="sd">    function.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -305,7 +299,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -316,7 +310,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

@@ -23,9 +23,11 @@ The format of the whole `config.yaml` is as follows:
       file: POSCARfile
       struct:
         element: Au
-        lattype: fcc
-        latcont: 4.16
+        lattice_type: fcc
+        latttice_constant: 4.16
         facet: ['111','100'] #This is comment
+        supercell: [3,3]     #Default: [3,3], can be undefined
+        layers: 4            #Default: 4, can be undefined
         dope:
           Cu: [3]
 
@@ -52,10 +54,12 @@ the keywords should be chosen as following two types: ``file`` or ``struct``
 * ``file``: Path , this keywords will read substrate from POSCAR file
 * ``struct``: this keywords will generate substrate according to following parameter:
     * ``element``: bulk phase element
-    * ``lattype``: lattice type
-    * ``latcont``: lattice parameter
-    * ``facet``: crystal plane, hould be a *list*, start with ``[``, separate with ``,`` and end with ``]``,
+    * ``lattice_type``: lattice type
+    * ``latticd_constant``: lattice parameter
+    * ``facet``: crystal plane, should be a *list*, start with ``[``, separate with ``,`` and end with ``]``,
       facet index should be a str start with ``'`` end with ``'``, like ``'100'``, ``'111'``
+    * ``supercell``: supercell of the substrate in the xy-plane
+    * ``layers``: layers of the substrate in z axis
     * ``dope``: dope of the substrate, the formate is ``dope element : [dope type1, dope type2]``
       before ``:`` is the doped element, after the ``:`` is the dope type, the dope type can be
       chosen as follows: ``0`` corresponds to no doping, ``1``, ``2`` and ``3`` correspond to surface

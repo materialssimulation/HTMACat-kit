@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HTMACat.catkit.gen.utils package &mdash; HTMACat-kit 1.0.2 documentation</title>
@@ -10,27 +10,25 @@
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="HTMACat.descriptor package" href="HTMACat.descriptor.html" />
-    <link rel="prev" title="HTMACat.catkit.gen package" href="HTMACat.catkit.gen.html" />
+    <link rel="prev" title="HTMACat.catkit.gen package" href="HTMACat.catkit.gen.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -100,7 +98,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <section id="htmacat-catkit-gen-utils-package">
 <h1>HTMACat.catkit.gen.utils package<a class="headerlink" href="#htmacat-catkit-gen-utils-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
@@ -111,8 +109,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.connectivity.get_cutoff_neighbors">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.connectivity.</span></span><span class="sig-name descname"><span class="pre">get_cutoff_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_cov_radii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/connectivity.html#get_cutoff_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.connectivity.get_cutoff_neighbors" title="Permalink to this definition"></a></dt>
-<dd><p>Return the connectivity matrix from a simple radial cutoff.
-Multi-bonding occurs through periodic boundary conditions.</p>
+<dd><p>Return the connectivity matrix from a simple radial cutoff. Multi-bonding occurs through
+periodic boundary conditions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -140,8 +138,8 @@ cutoff values.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.connectivity.get_voronoi_neighbors">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.connectivity.</span></span><span class="sig-name descname"><span class="pre">get_voronoi_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_distances</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/connectivity.html#get_voronoi_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.connectivity.get_voronoi_neighbors" title="Permalink to this definition"></a></dt>
-<dd><p>Return the connectivity matrix from the Voronoi
-method. Multi-bonding occurs through periodic boundary conditions.</p>
+<dd><p>Return the connectivity matrix from the Voronoi method. Multi-bonding occurs through
+periodic boundary conditions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -167,9 +165,8 @@ unit cell information to use.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.coordinates.expand_cell">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.coordinates.</span></span><span class="sig-name descname"><span class="pre">expand_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#expand_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.coordinates.expand_cell" title="Permalink to this definition"></a></dt>
-<dd><p>Return Cartesian coordinates atoms within a supercell
-which contains repetitions of the unit cell which contains
-at least one neighboring atom.</p>
+<dd><p>Return Cartesian coordinates atoms within a supercell which contains repetitions of the unit
+cell which contains at least one neighboring atom.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -200,8 +197,8 @@ supercell.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.coordinates.get_integer_enumeration">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.coordinates.</span></span><span class="sig-name descname"><span class="pre">get_integer_enumeration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">2]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#get_integer_enumeration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.coordinates.get_integer_enumeration" title="Permalink to this definition"></a></dt>
-<dd><p>Return the enumerated array of a span of integer values.
-These enumerations are limited to the length N.</p>
+<dd><p>Return the enumerated array of a span of integer values. These enumerations are limited to
+the length N.</p>
 <p>For the default span of [0, 2], the enumeration equates to
 the corners of an N-dimensional hypercube.</p>
 <dl class="field-list simple">
@@ -225,8 +222,7 @@ the corners of an N-dimensional hypercube.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.coordinates.get_unique_coordinates">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.coordinates.</span></span><span class="sig-name descname"><span class="pre">get_unique_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#get_unique_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.coordinates.get_unique_coordinates" title="Permalink to this definition"></a></dt>
-<dd><p>Return unique coordinate values of a given atoms object
-for a specified axis.</p>
+<dd><p>Return unique coordinate values of a given atoms object for a specified axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -252,9 +248,8 @@ for a specified axis.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.coordinates.get_unique_xy">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.coordinates.</span></span><span class="sig-name descname"><span class="pre">get_unique_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xyz_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#get_unique_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.coordinates.get_unique_xy" title="Permalink to this definition"></a></dt>
-<dd><p>Return the unique coordinates of an atoms object
-for the requrested atoms indices. Z-coordinates are projected
-to maximum z-coordinate by default.</p>
+<dd><p>Return the unique coordinates of an atoms object for the requrested atoms indices.
+Z-coordinates are projected to maximum z-coordinate by default.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -276,9 +271,8 @@ to maximum z-coordinate by default.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.coordinates.matching_coordinates">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.coordinates.</span></span><span class="sig-name descname"><span class="pre">matching_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comparators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#matching_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.coordinates.matching_coordinates" title="Permalink to this definition"></a></dt>
-<dd><p>Get the indices of all points in a comparator list that are
-equal to a given position (with a tolerance), taking into
-account periodic boundary conditions (adaptation from Pymatgen).</p>
+<dd><p>Get the indices of all points in a comparator list that are equal to a given position (with
+a tolerance), taking into account periodic boundary conditions (adaptation from Pymatgen).</p>
 <p>This will only accept a Cartesian coordinate scheme.
 TODO: merge this with matching_sites.</p>
 <dl class="field-list simple">
@@ -304,9 +298,8 @@ TODO: merge this with matching_sites.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.coordinates.matching_sites">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.coordinates.</span></span><span class="sig-name descname"><span class="pre">matching_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comparators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#matching_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.coordinates.matching_sites" title="Permalink to this definition"></a></dt>
-<dd><p>Get the indices of all points in a comparator list that are
-equal to a given position (with a tolerance), taking into
-account periodic boundary conditions (adaptation from Pymatgen).</p>
+<dd><p>Get the indices of all points in a comparator list that are equal to a given position (with
+a tolerance), taking into account periodic boundary conditions (adaptation from Pymatgen).</p>
 <p>This will only accept a fractional coordinate scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -331,9 +324,8 @@ account periodic boundary conditions (adaptation from Pymatgen).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.coordinates.trilaterate">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.coordinates.</span></span><span class="sig-name descname"><span class="pre">trilaterate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">centers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zvector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#trilaterate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.coordinates.trilaterate" title="Permalink to this definition"></a></dt>
-<dd><p>Find the intersection of two or three spheres. In the case
-of two sphere intersection, the z-coordinate is assumed to be
-an intersection of a plane whose normal is aligned with the
+<dd><p>Find the intersection of two or three spheres. In the case of two sphere intersection, the
+z-coordinate is assumed to be an intersection of a plane whose normal is aligned with the
 points and perpendicular to the positive z-coordinate.</p>
 <p>If more than three spheres are supplied, the centroid of the
 points is returned (no radii used).</p>
@@ -364,8 +356,7 @@ coordinations (1 and 2).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.graph.connectivity_to_edges">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.graph.</span></span><span class="sig-name descname"><span class="pre">connectivity_to_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connectivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/graph.html#connectivity_to_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.graph.connectivity_to_edges" title="Permalink to this definition"></a></dt>
-<dd><p>Convert a Numpy connectivity matrix into a list of NetworkX
-compatible edges.</p>
+<dd><p>Convert a Numpy connectivity matrix into a list of NetworkX compatible edges.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -472,13 +463,63 @@ compatible edges.</p>
 </dd></dl>
 
 </section>
+<section id="module-HTMACat.catkit.gen.utils.utils_mdnm">
+<span id="htmacat-catkit-gen-utils-utils-mdnm-module"></span><h2>HTMACat.catkit.gen.utils.utils_mdnm module<a class="headerlink" href="#module-HTMACat.catkit.gen.utils.utils_mdnm" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.utils_mdnm.mol_to_graph">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.utils_mdnm.</span></span><span class="sig-name descname"><span class="pre">mol_to_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/utils_mdnm.html#mol_to_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.utils_mdnm.mol_to_graph" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a molecule object to a graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m</strong><span class="classifier">mol</span></dt><dd><p>The RDKit molecule object to be converted into a networkx graph.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>G</strong><span class="classifier">Graph</span></dt><dd><p>The networkx Graph object derived from m.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.utils_mdnm.solve_normal_vector_linearsvc">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.utils_mdnm.</span></span><span class="sig-name descname"><span class="pre">solve_normal_vector_linearsvc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">take_into_account_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/utils_mdnm.html#solve_normal_vector_linearsvc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.utils_mdnm.solve_normal_vector_linearsvc" title="Permalink to this definition"></a></dt>
+<dd><p>Solve the adsorption direction of the given species using SVM. Returns the direction
+that should be rotated into [001] of the slab model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>coords</strong><span class="classifier">numpy.ndarray</span></dt><dd><p>The coordinates of all atoms in the species.</p>
+</dd>
+<dt><strong>bond_idx</strong><span class="classifier">int</span></dt><dd><p>The index of the atom to be placed on the adsorption sites.</p>
+</dd>
+<dt><strong>take_into_account_idx</strong><span class="classifier">list</span></dt><dd><p>The list of atom indices should be as close as possible to the surface. If it is not
+None, the geometric center of these atoms will act as the symmetry center.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vec</strong><span class="classifier">list</span></dt><dd><p>The normal vector of the decision boundary.</p>
+</dd>
+<dt><strong>flag_linearly_separable</strong><span class="classifier">list</span></dt><dd><p>Record whether the extended coordinates are linearly separable.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-HTMACat.catkit.gen.utils.vectors">
 <span id="htmacat-catkit-gen-utils-vectors-module"></span><h2>HTMACat.catkit.gen.utils.vectors module<a class="headerlink" href="#module-HTMACat.catkit.gen.utils.vectors" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.vectors.get_basis_vectors">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.vectors.</span></span><span class="sig-name descname"><span class="pre">get_basis_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/vectors.html#get_basis_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.vectors.get_basis_vectors" title="Permalink to this definition"></a></dt>
-<dd><p>Return a set of basis vectors for a given array of
-3D coordinates.</p>
+<dd><p>Return a set of basis vectors for a given array of 3D coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -530,16 +571,14 @@ positions.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.connectivity_to_edges">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">connectivity_to_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">connectivity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/graph.html#connectivity_to_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.connectivity_to_edges" title="Permalink to this definition"></a></dt>
-<dd><p>Convert a Numpy connectivity matrix into a list of NetworkX
-compatible edges.</p>
+<dd><p>Convert a Numpy connectivity matrix into a list of NetworkX compatible edges.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.expand_cell">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">expand_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#expand_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.expand_cell" title="Permalink to this definition"></a></dt>
-<dd><p>Return Cartesian coordinates atoms within a supercell
-which contains repetitions of the unit cell which contains
-at least one neighboring atom.</p>
+<dd><p>Return Cartesian coordinates atoms within a supercell which contains repetitions of the unit
+cell which contains at least one neighboring atom.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -600,8 +639,7 @@ supercell.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.get_basis_vectors">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">get_basis_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/vectors.html#get_basis_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.get_basis_vectors" title="Permalink to this definition"></a></dt>
-<dd><p>Return a set of basis vectors for a given array of
-3D coordinates.</p>
+<dd><p>Return a set of basis vectors for a given array of 3D coordinates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -624,8 +662,8 @@ positions.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.get_cutoff_neighbors">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">get_cutoff_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_cov_radii</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/connectivity.html#get_cutoff_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.get_cutoff_neighbors" title="Permalink to this definition"></a></dt>
-<dd><p>Return the connectivity matrix from a simple radial cutoff.
-Multi-bonding occurs through periodic boundary conditions.</p>
+<dd><p>Return the connectivity matrix from a simple radial cutoff. Multi-bonding occurs through
+periodic boundary conditions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -653,8 +691,8 @@ cutoff values.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.get_integer_enumeration">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">get_integer_enumeration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">2]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#get_integer_enumeration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.get_integer_enumeration" title="Permalink to this definition"></a></dt>
-<dd><p>Return the enumerated array of a span of integer values.
-These enumerations are limited to the length N.</p>
+<dd><p>Return the enumerated array of a span of integer values. These enumerations are limited to
+the length N.</p>
 <p>For the default span of [0, 2], the enumeration equates to
 the corners of an N-dimensional hypercube.</p>
 <dl class="field-list simple">
@@ -708,8 +746,7 @@ the corners of an N-dimensional hypercube.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.get_unique_coordinates">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">get_unique_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#get_unique_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.get_unique_coordinates" title="Permalink to this definition"></a></dt>
-<dd><p>Return unique coordinate values of a given atoms object
-for a specified axis.</p>
+<dd><p>Return unique coordinate values of a given atoms object for a specified axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -735,9 +772,8 @@ for a specified axis.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.get_unique_xy">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">get_unique_xy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xyz_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#get_unique_xy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.get_unique_xy" title="Permalink to this definition"></a></dt>
-<dd><p>Return the unique coordinates of an atoms object
-for the requrested atoms indices. Z-coordinates are projected
-to maximum z-coordinate by default.</p>
+<dd><p>Return the unique coordinates of an atoms object for the requrested atoms indices.
+Z-coordinates are projected to maximum z-coordinate by default.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -759,8 +795,8 @@ to maximum z-coordinate by default.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.get_voronoi_neighbors">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">get_voronoi_neighbors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_distances</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/connectivity.html#get_voronoi_neighbors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.get_voronoi_neighbors" title="Permalink to this definition"></a></dt>
-<dd><p>Return the connectivity matrix from the Voronoi
-method. Multi-bonding occurs through periodic boundary conditions.</p>
+<dd><p>Return the connectivity matrix from the Voronoi method. Multi-bonding occurs through
+periodic boundary conditions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -795,9 +831,8 @@ unit cell information to use.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.matching_coordinates">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">matching_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comparators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#matching_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.matching_coordinates" title="Permalink to this definition"></a></dt>
-<dd><p>Get the indices of all points in a comparator list that are
-equal to a given position (with a tolerance), taking into
-account periodic boundary conditions (adaptation from Pymatgen).</p>
+<dd><p>Get the indices of all points in a comparator list that are equal to a given position (with
+a tolerance), taking into account periodic boundary conditions (adaptation from Pymatgen).</p>
 <p>This will only accept a Cartesian coordinate scheme.
 TODO: merge this with matching_sites.</p>
 <dl class="field-list simple">
@@ -823,9 +858,8 @@ TODO: merge this with matching_sites.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.matching_sites">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">matching_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comparators</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#matching_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.matching_sites" title="Permalink to this definition"></a></dt>
-<dd><p>Get the indices of all points in a comparator list that are
-equal to a given position (with a tolerance), taking into
-account periodic boundary conditions (adaptation from Pymatgen).</p>
+<dd><p>Get the indices of all points in a comparator list that are equal to a given position (with
+a tolerance), taking into account periodic boundary conditions (adaptation from Pymatgen).</p>
 <p>This will only accept a fractional coordinate scheme.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -841,6 +875,26 @@ account periodic boundary conditions (adaptation from Pymatgen).</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>match</strong><span class="classifier">list (n,)</span></dt><dd><p>Indices of matches.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.mol_to_graph">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">mol_to_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/utils_mdnm.html#mol_to_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.mol_to_graph" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a molecule object to a graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>m</strong><span class="classifier">mol</span></dt><dd><p>The RDKit molecule object to be converted into a networkx graph.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>G</strong><span class="classifier">Graph</span></dt><dd><p>The networkx Graph object derived from m.</p>
 </dd>
 </dl>
 </dd>
@@ -896,6 +950,34 @@ account periodic boundary conditions (adaptation from Pymatgen).</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.solve_normal_vector_linearsvc">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">solve_normal_vector_linearsvc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">take_into_account_idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/utils_mdnm.html#solve_normal_vector_linearsvc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.solve_normal_vector_linearsvc" title="Permalink to this definition"></a></dt>
+<dd><p>Solve the adsorption direction of the given species using SVM. Returns the direction
+that should be rotated into [001] of the slab model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>coords</strong><span class="classifier">numpy.ndarray</span></dt><dd><p>The coordinates of all atoms in the species.</p>
+</dd>
+<dt><strong>bond_idx</strong><span class="classifier">int</span></dt><dd><p>The index of the atom to be placed on the adsorption sites.</p>
+</dd>
+<dt><strong>take_into_account_idx</strong><span class="classifier">list</span></dt><dd><p>The list of atom indices should be as close as possible to the surface. If it is not
+None, the geometric center of these atoms will act as the symmetry center.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>vec</strong><span class="classifier">list</span></dt><dd><p>The normal vector of the decision boundary.</p>
+</dd>
+<dt><strong>flag_linearly_separable</strong><span class="classifier">list</span></dt><dd><p>Record whether the extended coordinates are linearly separable.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.to_gratoms">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">to_gratoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/utilities.html#to_gratoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.to_gratoms" title="Permalink to this definition"></a></dt>
 <dd><p>Convert and atom object to a gratoms object.</p>
@@ -904,9 +986,8 @@ account periodic boundary conditions (adaptation from Pymatgen).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.catkit.gen.utils.trilaterate">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.utils.</span></span><span class="sig-name descname"><span class="pre">trilaterate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">centers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zvector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/utils/coordinates.html#trilaterate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.utils.trilaterate" title="Permalink to this definition"></a></dt>
-<dd><p>Find the intersection of two or three spheres. In the case
-of two sphere intersection, the z-coordinate is assumed to be
-an intersection of a plane whose normal is aligned with the
+<dd><p>Find the intersection of two or three spheres. In the case of two sphere intersection, the
+z-coordinate is assumed to be an intersection of a plane whose normal is aligned with the
 points and perpendicular to the positive z-coordinate.</p>
 <p>If more than three spheres are supplied, the centroid of the
 points is returned (no radii used).</p>
@@ -951,7 +1032,7 @@ coordinations (1 and 2).</p>
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -962,7 +1043,7 @@ coordinations (1 and 2).</p>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

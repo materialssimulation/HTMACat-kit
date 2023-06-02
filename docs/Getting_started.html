@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Getting started &mdash; HTMACat-kit 1.0.2 documentation</title>
@@ -10,27 +10,25 @@
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Examples" href="Examples.html" />
-    <link rel="prev" title="Installation Guide" href="Installation.html" />
+    <link rel="prev" title="Installation Guide" href="Installation.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -83,7 +81,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <section id="getting-started">
 <h1><strong>Getting started</strong><a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h1>
 <section id="high-throughput-adsorption-modeling">
@@ -102,13 +100,15 @@
 <span class="go">  file: POSCARfile</span>
 <span class="go">  struct:</span>
 <span class="go">    element: Au</span>
-<span class="go">    lattype: fcc</span>
-<span class="go">    latcont: 4.16</span>
+<span class="go">    lattice_type: fcc</span>
+<span class="go">    latttice_constant: 4.16</span>
 <span class="go">    facet: [&#39;111&#39;,&#39;100&#39;] #This is comment</span>
+<span class="go">    supercell: [3,3]     #Default: [3,3], can be undefined</span>
+<span class="go">    layers: 4            #Default: 4, can be undefined</span>
 <span class="go">    dope:</span>
 <span class="go">      Cu: [3]</span>
 
-<span class="gp"># </span>This part <span class="nb">alias</span> <span class="k">for</span> Species
+<span class="gp"># </span>This<span class="w"> </span>part<span class="w"> </span><span class="nb">alias</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>Species
 <span class="go">Species:</span>
 <span class="go">  file:</span>
 <span class="go">    &#39;NH3+&#39;: NH3+.xyz #struct_file</span>
@@ -133,10 +133,12 @@ the keywords should be chosen as following two types: <code class="docutils lite
 <li><dl class="simple">
 <dt><code class="docutils literal notranslate"><span class="pre">struct</span></code>: this keywords will generate substrate according to following parameter:</dt><dd><ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">element</span></code>: bulk phase element</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">lattype</span></code>: lattice type</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">latcont</span></code>: lattice parameter</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">facet</span></code>: crystal plane, hould be a <em>list</em>, start with <code class="docutils literal notranslate"><span class="pre">[</span></code>, separate with <code class="docutils literal notranslate"><span class="pre">,</span></code> and end with <code class="docutils literal notranslate"><span class="pre">]</span></code>,
+<li><p><code class="docutils literal notranslate"><span class="pre">lattice_type</span></code>: lattice type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">latticd_constant</span></code>: lattice parameter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">facet</span></code>: crystal plane, should be a <em>list</em>, start with <code class="docutils literal notranslate"><span class="pre">[</span></code>, separate with <code class="docutils literal notranslate"><span class="pre">,</span></code> and end with <code class="docutils literal notranslate"><span class="pre">]</span></code>,
 facet index should be a str start with <code class="docutils literal notranslate"><span class="pre">'</span></code> end with <code class="docutils literal notranslate"><span class="pre">'</span></code>, like <code class="docutils literal notranslate"><span class="pre">'100'</span></code>, <code class="docutils literal notranslate"><span class="pre">'111'</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">supercell</span></code>: supercell of the substrate in the xy-plane</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">layers</span></code>: layers of the substrate in z axis</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dope</span></code>: dope of the substrate, the formate is <code class="docutils literal notranslate"><span class="pre">dope</span> <span class="pre">element</span> <span class="pre">:</span> <span class="pre">[dope</span> <span class="pre">type1,</span> <span class="pre">dope</span> <span class="pre">type2]</span></code>
 before <code class="docutils literal notranslate"><span class="pre">:</span></code> is the doped element, after the <code class="docutils literal notranslate"><span class="pre">:</span></code> is the dope type, the dope type can be
 chosen as follows: <code class="docutils literal notranslate"><span class="pre">0</span></code> corresponds to no doping, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code> and <code class="docutils literal notranslate"><span class="pre">3</span></code> correspond to surface
@@ -213,7 +215,7 @@ output structures.</p>
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -224,7 +226,7 @@ output structures.</p>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>
