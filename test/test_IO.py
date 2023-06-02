@@ -23,8 +23,8 @@ def result():
         "StrucInfo": {
             "struct": {
                 "element": "Pt",
-                "lattype": "fcc",
-                "latcont": 3.92,
+                "lattice_type": "fcc",
+                "lattice_constant": 3.92,
                 "facet": ["111"],
                 "dope": {"Cu": [0]},
             }
@@ -41,7 +41,7 @@ def result():
 def test_substrate_part(result):
     substrates = substrate_part(result)
     assert substrates[0].facet == "111"
-    assert substrates[0].bulk.lattice_constant["a"] == 3.96
+    assert substrates[0].bulk.lattice_constant["a"] == 3.92
     assert substrates[0].bulk.main_element == "Pt"
     assert substrates[0].bulk.lattice_type == "fcc"
     assert substrates[0].bulk.ele_dop == "Cu"
@@ -66,8 +66,8 @@ def test_adsorption_part(result):
 #     'StrucInfo': {
 #         'struct': {
 #             'element': 'Pt',
-#             'lattype': 'fcc',
-#             'latcont': 3.92,
+#             'lattice_type': 'fcc',
+#             'lattice_constant': 3.92,
 #             'facet': ['111'],
 #             'dope': {'Cu': [0]}
 #         }
