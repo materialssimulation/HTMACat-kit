@@ -261,7 +261,7 @@ class Slab(Structure):
             return []
         substrates = []
         # get the parameters for struct initialization
-        struct_list = ['element','lattice_type','lattice_constant','super_cell','layers']
+        struct_list = ['element','lattice_type','lattice_constant','supercell','layers']
         struct_init_dict = get_new_dict(struct_list,struct_Info)
         # get the parameters for dope and surface initialization
         dope_system = struct_Info["dope"]

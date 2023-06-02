@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HTMACat.descriptor package &mdash; HTMACat-kit 1.0.2 documentation</title>
@@ -10,27 +10,25 @@
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="HTMACat.model package" href="HTMACat.model.html" />
-    <link rel="prev" title="HTMACat.catkit.gen.utils package" href="HTMACat.catkit.gen.utils.html" />
+    <link rel="prev" title="HTMACat.catkit.gen.utils package" href="HTMACat.catkit.gen.utils.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -100,7 +98,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <section id="htmacat-descriptor-package">
 <h1>HTMACat.descriptor package<a class="headerlink" href="#htmacat-descriptor-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
@@ -111,7 +109,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.descriptor.Construct_descriptor.Construct_descriptor">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.descriptor.Construct_descriptor.</span></span><span class="sig-name descname"><span class="pre">Construct_descriptor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poscar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_surf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_ads</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_site</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adspecies</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'100'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/descriptor/Construct_descriptor.html#Construct_descriptor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.descriptor.Construct_descriptor.Construct_descriptor" title="Permalink to this definition"></a></dt>
-<dd><p>Construct a descriptor for a given catalytic system based on its geometry and adsorption properties.</p>
+<dd><p>Construct a descriptor for a given catalytic system based on its geometry and adsorption
+properties.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -200,9 +199,9 @@ and binding type of binding site (‘top’, ‘bridge’, ‘fcc’, ‘hcp’,
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.descriptor.Construct_descriptor_NEB.get_reaction_info">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.descriptor.Construct_descriptor_NEB.</span></span><span class="sig-name descname"><span class="pre">get_reaction_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">react</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'react.log'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">File_adsE</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'adsE_coad_radical'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/descriptor/Construct_descriptor_NEB.html#get_reaction_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.descriptor.Construct_descriptor_NEB.get_reaction_info" title="Permalink to this definition"></a></dt>
-<dd><p>Extract the information of a chemical reaction, including reaction type, reactant info, product info, barrier and
-enthalpy. Extract the reactant and product adsorption energy from a file named adsE_coad_radical in the current
-directory.</p>
+<dd><p>Extract the information of a chemical reaction, including reaction type, reactant info,
+product info, barrier and enthalpy. Extract the reactant and product adsorption energy from a
+file named adsE_coad_radical in the current directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -339,7 +338,8 @@ single descriptor. If no adsorbate is found, an error message will be printed.</
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.descriptor.Construct_descriptor_surface.Construct_des_module">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.descriptor.Construct_descriptor_surface.</span></span><span class="sig-name descname"><span class="pre">Construct_des_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adspecies</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dop_typ_all</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/descriptor/Construct_descriptor_surface.html#Construct_des_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.descriptor.Construct_descriptor_surface.Construct_des_module" title="Permalink to this definition"></a></dt>
-<dd><p>Constructs the descriptor module for a given set of adsorbates on a surface with a particular facet and doping type.</p>
+<dd><p>Constructs the descriptor module for a given set of adsorbates on a surface with a
+particular facet and doping type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -371,7 +371,8 @@ single descriptor. If no adsorbate is found, an error message will be printed.</
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.descriptor.Construct_descriptor_surface_single.Construct_des_module">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.descriptor.Construct_descriptor_surface_single.</span></span><span class="sig-name descname"><span class="pre">Construct_des_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adspecies</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dop_typ_all</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/descriptor/Construct_descriptor_surface_single.html#Construct_des_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.descriptor.Construct_descriptor_surface_single.Construct_des_module" title="Permalink to this definition"></a></dt>
-<dd><p>Constructs the descriptor module for a given set of adsorbates on a surface with a particular facet and doping type.</p>
+<dd><p>Constructs the descriptor module for a given set of adsorbates on a surface with a
+particular facet and doping type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -429,9 +430,7 @@ is then used to construct a descriptor for a given system, and the descriptor is
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.descriptor.Construct_descriptor_surface_single.Construct_descriptor_info_E">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.descriptor.Construct_descriptor_surface_single.</span></span><span class="sig-name descname"><span class="pre">Construct_descriptor_info_E</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ele</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specie</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet_dop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/descriptor/Construct_descriptor_surface_single.html#Construct_descriptor_info_E"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.descriptor.Construct_descriptor_surface_single.Construct_descriptor_info_E" title="Permalink to this definition"></a></dt>
-<dd><blockquote>
-<div><p>Construct descriptor information based on element, crystal plane and doping species class.</p>
-</div></blockquote>
+<dd><p>Construct descriptor information based on element, crystal plane and doping species class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -479,7 +478,7 @@ is then used to construct a descriptor for a given system, and the descriptor is
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -490,7 +489,7 @@ is then used to construct a descriptor for a given system, and the descriptor is
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

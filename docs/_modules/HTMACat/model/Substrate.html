@@ -9,25 +9,23 @@
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,11 +68,9 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for HTMACat.model.Substrate</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Created on Fri Mar 17 15:34:47 2023</span>
+<span></span><span class="sd">&quot;&quot;&quot;Created on Fri Mar 17 15:34:47 2023.</span>
 
 <span class="sd">@author: YuxiaoLan</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -88,15 +84,23 @@
 <span class="kn">from</span> <span class="nn">HTMACat.catkit.gratoms</span> <span class="kn">import</span> <span class="n">Gratoms</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">HTMACat.model.Structure</span> <span class="kn">import</span> <span class="n">Structure</span>
+<span class="kn">from</span> <span class="nn">HTMACat.Base_tools</span> <span class="kn">import</span> <span class="o">*</span>
 
 
-<div class="viewcode-block" id="Bulk"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk">[docs]</a><span class="k">class</span> <span class="nc">Bulk</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_element</span><span class="o">=</span><span class="s1">&#39;Pt&#39;</span><span class="p">,</span> <span class="n">lattice_type</span><span class="o">=</span><span class="s1">&#39;fcc&#39;</span><span class="p">,</span> <span class="n">lattice_constant</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">ele_dop</span><span class="o">=</span><span class="s1">&#39;Cu&#39;</span><span class="p">,</span> <span class="n">natom_dop</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">super_cell</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">super_cell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">super_cell</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="viewcode-block" id="Bulk"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk">[docs]</a><span class="k">class</span> <span class="nc">Bulk</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">element</span><span class="o">=</span><span class="s2">&quot;Pt&quot;</span><span class="p">,</span>
+        <span class="n">lattice_type</span><span class="o">=</span><span class="s2">&quot;fcc&quot;</span><span class="p">,</span>
+        <span class="n">lattice_constant</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ele_dop</span><span class="o">=</span><span class="s2">&quot;Cu&quot;</span><span class="p">,</span>
+        <span class="n">natom_dop</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span>
+        <span class="n">supercell</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">supercell</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">supercell</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">lattice_constant</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">lattice_constant</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mf">3.96</span><span class="p">}</span>
+            <span class="n">lattice_constant</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="mf">3.96</span><span class="p">}</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">natom_dop</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">natom_dop</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">natom_dop</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lattice_constant</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -105,27 +109,27 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span> <span class="o">=</span> <span class="n">lattice_constant</span>  <span class="c1"># 不同的lattice_type有不同的constant，hcp有个两个constant</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">main_element</span> <span class="o">=</span> <span class="n">main_element</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_element</span> <span class="o">=</span> <span class="n">element</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lattice_type</span> <span class="o">=</span> <span class="n">lattice_type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ele_dop</span> <span class="o">=</span> <span class="n">ele_dop</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">natom_dop</span> <span class="o">=</span> <span class="n">natom_dop</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">natom_dop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">super_cell</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">natom_dop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">supercell</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">super_cell</span> <span class="o">=</span> <span class="n">super_cell</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">supercell</span> <span class="o">=</span> <span class="n">supercell</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Bulk.set_lattice_constant"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.set_lattice_constant">[docs]</a>    <span class="k">def</span> <span class="nf">set_lattice_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">latcont</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">latcont</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latcont</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latcont</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latcont</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latcont</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latcont</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">latcont</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Bulk.get_ele_dop"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.get_ele_dop">[docs]</a>    <span class="k">def</span> <span class="nf">get_ele_dop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ele_dop</span></div>
 
-<div class="viewcode-block" id="Bulk.get_super_cell"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.get_super_cell">[docs]</a>    <span class="k">def</span> <span class="nf">get_super_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">super_cell</span></div>
+<div class="viewcode-block" id="Bulk.get_supercell"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.get_supercell">[docs]</a>    <span class="k">def</span> <span class="nf">get_supercell</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">supercell</span></div>
 
 <div class="viewcode-block" id="Bulk.get_natom_dop"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.get_natom_dop">[docs]</a>    <span class="k">def</span> <span class="nf">get_natom_dop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">natom_dop</span></div>
@@ -136,12 +140,14 @@
 <div class="viewcode-block" id="Bulk.construct"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">mname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_element</span>
         <span class="n">mlat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_type</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_type</span> <span class="o">==</span> <span class="s1">&#39;hcp&#39;</span><span class="p">:</span>
-            <span class="n">mlatcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
-            <span class="n">mc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
-            <span class="n">mbulk</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span><span class="n">mname</span><span class="p">,</span> <span class="n">mlat</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">mlatcon</span><span class="p">),</span> <span class="n">covera</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">mlatcon</span><span class="p">),</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_type</span> <span class="o">==</span> <span class="s2">&quot;hcp&quot;</span><span class="p">:</span>
+            <span class="n">mlatcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span>
+            <span class="n">mc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s2">&quot;c&quot;</span><span class="p">]</span>
+            <span class="n">mbulk</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span>
+                <span class="n">mname</span><span class="p">,</span> <span class="n">mlat</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">mlatcon</span><span class="p">),</span> <span class="n">covera</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">mlatcon</span><span class="p">),</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">mlatcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span>
+            <span class="n">mlatcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_constant</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">]</span>
             <span class="n">mbulk</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span><span class="n">mname</span><span class="p">,</span> <span class="n">mlat</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">mlatcon</span><span class="p">,</span> <span class="n">cubic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">mbulk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dop_bulk</span><span class="p">(</span><span class="n">mbulk</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">mbulk</span></div>
@@ -149,40 +155,34 @@
 <div class="viewcode-block" id="Bulk.dop_bulk"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.dop_bulk">[docs]</a>    <span class="k">def</span> <span class="nf">dop_bulk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mbulk</span><span class="p">):</span>
         <span class="n">N_dop_bulk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_ele_dop</span><span class="p">()</span>
         <span class="n">natom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">N_dop_bulk</span> <span class="o">==</span> <span class="p">[]</span> <span class="ow">or</span> <span class="n">natom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">N_dop_bulk</span> <span class="o">==</span> <span class="p">[]</span> <span class="ow">or</span> <span class="n">natom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">mbulk</span>
 
         <span class="n">dop_atoms_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">natom</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="k">assert</span> <span class="n">dop_atoms_number</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">mbulk</span><span class="p">),</span> \
-            <span class="s1">&#39;bulk dop element should smaller than atoms number in one cell:</span><span class="si">%d</span><span class="s1">,&#39;</span> \
-            <span class="s1">&#39; but </span><span class="si">%d</span><span class="s1"> was given&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mbulk</span><span class="p">),</span> <span class="n">dop_atoms_number</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">dop_atoms_number</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">mbulk</span><span class="p">),</span> <span class="p">(</span>
+            <span class="s2">&quot;bulk dop element should smaller than atoms number in one cell:</span><span class="si">%d</span><span class="s2">,&quot;</span>
+            <span class="s2">&quot; but </span><span class="si">%d</span><span class="s2"> was given&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mbulk</span><span class="p">),</span> <span class="n">dop_atoms_number</span><span class="p">)</span>
+        <span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dop_atoms_number</span><span class="p">):</span>
             <span class="n">mbulk</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">N_dop_bulk</span>
         <span class="k">return</span> <span class="n">mbulk</span></div>
 
 <div class="viewcode-block" id="Bulk.get_dop_element"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.get_dop_element">[docs]</a>    <span class="k">def</span> <span class="nf">get_dop_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ele_dop</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ele_dop</span></div></div>
 
-<div class="viewcode-block" id="Bulk.from_dict"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Bulk.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">init_dict</span><span class="p">):</span>
-        <span class="n">main_element</span> <span class="o">=</span> <span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">]</span>
-        <span class="n">lattice_type</span> <span class="o">=</span> <span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;lattype&#39;</span><span class="p">]</span>
-        <span class="n">lattice_const</span> <span class="o">=</span> <span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;latcont&#39;</span><span class="p">]</span>
-        <span class="n">ele_dop</span> <span class="o">=</span> <span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;element_dop&#39;</span><span class="p">]</span>
-        <span class="n">natom_dop</span> <span class="o">=</span> <span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;dop_type&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">main_element</span><span class="o">=</span><span class="n">main_element</span><span class="p">,</span> <span class="n">lattice_type</span><span class="o">=</span><span class="n">lattice_type</span><span class="p">,</span> <span class="n">lattice_constant</span><span class="o">=</span><span class="n">lattice_const</span><span class="p">,</span>
-                   <span class="n">ele_dop</span><span class="o">=</span><span class="n">ele_dop</span><span class="p">,</span> <span class="n">natom_dop</span><span class="o">=</span><span class="n">natom_dop</span><span class="p">)</span></div></div>
+
 
 
 <div class="viewcode-block" id="Slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab">[docs]</a><span class="k">class</span> <span class="nc">Slab</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_bulk</span><span class="o">=</span><span class="n">Bulk</span><span class="p">(),</span> <span class="n">facet</span><span class="o">=</span><span class="s1">&#39;100&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_bulk</span><span class="o">=</span><span class="n">Bulk</span><span class="p">(),</span> <span class="n">facet</span><span class="o">=</span><span class="s2">&quot;100&quot;</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span> <span class="o">=</span> <span class="n">in_bulk</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">facet</span> <span class="o">=</span> <span class="n">facet</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">property</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s1">&#39;p1&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">property</span> <span class="ow">or</span> <span class="s1">&#39;p1_symb&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;p1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;p1_symb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span>
+        <span class="k">if</span> <span class="s2">&quot;p1&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">property</span> <span class="ow">or</span> <span class="s2">&quot;p1_symb&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s2">&quot;p1_symb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="Slab.get_miller_index"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.get_miller_index">[docs]</a>    <span class="k">def</span> <span class="nf">get_miller_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">miller_index</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">))))</span>
@@ -192,74 +192,79 @@
         <span class="n">natom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">natom</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">if</span> <span class="n">natom</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">natom</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="Slab.get_facet"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.get_facet">[docs]</a>    <span class="k">def</span> <span class="nf">get_facet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span></div>
 
+<div class="viewcode-block" id="Slab.get_layers"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.get_layers">[docs]</a>    <span class="k">def</span> <span class="nf">get_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span></div>
+
 <div class="viewcode-block" id="Slab.out_file_name"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.out_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">out_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">mname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_main_element</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">mname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">mname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ele_dop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_dop_element</span><span class="p">()</span>
             <span class="n">natom_dop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span>
-            <span class="k">return</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">mname</span><span class="p">,</span> <span class="n">ele_dop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">,</span> <span class="n">natom_dop</span><span class="p">])</span></div>
+            <span class="k">return</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">mname</span><span class="p">,</span> <span class="n">ele_dop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">,</span> <span class="n">natom_dop</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="Slab.out_print"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.out_print">[docs]</a>    <span class="k">def</span> <span class="nf">out_print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">mname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_main_element</span><span class="p">()</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">) substrate&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">mname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mname</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="si">}</span><span class="s2">) substrate&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">ele_dop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_dop_element</span><span class="p">()</span>
             <span class="n">natom_dop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span>
-            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> doped </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">) substrate&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ele_dop</span><span class="p">,</span> <span class="n">natom_dop</span><span class="p">,</span> <span class="n">mname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">)</span></div>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ele_dop</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">natom_dop</span><span class="si">}</span><span class="s2"> doped </span><span class="si">{</span><span class="n">mname</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="si">}</span><span class="s2">) substrate&quot;</span></div>
 
 <div class="viewcode-block" id="Slab.get_dis_inter"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.get_dis_inter">[docs]</a>    <span class="k">def</span> <span class="nf">get_dis_inter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">latcon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">lattice_constant</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span> <span class="o">==</span> <span class="s1">&#39;111&#39;</span><span class="p">:</span>
-            <span class="n">dis_min</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latcon</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="n">dis_max</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latcon</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span> <span class="o">==</span> <span class="s2">&quot;111&quot;</span><span class="p">:</span>
+            <span class="n">dis_min</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latcon</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">dis_max</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latcon</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
             <span class="n">dis_inter</span> <span class="o">=</span> <span class="p">[</span><span class="n">dis_min</span><span class="p">,</span> <span class="n">dis_max</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facet</span> <span class="o">==</span> <span class="s1">&#39;100&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facet</span> <span class="o">==</span> <span class="s1">&#39;0001&#39;</span><span class="p">):</span>
-            <span class="n">dis_min</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latcon</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1</span>
-            <span class="n">dis_max</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latcon</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facet</span> <span class="o">==</span> <span class="s2">&quot;100&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">facet</span> <span class="o">==</span> <span class="s2">&quot;0001&quot;</span><span class="p">):</span>
+            <span class="n">dis_min</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latcon</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1</span>
+            <span class="n">dis_max</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">latcon</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">2</span>
             <span class="n">dis_inter</span> <span class="o">=</span> <span class="p">[</span><span class="n">dis_min</span><span class="p">,</span> <span class="n">dis_max</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Do not support facet: </span><span class="si">%s</span><span class="s1"> for generate inter distance&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Do not support facet: </span><span class="si">%s</span><span class="s2"> for generate inter distance&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">facet</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">dis_inter</span></div>
 
 <div class="viewcode-block" id="Slab.construct"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">natom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_natom_dop</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">natom</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span> <span class="ow">or</span> <span class="n">natom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">natom</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span> <span class="ow">or</span> <span class="n">natom</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span>
             <span class="n">slabs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_slab</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="n">natom</span> <span class="o">==</span> <span class="s1">&#39;1L&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">natom</span> <span class="o">==</span> <span class="s2">&quot;1L&quot;</span><span class="p">:</span>
             <span class="n">slabs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_1stLayer_slab</span><span class="p">()</span>
         <span class="k">elif</span> <span class="n">natom</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
             <span class="n">slabs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_doped_slab</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Do not support </span><span class="si">%s</span><span class="s1"> dop type to construct slab&#39;</span> <span class="o">%</span> <span class="n">natom</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Do not support </span><span class="si">%s</span><span class="s2"> dop type to construct slab&quot;</span> <span class="o">%</span> <span class="n">natom</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">slabs</span></div>
 
 <div class="viewcode-block" id="Slab.Construct_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.Construct_slab">[docs]</a>    <span class="k">def</span> <span class="nf">Construct_slab</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">slab</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">miller_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_miller_index</span><span class="p">()</span>
         <span class="n">mbulk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">construct</span><span class="p">()</span>
-        <span class="n">super_cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_super_cell</span><span class="p">()</span>
-        <span class="c1">##### generate the surfaces #####   </span>
+        <span class="n">supercell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_supercell</span><span class="p">()</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">()</span>
+        <span class="c1">##### generate the surfaces #####</span>
         <span class="n">gen</span> <span class="o">=</span> <span class="n">SlabGenerator</span><span class="p">(</span>
             <span class="n">mbulk</span><span class="p">,</span>
             <span class="n">miller_index</span><span class="o">=</span><span class="n">miller_index</span><span class="p">,</span>
-            <span class="n">layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">layers</span><span class="o">=</span><span class="n">layers</span><span class="p">,</span>
             <span class="n">fixed</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">layer_type</span><span class="o">=</span><span class="s1">&#39;trim&#39;</span><span class="p">,</span>
+            <span class="n">layer_type</span><span class="o">=</span><span class="s2">&quot;trim&quot;</span><span class="p">,</span>
             <span class="n">vacuum</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
-            <span class="n">standardize_bulk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">standardize_bulk</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">terminations</span> <span class="o">=</span> <span class="n">gen</span><span class="o">.</span><span class="n">get_unique_terminations</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">terminations</span><span class="p">):</span>
-            <span class="n">slab</span> <span class="o">+=</span> <span class="p">[</span><span class="n">gen</span><span class="o">.</span><span class="n">get_slab</span><span class="p">(</span><span class="n">iterm</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">super_cell</span><span class="p">]</span>
+            <span class="n">slab</span> <span class="o">+=</span> <span class="p">[</span><span class="n">gen</span><span class="o">.</span><span class="n">get_slab</span><span class="p">(</span><span class="n">iterm</span><span class="o">=</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">supercell</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">slab</span></div>
 
 <div class="viewcode-block" id="Slab.Construct_1stLayer_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.Construct_1stLayer_slab">[docs]</a>    <span class="k">def</span> <span class="nf">Construct_1stLayer_slab</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -291,81 +296,89 @@
             <span class="k">elif</span> <span class="n">Natom</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">topo</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
                 <span class="n">atom_number_dop</span> <span class="o">=</span> <span class="n">topo</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;the max dope number for this system is </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">topo</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;the max dope number for this system is </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">topo</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
             <span class="n">slb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dope_slab</span><span class="p">(</span><span class="n">slab</span><span class="p">,</span> <span class="n">atom_number_dop</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">Natom</span><span class="p">])</span>
             <span class="n">slabs_dop</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">slabs_dop</span></div>
 
 <div class="viewcode-block" id="Slab.dope_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.dope_slab">[docs]</a>    <span class="k">def</span> <span class="nf">dope_slab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slab</span><span class="p">,</span> <span class="n">atom_number_dop</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;p1&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slab</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">atom_number_dop</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slab</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">atom_number_dop</span><span class="p">]</span>
         <span class="n">Ele_dop</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_dop_element</span><span class="p">()</span>
         <span class="n">slb</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">symbol</span> <span class="o">=</span> <span class="n">slb</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">atom_number_dop</span><span class="p">):</span>
             <span class="n">symbol</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ele_dop</span>
         <span class="n">slb</span><span class="o">.</span><span class="n">set_chemical_symbols</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;p1_symb&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">atom_number_dop</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s2">&quot;p1_symb&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">atom_number_dop</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">slb</span></div>
 
-<div class="viewcode-block" id="Slab.from_dict"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">init_dict</span><span class="p">):</span>
-        <span class="n">in_bulk</span> <span class="o">=</span> <span class="n">Bulk</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">init_dict</span><span class="p">)</span>
-        <span class="n">facet</span> <span class="o">=</span> <span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;facet&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">in_bulk</span><span class="p">,</span> <span class="n">facet</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Slab.init_one_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.init_one_slab">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">init_one_slab</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">init_dict</span><span class="p">):</span>
+        <span class="c1"># initialize bulk</span>
+        <span class="n">bulk_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">,</span><span class="s1">&#39;lattice_type&#39;</span><span class="p">,</span><span class="s1">&#39;lattice_constant&#39;</span><span class="p">,</span><span class="s1">&#39;ele_dop&#39;</span><span class="p">,</span><span class="s1">&#39;natom_dop&#39;</span><span class="p">,</span><span class="s1">&#39;supercell&#39;</span><span class="p">]</span>
+        <span class="n">bulk_init_dict</span> <span class="o">=</span> <span class="n">get_new_dict</span><span class="p">(</span><span class="n">bulk_list</span><span class="p">,</span> <span class="n">init_dict</span><span class="p">)</span>
+        <span class="n">in_bulk</span> <span class="o">=</span> <span class="n">Bulk</span><span class="p">(</span><span class="o">**</span><span class="n">bulk_init_dict</span><span class="p">)</span>
+        <span class="c1"># get the parameters for slab initialization</span>
+        <span class="n">slab_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;facet&#39;</span><span class="p">,</span><span class="s1">&#39;layers&#39;</span><span class="p">]</span>
+        <span class="n">slab_init_dict</span> <span class="o">=</span> <span class="n">get_new_dict</span><span class="p">(</span><span class="n">slab_list</span><span class="p">,</span> <span class="n">init_dict</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Slab.from_input"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.from_input">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_input</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">struct_Info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">struct_Info</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> <span class="s1">&#39;Substrates init by self defined struct should be dict!&#39;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">in_bulk</span><span class="p">,</span> <span class="o">**</span><span class="n">slab_init_dict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Slab.init_all_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.Slab.init_all_slab">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">init_all_slab</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">struct_Info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">struct_Info</span><span class="p">,</span> <span class="nb">dict</span>
+        <span class="p">),</span> <span class="s2">&quot;Substrates init by self defined struct should be dict!&quot;</span>
         <span class="k">if</span> <span class="n">struct_Info</span> <span class="o">==</span> <span class="p">{}:</span>
             <span class="k">return</span> <span class="p">[]</span>
         <span class="n">substrates</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="n">struct_init_dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;lattype&#39;</span><span class="p">:</span> <span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;lattype&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;latcont&#39;</span><span class="p">:</span> <span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;latcont&#39;</span><span class="p">]</span>
-        <span class="p">}</span>
-        <span class="n">dope_init_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;element_dop&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;dop_type&#39;</span><span class="p">:</span> <span class="p">[]}</span>
-        <span class="n">surface_init_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;facet&#39;</span><span class="p">:</span> <span class="p">[]}</span>
-        <span class="n">dope_system</span> <span class="o">=</span> <span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;dope&#39;</span><span class="p">]</span>
+        <span class="c1"># get the parameters for struct initialization</span>
+        <span class="n">struct_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;element&#39;</span><span class="p">,</span><span class="s1">&#39;lattice_type&#39;</span><span class="p">,</span><span class="s1">&#39;lattice_constant&#39;</span><span class="p">,</span><span class="s1">&#39;supercell&#39;</span><span class="p">,</span><span class="s1">&#39;layers&#39;</span><span class="p">]</span>
+        <span class="n">struct_init_dict</span> <span class="o">=</span> <span class="n">get_new_dict</span><span class="p">(</span><span class="n">struct_list</span><span class="p">,</span><span class="n">struct_Info</span><span class="p">)</span>
+        <span class="c1"># get the parameters for dope and surface initialization</span>
+        <span class="n">dope_system</span> <span class="o">=</span> <span class="n">struct_Info</span><span class="p">[</span><span class="s2">&quot;dope&quot;</span><span class="p">]</span>
         <span class="n">dope_init_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">surface_init_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dope_system</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
-                <span class="n">dope_init_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;element_dop&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span> <span class="s1">&#39;dop_type&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">})</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">struct_Info</span><span class="p">[</span><span class="s1">&#39;facet&#39;</span><span class="p">]:</span>
-            <span class="n">surface_init_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;facet&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">})</span>
+                <span class="n">dope_init_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;ele_dop&quot;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span> <span class="s2">&quot;natom_dop&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">})</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">struct_Info</span><span class="p">[</span><span class="s2">&quot;facet&quot;</span><span class="p">]:</span>
+            <span class="n">surface_init_list</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;facet&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">})</span>
 
         <span class="c1"># substrates initialization</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dope_init_list</span><span class="p">)):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">surface_init_list</span><span class="p">)):</span>
                 <span class="n">init_dict</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">struct_init_dict</span><span class="p">,</span> <span class="o">**</span><span class="n">dope_init_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">**</span><span class="n">surface_init_list</span><span class="p">[</span><span class="n">j</span><span class="p">]}</span>
-                <span class="n">substrates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">init_dict</span><span class="p">))</span>
+                <span class="n">substrates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">init_one_slab</span><span class="p">(</span><span class="n">init_dict</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">substrates</span></div></div>
 
 
-<div class="viewcode-block" id="File_Substrate"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate">[docs]</a><span class="k">class</span> <span class="nc">File_Substrate</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>
+<div class="viewcode-block" id="FileSlab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.FileSlab">[docs]</a><span class="k">class</span> <span class="nc">FileSlab</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">file_slab</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;vasp&#39;</span><span class="p">)</span>
+            <span class="n">file_slab</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;vasp&quot;</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">file_slab</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;cif&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span> <span class="o">=</span> <span class="n">Gratoms</span><span class="p">(</span><span class="n">positions</span><span class="o">=</span><span class="n">file_slab</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span>
-                               <span class="n">numbers</span><span class="o">=</span><span class="n">file_slab</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">(),</span>
-                               <span class="n">magmoms</span><span class="o">=</span><span class="n">file_slab</span><span class="o">.</span><span class="n">get_initial_magnetic_moments</span><span class="p">(),</span>
-                               <span class="n">cell</span><span class="o">=</span><span class="n">file_slab</span><span class="o">.</span><span class="n">cell</span><span class="p">,</span>
-                               <span class="n">pbc</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+            <span class="n">file_slab</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;cif&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span> <span class="o">=</span> <span class="n">Gratoms</span><span class="p">(</span>
+            <span class="n">positions</span><span class="o">=</span><span class="n">file_slab</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span>
+            <span class="n">numbers</span><span class="o">=</span><span class="n">file_slab</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">(),</span>
+            <span class="n">magmoms</span><span class="o">=</span><span class="n">file_slab</span><span class="o">.</span><span class="n">get_initial_magnetic_moments</span><span class="p">(),</span>
+            <span class="n">cell</span><span class="o">=</span><span class="n">file_slab</span><span class="o">.</span><span class="n">cell</span><span class="p">,</span>
+            <span class="n">pbc</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span>
+        <span class="p">)</span>
 
-<div class="viewcode-block" id="File_Substrate.get_dis_inter"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate.get_dis_inter">[docs]</a>    <span class="k">def</span> <span class="nf">get_dis_inter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FileSlab.get_dis_inter"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.FileSlab.get_dis_inter">[docs]</a>    <span class="k">def</span> <span class="nf">get_dis_inter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="File_Substrate.is_dope"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate.is_dope">[docs]</a>    <span class="k">def</span> <span class="nf">is_dope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FileSlab.is_dope"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.FileSlab.is_dope">[docs]</a>    <span class="k">def</span> <span class="nf">is_dope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="File_Substrate.find_surface_atoms"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate.find_surface_atoms">[docs]</a>    <span class="k">def</span> <span class="nf">find_surface_atoms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atomstype</span><span class="p">,</span> <span class="n">tol_zdiff</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">tol_zangle_min</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>  <span class="c1"># (Last modified: 20230416, zjwang)</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="FileSlab.find_surface_atoms"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.FileSlab.find_surface_atoms">[docs]</a>    <span class="k">def</span> <span class="nf">find_surface_atoms</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">atomstype</span><span class="p">,</span> <span class="n">tol_zdiff</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">tol_zangle_min</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">):</span>  <span class="c1"># (Last modified: 20230416, zjwang)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate the list of surface atoms (top surface).</span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -379,12 +392,12 @@
 <span class="sd">        index_topsurf: list</span>
 <span class="sd">            List of the indices of the surface atoms.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">atomstype</span> <span class="o">==</span> <span class="s1">&#39;top&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">atomstype</span> <span class="o">==</span> <span class="s2">&quot;top&quot;</span><span class="p">:</span>
             <span class="n">coords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span><span class="o">.</span><span class="n">positions</span>
-        <span class="k">elif</span> <span class="n">atomstype</span> <span class="o">==</span> <span class="s1">&#39;bottom&#39;</span><span class="p">:</span>
-            <span class="n">coords</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span><span class="o">.</span><span class="n">positions</span>
+        <span class="k">elif</span> <span class="n">atomstype</span> <span class="o">==</span> <span class="s2">&quot;bottom&quot;</span><span class="p">:</span>
+            <span class="n">coords</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span><span class="o">.</span><span class="n">positions</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Only support top and bottom for finding surface atoms&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only support top and bottom for finding surface atoms&quot;</span><span class="p">)</span>
         <span class="n">index_topsurf</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">zmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">coords</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">icoord</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coords</span><span class="p">):</span>
@@ -392,41 +405,42 @@
                 <span class="n">index_topsurf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">index_topsurf</span></div>
 
-<div class="viewcode-block" id="File_Substrate.construct"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">topsurf_atoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_surface_atoms</span><span class="p">(</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
-        <span class="n">bottomsurf_atoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_surface_atoms</span><span class="p">(</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="FileSlab.construct"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.FileSlab.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">topsurf_atoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_surface_atoms</span><span class="p">(</span><span class="s2">&quot;top&quot;</span><span class="p">)</span>
+        <span class="n">bottomsurf_atoms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_surface_atoms</span><span class="p">(</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span><span class="o">.</span><span class="n">set_surface_atoms</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="n">topsurf_atoms</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bottomsurf_atoms</span><span class="p">)</span>
-        <span class="n">c_fix</span> <span class="o">=</span> <span class="n">FixAtoms</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">index</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span> <span class="k">if</span>
-                                  <span class="p">(</span><span class="ow">not</span> <span class="n">atom</span><span class="o">.</span><span class="n">index</span> <span class="ow">in</span> <span class="n">topsurf_atoms</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">atom</span><span class="o">.</span><span class="n">index</span> <span class="ow">in</span> <span class="n">bottomsurf_atoms</span><span class="p">)])</span>
+        <span class="n">c_fix</span> <span class="o">=</span> <span class="n">FixAtoms</span><span class="p">(</span>
+            <span class="n">indices</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">atom</span><span class="o">.</span><span class="n">index</span>
+                <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span>
+                <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">atom</span><span class="o">.</span><span class="n">index</span> <span class="ow">in</span> <span class="n">topsurf_atoms</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">atom</span><span class="o">.</span><span class="n">index</span> <span class="ow">in</span> <span class="n">bottomsurf_atoms</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span><span class="o">.</span><span class="n">set_constraint</span><span class="p">(</span><span class="n">c_fix</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">gratoms</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="File_Substrate.out_print"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate.out_print">[docs]</a>    <span class="k">def</span> <span class="nf">out_print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> substrate&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span></div>
+<div class="viewcode-block" id="FileSlab.out_print"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.FileSlab.out_print">[docs]</a>    <span class="k">def</span> <span class="nf">out_print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> substrate&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span></div>
 
-<div class="viewcode-block" id="File_Substrate.out_file_name"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate.out_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">out_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="FileSlab.out_file_name"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.FileSlab.out_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">out_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span></div>
 
-<div class="viewcode-block" id="File_Substrate.from_dict"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate.from_dict">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">init_dict</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="File_Substrate.from_input"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.File_Substrate.from_input">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_input</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="s1">&#39;Substrates reading from file should be list!&#39;</span>
+<div class="viewcode-block" id="FileSlab.init_all_slab"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.FileSlab.init_all_slab">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">init_all_slab</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="s2">&quot;Substrates reading from file should be list!&quot;</span>
         <span class="n">substrates</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">input_list</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> <span class="s1">&#39;Filename should be str!&#39;</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> <span class="s2">&quot;Filename should be str!&quot;</span>
             <span class="n">substrates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">substrates</span></div></div>
 
 
 <div class="viewcode-block" id="substrate_from_input"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Substrate.substrate_from_input">[docs]</a><span class="k">def</span> <span class="nf">substrate_from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">):</span>
     <span class="n">substrates</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrates</span> <span class="o">+</span> <span class="n">File_Substrate</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
-    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrates</span> <span class="o">+</span> <span class="n">Slab</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;struct&#39;</span><span class="p">])</span>
+    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrates</span> <span class="o">+</span> <span class="n">FileSlab</span><span class="o">.</span><span class="n">init_all_slab</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">])</span>
+    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrates</span> <span class="o">+</span> <span class="n">Slab</span><span class="o">.</span><span class="n">init_all_slab</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s2">&quot;struct&quot;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">substrates</span></div>
-
 </pre></div>
 
            </div>
@@ -442,7 +456,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -453,7 +467,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

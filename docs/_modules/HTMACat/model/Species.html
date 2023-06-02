@@ -9,25 +9,23 @@
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,7 +68,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for HTMACat.model.Species</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">rdkit</span> <span class="kn">import</span> <span class="n">Chem</span>
 <span class="kn">from</span> <span class="nn">rdkit.Chem</span> <span class="kn">import</span> <span class="n">AllChem</span><span class="p">,</span> <span class="n">rdMolDescriptors</span>
@@ -86,7 +84,7 @@
 
 
 <div class="viewcode-block" id="ABS_Species"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.ABS_Species">[docs]</a><span class="k">class</span> <span class="nc">ABS_Species</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="o">=</span><span class="s1">&#39;sim&#39;</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="o">=</span><span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__type</span> <span class="o">=</span> <span class="n">formtype</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">form</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">alias_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -109,7 +107,7 @@
 
 <div class="viewcode-block" id="ABS_Species.from_input_dict"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.ABS_Species.from_input_dict">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_input_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">init_dict</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;form&#39;</span><span class="p">],</span> <span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;formtype&#39;</span><span class="p">])</span></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">init_dict</span><span class="p">[</span><span class="s2">&quot;form&quot;</span><span class="p">],</span> <span class="n">init_dict</span><span class="p">[</span><span class="s2">&quot;formtype&quot;</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="ABS_Species.from_input"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.ABS_Species.from_input">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_input</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">input_dict</span><span class="p">):</span>
@@ -121,7 +119,7 @@
 
 
 <div class="viewcode-block" id="Sim_Species"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.Sim_Species">[docs]</a><span class="k">class</span> <span class="nc">Sim_Species</span><span class="p">(</span><span class="n">ABS_Species</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="o">=</span><span class="s1">&#39;sim&#39;</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="o">=</span><span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="p">,</span> <span class="n">alias_name</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Sim_Species.get_molecule"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.Sim_Species.get_molecule">[docs]</a>    <span class="k">def</span> <span class="nf">get_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -141,10 +139,10 @@
 
 
 <div class="viewcode-block" id="File_Species"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.File_Species">[docs]</a><span class="k">class</span> <span class="nc">File_Species</span><span class="p">(</span><span class="n">ABS_Species</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="o">=</span><span class="s2">&quot;file&quot;</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="p">,</span> <span class="n">alias_name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">form</span><span class="p">:</span>
-            <span class="n">str_list</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">form</span><span class="p">:</span>
+            <span class="n">str_list</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filetype</span> <span class="o">=</span> <span class="n">str_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <div class="viewcode-block" id="File_Species.set_filetype"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.File_Species.set_filetype">[docs]</a>    <span class="k">def</span> <span class="nf">set_filetype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">typename</span><span class="p">):</span>
@@ -180,7 +178,7 @@
 
 
 <div class="viewcode-block" id="Sml_Species"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.Sml_Species">[docs]</a><span class="k">class</span> <span class="nc">Sml_Species</span><span class="p">(</span><span class="n">ABS_Species</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="o">=</span><span class="s1">&#39;sml&#39;</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="o">=</span><span class="s2">&quot;sml&quot;</span><span class="p">,</span> <span class="n">alias_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">formtype</span><span class="p">,</span> <span class="n">alias_name</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Sml_Species.out_file_name"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.Sml_Species.out_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">out_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -189,47 +187,15 @@
         <span class="n">ads1</span> <span class="o">=</span> <span class="n">rdMolDescriptors</span><span class="o">.</span><span class="n">CalcMolFormula</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ads1</span></div>
 
-<div class="viewcode-block" id="Sml_Species.MolToNXGraph"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.Sml_Species.MolToNXGraph">[docs]</a>    <span class="k">def</span> <span class="nf">MolToNXGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Convert a molecule object to a graph.</span>
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        m : mol</span>
-<span class="sd">            The RDKit molecule object to be converted into a networkx graph.</span>
-<span class="sd">        Returns</span>
-<span class="sd">        ----------</span>
-<span class="sd">        G : Graph</span>
-<span class="sd">            The networkx Graph object derived from m.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">i_n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GetNumAtoms</span><span class="p">()):</span>
-            <span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([(</span><span class="n">i_n</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;number&#39;</span><span class="p">:</span> <span class="n">m</span><span class="o">.</span><span class="n">GetAtomWithIdx</span><span class="p">(</span><span class="n">i_n</span><span class="p">)</span><span class="o">.</span><span class="n">GetAtomicNum</span><span class="p">()})])</span>
-        <span class="n">bonds</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">GetBondWithIdx</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">GetBonds</span><span class="p">()))]</span>
-        <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">bonds</span><span class="p">:</span>
-            <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">edge</span><span class="o">.</span><span class="n">GetBeginAtomIdx</span><span class="p">(),</span> <span class="n">edge</span><span class="o">.</span><span class="n">GetEndAtomIdx</span><span class="p">()))</span>
-        <span class="n">G</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">G</span></div>
-
 <div class="viewcode-block" id="Sml_Species.get_molecule"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.Sml_Species.get_molecule">[docs]</a>    <span class="k">def</span> <span class="nf">get_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Gratoms</span><span class="p">:</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        mole = Chem.AddHs(Chem.MolFromSmiles(ads1))</span>
-<span class="sd">        G = self.MolToNXGraph(mole)</span>
-<span class="sd">        ads1_list = molecule(rdMolDescriptors.CalcMolFormula(mole))</span>
-<span class="sd">        ads_molecule = ads1_list[0]</span>
-<span class="sd">        for ads_ in ads1_list:</span>
-<span class="sd">            nm = iso.categorical_node_match(&#39;number&#39;, 6)</span>
-<span class="sd">            if nx.is_isomorphic(ads_._graph, G, node_match=nm):</span>
-<span class="sd">                ads_molecule = ads_</span>
-<span class="sd">                print(ads_molecule._graph)</span>
-<span class="sd">                break</span>
-<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">ads1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_formular</span><span class="p">()</span>
         <span class="n">mole</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">ads1</span><span class="p">))</span>
         <span class="n">stat</span> <span class="o">=</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">EmbedMolecule</span><span class="p">(</span><span class="n">mole</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">stat</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
-                <span class="s1">&#39;[WARNING]: No 3D conformer of specie </span><span class="si">%s</span><span class="s1"> can be generated, using the 2D version instead! (could be unreasonable)&#39;</span> <span class="o">%</span> <span class="n">ads1</span><span class="p">)</span>
+                <span class="s2">&quot;[WARNING]: No 3D conformer of specie </span><span class="si">%s</span><span class="s2"> can be generated, using the 2D version instead! (could be unreasonable)&quot;</span>
+                <span class="o">%</span> <span class="n">ads1</span>
+            <span class="p">)</span>
         <span class="n">conf</span> <span class="o">=</span> <span class="n">mole</span><span class="o">.</span><span class="n">GetConformer</span><span class="p">()</span>
         <span class="n">atomicnums_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">coords_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -248,17 +214,20 @@
 <div class="viewcode-block" id="species_from_input"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Species.species_from_input">[docs]</a><span class="k">def</span> <span class="nf">species_from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">):</span>
     <span class="c1"># ads_init_dict = {&#39;SML&#39;:False,&#39;type&#39;:[],&#39;value&#39;:[]}</span>
     <span class="n">species_dict</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">species_type_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">,</span> <span class="s1">&#39;sml&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">]</span>
+    <span class="n">species_type_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sim&quot;</span><span class="p">,</span> <span class="s2">&quot;sml&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">init_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;sim&#39;</span><span class="p">:</span>
-            <span class="n">new_dict</span> <span class="o">=</span> <span class="n">Sim_Species</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;sim&#39;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;sml&#39;</span><span class="p">:</span>
-            <span class="n">new_dict</span> <span class="o">=</span> <span class="n">Sml_Species</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;sml&#39;</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;file&#39;</span><span class="p">:</span>
-            <span class="n">new_dict</span> <span class="o">=</span> <span class="n">File_Species</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;sim&quot;</span><span class="p">:</span>
+            <span class="n">new_dict</span> <span class="o">=</span> <span class="n">Sim_Species</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s2">&quot;sim&quot;</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;sml&quot;</span><span class="p">:</span>
+            <span class="n">new_dict</span> <span class="o">=</span> <span class="n">Sml_Species</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s2">&quot;sml&quot;</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+            <span class="n">new_dict</span> <span class="o">=</span> <span class="n">File_Species</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">init_dict</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species_type_list</span><span class="p">)</span>
-            <span class="n">warn_msg</span> <span class="o">=</span> <span class="s1">&#39;Only support species type: </span><span class="si">%s</span><span class="s1">, Your input </span><span class="si">%s</span><span class="s1"> part in Species will be dismiss&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species_type_list</span><span class="p">)</span>
+            <span class="n">warn_msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Only support species type: </span><span class="si">%s</span><span class="s2">, Your input </span><span class="si">%s</span><span class="s2"> part in Species will be dismiss&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="p">)</span>
             <span class="k">raise</span> <span class="ne">Warning</span><span class="p">(</span><span class="n">warn_msg</span><span class="p">)</span>
         <span class="n">species_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new_dict</span><span class="p">)</span>
 
@@ -274,16 +243,16 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Sim_Species</span><span class="p">(</span><span class="n">init_str</span><span class="p">)</span>
 
-    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">init_str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> <span class="s1">&#39;The species in adsorption must be dict or str&#39;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">init_str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">),</span> <span class="s2">&quot;The species in adsorption must be dict or str&quot;</span>
 
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">init_str</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;s&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;sml&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;s&quot;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;sml&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Sml_Species</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;f&#39;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;file&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;f&quot;</span> <span class="ow">or</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">File_Species</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">wrn_msg</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;sml&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">])</span>
-            <span class="k">raise</span> <span class="ne">Warning</span><span class="p">(</span><span class="s1">&#39;The key of initial dict should be one of the following:</span><span class="se">\n</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">wrn_msg</span><span class="p">)</span></div>
+            <span class="n">wrn_msg</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;sml&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">])</span>
+            <span class="k">raise</span> <span class="ne">Warning</span><span class="p">(</span><span class="s2">&quot;The key of initial dict should be one of the following:</span><span class="se">\n</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">wrn_msg</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -299,7 +268,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -310,7 +279,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

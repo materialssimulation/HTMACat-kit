@@ -30,11 +30,12 @@ def substrate_part(result):
     file_default = []
     struct_default = {
         "element": "Pt",
-        "lattype": "fcc",
-        "latcont": 3.92,
+        "lattice_type": "fcc",
+        "lattice_constant": 3.92,
         "facet": ["111"],
         "dope": {},
         "supercell": [3, 3],
+        #"layer": 4,
     }
     if "file" in struct_Info:
         if isinstance(struct_Info["file"], list):
@@ -78,8 +79,8 @@ StrucInfo:
     file: POSCARfile #read substrate from POSCAR file
     struct:
         element: Au #bulk phase element
-        lattype: fcc #lattice type
-        latcont: 4.16 #lattice parameter
+        lattice_type: fcc #lattice type
+        lattice_constant: 4.16 #lattice parameter
         facet: ['111','100'] #crystal plane
         dope: #dopeing part
             Cu: [3] #dopeing element and dope type

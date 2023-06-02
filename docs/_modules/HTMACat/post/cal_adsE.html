@@ -9,25 +9,23 @@
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,23 +68,22 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for HTMACat.post.cal_adsE</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
-<span class="kn">from</span> <span class="nn">HTMACat.Extract_info</span> <span class="kn">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">HTMACat.Extract_info</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 
 <span class="c1">## calculate the energy of radical</span>
 <div class="viewcode-block" id="cal_Erad"><a class="viewcode-back" href="../../../HTMACat.post.html#HTMACat.post.cal_adsE.cal_Erad">[docs]</a><span class="k">def</span> <span class="nf">cal_Erad</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="n">Radical</span><span class="p">):</span>
     <span class="n">Erad</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Eradicals</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="s2">&quot;r+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Eradicals</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">Eradical</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Eradicals</span><span class="p">):</span>
-            <span class="n">radical</span> <span class="o">=</span> <span class="n">Eradical</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">E</span> <span class="o">=</span> <span class="n">Eradical</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">radical</span> <span class="o">=</span> <span class="n">Eradical</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">E</span> <span class="o">=</span> <span class="n">Eradical</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
             <span class="c1"># find the atom energy</span>
             <span class="k">if</span> <span class="n">Radical</span> <span class="o">==</span> <span class="n">radical</span><span class="p">:</span>
-                <span class="c1">#print(i,radical)</span>
+                <span class="c1"># print(i,radical)</span>
                 <span class="n">Erad</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Erad</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Erad</span></div>
 
@@ -96,79 +93,87 @@
     <span class="n">Erad</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">rad</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="n">Radical</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rad</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">():</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Eradicals</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="s2">&quot;r+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Eradicals</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">Eradical</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Eradicals</span><span class="p">):</span>
-                <span class="n">radical</span> <span class="o">=</span> <span class="n">Eradical</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">E</span> <span class="o">=</span> <span class="n">Eradical</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">radical</span> <span class="o">=</span> <span class="n">Eradical</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">E</span> <span class="o">=</span> <span class="n">Eradical</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
                 <span class="c1"># find the atom energy</span>
                 <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">radical</span><span class="p">:</span>
-                    <span class="c1">#print(i,radical)</span>
+                    <span class="c1"># print(i,radical)</span>
                     <span class="n">Erad</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Erad</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Erad</span></div>
 
 
 <div class="viewcode-block" id="cal_Eslab"><a class="viewcode-back" href="../../../HTMACat.post.html#HTMACat.post.cal_adsE.cal_Eslab">[docs]</a><span class="k">def</span> <span class="nf">cal_Eslab</span><span class="p">(</span><span class="n">FEslab</span><span class="p">,</span> <span class="n">facet</span><span class="p">):</span>
     <span class="n">E_slab</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FEslab</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Eslabs</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FEslab</span><span class="p">,</span> <span class="s2">&quot;r+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Eslabs</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">Eslab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Eslabs</span><span class="p">):</span>
-            <span class="n">slab</span> <span class="o">=</span> <span class="n">Eslab</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">E</span> <span class="o">=</span> <span class="n">Eslab</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">slab</span> <span class="o">=</span> <span class="n">Eslab</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">E</span> <span class="o">=</span> <span class="n">Eslab</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
             <span class="c1"># find the facet energy</span>
             <span class="k">if</span> <span class="n">facet</span> <span class="o">==</span> <span class="n">slab</span><span class="p">:</span>
-                <span class="c1">#print(slab)</span>
+                <span class="c1"># print(slab)</span>
                 <span class="n">E_slab</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">E</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">E_slab</span></div>
 
 
 <span class="c1">## calculate the adE with  atom energy: E(xCyHzO)ad=ECHOsurf-Esurf-xEC-yEH-zEO</span>
-<div class="viewcode-block" id="cal_Eads"><a class="viewcode-back" href="../../../HTMACat.post.html#HTMACat.post.cal_adsE.cal_Eads">[docs]</a><span class="k">def</span> <span class="nf">cal_Eads</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="n">FErad</span><span class="p">,</span> <span class="n">FEslab</span><span class="p">,</span> <span class="n">radicals</span><span class="p">,</span> <span class="n">Erad_property</span><span class="o">=</span><span class="s1">&#39;radical&#39;</span><span class="p">,</span> <span class="n">Facet_property</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">):</span>
-    <span class="n">EnerInfo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span>
-    <span class="n">Foutput</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;adsE_</span><span class="si">{</span><span class="n">Erad_property</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">Facet_property</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
-    <span class="c1">#num=0</span>
+<div class="viewcode-block" id="cal_Eads"><a class="viewcode-back" href="../../../HTMACat.post.html#HTMACat.post.cal_adsE.cal_Eads">[docs]</a><span class="k">def</span> <span class="nf">cal_Eads</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="n">FErad</span><span class="p">,</span> <span class="n">FEslab</span><span class="p">,</span> <span class="n">radicals</span><span class="p">,</span> <span class="n">Erad_property</span><span class="o">=</span><span class="s2">&quot;radical&quot;</span><span class="p">,</span> <span class="n">Facet_property</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">):</span>
+    <span class="n">EnerInfo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="s2">&quot;r+&quot;</span><span class="p">)</span>
+    <span class="n">Foutput</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;adsE_</span><span class="si">{</span><span class="n">Erad_property</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">Facet_property</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">)</span>
+    <span class="c1"># num=0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ads_ener</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">EnerInfo</span><span class="p">):</span>
         <span class="c1"># extract the facet and radical</span>
-        <span class="n">conf</span> <span class="o">=</span> <span class="n">ads_ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">conf_facet</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-        <span class="n">conf_radical</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">ads_ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">conf_facet</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">conf_radical</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
         <span class="c1"># extract the energy of adsorption configuration</span>
-        <span class="n">Eads</span> <span class="o">=</span> <span class="n">ads_ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">Eads</span> <span class="o">=</span> <span class="n">ads_ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">Eads</span><span class="p">:</span>
             <span class="n">E_rad</span><span class="p">,</span> <span class="n">E_slab</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
             <span class="k">if</span> <span class="n">conf_radical</span> <span class="ow">in</span> <span class="n">radicals</span><span class="p">:</span>
-                <span class="c1">#if conf.split(&#39;_&#39;)[-3] == &#39;b1&#39;:</span>
+                <span class="c1"># if conf.split(&#39;_&#39;)[-3] == &#39;b1&#39;:</span>
                 <span class="c1">#   num=num+1</span>
-                <span class="c1">#else:</span>
+                <span class="c1"># else:</span>
                 <span class="c1">#   num=num</span>
                 <span class="c1">## extract the energy of radical based atom energy</span>
-                <span class="k">if</span> <span class="n">Erad_property</span> <span class="o">==</span> <span class="s1">&#39;atom&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">Erad_property</span> <span class="o">==</span> <span class="s2">&quot;atom&quot;</span><span class="p">:</span>
                     <span class="n">E_rad</span> <span class="o">=</span> <span class="n">cal_Erad_atom</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="n">conf_radical</span><span class="p">)</span>
-                <span class="k">elif</span> <span class="n">Erad_property</span> <span class="o">==</span> <span class="s1">&#39;radical&#39;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">Erad_property</span> <span class="o">==</span> <span class="s2">&quot;radical&quot;</span><span class="p">:</span>
                     <span class="n">E_rad</span> <span class="o">=</span> <span class="n">cal_Erad</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="n">conf_radical</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Erad has not the property!&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erad has not the property!&quot;</span><span class="p">)</span>
                     <span class="k">break</span>
 
                 <span class="c1">##  extract the energy of facet</span>
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FEslab</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Eslabs</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">FEslab</span><span class="p">,</span> <span class="s2">&quot;r+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Eslabs</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">Eslab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Eslabs</span><span class="p">):</span>
-                        <span class="n">line1</span> <span class="o">=</span> <span class="n">Eslab</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="n">Ftmp</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-                        <span class="n">conf_slab</span> <span class="o">=</span> <span class="n">Ftmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                        <span class="n">line2</span> <span class="o">=</span> <span class="p">[</span><span class="nb">eval</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Eslab</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;[&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;]&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)]</span>
-                        <span class="c1">#print(Ftmp[2])</span>
-                        <span class="c1">#print(Ftmp[2]== &#39;True&#39;)</span>
+                        <span class="n">line1</span> <span class="o">=</span> <span class="n">Eslab</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">Ftmp</span> <span class="o">=</span> <span class="n">line1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+                        <span class="n">conf_slab</span> <span class="o">=</span> <span class="n">Ftmp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">line2</span> <span class="o">=</span> <span class="p">[</span><span class="nb">eval</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">Eslab</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;]&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+                        <span class="c1"># print(Ftmp[2])</span>
+                        <span class="c1"># print(Ftmp[2]== &#39;True&#39;)</span>
                         <span class="k">if</span> <span class="n">conf_slab</span> <span class="o">==</span> <span class="n">conf_facet</span><span class="p">:</span>
-                            <span class="n">poscar</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;./poscar/</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s1">.vasp&#39;</span>
-                            <span class="n">adatoms</span><span class="p">,</span> <span class="n">adatoms_symb</span><span class="p">,</span> <span class="n">surfatoms</span><span class="p">,</span> <span class="n">surfatoms_symb</span><span class="p">,</span> <span class="n">subsurfatoms</span><span class="p">,</span> <span class="n">subsurfatoms_symb</span> <span class="o">=</span> <span class="n">distinguish_atom_binding</span><span class="p">(</span>
+                            <span class="n">poscar</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;./poscar/</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">.vasp&quot;</span>
+                            <span class="p">(</span>
+                                <span class="n">adatoms</span><span class="p">,</span>
+                                <span class="n">adatoms_symb</span><span class="p">,</span>
+                                <span class="n">surfatoms</span><span class="p">,</span>
+                                <span class="n">surfatoms_symb</span><span class="p">,</span>
+                                <span class="n">subsurfatoms</span><span class="p">,</span>
+                                <span class="n">subsurfatoms_symb</span><span class="p">,</span>
+                            <span class="p">)</span> <span class="o">=</span> <span class="n">distinguish_atom_binding</span><span class="p">(</span>
                                 <span class="n">poscar</span><span class="p">,</span>
                                 <span class="n">tol</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
                                 <span class="n">base_layer</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">Ftmp</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
-                                <span class="n">atoms_layer</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">Ftmp</span><span class="p">[</span><span class="mi">4</span><span class="p">])))</span>
+                                <span class="n">atoms_layer</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">Ftmp</span><span class="p">[</span><span class="mi">4</span><span class="p">])),</span>
+                            <span class="p">)</span>
                             <span class="k">if</span> <span class="n">line2</span> <span class="o">==</span> <span class="n">surfatoms_symb</span><span class="p">:</span>
-                                <span class="k">if</span> <span class="n">Facet_property</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">Facet_property</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
                                     <span class="n">E_slab</span> <span class="o">=</span> <span class="n">Ftmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                                <span class="k">elif</span> <span class="p">(</span><span class="n">Facet_property</span> <span class="o">==</span> <span class="s1">&#39;stable&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">Ftmp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">):</span>
+                                <span class="k">elif</span> <span class="p">(</span><span class="n">Facet_property</span> <span class="o">==</span> <span class="s2">&quot;stable&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">Ftmp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;True&quot;</span><span class="p">):</span>
                                     <span class="n">E_slab</span> <span class="o">=</span> <span class="n">Ftmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                                 <span class="k">else</span><span class="p">:</span>
                                     <span class="k">continue</span>
@@ -181,76 +186,70 @@
 
             <span class="k">if</span> <span class="n">E_slab</span><span class="p">:</span>
                 <span class="n">Eads</span> <span class="o">=</span> <span class="n">Extract_adsE</span><span class="p">(</span><span class="n">slab_E</span><span class="o">=</span><span class="n">E_slab</span><span class="p">,</span> <span class="n">radical_E</span><span class="o">=</span><span class="n">E_rad</span><span class="p">,</span> <span class="n">tot_E</span><span class="o">=</span><span class="n">Eads</span><span class="p">)</span>
-                <span class="c1">#print(conf,Eads)</span>
-                <span class="n">Foutput</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="n">Eads</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="c1"># print(conf,Eads)</span>
+                <span class="n">Foutput</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">Eads</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;NO Eslab&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;NO Eslab&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s1"> is not calculated!&#39;</span><span class="p">)</span>
-    <span class="c1">#print(f&#39;Species: {num}&#39;)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2"> is not calculated!&quot;</span><span class="p">)</span>
+    <span class="c1"># print(f&#39;Species: {num}&#39;)</span>
     <span class="n">EnerInfo</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">Foutput</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="cal_adE_coad"><a class="viewcode-back" href="../../../HTMACat.post.html#HTMACat.post.cal_adsE.cal_adE_coad">[docs]</a><span class="k">def</span> <span class="nf">cal_adE_coad</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="n">FErad</span><span class="p">,</span> <span class="n">FEslab</span><span class="p">,</span> <span class="n">Erad_property</span><span class="o">=</span><span class="s1">&#39;radical&#39;</span><span class="p">):</span>
-    <span class="n">EnerInfo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span>
-    <span class="n">Foutput</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;adsE_coad_</span><span class="si">{</span><span class="n">Erad_property</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+<div class="viewcode-block" id="cal_adE_coad"><a class="viewcode-back" href="../../../HTMACat.post.html#HTMACat.post.cal_adsE.cal_adE_coad">[docs]</a><span class="k">def</span> <span class="nf">cal_adE_coad</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="n">FErad</span><span class="p">,</span> <span class="n">FEslab</span><span class="p">,</span> <span class="n">Erad_property</span><span class="o">=</span><span class="s2">&quot;radical&quot;</span><span class="p">):</span>
+    <span class="n">EnerInfo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="s2">&quot;r+&quot;</span><span class="p">)</span>
+    <span class="n">Foutput</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;adsE_coad_</span><span class="si">{</span><span class="n">Erad_property</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;w+&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ads_ener</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">EnerInfo</span><span class="p">):</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="n">ads_ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">Eads</span> <span class="o">=</span> <span class="n">ads_ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">conf_facet</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">conf_radicals</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-        <span class="n">conf</span> <span class="o">=</span> <span class="n">ads_ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">Eads</span> <span class="o">=</span> <span class="n">ads_ener</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="n">conf_facet</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
-        <span class="n">conf_radicals</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-
-        <span class="c1">#if Eads and len(conf.split(&#39;_&#39;)) &gt; 4:</span>
-        <span class="c1">#if Eads and len(conf.split(&#39;_&#39;)) &gt; 3:</span>
+        <span class="c1"># if Eads and len(conf.split(&#39;_&#39;)) &gt; 4:</span>
+        <span class="c1"># if Eads and len(conf.split(&#39;_&#39;)) &gt; 3:</span>
         <span class="k">if</span> <span class="n">Eads</span><span class="p">:</span>
-            <span class="c1">#print(Eads,len(conf.split(&#39;_&#39;)))</span>
+            <span class="c1"># print(Eads,len(conf.split(&#39;_&#39;)))</span>
             <span class="n">E_rad</span><span class="p">,</span> <span class="n">E_slab</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
             <span class="n">E_slab</span> <span class="o">=</span> <span class="n">cal_Eslab</span><span class="p">(</span><span class="n">FEslab</span><span class="p">,</span> <span class="n">conf_facet</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">Erad_property</span> <span class="o">==</span> <span class="s1">&#39;atom&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Erad_property</span> <span class="o">==</span> <span class="s2">&quot;atom&quot;</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">conf_radical</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">conf_radicals</span><span class="p">):</span>
                     <span class="c1">## extract the energy of radical based atom energy</span>
                     <span class="n">E_rad</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">E_rad</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">cal_Erad_atom</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="n">conf_radical</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="n">Erad_property</span> <span class="o">==</span> <span class="s1">&#39;radical&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">Erad_property</span> <span class="o">==</span> <span class="s2">&quot;radical&quot;</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">conf_radical</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">conf_radicals</span><span class="p">):</span>
                     <span class="n">E_rad</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">E_rad</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">cal_Erad</span><span class="p">(</span><span class="n">FErad</span><span class="p">,</span> <span class="n">conf_radical</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Erad has not the property!&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erad has not the property!&quot;</span><span class="p">)</span>
                 <span class="k">break</span>
 
             <span class="n">Eads</span> <span class="o">=</span> <span class="n">Extract_adsE</span><span class="p">(</span><span class="n">slab_E</span><span class="o">=</span><span class="n">E_slab</span><span class="p">,</span> <span class="n">radical_E</span><span class="o">=</span><span class="n">E_rad</span><span class="p">,</span> <span class="n">tot_E</span><span class="o">=</span><span class="n">Eads</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">conf</span><span class="p">,</span> <span class="n">Eads</span><span class="p">)</span>
-            <span class="n">Foutput</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s1">,</span><span class="si">{</span><span class="n">Eads</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">Foutput</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">Eads</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s1"> is not calculated!&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2"> is not calculated!&quot;</span><span class="p">)</span>
     <span class="n">EnerInfo</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">Foutput</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">   poscar=f&#39;./poscar/Au_Cu_100_b1_N_7.vasp&#39;</span>
-<span class="sd">   adatoms,adatoms_symb,surfatoms,surfatoms_symb,subsurfatoms,subsurfatoms_symb=distinguish_atom_binding(poscar,tol=0.05,base_layer=4,atoms_layer=8)</span>
-<span class="sd">   print(surfatoms_symb)</span>
-<span class="sd">   &#39;&#39;&#39;</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;poscar=f&#39;./poscar/Au_Cu_100_b1_N_7.vasp&#39; adatoms,adatoms_symb,surfatoms,surfatoms_symb,subsu</span>
+<span class="sd">    rfatoms,subsurfatoms_symb=distinguish_atom_binding(poscar,tol=0.05,base_layer=4,atoms_layer=8)</span>
+<span class="sd">    print(surfatoms_symb)&quot;&quot;&quot;</span>
 
     <span class="n">Flist</span> <span class="o">=</span> <span class="s2">&quot;energy_list.csv&quot;</span>
     <span class="n">FErad</span> <span class="o">=</span> <span class="s2">&quot;/data3/home/jqyang/general-script/energy_radical&quot;</span>
     <span class="n">FEslab</span> <span class="o">=</span> <span class="s2">&quot;/data3/home/jqyang/general-script/energy_facet_f&quot;</span>
-    <span class="c1">#radicals=[&#39;NH3&#39;,&#39;NH2&#39;,&#39;NH&#39;,&#39;N&#39;,&#39;O&#39;,&#39;OH&#39;,&#39;H2O&#39;,&#39;O2&#39;,&#39;NO&#39;,&#39;N2O&#39;,&#39;N2&#39;,&#39;H&#39;]</span>
-    <span class="c1">#radicals=[&#39;N&#39;,&#39;O&#39;]</span>
-    <span class="c1">#radicals=[&#39;NH3&#39;,&#39;NH2&#39;,&#39;NH&#39;,&#39;N&#39;,&#39;O&#39;,&#39;OH&#39;,&#39;H&#39;,&#39;H2O&#39;,&#39;O2&#39;,&#39;NO&#39;,&#39;N2O&#39;,&#39;N2&#39;]</span>
-    <span class="n">radicals</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;NH3&#39;</span><span class="p">,</span> <span class="s1">&#39;NH2&#39;</span><span class="p">,</span> <span class="s1">&#39;NH&#39;</span><span class="p">,</span> <span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="s1">&#39;O&#39;</span><span class="p">,</span> <span class="s1">&#39;OH&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;NO&#39;</span><span class="p">,</span> <span class="s1">&#39;N2O&#39;</span><span class="p">,</span> <span class="s1">&#39;N2&#39;</span><span class="p">]</span>
-    <span class="c1">#cal_Eads(Flist,FErad,FEslab,radicals,Erad_property=&#39;radical&#39;,Facet_property=&#39;all&#39;)</span>
-    <span class="n">cal_Eads</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="n">FErad</span><span class="p">,</span> <span class="n">FEslab</span><span class="p">,</span> <span class="n">radicals</span><span class="p">,</span> <span class="n">Erad_property</span><span class="o">=</span><span class="s1">&#39;radical&#39;</span><span class="p">,</span> <span class="n">Facet_property</span><span class="o">=</span><span class="s1">&#39;stable&#39;</span><span class="p">)</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">   Flist=&quot;energy_list_coad.csv&quot;</span>
-<span class="sd">   FErad=&quot;/data3/home/jqyang/general-script/energy_radical&quot;</span>
-<span class="sd">   FEslab=&quot;/data3/home/jqyang/general-script/energy_facet&quot;</span>
-<span class="sd">   cal_adE_coad(Flist,FErad,FEslab,Erad_property=&#39;radical&#39;)</span>
-<span class="sd">   &#39;&#39;&#39;</span>
+    <span class="c1"># radicals=[&#39;NH3&#39;,&#39;NH2&#39;,&#39;NH&#39;,&#39;N&#39;,&#39;O&#39;,&#39;OH&#39;,&#39;H2O&#39;,&#39;O2&#39;,&#39;NO&#39;,&#39;N2O&#39;,&#39;N2&#39;,&#39;H&#39;]</span>
+    <span class="c1"># radicals=[&#39;N&#39;,&#39;O&#39;]</span>
+    <span class="c1"># radicals=[&#39;NH3&#39;,&#39;NH2&#39;,&#39;NH&#39;,&#39;N&#39;,&#39;O&#39;,&#39;OH&#39;,&#39;H&#39;,&#39;H2O&#39;,&#39;O2&#39;,&#39;NO&#39;,&#39;N2O&#39;,&#39;N2&#39;]</span>
+    <span class="n">radicals</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NH3&quot;</span><span class="p">,</span> <span class="s2">&quot;NH2&quot;</span><span class="p">,</span> <span class="s2">&quot;NH&quot;</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="s2">&quot;OH&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;NO&quot;</span><span class="p">,</span> <span class="s2">&quot;N2O&quot;</span><span class="p">,</span> <span class="s2">&quot;N2&quot;</span><span class="p">]</span>
+    <span class="c1"># cal_Eads(Flist,FErad,FEslab,radicals,Erad_property=&#39;radical&#39;,Facet_property=&#39;all&#39;)</span>
+    <span class="n">cal_Eads</span><span class="p">(</span><span class="n">Flist</span><span class="p">,</span> <span class="n">FErad</span><span class="p">,</span> <span class="n">FEslab</span><span class="p">,</span> <span class="n">radicals</span><span class="p">,</span> <span class="n">Erad_property</span><span class="o">=</span><span class="s2">&quot;radical&quot;</span><span class="p">,</span> <span class="n">Facet_property</span><span class="o">=</span><span class="s2">&quot;stable&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Flist=&quot;energy_list_coad.csv&quot; FErad=&quot;/data3/home/jqyang/general-script/energy_radical&quot;</span>
+<span class="sd">    FEslab=&quot;/data3/home/jqyang/general-script/energy_facet&quot;</span>
+<span class="sd">    cal_adE_coad(Flist,FErad,FEslab,Erad_property=&#39;radical&#39;)&quot;&quot;&quot;</span>
 </pre></div>
 
            </div>
@@ -266,7 +265,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -277,7 +276,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>

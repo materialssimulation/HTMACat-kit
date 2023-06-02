@@ -485,6 +485,7 @@ def get_atom_neigh(poscar, atom):
         struct = read(poscar, format="vasp")
     else:
         struct = poscar
+    layer = len(get_unique_coordinates(poscar, axis=2, tag=True, tol=0.01))-1
     (
         adatoms,
         adatoms_symb,
@@ -492,7 +493,7 @@ def get_atom_neigh(poscar, atom):
         surfatoms_symb,
         subsurfatoms,
         subsurfatoms_symb,
-    ) = distinguish_atom_binding(poscar, tol=0.03)
+    ) = distinguish_atom_binding(poscar, tol=0.03, base_layer=layer)    # Changed by RxChen, 2023/06/02
     struct_symb = struct.symbols
     atom_symb = chemical_symbols[atom]
 
@@ -558,6 +559,7 @@ def get_binding_adatom(poscar):
         struct = read(poscar, format="vasp")
     else:
         struct = poscar
+    layer = len(get_unique_coordinates(poscar, axis=2, tag=True, tol=0.01))-1
     (
         adatoms,
         adatoms_symb,
@@ -565,7 +567,7 @@ def get_binding_adatom(poscar):
         surfatoms_symb,
         subsurfatoms,
         subsurfatoms_symb,
-    ) = distinguish_atom_binding(poscar, tol=0.05)
+    ) = distinguish_atom_binding(poscar, tol=0.05, base_layer=layer)    # Changed by RxChen, 2023/06/02
     # print(adatoms_symb,surfatoms_symb)
     # print(struct.symbols)
     cutOff = natural_cutoffs(struct, mult=1.0)
@@ -1408,7 +1410,7 @@ def Extract_slab_info_1(Flist, facet):
                 # TO extract struct info: layers and atom numbers of layer
                 poscar = f"./poscar/{conf}.vasp"
                 struct = read(poscar, format="vasp")
-                layer = len(get_unique_coordinates(struct, axis=2, tag=True, tol=0.01))
+                layer = len(get_unique_coordinates(struct, axis=2, tag=True, tol=0.01))-1   # Changed by RxChen, 2023/06/02
                 atoms_layer = int(len(struct.get_chemical_symbols())) / int(layer)
                 (
                     adatoms,
@@ -1457,7 +1459,7 @@ def Extract_slab_info_2(Flist, layer=4):
             # TO extract struct info: layers and atom numbers of layer
             poscar = f"./poscar/{conf}.vasp"
             struct = read(poscar, format="vasp")
-            layer = len(get_unique_coordinates(struct, axis=2, tag=True, tol=0.01))
+            layer = len(get_unique_coordinates(struct, axis=2, tag=True, tol=0.01)) - 1 # Changed by RxChen, 2023/06/02
             atoms_layer = int(len(struct.get_chemical_symbols())) / int(layer)
             (
                 adatoms,
@@ -1497,6 +1499,7 @@ def get_symmetry_surfatoms(poscar, tol=0.3):
     else:
         struct = poscar
     # struct=read(poscar,format='vasp')
+    layer = len(get_unique_coordinates(poscar, axis=2, tag=True, tol=0.01))-1    
     (
         adatoms,
         adatoms_symb,
@@ -1504,7 +1507,7 @@ def get_symmetry_surfatoms(poscar, tol=0.3):
         surfatoms_symb,
         subsurfatoms,
         subsurfatoms_symb,
-    ) = distinguish_atom_binding(poscar, tol=0.05)
+    ) = distinguish_atom_binding(poscar, tol=0.05, base_layer=layer)    # Changed by RxChen, 2023/06/02
     # print(surfatoms)
 
     dis_matrix = []  # distcance

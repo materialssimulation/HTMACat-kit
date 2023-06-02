@@ -16,8 +16,8 @@ The content of input file is as follow:
     StrucInfo:
       struct:
         element: Pt
-        lattype: fcc
-        latcont: 4.16
+        lattice_type: fcc
+        lattice_constant: 4.16
         facet: ['100']
         dope:
         Cu: ['0']

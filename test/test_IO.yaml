@@ -1,8 +1,8 @@
 StrucInfo:
   struct:
     element: Pt
-    lattype: fcc
-    latcont: 3.92
+    lattice_type: fcc
+    lattice_constant: 3.92
     facet: ["111"]
     dope:
       Cu: [0]

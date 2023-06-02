@@ -36,6 +36,14 @@ HTMACat.catkit.gen.utils.utilities module
    :undoc-members:
    :show-inheritance:
 
+HTMACat.catkit.gen.utils.utils\_mdnm module
+-------------------------------------------
+
+.. automodule:: HTMACat.catkit.gen.utils.utils_mdnm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 HTMACat.catkit.gen.utils.vectors module
 ---------------------------------------
 

@@ -9,25 +9,23 @@
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
+  
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,11 +68,9 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-
+             
   <h1>Source code for HTMACat.model.Ads</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Created on Sat Mar 18 09:00:12 2023</span>
+<span></span><span class="sd">&quot;&quot;&quot;Created on Sat Mar 18 09:00:12 2023.</span>
 
 <span class="sd">@author: YuxiaoLan</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -96,13 +92,21 @@
 <div class="viewcode-block" id="Adsorption"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption">[docs]</a><span class="k">class</span> <span class="nc">Adsorption</span><span class="p">(</span><span class="n">Structure</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">species</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">sites</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">spec_ads_stable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">substrate</span><span class="o">=</span><span class="n">Slab</span><span class="p">()):</span>
         <span class="k">if</span> <span class="n">spec_ads_stable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">spec_ads_stable</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;NH3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;NH2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;NH&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;O&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-                               <span class="s1">&#39;OH&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;NO&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;H2O&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;H&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]}</span>
+            <span class="n">spec_ads_stable</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;NH3&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;NH2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                <span class="s2">&quot;NH&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                <span class="s2">&quot;O&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                <span class="s2">&quot;OH&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                <span class="s2">&quot;NO&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                <span class="s2">&quot;H2O&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;H&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+            <span class="p">}</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">species</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="s2">&quot;species should be a list of Species class&quot;</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">species</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ABS_Species</span><span class="p">),</span> <span class="s2">&quot;species should be a list of Species class&quot;</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="s2">&quot;sites should be a list&quot;</span>
         <span class="k">assert</span> <span class="n">sites</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">],</span> <span class="s1">&#39;Supports only &quot;1&quot; &quot;2&quot; adsorption sites type for ads!&#39;</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">sites</span><span class="p">),</span> <span class="s2">&quot;The species number and the sites number is not equal&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">species</span> <span class="o">=</span> <span class="n">species</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sites</span> <span class="o">=</span> <span class="n">sites</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">spec_ads_stable</span> <span class="o">=</span> <span class="n">spec_ads_stable</span>
@@ -118,13 +122,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Adsorption.get_sites"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption.get_sites">[docs]</a>    <span class="k">def</span> <span class="nf">get_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sites</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sites</span> <span class="c1"># &#39; &#39;.join(self.sites)</span></div>
 
 <div class="viewcode-block" id="Adsorption.out_file_name"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption.out_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">out_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ads</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">ads_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">out_file_name</span><span class="p">()</span>
         <span class="n">substrate_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">out_file_name</span><span class="p">()</span>
-        <span class="n">vasp_file_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">substrate_str</span><span class="p">,</span> <span class="n">ads_str</span><span class="p">])</span>
+        <span class="n">vasp_file_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">substrate_str</span><span class="p">,</span> <span class="n">ads_str</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">vasp_file_str</span></div>
 
 <div class="viewcode-block" id="Adsorption.out_print"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption.out_print">[docs]</a>    <span class="k">def</span> <span class="nf">out_print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -132,15 +136,19 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">)):</span>
             <span class="n">species_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">out_print</span><span class="p">())</span>
 
-        <span class="n">species_str</span> <span class="o">=</span> <span class="s1">&#39; and &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species_str</span><span class="p">)</span>
+        <span class="n">species_str</span> <span class="o">=</span> <span class="s2">&quot; and &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">species_str</span><span class="p">)</span>
         <span class="n">substrate_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">out_print</span><span class="p">()</span>
-        <span class="n">print_str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> adsorption on </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">species_str</span><span class="p">,</span> <span class="n">substrate_str</span><span class="p">)</span>
+        <span class="n">print_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">species_str</span><span class="si">}</span><span class="s2"> adsorption on </span><span class="si">{</span><span class="n">substrate_str</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="n">print_str</span></div>
 
 <div class="viewcode-block" id="Adsorption.construct"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
-            <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_single_adsorption</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_single_adsorption</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ele</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()[</span><span class="mi">1</span><span class="p">:])</span> <span class="c1">### wzj 20230518</span>
+                <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_single_adsorption</span><span class="p">(</span><span class="n">ele</span><span class="o">=</span><span class="n">ele</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
             <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_double_adsorption</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Supports only &quot;1&quot; &quot;2&quot; adsorption sites for ads!&#39;</span><span class="p">)</span>
@@ -152,20 +160,29 @@
 
 <div class="viewcode-block" id="Adsorption.remove_same"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption.remove_same">[docs]</a>    <span class="k">def</span> <span class="nf">remove_same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slabs_ads</span><span class="p">):</span>
         <span class="c1"># To choose the config whose neighbor list includes the doped atoms</span>
-        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;p1&#39;</span><span class="p">]</span>
-        <span class="n">p1_symb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;p1_symb&#39;</span><span class="p">]</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">]</span>
+        <span class="n">p1_symb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s2">&quot;p1_symb&quot;</span><span class="p">]</span>
         <span class="n">slabs_ads_near</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">slb</span> <span class="ow">in</span> <span class="n">slabs_ads</span><span class="p">:</span>
-            <span class="n">bind_adatoms</span><span class="p">,</span> <span class="n">bind_adatoms_symb</span><span class="p">,</span> <span class="n">bind_type_symb</span><span class="p">,</span> <span class="n">adspecie</span><span class="p">,</span> <span class="n">bind_surfatoms</span><span class="p">,</span> <span class="n">bind_surfatoms_symb</span> <span class="o">=</span> \
-                <span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">slb</span><span class="p">)</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">p1_symb</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="p">(</span>
+                <span class="n">bind_adatoms</span><span class="p">,</span>
+                <span class="n">bind_adatoms_symb</span><span class="p">,</span>
+                <span class="n">bind_type_symb</span><span class="p">,</span>
+                <span class="n">adspecie</span><span class="p">,</span>
+                <span class="n">bind_surfatoms</span><span class="p">,</span>
+                <span class="n">bind_surfatoms_symb</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">slb</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">p1_symb</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
                 <span class="n">slabs_ads_near</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="p">]</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span> <span class="ow">and</span> \
-                    <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">p1_symb</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">p1_symb</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
+            <span class="k">elif</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span>
+                <span class="ow">and</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">p1_symb</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="ow">or</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">p1_symb</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+            <span class="p">):</span>
                 <span class="n">slabs_ads_near</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">slabs_ads_near</span></div>
 
-<div class="viewcode-block" id="Adsorption.Construct_single_adsorption"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption.Construct_single_adsorption">[docs]</a>    <span class="k">def</span> <span class="nf">Construct_single_adsorption</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Adsorption.Construct_single_adsorption"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption.Construct_single_adsorption">[docs]</a>    <span class="k">def</span> <span class="nf">Construct_single_adsorption</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ele</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="c1"># generate surface adsorption configuration</span>
         <span class="n">slab_ad</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">slabs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">construct</span><span class="p">()</span>
@@ -174,8 +191,19 @@
             <span class="n">coordinates</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
             <span class="n">builder</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
             <span class="n">ads_use</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coordinates</span><span class="p">):</span>
-                <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads_use</span><span class="p">,</span> <span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">site_index</span><span class="o">=</span><span class="n">j</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ele</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">chemical_symbols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ads_use</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">())</span>
+                <span class="n">bond_atom_ids</span> <span class="o">=</span> <span class="n">chemical_symbols</span><span class="p">[</span><span class="n">chemical_symbols</span><span class="o">==</span><span class="n">ele</span><span class="p">]</span>
+                <span class="n">bond_atom_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">chemical_symbols</span><span class="o">==</span><span class="n">ele</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="c1">### print(&#39;bond_atom_ids =&#39;, bond_atom_ids, bond_atom_ids.shape)</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coordinates</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">bond_id</span> <span class="ow">in</span> <span class="n">bond_atom_ids</span><span class="p">:</span>
+                        <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads_use</span><span class="p">,</span> <span class="n">bond</span><span class="o">=</span><span class="n">bond_id</span><span class="p">,</span> <span class="n">site_index</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">direction_mode</span><span class="o">=</span><span class="s1">&#39;decision_boundary&#39;</span><span class="p">)]</span>
+                        <span class="c1">#if len(bond_atom_ids) &gt; 1:</span>
+                        <span class="c1">#    slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j, direction_mode=&#39;decision_boundary&#39;, direction_args=bond_atom_ids)]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">coord</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">coordinates</span><span class="p">):</span>
+                    <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads_use</span><span class="p">,</span> <span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">site_index</span><span class="o">=</span><span class="n">j</span><span class="p">)]</span>
         <span class="k">return</span> <span class="n">slab_ad</span></div>
 
 <div class="viewcode-block" id="Adsorption.Construct_double_adsorption"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Adsorption.Construct_double_adsorption">[docs]</a>    <span class="k">def</span> <span class="nf">Construct_double_adsorption</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -197,21 +225,23 @@
             <span class="n">spec1</span> <span class="o">=</span> <span class="n">init_from_ads</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">species_dict</span><span class="p">)</span>
             <span class="n">sites1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">substrates</span><span class="p">:</span>
-                <span class="n">ads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">([</span><span class="n">spec1</span><span class="p">],</span> <span class="p">[</span><span class="n">sites1</span><span class="p">],</span> <span class="n">substrate</span><span class="o">=</span><span class="n">j</span><span class="p">))</span>
+                <span class="n">ads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="p">([</span><span class="n">spec1</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">sites1</span><span class="p">),</span> <span class="n">substrate</span><span class="o">=</span><span class="n">j</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">ads</span></div></div>
 
 
 <div class="viewcode-block" id="Coadsorption"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Coadsorption">[docs]</a><span class="k">class</span> <span class="nc">Coadsorption</span><span class="p">(</span><span class="n">Adsorption</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">species</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">sites</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">spec_ads_stable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">substrate</span><span class="o">=</span><span class="n">Slab</span><span class="p">()):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">species</span><span class="p">,</span> <span class="n">sites</span><span class="p">,</span> <span class="n">spec_ads_stable</span><span class="p">,</span> <span class="n">substrate</span><span class="p">)</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Coads need Two adsorption Species, but </span><span class="si">%d</span><span class="s1"> was given&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">species</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Coads need Two adsorption Species, but </span><span class="si">%d</span><span class="s2"> was given&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">species</span>
+        <span class="p">)</span>
 
 <div class="viewcode-block" id="Coadsorption.construct"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Coadsorption.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1 1&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;1 1&quot;</span><span class="p">:</span>
             <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_coadsorption_11</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;1 2&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;1 2&quot;</span><span class="p">:</span>
             <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_coadsorption_12</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;2 2&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;2 2&quot;</span><span class="p">:</span>
             <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_coadsorption_22</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Supports only &quot;1 1&quot; &quot;1 2&quot; &quot;2 2&quot; adsorption sites for coads!&#39;</span><span class="p">)</span>
@@ -223,19 +253,25 @@
         <span class="n">ads</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">every_species</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">:</span>
             <span class="n">ads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">every_species</span><span class="o">.</span><span class="n">out_file_name</span><span class="p">())</span>
-        <span class="n">ads_str</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ads</span><span class="p">)</span>
+        <span class="n">ads_str</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ads</span><span class="p">)</span>
         <span class="n">substrate_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">out_file_name</span><span class="p">()</span>
-        <span class="n">vasp_file_str</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">substrate_str</span><span class="p">,</span> <span class="n">ads_str</span><span class="p">])</span>
+        <span class="n">vasp_file_str</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">substrate_str</span><span class="p">,</span> <span class="n">ads_str</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">vasp_file_str</span></div>
 
 <div class="viewcode-block" id="Coadsorption.remove_same"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Coadsorption.remove_same">[docs]</a>    <span class="k">def</span> <span class="nf">remove_same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slabs_ads</span><span class="p">):</span>
         <span class="c1"># To choose the config whose neighbor list includes the doped atoms</span>
-        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;p1&#39;</span><span class="p">]</span>
-        <span class="n">p1_symb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s1">&#39;p1_symb&#39;</span><span class="p">]</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s2">&quot;p1&quot;</span><span class="p">]</span>
+        <span class="n">p1_symb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="s2">&quot;p1_symb&quot;</span><span class="p">]</span>
         <span class="n">slabs_ads_near</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">slb</span> <span class="ow">in</span> <span class="n">slabs_ads</span><span class="p">:</span>
-            <span class="n">bind_adatoms</span><span class="p">,</span> <span class="n">bind_adatoms_symb</span><span class="p">,</span> <span class="n">bind_type_symb</span><span class="p">,</span> <span class="n">adspecie</span><span class="p">,</span> <span class="n">bind_surfatoms</span><span class="p">,</span> <span class="n">bind_surfatoms_symb</span> <span class="o">=</span> \
-                <span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">slb</span><span class="p">)</span>
+            <span class="p">(</span>
+                <span class="n">bind_adatoms</span><span class="p">,</span>
+                <span class="n">bind_adatoms_symb</span><span class="p">,</span>
+                <span class="n">bind_type_symb</span><span class="p">,</span>
+                <span class="n">adspecie</span><span class="p">,</span>
+                <span class="n">bind_surfatoms</span><span class="p">,</span>
+                <span class="n">bind_surfatoms_symb</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">slb</span><span class="p">)</span>
             <span class="n">bind_surfatoms_symb_all</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">bind_surfatoms_symb</span><span class="p">,</span> <span class="p">[])</span>
             <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">p1_symb</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">bind_surfatoms_symb_all</span><span class="p">):</span>
                 <span class="n">slabs_ads_near</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="p">]</span>
@@ -254,7 +290,9 @@
             <span class="n">ads1_use</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">()</span>
             <span class="n">ads2_use</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">species</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">sitetype</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">site01</span><span class="o">.</span><span class="n">get_symmetric_sites</span><span class="p">()):</span>
-                <span class="n">slab</span> <span class="o">=</span> <span class="n">builder01</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads1_use</span><span class="p">,</span> <span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">site_index</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">auto_construct</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">slab</span> <span class="o">=</span> <span class="n">builder01</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span>
+                    <span class="n">ads1_use</span><span class="p">,</span> <span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">site_index</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">auto_construct</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
                 <span class="n">coord01</span> <span class="o">=</span> <span class="n">site01</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()[</span><span class="n">k</span><span class="p">]</span>
                 <span class="n">site02</span> <span class="o">=</span> <span class="n">AdsorptionSites</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
                 <span class="n">coordinates02</span> <span class="o">=</span> <span class="n">site02</span><span class="o">.</span><span class="n">get_coordinates</span><span class="p">()</span>
@@ -266,14 +304,24 @@
                         <span class="k">continue</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">builder02</span> <span class="o">=</span> <span class="n">Builder</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
-                        <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder02</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span> <span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">site_index</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">auto_construct</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+                        <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span>
+                            <span class="n">builder02</span><span class="o">.</span><span class="n">_single_adsorption</span><span class="p">(</span>
+                                <span class="n">ads2_use</span><span class="p">,</span> <span class="n">bond</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">site_index</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">auto_construct</span><span class="o">=</span><span class="kc">True</span>
+                            <span class="p">)</span>
+                        <span class="p">]</span>
 
-        <span class="n">typ</span> <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;bri&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;fcc&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;hcp&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;4-fold&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+        <span class="n">typ</span> <span class="o">=</span> <span class="p">{</span><span class="kc">None</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;bri&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;fcc&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;hcp&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;4-fold&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
         <span class="c1"># view(slab_ad)</span>
         <span class="n">slab_ad_final</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">adslab</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slab_ad</span><span class="p">):</span>
-            <span class="n">bind_adatoms</span><span class="p">,</span> <span class="n">bind_adatoms_symb</span><span class="p">,</span> <span class="n">adspecie</span><span class="p">,</span> <span class="n">bind_type_symb</span><span class="p">,</span> <span class="n">bind_surfatoms</span><span class="p">,</span> <span class="n">bind_surfatoms_symb</span> <span class="o">=</span> \
-                <span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">adslab</span><span class="p">)</span>
+            <span class="p">(</span>
+                <span class="n">bind_adatoms</span><span class="p">,</span>
+                <span class="n">bind_adatoms_symb</span><span class="p">,</span>
+                <span class="n">adspecie</span><span class="p">,</span>
+                <span class="n">bind_type_symb</span><span class="p">,</span>
+                <span class="n">bind_surfatoms</span><span class="p">,</span>
+                <span class="n">bind_surfatoms_symb</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">adslab</span><span class="p">)</span>
             <span class="n">adspecie_tmp</span><span class="p">,</span> <span class="n">bind_type_symb_tmp</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">spe</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">adspecie</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">spe</span> <span class="ow">in</span> <span class="n">ads_type</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -283,7 +331,8 @@
                 <span class="c1"># print(&#39;Can not identify the config!&#39;)</span>
                 <span class="n">slab_ad_final</span> <span class="o">+=</span> <span class="p">[</span><span class="n">adslab</span><span class="p">]</span>
             <span class="k">elif</span> <span class="n">typ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bind_type_symb_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">in</span> <span class="n">ads_type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">adspecie_tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">and</span> <span class="n">typ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-                    <span class="n">bind_type_symb_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">in</span> <span class="n">ads_type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">adspecie_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">bind_type_symb_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">)</span> <span class="ow">in</span> <span class="n">ads_type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">adspecie_tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
                 <span class="n">slab_ad_final</span> <span class="o">+=</span> <span class="p">[</span><span class="n">adslab</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">slab_ad_final</span></div>
 
@@ -332,7 +381,9 @@
                     <span class="k">elif</span> <span class="n">dis</span> <span class="o">&gt;</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                         <span class="k">continue</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder02</span><span class="o">.</span><span class="n">_double_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span> <span class="n">bonds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">j</span><span class="p">)]</span>
+                        <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span>
+                            <span class="n">builder02</span><span class="o">.</span><span class="n">_double_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span> <span class="n">bonds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">j</span><span class="p">)</span>
+                        <span class="p">]</span>
         <span class="k">return</span> <span class="n">slab_ad</span></div>
 
 <div class="viewcode-block" id="Coadsorption.Construct_coadsorption_22"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Coadsorption.Construct_coadsorption_22">[docs]</a>    <span class="k">def</span> <span class="nf">Construct_coadsorption_22</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -379,7 +430,11 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">dis1</span> <span class="o">=</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.1</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">coord11</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">dis2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">coord00</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord11</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">coord00</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord11</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">coord00</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord11</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                        <span class="n">dis2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span>
+                            <span class="n">coord00</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord11</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                            <span class="n">coord00</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord11</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                            <span class="n">coord00</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">coord11</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                        <span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">dis2</span> <span class="o">=</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.1</span>
                     <span class="n">dis</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dis1</span><span class="p">,</span> <span class="n">dis2</span><span class="p">)</span>
@@ -389,7 +444,9 @@
                     <span class="k">elif</span> <span class="n">dis</span> <span class="o">&gt;</span> <span class="n">dis_inter</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
                         <span class="k">continue</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span><span class="n">builder02</span><span class="o">.</span><span class="n">_double_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span> <span class="n">bonds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">j</span><span class="p">)]</span>
+                        <span class="n">slab_ad</span> <span class="o">+=</span> <span class="p">[</span>
+                            <span class="n">builder02</span><span class="o">.</span><span class="n">_double_adsorption</span><span class="p">(</span><span class="n">ads2_use</span><span class="p">,</span> <span class="n">bonds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">edge_index</span><span class="o">=</span><span class="n">j</span><span class="p">)</span>
+                        <span class="p">]</span>
         <span class="k">return</span> <span class="n">slab_ad</span></div>
 
 <div class="viewcode-block" id="Coadsorption.from_input"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Coadsorption.from_input">[docs]</a>    <span class="nd">@classmethod</span>
@@ -408,15 +465,18 @@
 <div class="viewcode-block" id="ads_from_input"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.ads_from_input">[docs]</a><span class="k">def</span> <span class="nf">ads_from_input</span><span class="p">(</span><span class="n">ads_model</span><span class="p">,</span> <span class="n">substrate</span><span class="p">,</span> <span class="n">species_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">ads</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">new_ads</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">ads_type_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ads&#39;</span><span class="p">,</span> <span class="s1">&#39;coads&#39;</span><span class="p">]</span>
+    <span class="n">ads_type_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ads&quot;</span><span class="p">,</span> <span class="s2">&quot;coads&quot;</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">ads_model</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;coads&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;coads&quot;</span><span class="p">:</span>
             <span class="n">new_ads</span> <span class="o">=</span> <span class="n">Coadsorption</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">substrate</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;ads&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;ads&quot;</span><span class="p">:</span>
             <span class="n">new_ads</span> <span class="o">=</span> <span class="n">Adsorption</span><span class="o">.</span><span class="n">from_input</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">substrate</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ads_type_list</span><span class="p">)</span>
-            <span class="n">warn_msg</span> <span class="o">=</span> <span class="s1">&#39;Only support species type: </span><span class="si">%s</span><span class="s1">, Your input </span><span class="si">%s</span><span class="s1"> part in Species will be dismiss&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ads_type_list</span><span class="p">)</span>
+            <span class="n">warn_msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;Only support species type: </span><span class="si">%s</span><span class="s2">, Your input </span><span class="si">%s</span><span class="s2"> part in Species will be dismiss&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+            <span class="p">)</span>
             <span class="k">raise</span> <span class="ne">Warning</span><span class="p">(</span><span class="n">warn_msg</span><span class="p">)</span>
         <span class="n">ads</span> <span class="o">=</span> <span class="n">ads</span> <span class="o">+</span> <span class="n">new_ads</span>
     <span class="k">return</span> <span class="n">ads</span></div>
@@ -435,7 +495,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-
+   
 
 </footer>
         </div>
@@ -446,7 +506,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
+  </script> 
 
 </body>
 </html>
