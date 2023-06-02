@@ -1,4 +1,4 @@
-from HTMACat.model.Substrate import Bulk, Slab, File_Substrate
+from HTMACat.model.Substrate import Bulk, Slab, FileSlab
 from HTMACat.catkit.gen.surface import SlabGenerator
 from HTMACat.catkit.gen.adsorption import AdsorptionSites
 from HTMACat.catkit.gratoms import Gratoms

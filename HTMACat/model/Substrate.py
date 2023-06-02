@@ -12,20 +12,21 @@ from HTMACat.catkit.gen.adsorption import AdsorptionSites
 from HTMACat.catkit.gratoms import Gratoms
 import numpy as np
 from HTMACat.model.Structure import Structure
+from HTMACat.Base_tools import *
 
 
 class Bulk:
     def __init__(
         self,
-        main_element="Pt",
+        element="Pt",
         lattice_type="fcc",
         lattice_constant=None,
         ele_dop="Cu",
         natom_dop="0",
-        super_cell=None,
+        supercell=None,
     ):
-        if super_cell is None:
-            super_cell = [3, 3, 1]
+        if supercell is None:
+            supercell = [3, 3]
         if lattice_constant is None:
             lattice_constant = {"a": 3.96}
         if isinstance(natom_dop, int):
@@ -36,14 +37,14 @@ class Bulk:
         else:
             self.lattice_constant = lattice_constant  # 不同的lattice_type有不同的constant，hcp有个两个constant
 
-        self.main_element = main_element
+        self.main_element = element
         self.lattice_type = lattice_type
         self.ele_dop = ele_dop
         self.natom_dop = natom_dop
         if self.natom_dop[0] == "b":
-            self.super_cell = [2, 2, 1]
+            self.supercell = [2, 2, 1]
         else:
-            self.super_cell = super_cell
+            self.supercell = supercell + [1]
 
     def set_lattice_constant(self, latcont):
         if not isinstance(latcont, list):
@@ -55,8 +56,8 @@ class Bulk:
     def get_ele_dop(self):
         return self.ele_dop
 
-    def get_super_cell(self):
-        return self.super_cell
+    def get_supercell(self):
+        return self.supercell
 
     def get_natom_dop(self):
         return self.natom_dop
@@ -97,30 +98,16 @@ class Bulk:
     def get_dop_element(self):
         return self.ele_dop
 
-    @classmethod
-    def from_dict(cls, init_dict):
-        main_element = init_dict["element"]
-        lattice_type = init_dict["lattype"]
-        lattice_const = init_dict["latcont"]
-        ele_dop = init_dict["element_dop"]
-        natom_dop = init_dict["dop_type"]
-        supercell = init_dict["supercell"]
-        return cls(
-            main_element=main_element,
-            lattice_type=lattice_type,
-            lattice_constant=lattice_const,
-            ele_dop=ele_dop,
-            natom_dop=natom_dop,
-            super_cell=supercell,
-        )
+
 
 
 class Slab(Structure):
-    def __init__(self, in_bulk=Bulk(), facet="100"):
+    def __init__(self, in_bulk=Bulk(), facet="100", layers=4):
         self.bulk = in_bulk
         self.file = None
         self.facet = facet
         self.property = {}
+        self.layers = layers
         if "p1" not in self.property or "p1_symb" not in self.property:
             self.property["p1"] = []
             self.property["p1_symb"] = []
@@ -139,6 +126,9 @@ class Slab(Structure):
 
     def get_facet(self):
         return self.facet
+
+    def get_layers(self):
+        return self.layers
 
     def out_file_name(self):
         mname = self.bulk.get_main_element()
@@ -188,12 +178,13 @@ class Slab(Structure):
         slab = []
         miller_index = self.get_miller_index()
         mbulk = self.bulk.construct()
-        super_cell = self.bulk.get_super_cell()
+        supercell = self.bulk.get_supercell()
+        layers = self.get_layers()
         ##### generate the surfaces #####
         gen = SlabGenerator(
             mbulk,
             miller_index=miller_index,
-            layers=4,
+            layers=layers,
             fixed=2,
             layer_type="trim",
             vacuum=8,
@@ -201,7 +192,7 @@ class Slab(Structure):
         )
         terminations = gen.get_unique_terminations()
         for i, t in enumerate(terminations):
-            slab += [gen.get_slab(iterm=i) * super_cell]
+            slab += [gen.get_slab(iterm=i) * supercell]
         return slab
 
     def Construct_1stLayer_slab(self):
@@ -250,34 +241,35 @@ class Slab(Structure):
         return slb
 
     @classmethod
-    def from_dict(cls, init_dict):
-        in_bulk = Bulk.from_dict(init_dict)
-        facet = init_dict["facet"]
-        return cls(in_bulk, facet)
+    def init_one_slab(cls, init_dict):
+        # initialize bulk
+        bulk_list = ['element','lattice_type','lattice_constant','ele_dop','natom_dop','supercell']
+        bulk_init_dict = get_new_dict(bulk_list, init_dict)
+        in_bulk = Bulk(**bulk_init_dict)
+        # get the parameters for slab initialization
+        slab_list = ['facet','layers']
+        slab_init_dict = get_new_dict(slab_list, init_dict)
+
+        return cls(in_bulk, **slab_init_dict)
 
     @classmethod
-    def from_input(cls, struct_Info: dict):
+    def init_all_slab(cls, struct_Info: dict):
         assert isinstance(
             struct_Info, dict
         ), "Substrates init by self defined struct should be dict!"
         if struct_Info == {}:
             return []
         substrates = []
-
-        struct_init_dict = {
-            "element": struct_Info["element"],
-            "lattype": struct_Info["lattype"],
-            "latcont": struct_Info["latcont"],
-            "supercell": struct_Info["supercell"],
-        }
-        dope_init_dict = {"element_dop": [], "dop_type": []}
-        surface_init_dict = {"facet": []}
+        # get the parameters for struct initialization
+        struct_list = ['element','lattice_type','lattice_constant','super_cell','layers']
+        struct_init_dict = get_new_dict(struct_list,struct_Info)
+        # get the parameters for dope and surface initialization
         dope_system = struct_Info["dope"]
         dope_init_list = []
         surface_init_list = []
         for key, value in dope_system.items():
             for i in value:
-                dope_init_list.append({"element_dop": key, "dop_type": i})
+                dope_init_list.append({"ele_dop": key, "natom_dop": i})
         for i in struct_Info["facet"]:
             surface_init_list.append({"facet": i})
 
@@ -285,12 +277,12 @@ class Slab(Structure):
         for i in range(len(dope_init_list)):
             for j in range(len(surface_init_list)):
                 init_dict = {**struct_init_dict, **dope_init_list[i], **surface_init_list[j]}
-                substrates.append(cls.from_dict(init_dict))
+                substrates.append(cls.init_one_slab(init_dict))
 
         return substrates
 
 
-class File_Substrate(Structure):
+class FileSlab(Structure):
     def __init__(self, filename):
         self.filename = filename
         try:
@@ -361,12 +353,9 @@ class File_Substrate(Structure):
     def out_file_name(self) -> str:
         return self.filename
 
-    @classmethod
-    def from_dict(cls, init_dict):
-        return cls(init_dict["filename"])
 
     @classmethod
-    def from_input(cls, input_list: list):
+    def init_all_slab(cls, input_list: list):
         assert isinstance(input_list, list), "Substrates reading from file should be list!"
         substrates = []
         for filename in input_list:
@@ -377,6 +366,6 @@ class File_Substrate(Structure):
 
 def substrate_from_input(init_dict):
     substrates = []
-    substrates = substrates + File_Substrate.from_input(init_dict["file"])
-    substrates = substrates + Slab.from_input(init_dict["struct"])
+    substrates = substrates + FileSlab.init_all_slab(init_dict["file"])
+    substrates = substrates + Slab.init_all_slab(init_dict["struct"])
     return substrates
