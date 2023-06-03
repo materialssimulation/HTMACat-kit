@@ -1,16 +1,16 @@
 StrucInfo:
-  element: Au
-  lattype: fcc
-  latcont: 4.16
-  facet: ['111']
-  dope:
-    Cu: [3]
+  struct:
+    element: Au
+    lattice_type: fcc
+    lattice_constant: 4.16
+    facet: ["111"]
+    dope:
+      Cu: [3]
 
 Model:
-  SML: True
   coads:
-    - ['N','[O]',1,1]
-    - ['[NH2]','[OH]',1,1]
-    - ['[N]','[N]',1,1]
-    - ['[N]','[O]',1,1]
-    - ['[N]','[N]=O',1,1]
+    - [s: "N", s: "[O]", 1, 1]
+    - [s: "[NH2]", s: "[OH]", 1, 1]
+    - [s: "[N]", s: "[N]", 1, 1]
+    - [s: "[N]", s: "[O]", 1, 1]
+    - [s: "[N]", s: "[N]=O", 1, 1]

@@ -1,0 +1,14 @@
+StrucInfo:
+  struct:
+    element: Au
+    lattice_type: fcc
+    lattice_constant: 4.16
+    facet: ["111"]
+    supercell: [6, 6]
+    layers: 8
+    dope:
+      Cu: ["1"]
+
+Model:
+  ads:
+    - ["HCOOH", 1]

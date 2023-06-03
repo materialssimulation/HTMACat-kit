@@ -1,0 +1,23 @@
+StrucInfo:
+  struct:
+    element: Pt
+    lattice_type: fcc
+    lattice_constant: 3.92
+    facet: ["111"]
+    dope:
+      Cu: [0]
+
+#不定义默认是simple格式
+Species:
+  file:
+    "NH3+": NH3+.xyz #struct_file
+  sml:
+    "O2": O=O #smiles
+
+Model:
+  ads:
+    - ["NH3+", 1]
+    - [f: "NH3-.xyz", 1]
+    - ["NO", 2]
+    - ["O2", 2]
+    - [s: "O=O", 1]

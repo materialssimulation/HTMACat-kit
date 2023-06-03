@@ -11,10 +11,8 @@
   <![endif]-->
   
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -41,8 +39,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Get_start.html"><strong>Get_start</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Getting_started.html"><strong>Getting started</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Examples.html"><strong>Examples</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../HTMACat.html">HTMACat package</a></li>
 </ul>
@@ -72,8 +70,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for HTMACat.NEB.Construct_neb</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: UTF-8 -*-</span>
-<span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">io</span>
+<span></span><span class="kn">from</span> <span class="nn">ase</span> <span class="kn">import</span> <span class="n">io</span>
 <span class="kn">from</span> <span class="nn">ase.geometry</span> <span class="kn">import</span> <span class="n">get_distances</span><span class="p">,</span> <span class="n">Cell</span>
 <span class="kn">from</span> <span class="nn">ase.neb</span> <span class="kn">import</span> <span class="n">NEB</span>
 <span class="kn">from</span> <span class="nn">ase.neb</span> <span class="kn">import</span> <span class="n">interpolate</span>
@@ -82,9 +79,8 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="Construct_neb"><a class="viewcode-back" href="../../../HTMACat.NEB.html#HTMACat.NEB.Construct_neb.Construct_neb">[docs]</a><span class="k">def</span> <span class="nf">Construct_neb</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">method_inter</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">nimages</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">dcut</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">d_scaled</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Construct a Nudged Elastic Band (NEB) for transitioning between two structures.</span>
+<div class="viewcode-block" id="Construct_neb"><a class="viewcode-back" href="../../../HTMACat.NEB.html#HTMACat.NEB.Construct_neb.Construct_neb">[docs]</a><span class="k">def</span> <span class="nf">Construct_neb</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">method_inter</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">nimages</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">dcut</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">d_scaled</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Construct a Nudged Elastic Band (NEB) for transitioning between two structures.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -108,11 +104,10 @@
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; struct = [&#39;initial.vasp&#39;, &#39;final.vasp&#39;]</span>
 <span class="sd">    &gt;&gt;&gt; images = Construct_neb(struct, method_inter=&#39;idpp&#39;, nimages=10, dcut=0.2, d_scaled=0.3)s</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">###Read initial and final states:</span>
-    <span class="n">initial</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">struct</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;vasp&#39;</span><span class="p">)</span>
-    <span class="n">final</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">struct</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;vasp&#39;</span><span class="p">)</span>
+    <span class="n">initial</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">struct</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;vasp&quot;</span><span class="p">)</span>
+    <span class="n">final</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">struct</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;vasp&quot;</span><span class="p">)</span>
 
     <span class="c1">###fixed atoms distance and indices,modify the positions</span>
     <span class="n">p1_scaled</span> <span class="o">=</span> <span class="n">initial</span><span class="o">.</span><span class="n">get_scaled_positions</span><span class="p">()</span>
@@ -120,7 +115,7 @@
     <span class="n">p1</span> <span class="o">=</span> <span class="n">initial</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()</span>
     <span class="n">p2</span> <span class="o">=</span> <span class="n">final</span><span class="o">.</span><span class="n">get_positions</span><span class="p">()</span>
 
-    <span class="c1">#print(p2[-1],final.get_scaled_positions()[-1])</span>
+    <span class="c1"># print(p2[-1],final.get_scaled_positions()[-1])</span>
     <span class="n">length</span> <span class="o">=</span> <span class="n">initial</span><span class="o">.</span><span class="n">get_cell_lengths_and_angles</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">Mask</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">Natom</span> <span class="o">=</span> <span class="p">[]</span>
@@ -131,15 +126,17 @@
             <span class="c1"># If larger, add the length to modify the position</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">&gt;</span> <span class="n">d_scaled</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span>
-                                                                    <span class="p">(</span><span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
+                    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span>
+                        <span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="p">):</span>
                         <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
                         <span class="n">initial</span><span class="o">.</span><span class="n">set_scaled_positions</span><span class="p">(</span><span class="n">p1_scaled</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">pass</span>
                 <span class="k">elif</span> <span class="p">(</span><span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">d_scaled</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span>
-                                                                    <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">abs</span><span class="p">(</span>
+                        <span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p1_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+                    <span class="p">):</span>
                         <span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">p2_scaled</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
                         <span class="n">final</span><span class="o">.</span><span class="n">set_scaled_positions</span><span class="p">(</span><span class="n">p2_scaled</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -148,12 +145,12 @@
                     <span class="k">continue</span>
 
             <span class="c1"># get the Euclidean Distance</span>
-            <span class="c1">#vector1,vector2=p1[i],p2[i];dis = np.sqrt(np.sum(np.square(vector1-vector2)))</span>
+            <span class="c1"># vector1,vector2=p1[i],p2[i];dis = np.sqrt(np.sum(np.square(vector1-vector2)))</span>
             <span class="n">dis</span> <span class="o">=</span> <span class="n">get_distances</span><span class="p">(</span><span class="n">p1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p2</span><span class="p">[</span><span class="n">i</span><span class="p">])[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="c1">#p1_t=np.array([p1_scaled[i][0]*length[0],p1_scaled[i][1]*length[1],p1_scaled[i][2]*length[2]])</span>
-            <span class="c1">#p2_t=np.array([p2_scaled[i][0]*length[0],p2_scaled[i][1]*length[1],p2_scaled[i][2]*length[2]])</span>
-            <span class="c1">#dis_t= np.sqrt(np.sum(np.square(p1_t-p2_t)))</span>
-            <span class="c1">#print(dis,dis_t)</span>
+            <span class="c1"># p1_t=np.array([p1_scaled[i][0]*length[0],p1_scaled[i][1]*length[1],p1_scaled[i][2]*length[2]])</span>
+            <span class="c1"># p2_t=np.array([p2_scaled[i][0]*length[0],p2_scaled[i][1]*length[1],p2_scaled[i][2]*length[2]])</span>
+            <span class="c1"># dis_t= np.sqrt(np.sum(np.square(p1_t-p2_t)))</span>
+            <span class="c1"># print(dis,dis_t)</span>
             <span class="c1"># according to the dcut(unit:Angstrom),choose the atoms needed to be fixed</span>
             <span class="k">if</span> <span class="n">dis</span> <span class="o">&gt;</span> <span class="n">dcut</span><span class="p">:</span>
                 <span class="n">Mask</span> <span class="o">+=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span>
@@ -162,41 +159,42 @@
                 <span class="n">Natom</span> <span class="o">+=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span>
 
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The numbers of atoms between two structure are not equal !!!&#39;</span><span class="p">)</span>
-    <span class="c1">#view(final)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The numbers of atoms between two structure are not equal !!!&quot;</span><span class="p">)</span>
+    <span class="c1"># view(final)</span>
     <span class="c1">###Make a band consisting of 6 images:</span>
     <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">initial</span><span class="p">]</span>
     <span class="n">images</span> <span class="o">+=</span> <span class="p">[</span><span class="n">initial</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nimages</span><span class="p">)]</span>
     <span class="n">images</span> <span class="o">+=</span> <span class="p">[</span><span class="n">final</span><span class="p">]</span>
     <span class="n">neb</span> <span class="o">=</span> <span class="n">NEB</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
     <span class="c1">###Interpolate idpp or linear the potisions of the six middle images:</span>
-    <span class="k">if</span> <span class="n">method_inter</span> <span class="o">==</span> <span class="s1">&#39;linear&#39;</span><span class="p">:</span>
-        <span class="n">neb</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">method_inter</span> <span class="o">==</span> <span class="s1">&#39;idpp&#39;</span><span class="p">:</span>
-        <span class="n">neb</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;idpp&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">method_inter</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span><span class="p">:</span>
+        <span class="n">neb</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method_inter</span> <span class="o">==</span> <span class="s2">&quot;idpp&quot;</span><span class="p">:</span>
+        <span class="n">neb</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;idpp&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;the interpolate method no exist!&#39;</span><span class="p">)</span>
-        <span class="c1">#ima=neb.iterimages()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the interpolate method no exist!&quot;</span><span class="p">)</span>
+        <span class="c1"># ima=neb.iterimages()</span>
 
     <span class="c1">###fixed atoms</span>
     <span class="c1">##method 1:constraint = FixAtoms(indices=Natom)</span>
     <span class="c1">##method 2:constraint = FixAtoms(mask=Mask)</span>
     <span class="n">constraint</span> <span class="o">=</span> <span class="n">FixAtoms</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="n">Mask</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
-        <span class="c1">#image.calc = Vasp(xc=&#39;PBE&#39;)</span>
+        <span class="c1"># image.calc = Vasp(xc=&#39;PBE&#39;)</span>
         <span class="n">image</span><span class="o">.</span><span class="n">set_constraint</span><span class="p">(</span><span class="n">constraint</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">images</span></div>
 
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">os</span>
     <span class="kn">from</span> <span class="nn">ase.io.vasp</span> <span class="kn">import</span> <span class="n">write_vasp</span><span class="p">,</span> <span class="n">read_vasp</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm -rf 0*&#39;</span><span class="p">)</span>
-    <span class="n">ima</span> <span class="o">=</span> <span class="n">Construct_neb</span><span class="p">([</span><span class="s1">&#39;POSstart&#39;</span><span class="p">,</span> <span class="s1">&#39;POSend&#39;</span><span class="p">],</span> <span class="n">method_inter</span><span class="o">=</span><span class="s1">&#39;idpp&#39;</span><span class="p">,</span> <span class="n">d_scaled</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">dcut</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;rm -rf 0*&quot;</span><span class="p">)</span>
+    <span class="n">ima</span> <span class="o">=</span> <span class="n">Construct_neb</span><span class="p">([</span><span class="s2">&quot;POSstart&quot;</span><span class="p">,</span> <span class="s2">&quot;POSend&quot;</span><span class="p">],</span> <span class="n">method_inter</span><span class="o">=</span><span class="s2">&quot;idpp&quot;</span><span class="p">,</span> <span class="n">d_scaled</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">dcut</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ima</span><span class="p">)):</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;0</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mo">0o777</span><span class="p">)</span>
-        <span class="n">write_vasp</span><span class="p">(</span><span class="s1">&#39;0</span><span class="si">%s</span><span class="s1">/POSCAR&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">ima</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">direct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span> <span class="n">vasp5</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s1"> images are constructed&#39;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;0</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="mo">0o777</span><span class="p">)</span>
+        <span class="n">write_vasp</span><span class="p">(</span><span class="s2">&quot;0</span><span class="si">%s</span><span class="s2">/POSCAR&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">ima</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">direct</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span> <span class="n">vasp5</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s2"> images are constructed&quot;</span><span class="p">)</span>
 </pre></div>
 
            </div>

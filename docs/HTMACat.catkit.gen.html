@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.catkit.gen package &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="HTMACat.catkit.gen.utils package" href="HTMACat.catkit.gen.utils.html" />
+    <link rel="prev" title="HTMACat.catkit.data package" href="HTMACat.catkit.data.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html"><strong>Getting started</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="HTMACat.html">HTMACat package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="HTMACat.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.NEB.html">HTMACat.NEB package</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="HTMACat.catkit.html">HTMACat.catkit package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="HTMACat.catkit.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#module-HTMACat.catkit.build">HTMACat.catkit.build module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#module-HTMACat.catkit.gratoms">HTMACat.catkit.gratoms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#module-HTMACat.catkit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.descriptor.html">HTMACat.descriptor package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.model.html">HTMACat.model package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.post.html">HTMACat.post package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Base_tools">HTMACat.Base_tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Extract_info">HTMACat.Extract_info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.IO">HTMACat.IO module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.command">HTMACat.command module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.configuration">HTMACat.configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="HTMACat.html">HTMACat package</a></li>
+          <li class="breadcrumb-item"><a href="HTMACat.catkit.html">HTMACat.catkit package</a></li>
+      <li class="breadcrumb-item active">HTMACat.catkit.gen package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/HTMACat.catkit.gen.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="htmacat-catkit-gen-package">
+<h1>HTMACat.catkit.gen package<a class="headerlink" href="#htmacat-catkit-gen-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="HTMACat.catkit.gen.utils.html">HTMACat.catkit.gen.utils package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.connectivity">HTMACat.catkit.gen.utils.connectivity module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.connectivity.get_cutoff_neighbors"><code class="docutils literal notranslate"><span class="pre">get_cutoff_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.connectivity.get_voronoi_neighbors"><code class="docutils literal notranslate"><span class="pre">get_voronoi_neighbors()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.coordinates">HTMACat.catkit.gen.utils.coordinates module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.coordinates.expand_cell"><code class="docutils literal notranslate"><span class="pre">expand_cell()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.coordinates.get_integer_enumeration"><code class="docutils literal notranslate"><span class="pre">get_integer_enumeration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.coordinates.get_unique_coordinates"><code class="docutils literal notranslate"><span class="pre">get_unique_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.coordinates.get_unique_xy"><code class="docutils literal notranslate"><span class="pre">get_unique_xy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.coordinates.matching_coordinates"><code class="docutils literal notranslate"><span class="pre">matching_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.coordinates.matching_sites"><code class="docutils literal notranslate"><span class="pre">matching_sites()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.coordinates.trilaterate"><code class="docutils literal notranslate"><span class="pre">trilaterate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.graph">HTMACat.catkit.gen.utils.graph module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.graph.connectivity_to_edges"><code class="docutils literal notranslate"><span class="pre">connectivity_to_edges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.graph.isomorphic_molecules"><code class="docutils literal notranslate"><span class="pre">isomorphic_molecules()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.utilities">HTMACat.catkit.gen.utils.utilities module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utilities.ext_gcd"><code class="docutils literal notranslate"><span class="pre">ext_gcd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utilities.get_atomic_numbers"><code class="docutils literal notranslate"><span class="pre">get_atomic_numbers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utilities.get_reference_energies"><code class="docutils literal notranslate"><span class="pre">get_reference_energies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utilities.list_gcd"><code class="docutils literal notranslate"><span class="pre">list_gcd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utilities.parse_slice"><code class="docutils literal notranslate"><span class="pre">parse_slice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utilities.running_mean"><code class="docutils literal notranslate"><span class="pre">running_mean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utilities.to_gratoms"><code class="docutils literal notranslate"><span class="pre">to_gratoms()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.utils_mdnm">HTMACat.catkit.gen.utils.utils_mdnm module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utils_mdnm.mol_to_graph"><code class="docutils literal notranslate"><span class="pre">mol_to_graph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.utils_mdnm.solve_normal_vector_linearsvc"><code class="docutils literal notranslate"><span class="pre">solve_normal_vector_linearsvc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.vectors">HTMACat.catkit.gen.utils.vectors module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.vectors.get_basis_vectors"><code class="docutils literal notranslate"><span class="pre">get_basis_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.vectors.get_reciprocal_vectors"><code class="docutils literal notranslate"><span class="pre">get_reciprocal_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.vectors.plane_normal"><code class="docutils literal notranslate"><span class="pre">plane_normal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.connectivity_to_edges"><code class="docutils literal notranslate"><span class="pre">connectivity_to_edges()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.expand_cell"><code class="docutils literal notranslate"><span class="pre">expand_cell()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.ext_gcd"><code class="docutils literal notranslate"><span class="pre">ext_gcd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_atomic_numbers"><code class="docutils literal notranslate"><span class="pre">get_atomic_numbers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_basis_vectors"><code class="docutils literal notranslate"><span class="pre">get_basis_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_cutoff_neighbors"><code class="docutils literal notranslate"><span class="pre">get_cutoff_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_integer_enumeration"><code class="docutils literal notranslate"><span class="pre">get_integer_enumeration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_reciprocal_vectors"><code class="docutils literal notranslate"><span class="pre">get_reciprocal_vectors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_reference_energies"><code class="docutils literal notranslate"><span class="pre">get_reference_energies()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_unique_coordinates"><code class="docutils literal notranslate"><span class="pre">get_unique_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_unique_xy"><code class="docutils literal notranslate"><span class="pre">get_unique_xy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.get_voronoi_neighbors"><code class="docutils literal notranslate"><span class="pre">get_voronoi_neighbors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.isomorphic_molecules"><code class="docutils literal notranslate"><span class="pre">isomorphic_molecules()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.list_gcd"><code class="docutils literal notranslate"><span class="pre">list_gcd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.matching_coordinates"><code class="docutils literal notranslate"><span class="pre">matching_coordinates()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.matching_sites"><code class="docutils literal notranslate"><span class="pre">matching_sites()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.mol_to_graph"><code class="docutils literal notranslate"><span class="pre">mol_to_graph()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.parse_slice"><code class="docutils literal notranslate"><span class="pre">parse_slice()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.plane_normal"><code class="docutils literal notranslate"><span class="pre">plane_normal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.running_mean"><code class="docutils literal notranslate"><span class="pre">running_mean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.solve_normal_vector_linearsvc"><code class="docutils literal notranslate"><span class="pre">solve_normal_vector_linearsvc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.to_gratoms"><code class="docutils literal notranslate"><span class="pre">to_gratoms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#HTMACat.catkit.gen.utils.trilaterate"><code class="docutils literal notranslate"><span class="pre">trilaterate()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-HTMACat.catkit.gen.adsorption">
+<span id="htmacat-catkit-gen-adsorption-module"></span><h2>HTMACat.catkit.gen.adsorption module<a class="headerlink" href="#module-HTMACat.catkit.gen.adsorption" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.adsorption.</span></span><span class="sig-name descname"><span class="pre">AdsorptionSites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Adsorption site object.</p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.ex_sites" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.ex_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ex_sites</span></code></a>(index[, select, cutoff])</p></td>
+<td><p>Get site indices inside or outside of a cutoff radii from a provided periodic site index.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_edges" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_adsorption_edges</span></code></a>([symmetric, periodic])</p></td>
+<td><p>Return the edges of adsorption sties defined as all regions with adjacent vertices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_vectors" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_adsorption_vectors</span></code></a>([unique, screen])</p></td>
+<td><p>Returns the vectors representing the furthest distance from the neighboring atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_connectivity" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_connectivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity</span></code></a>([unique])</p></td>
+<td><p>Return the number of connections associated with each site.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_coordinates" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_coordinates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_coordinates</span></code></a>([unique])</p></td>
+<td><p>Return the 3D coordinates associated with each site.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_periodic_sites" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_periodic_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_periodic_sites</span></code></a>([screen])</p></td>
+<td><p>Return an index of the coordinates which are unique by periodic boundary conditions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_symmetric_sites" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_symmetric_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_symmetric_sites</span></code></a>([unique, screen])</p></td>
+<td><p>Determine the symmetrically unique adsorption sites from a list of fractional coordinates.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_topology" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_topology"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_topology</span></code></a>([unique])</p></td>
+<td><p>Return the indices of adjacent surface atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.plot" title="HTMACat.catkit.gen.adsorption.AdsorptionSites.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>([savefile])</p></td>
+<td><p>Create a visualization of the sites.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.ex_sites">
+<span class="sig-name descname"><span class="pre">ex_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.ex_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.ex_sites" title="Permalink to this definition"></a></dt>
+<dd><p>Get site indices inside or outside of a cutoff radii from a provided periodic site
+index.</p>
+<p>If two sites are provided, an option to return the mutually inclusive points is also
+available.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_edges">
+<span class="sig-name descname"><span class="pre">get_adsorption_edges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symmetric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.get_adsorption_edges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_edges" title="Permalink to this definition"></a></dt>
+<dd><p>Return the edges of adsorption sties defined as all regions with adjacent vertices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>symmetric</strong><span class="classifier">bool</span></dt><dd><p>Return only the symmetrically reduced edges.</p>
+</dd>
+<dt><strong>periodic</strong><span class="classifier">bool</span></dt><dd><p>Return edges which are unique via periodicity.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>edges</strong><span class="classifier">ndarray (n, 2)</span></dt><dd><p>All edges crossing ridge or vertices indexed by the expanded
+unit slab.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_vectors">
+<span class="sig-name descname"><span class="pre">get_adsorption_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.get_adsorption_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_vectors" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the vectors representing the furthest distance from the neighboring atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>vectors</strong><span class="classifier">ndarray (n, 3)</span></dt><dd><p>Adsorption vectors for surface sites.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_connectivity">
+<span class="sig-name descname"><span class="pre">get_connectivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.get_connectivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_connectivity" title="Permalink to this definition"></a></dt>
+<dd><p>Return the number of connections associated with each site.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_coordinates">
+<span class="sig-name descname"><span class="pre">get_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.get_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_coordinates" title="Permalink to this definition"></a></dt>
+<dd><p>Return the 3D coordinates associated with each site.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_periodic_sites">
+<span class="sig-name descname"><span class="pre">get_periodic_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.get_periodic_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_periodic_sites" title="Permalink to this definition"></a></dt>
+<dd><p>Return an index of the coordinates which are unique by periodic boundary conditions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>screen</strong><span class="classifier">bool</span></dt><dd><p>Return only sites inside the unit cell.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>periodic_match</strong><span class="classifier">ndarray (n,)</span></dt><dd><p>Indices of the coordinates which are identical by
+periodic boundary conditions.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_symmetric_sites">
+<span class="sig-name descname"><span class="pre">get_symmetric_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">screen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.get_symmetric_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_symmetric_sites" title="Permalink to this definition"></a></dt>
+<dd><p>Determine the symmetrically unique adsorption sites from a list of fractional
+coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>unique</strong><span class="classifier">bool</span></dt><dd><p>Return only the unique symmetrically reduced sites.</p>
+</dd>
+<dt><strong>screen</strong><span class="classifier">bool</span></dt><dd><p>Return only sites inside the unit cell.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>sites</strong><span class="classifier">dict of lists</span></dt><dd><p>Dictionary of sites containing index of site</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.get_topology">
+<span class="sig-name descname"><span class="pre">get_topology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.get_topology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_topology" title="Permalink to this definition"></a></dt>
+<dd><p>Return the indices of adjacent surface atoms.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.AdsorptionSites.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">savefile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#AdsorptionSites.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites.plot" title="Permalink to this definition"></a></dt>
+<dd><p>Create a visualization of the sites.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.Builder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.adsorption.</span></span><span class="sig-name descname"><span class="pre">Builder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#Builder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.Builder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#HTMACat.catkit.gen.adsorption.AdsorptionSites" title="HTMACat.catkit.gen.adsorption.AdsorptionSites"><code class="xref py py-class docutils literal notranslate"><span class="pre">AdsorptionSites</span></code></a></p>
+<p>Initial module for creation of 3D slab structures with attached adsorbates.</p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.adsorption.Builder.add_adsorbate" title="HTMACat.catkit.gen.adsorption.Builder.add_adsorbate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_adsorbate</span></code></a>(adsorbate[, bonds, index, ...])</p></td>
+<td><p>Add and adsorbate to a slab.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">ex_sites</span></code>(index[, select, cutoff])</p></td>
+<td><p>Get site indices inside or outside of a cutoff radii from a provided periodic site index.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_adsorption_edges</span></code>([symmetric, periodic])</p></td>
+<td><p>Return the edges of adsorption sties defined as all regions with adjacent vertices.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_adsorption_vectors</span></code>([unique, screen])</p></td>
+<td><p>Returns the vectors representing the furthest distance from the neighboring atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_connectivity</span></code>([unique])</p></td>
+<td><p>Return the number of connections associated with each site.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_coordinates</span></code>([unique])</p></td>
+<td><p>Return the 3D coordinates associated with each site.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_periodic_sites</span></code>([screen])</p></td>
+<td><p>Return an index of the coordinates which are unique by periodic boundary conditions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_symmetric_sites</span></code>([unique, screen])</p></td>
+<td><p>Determine the symmetrically unique adsorption sites from a list of fractional coordinates.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_topology</span></code>([unique])</p></td>
+<td><p>Return the indices of adjacent surface atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code>([savefile])</p></td>
+<td><p>Create a visualization of the sites.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>add_adsorbates</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.Builder.add_adsorbate">
+<span class="sig-name descname"><span class="pre">add_adsorbate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adsorbate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bonds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_construct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#Builder.add_adsorbate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.Builder.add_adsorbate" title="Permalink to this definition"></a></dt>
+<dd><p>Add and adsorbate to a slab. If the auto_constructor flag is False, the atoms object
+provided will be attached at the active site.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>adsorbate</strong><span class="classifier">gratoms object</span></dt><dd><p>Molecule to connect to the surface.</p>
+</dd>
+<dt><strong>bonds</strong><span class="classifier">int or list of 2 int</span></dt><dd><p>Index of adsorbate atoms to be bonded.</p>
+</dd>
+<dt><strong>index</strong><span class="classifier">int</span></dt><dd><p>Index of the site or edge to use as the adsorption position. A
+value of -1 will return all possible structures.</p>
+</dd>
+<dt><strong>auto_construct</strong><span class="classifier">bool</span></dt><dd><p>Whether to automatically estimate the position of atoms in larger
+molecules or use the provided structure.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>slabs</strong><span class="classifier">gratoms object</span></dt><dd><p>Slab(s) with adsorbate attached.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.Builder.add_adsorbates">
+<span class="sig-name descname"><span class="pre">add_adsorbates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adsorbates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#Builder.add_adsorbates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.Builder.add_adsorbates" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.get_adsorption_sites">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.adsorption.</span></span><span class="sig-name descname"><span class="pre">get_adsorption_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">surface_atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry_reduced</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#get_adsorption_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.get_adsorption_sites" title="Permalink to this definition"></a></dt>
+<dd><p>Get the adsorption sites of a slab as defined by surface symmetries of the surface atoms.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>slab</strong><span class="classifier">Atoms object</span></dt><dd><p>The slab to find adsorption sites for. Must have surface
+atoms defined.</p>
+</dd>
+<dt><strong>surface_atoms</strong><span class="classifier">array_like (N,)</span></dt><dd><p>List of the surface atom indices.</p>
+</dd>
+<dt><strong>symmetry_reduced</strong><span class="classifier">bool</span></dt><dd><p>Return the symmetrically unique sites only.</p>
+</dd>
+<dt><strong>adsorption_vectors</strong><span class="classifier">bool</span></dt><dd><p>Return the adsorption vectors.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>coordinates</strong><span class="classifier">ndarray (N, 3)</span></dt><dd><p>Cartesian coordinates of activate sites.</p>
+</dd>
+<dt><strong>connectivity</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>Number of bonds formed for a given adsorbate.</p>
+</dd>
+<dt><strong>symmetry_index</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>Arbitrary indices of symmetric sites.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.adsorption.symmetry_equivalent_points">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.adsorption.</span></span><span class="sig-name descname"><span class="pre">symmetry_equivalent_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fractional_coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/adsorption.html#symmetry_equivalent_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.adsorption.symmetry_equivalent_points" title="Permalink to this definition"></a></dt>
+<dd><p>Return the symmetrically equivalent points from a list of provided fractional coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>fractional_coordinates</strong><span class="classifier">ndarray (N ,3)</span></dt><dd><p>Fractional coordinates to find symmetrical equivalence
+between.</p>
+</dd>
+<dt><strong>atoms</strong><span class="classifier">Atoms object</span></dt><dd><p>Atoms object to use the unit cell, positions, and pbc of.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float</span></dt><dd><p>Float point precision tolerance.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>symmetry_match</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>Indices of fractional coordinates which are unique or
+matching.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-HTMACat.catkit.gen.surface">
+<span id="htmacat-catkit-gen-surface-module"></span><h2>HTMACat.catkit.gen.surface module<a class="headerlink" href="#module-HTMACat.catkit.gen.surface" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.SlabGenerator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.surface.</span></span><span class="sig-name descname"><span class="pre">SlabGenerator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bulk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miller_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vacuum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ang'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attach_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standardize_bulk</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primitive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#SlabGenerator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.SlabGenerator" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for generation of slab unit cells from bulk unit cells.</p>
+<p>Many surface operations rely upon / are made easier through the
+bulk basis cell they are created from. The SlabGenerator class
+is designed to house these operations.</p>
+<p>Return the miller indices associated with the users requested
+values. Follows the following steps:</p>
+<ul class="simple">
+<li><p>Convert Miller-Bravais notation into standard Miller index.</p></li>
+<li><p>(optional) Ensure the bulk cell is in its standard form.</p></li>
+<li><p>Convert the indices to the cell for the primitive lattice.</p></li>
+<li><p>Reduce the indices by their greatest common divisor.</p></li>
+</ul>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>bulk</strong><span class="classifier">Atoms object</span></dt><dd><p>Bulk system to be converted into slab.</p>
+</dd>
+<dt><strong>miller_index</strong><span class="classifier">list (3,) or (4,)</span></dt><dd><p>Miller index to construct surface from. If length 4, Miller-Bravais
+notation is assumed.</p>
+</dd>
+<dt><strong>layers</strong><span class="classifier">int</span></dt><dd><p>Number of layers to include in the slab. A slab layer is defined
+as a unique z-coordinate.</p>
+</dd>
+<dt><strong>vacuum</strong><span class="classifier">float</span></dt><dd><p>Angstroms of vacuum to apply to the slab.</p>
+</dd>
+<dt><strong>fixed</strong><span class="classifier">int</span></dt><dd><p>Number of slab layers to constrain.</p>
+</dd>
+<dt><strong>layer_type</strong><span class="classifier">‘angs’, ‘trim’, ‘stoich’, or ‘sym’</span></dt><dd><p>Determines how to perform slab layering.</p>
+<p>‘angs’: Layers denotes the thickness of the slab in Angstroms.
+‘trim’: The slab will be trimmed to a number of layers equal to the
+exact number of unique z-coordinates. Useful for precision control.
+‘stoich’ : Constraints any slab generated to have the same
+stoichiometric ratio as the provided bulk.
+‘sym’ : Return a slab which is inversion symmetric. i.e. The
+same on both sides.</p>
+</dd>
+<dt><strong>attach_graph</strong><span class="classifier">bool</span></dt><dd><p>Attach the connectivity graph generated from the bulk structure.
+This is only necessary for fingerprinting and setting it to False
+can save time. Surface atoms will be found regardless.</p>
+</dd>
+<dt><strong>standardize_bulk</strong><span class="classifier">bool</span></dt><dd><p>Covert the bulk input to its standard form before and
+produce the cleave from it. This is highly recommended as
+Miller indices are not defined for non-standard cells.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float</span></dt><dd><p>Tolerance for floating point rounding errors.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.surface.SlabGenerator.adsorption_sites" title="HTMACat.catkit.gen.surface.SlabGenerator.adsorption_sites"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adsorption_sites</span></code></a>(slab, **kwargs)</p></td>
+<td><p>Helper function to return the adsorption sites of the provided slab.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.surface.SlabGenerator.align_crystal" title="HTMACat.catkit.gen.surface.SlabGenerator.align_crystal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">align_crystal</span></code></a>(bulk, miller_index)</p></td>
+<td><p>Return an aligned unit cell from bulk unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.surface.SlabGenerator.get_slab" title="HTMACat.catkit.gen.surface.SlabGenerator.get_slab"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slab</span></code></a>([size, iterm])</p></td>
+<td><p>Generate a slab from the bulk structure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.surface.SlabGenerator.get_slab_basis" title="HTMACat.catkit.gen.surface.SlabGenerator.get_slab_basis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_slab_basis</span></code></a>([iterm, maxn])</p></td>
+<td><p>Return a list of all terminations which have been properly shifted and with an appropriate number of layers added.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.surface.SlabGenerator.get_unique_terminations" title="HTMACat.catkit.gen.surface.SlabGenerator.get_unique_terminations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unique_terminations</span></code></a>()</p></td>
+<td><p>Determine the fractional coordinate shift that will result in a unique surface termination.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.surface.SlabGenerator.make_symmetric" title="HTMACat.catkit.gen.surface.SlabGenerator.make_symmetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_symmetric</span></code></a>(slab)</p></td>
+<td><p>Returns a symmetric slab.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.surface.SlabGenerator.set_size" title="HTMACat.catkit.gen.surface.SlabGenerator.set_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_size</span></code></a>(slab, size)</p></td>
+<td><p>Set the size of a slab based one of three methods.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.SlabGenerator.adsorption_sites">
+<span class="sig-name descname"><span class="pre">adsorption_sites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#SlabGenerator.adsorption_sites"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.SlabGenerator.adsorption_sites" title="Permalink to this definition"></a></dt>
+<dd><p>Helper function to return the adsorption sites of the provided slab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>slab</strong><span class="classifier">atoms object</span></dt><dd><p>The slab to find adsorption sites for. Assumes you are using
+the same basis.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>output</strong><span class="classifier">tuple (n, n) | (n, n, n)</span></dt><dd><p>Coordinates and connectivity of the adsorption sites.
+The symmetry indices can also be returned.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.SlabGenerator.align_crystal">
+<span class="sig-name descname"><span class="pre">align_crystal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bulk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miller_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#SlabGenerator.align_crystal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.SlabGenerator.align_crystal" title="Permalink to this definition"></a></dt>
+<dd><p>Return an aligned unit cell from bulk unit cell. This alignment rotates the a and b
+basis vectors to be parallel to the Miller index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>bulk</strong><span class="classifier">Atoms object</span></dt><dd><p>Bulk system to be standardized.</p>
+</dd>
+<dt><strong>miller_index</strong><span class="classifier">list (3,)</span></dt><dd><p>Miller indices to align with the basis vectors.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>new_bulk</strong><span class="classifier">Gratoms object</span></dt><dd><p>Standardized bulk unit cell.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.SlabGenerator.get_slab">
+<span class="sig-name descname"><span class="pre">get_slab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iterm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#SlabGenerator.get_slab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.SlabGenerator.get_slab" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a slab from the bulk structure. This function is meant specifically for
+selection of an individual termination or enumeration through surfaces of various size.</p>
+<p>This function will orthogonalize the c basis vector and align it
+with the z-axis which breaks bulk symmetry along the z-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>size</strong><span class="classifier">int, array_like (2,) or (2, 2)</span></dt><dd><p>Size of the unit cell to create as described in <a class="reference internal" href="#HTMACat.catkit.gen.surface.SlabGenerator.set_size" title="HTMACat.catkit.gen.surface.SlabGenerator.set_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_size()</span></code></a>.</p>
+</dd>
+<dt><strong>iterm</strong><span class="classifier">int</span></dt><dd><p>A termination index in reference to the list of possible
+terminations.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>slab</strong><span class="classifier">Gratoms object</span></dt><dd><p>The modified basis slab produced based on the layer specifications
+given.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.SlabGenerator.get_slab_basis">
+<span class="sig-name descname"><span class="pre">get_slab_basis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#SlabGenerator.get_slab_basis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.SlabGenerator.get_slab_basis" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of all terminations which have been properly shifted and with an
+appropriate number of layers added. This function is mainly for performance, to prevent
+looping over other operations which are not related the size of the slab.</p>
+<p>This step also contains periodically constrained orthogonalization of
+the c basis. This implementation only works if the a anb b basis
+vectors are properly aligned with the x and y axis. This is strictly to
+assist the correct identification of surface atoms.</p>
+<p>Only produces the terminations requested as a lazy evaluator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>iterm</strong><span class="classifier">int</span></dt><dd><p>Index of the slab termination to return.</p>
+</dd>
+<dt><strong>maxn</strong><span class="classifier">int</span></dt><dd><p>The maximum integer component to search for a more orthogonal bulk.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>ibasis</strong><span class="classifier">Gratoms object</span></dt><dd><p>Prepared, ith basis.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.SlabGenerator.get_unique_terminations">
+<span class="sig-name descname"><span class="pre">get_unique_terminations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#SlabGenerator.get_unique_terminations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.SlabGenerator.get_unique_terminations" title="Permalink to this definition"></a></dt>
+<dd><p>Determine the fractional coordinate shift that will result in a unique surface
+termination. This is not required if bulk standardization has been performed, since all
+available z shifts will result in a unique termination for a primitive cell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>unique_shift</strong><span class="classifier">array (n,)</span></dt><dd><p>Fractional coordinate shifts which will result in unique
+terminations.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.SlabGenerator.make_symmetric">
+<span class="sig-name descname"><span class="pre">make_symmetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#SlabGenerator.make_symmetric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.SlabGenerator.make_symmetric" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a symmetric slab.</p>
+<p>Note, this will trim the slab potentially resulting in loss of stoichiometry.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.SlabGenerator.set_size">
+<span class="sig-name descname"><span class="pre">set_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#SlabGenerator.set_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.SlabGenerator.set_size" title="Permalink to this definition"></a></dt>
+<dd><p>Set the size of a slab based one of three methods.</p>
+<p>1. An integer value performs a search of valid matrix operations
+to perform on the ab-basis vectors to return a set which with
+a minimal sum of distances and an angle closest to 90 degrees.</p>
+<p>2. An array_like of length 2 will multiply the existing basis
+vectors by that amount.</p>
+<p>3. An array of shape (2, 2) will be interpreted as matrix
+notation to multiply the ab-basis vectors by.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>slab</strong><span class="classifier">Atoms object</span></dt><dd><p>Slab to be made into the requested size.</p>
+</dd>
+<dt><strong>size</strong><span class="classifier">int, array_like (2,) or (2, 2)</span></dt><dd><p>Size of the unit cell to create as described above.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>supercell</strong><span class="classifier">Gratoms object</span></dt><dd><p>Supercell of the requested size.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.convert_miller_index">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.surface.</span></span><span class="sig-name descname"><span class="pre">convert_miller_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">miller_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#convert_miller_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.convert_miller_index" title="Permalink to this definition"></a></dt>
+<dd><p>Return a converted miller index between two atoms objects.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.generate_indices">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.surface.</span></span><span class="sig-name descname"><span class="pre">generate_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#generate_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.generate_indices" title="Permalink to this definition"></a></dt>
+<dd><p>Return an array of miller indices enumerated up to values plus or minus some maximum.
+Filters out lists with greatest common divisors greater than one. Only positive values need to
+be considered for the first index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>max_index</strong><span class="classifier">int</span></dt><dd><p>Maximum number that will be considered for a given surface.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>unique_index</strong><span class="classifier">ndarray (n, 3)</span></dt><dd><p>Unique miller indices</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.get_degenerate_indices">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.surface.</span></span><span class="sig-name descname"><span class="pre">get_degenerate_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bulk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miller_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#get_degenerate_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.get_degenerate_indices" title="Permalink to this definition"></a></dt>
+<dd><p>Return the miller indices which are degenerate to a given miller index for a particular bulk
+structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>bulk</strong><span class="classifier">Atoms object</span></dt><dd><p>Bulk structure to get the degenerate miller indices.</p>
+</dd>
+<dt><strong>miller_index</strong><span class="classifier">array_like (3,)</span></dt><dd><p>Miller index to get the degenerate indices for.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>degenerate_indices</strong><span class="classifier">array (N, 3)</span></dt><dd><p>Degenerate miller indices to the provided index.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.get_unique_indices">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.surface.</span></span><span class="sig-name descname"><span class="pre">get_unique_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bulk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#get_unique_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.get_unique_indices" title="Permalink to this definition"></a></dt>
+<dd><p>Returns an array of miller indices which will produce unique surface terminations based on a
+provided bulk structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>bulk</strong><span class="classifier">Atoms object</span></dt><dd><p>Bulk structure to get the unique miller indices.</p>
+</dd>
+<dt><strong>max_index</strong><span class="classifier">int</span></dt><dd><p>Maximum number that will be considered for a given surface.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>unique_millers</strong><span class="classifier">ndarray (n, 3)</span></dt><dd><p>Symmetrically distinct miller indices for a given bulk.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.surface.transform_ab">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.surface.</span></span><span class="sig-name descname"><span class="pre">transform_ab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/surface.html#transform_ab"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.surface.transform_ab" title="Permalink to this definition"></a></dt>
+<dd><p>Transform the slab basis vectors parallel to the z-plane by matrix notation. This can result
+in changing the slabs cell size. This can also result in very unusual slab dimensions, use with
+caution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>slab</strong><span class="classifier">Atoms object</span></dt><dd><p>The slab to be transformed.</p>
+</dd>
+<dt><strong>matrix</strong><span class="classifier">array_like (2, 2)</span></dt><dd><p>The matrix notation transformation of the a and b basis vectors.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float</span></dt><dd><p>Float point precision tolerance.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>slab</strong><span class="classifier">Atoms object</span></dt><dd><p>Slab after transformation.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-HTMACat.catkit.gen.symmetry">
+<span id="htmacat-catkit-gen-symmetry-module"></span><h2>HTMACat.catkit.gen.symmetry module<a class="headerlink" href="#module-HTMACat.catkit.gen.symmetry" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.symmetry.Symmetry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.symmetry.</span></span><span class="sig-name descname"><span class="pre">Symmetry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ang_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/symmetry.html#Symmetry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.symmetry.Symmetry" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Wrapper for the spglib package.</p>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.symmetry.Symmetry.get_lattice_name" title="HTMACat.catkit.gen.symmetry.Symmetry.get_lattice_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_lattice_name</span></code></a>()</p></td>
+<td><p>Return the lattice name of an atoms object based on its spacegroup number: <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_space_groups">https://en.wikipedia.org/wiki/List_of_space_groups</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.symmetry.Symmetry.get_pointgroup" title="HTMACat.catkit.gen.symmetry.Symmetry.get_pointgroup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pointgroup</span></code></a>([check_laue])</p></td>
+<td><p>Return the point group operations of a systems.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gen.symmetry.Symmetry.get_symmetry_operations" title="HTMACat.catkit.gen.symmetry.Symmetry.get_symmetry_operations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_symmetry_operations</span></code></a>([affine])</p></td>
+<td><p>Return the symmetry operations for a given atomic structure.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.symmetry.Symmetry.get_lattice_name">
+<span class="sig-name descname"><span class="pre">get_lattice_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/symmetry.html#Symmetry.get_lattice_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.symmetry.Symmetry.get_lattice_name" title="Permalink to this definition"></a></dt>
+<dd><p>Return the lattice name of an atoms object based on its spacegroup number:
+<a class="reference external" href="https://en.wikipedia.org/wiki/List_of_space_groups">https://en.wikipedia.org/wiki/List_of_space_groups</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>lattice</strong><span class="classifier">str</span></dt><dd><p>The name of the structures lattice.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.symmetry.Symmetry.get_pointgroup">
+<span class="sig-name descname"><span class="pre">get_pointgroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">check_laue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/symmetry.html#Symmetry.get_pointgroup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.symmetry.Symmetry.get_pointgroup" title="Permalink to this definition"></a></dt>
+<dd><p>Return the point group operations of a systems.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>check_laue</strong><span class="classifier">bool</span></dt><dd><p>Return if the pointgroup is a laue symmetry.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>pointgroup</strong><span class="classifier">str</span></dt><dd><p>The pointgroup symmetry of the atomic structure.</p>
+</dd>
+<dt><strong>is_laue</strong><span class="classifier">bool</span></dt><dd><p>Whether the pointgroup is a laue symmetry.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.symmetry.Symmetry.get_symmetry_operations">
+<span class="sig-name descname"><span class="pre">get_symmetry_operations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/symmetry.html#Symmetry.get_symmetry_operations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.symmetry.Symmetry.get_symmetry_operations" title="Permalink to this definition"></a></dt>
+<dd><p>Return the symmetry operations for a given atomic structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>affine</strong><span class="classifier">bool</span></dt><dd><p>Whether to return the affine matrix operations.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>rotations</strong><span class="classifier">ndarray (N, 3, 3)</span></dt><dd><p>Rotation matices of the symmetry operations.</p>
+</dd>
+<dt>translations ndarray (N, 3)</dt><dd><p>Translation vector components of the symmetry operations.</p>
+</dd>
+<dt>affine_matrices ndarray (N, 4, 4)</dt><dd><p>Affine matrix operations, combinations of the rotation and
+translation with ones along the diagonal.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.symmetry.get_modified_spin_symbols">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.symmetry.</span></span><span class="sig-name descname"><span class="pre">get_modified_spin_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">numbers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magmoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/symmetry.html#get_modified_spin_symbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.symmetry.get_modified_spin_symbols" title="Permalink to this definition"></a></dt>
+<dd><p>Return a representation of atomic symbols which is unique to the magnetic moment as well.</p>
+<p>This is effectivly creating a single integer which contains the
+atomic number and the magnetic moment multiplied by 10.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>numbers</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>Atomic numbers to be joined with the magnetic moments.</p>
+</dd>
+<dt><strong>magmoms</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>Magnetic moments to be joined to the atomic numbers.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>spin_mod_symbols</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>The spin modified symbols representation for each atom.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.symmetry.get_standardized_cell">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.symmetry.</span></span><span class="sig-name descname"><span class="pre">get_standardized_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primitive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/symmetry.html#get_standardized_cell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.symmetry.get_standardized_cell" title="Permalink to this definition"></a></dt>
+<dd><p>Atoms object interface with spglib primitive cell finder:
+<a class="reference external" href="https://atztogo.github.io/spglib/python-spglib.html#python-spglib">https://atztogo.github.io/spglib/python-spglib.html#python-spglib</a>.</p>
+<p>The function also builds in limited functionality for initial
+magnetic moments. Only integer values are supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>atoms</strong><span class="classifier">object</span></dt><dd><p>Atoms object to search for a primitive unit cell.</p>
+</dd>
+<dt><strong>primitive</strong><span class="classifier">bool</span></dt><dd><p>Reduce the atoms object into a primitive form.</p>
+</dd>
+<dt><strong>tol</strong><span class="classifier">float</span></dt><dd><p>Tolerance for floating point rounding errors.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>primitive cell</strong><span class="classifier">object</span></dt><dd><p>The primitive unit cell returned by spglib if one is found.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.gen.symmetry.get_unmodified_spin_symbols">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gen.symmetry.</span></span><span class="sig-name descname"><span class="pre">get_unmodified_spin_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spin_mod_symbols</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gen/symmetry.html#get_unmodified_spin_symbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gen.symmetry.get_unmodified_spin_symbols" title="Permalink to this definition"></a></dt>
+<dd><p>Return the origional atomic numbers and magnetic moments from the get_modified_spin_symbols
+function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>spin_mod_symbols</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>Joint symbol and spin representation of an atomic structure.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>symbols</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>The origional atomic numbers of the atoms object.</p>
+</dd>
+<dt><strong>magmoms</strong><span class="classifier">ndarray (N,)</span></dt><dd><p>The magnetic moments of the origional atoms object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-HTMACat.catkit.gen">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-HTMACat.catkit.gen" title="Permalink to this heading"></a></h2>
+<p>Catalysis Generator.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="HTMACat.catkit.data.html" class="btn btn-neutral float-left" title="HTMACat.catkit.data package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="HTMACat.catkit.gen.utils.html" class="btn btn-neutral float-right" title="HTMACat.catkit.gen.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

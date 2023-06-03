@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.catkit.gen.surface &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Getting_started.html"><strong>Getting started</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../HTMACat.html">HTMACat package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">HTMACat.catkit.gen.surface</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for HTMACat.catkit.gen.surface</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">Gratoms</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">symmetry</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">adsorption</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">defaults</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">ase</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">gcd</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">fractions</span> <span class="kn">import</span> <span class="n">gcd</span>
+
+
+<div class="viewcode-block" id="SlabGenerator"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator">[docs]</a><span class="k">class</span> <span class="nc">SlabGenerator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class for generation of slab unit cells from bulk unit cells.</span>
+
+<span class="sd">    Many surface operations rely upon / are made easier through the</span>
+<span class="sd">    bulk basis cell they are created from. The SlabGenerator class</span>
+<span class="sd">    is designed to house these operations.</span>
+
+<span class="sd">    Return the miller indices associated with the users requested</span>
+<span class="sd">    values. Follows the following steps:</span>
+
+<span class="sd">    - Convert Miller-Bravais notation into standard Miller index.</span>
+<span class="sd">    - (optional) Ensure the bulk cell is in its standard form.</span>
+<span class="sd">    - Convert the indices to the cell for the primitive lattice.</span>
+<span class="sd">    - Reduce the indices by their greatest common divisor.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bulk : Atoms object</span>
+<span class="sd">        Bulk system to be converted into slab.</span>
+<span class="sd">    miller_index : list (3,) or (4,)</span>
+<span class="sd">        Miller index to construct surface from. If length 4, Miller-Bravais</span>
+<span class="sd">        notation is assumed.</span>
+<span class="sd">    layers : int</span>
+<span class="sd">        Number of layers to include in the slab. A slab layer is defined</span>
+<span class="sd">        as a unique z-coordinate.</span>
+<span class="sd">    vacuum : float</span>
+<span class="sd">        Angstroms of vacuum to apply to the slab.</span>
+<span class="sd">    fixed : int</span>
+<span class="sd">        Number of slab layers to constrain.</span>
+<span class="sd">    layer_type : &#39;angs&#39;, &#39;trim&#39;, &#39;stoich&#39;, or &#39;sym&#39;</span>
+<span class="sd">        Determines how to perform slab layering.</span>
+
+<span class="sd">        &#39;angs&#39;: Layers denotes the thickness of the slab in Angstroms.</span>
+<span class="sd">        &#39;trim&#39;: The slab will be trimmed to a number of layers equal to the</span>
+<span class="sd">        exact number of unique z-coordinates. Useful for precision control.</span>
+<span class="sd">        &#39;stoich&#39; : Constraints any slab generated to have the same</span>
+<span class="sd">        stoichiometric ratio as the provided bulk.</span>
+<span class="sd">        &#39;sym&#39; : Return a slab which is inversion symmetric. i.e. The</span>
+<span class="sd">        same on both sides.</span>
+<span class="sd">    attach_graph : bool</span>
+<span class="sd">        Attach the connectivity graph generated from the bulk structure.</span>
+<span class="sd">        This is only necessary for fingerprinting and setting it to False</span>
+<span class="sd">        can save time. Surface atoms will be found regardless.</span>
+<span class="sd">    standardize_bulk : bool</span>
+<span class="sd">        Covert the bulk input to its standard form before and</span>
+<span class="sd">        produce the cleave from it. This is highly recommended as</span>
+<span class="sd">        Miller indices are not defined for non-standard cells.</span>
+<span class="sd">    tol : float</span>
+<span class="sd">        Tolerance for floating point rounding errors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">bulk</span><span class="p">,</span>
+        <span class="n">miller_index</span><span class="p">,</span>
+        <span class="n">layers</span><span class="p">,</span>
+        <span class="n">vacuum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fixed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">layer_type</span><span class="o">=</span><span class="s2">&quot;ang&quot;</span><span class="p">,</span>
+        <span class="n">attach_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">standardize_bulk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">primitive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vacuum</span> <span class="o">=</span> <span class="n">vacuum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span> <span class="o">=</span> <span class="n">fixed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_type</span> <span class="o">=</span> <span class="n">layer_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">standardized</span> <span class="o">=</span> <span class="n">standardize_bulk</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">primitive</span> <span class="o">=</span> <span class="n">primitive</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attach_graph</span> <span class="o">=</span> <span class="n">attach_graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_terminations</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slab_basis</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slab</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">miller_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">miller_index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">miller_index</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">miller_index</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">-=</span> <span class="n">miller_index</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">miller_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">miller_index</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">miller_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">miller_index</span> <span class="o">/</span> <span class="n">utils</span><span class="o">.</span><span class="n">list_gcd</span><span class="p">(</span><span class="n">miller_index</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="c1"># Store the Miller indices associated with the standard cell.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">miller_index</span> <span class="o">=</span> <span class="n">miller_index</span>
+
+        <span class="k">if</span> <span class="n">standardize_bulk</span><span class="p">:</span>
+            <span class="n">bulk</span> <span class="o">=</span> <span class="n">symmetry</span><span class="o">.</span><span class="n">get_standardized_cell</span><span class="p">(</span><span class="n">bulk</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Not using a standardized bulk will result in an arbitrary &quot;</span>
+                <span class="s2">&quot;Miller index. To get ensure you are using the correct &quot;</span>
+                <span class="s2">&quot;miller index, use standardize_bulk=True&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">primitive</span><span class="p">:</span>
+            <span class="n">primitive_bulk</span> <span class="o">=</span> <span class="n">symmetry</span><span class="o">.</span><span class="n">get_standardized_cell</span><span class="p">(</span><span class="n">bulk</span><span class="p">,</span> <span class="n">primitive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+            <span class="n">miller_index</span> <span class="o">=</span> <span class="n">convert_miller_index</span><span class="p">(</span><span class="n">miller_index</span><span class="p">,</span> <span class="n">bulk</span><span class="p">,</span> <span class="n">primitive_bulk</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">primitive_bulk</span> <span class="o">=</span> <span class="n">bulk</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bulk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_crystal</span><span class="p">(</span><span class="n">primitive_bulk</span><span class="p">,</span> <span class="n">miller_index</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SlabGenerator.align_crystal"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.align_crystal">[docs]</a>    <span class="k">def</span> <span class="nf">align_crystal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bulk</span><span class="p">,</span> <span class="n">miller_index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an aligned unit cell from bulk unit cell. This alignment rotates the a and b</span>
+<span class="sd">        basis vectors to be parallel to the Miller index.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        bulk : Atoms object</span>
+<span class="sd">            Bulk system to be standardized.</span>
+<span class="sd">        miller_index : list (3,)</span>
+<span class="sd">            Miller indices to align with the basis vectors.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        new_bulk : Gratoms object</span>
+<span class="sd">            Standardized bulk unit cell.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="n">bulk</span><span class="o">.</span><span class="n">constraints</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">miller_index</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">mi</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">miller_index</span><span class="p">))</span>
+            <span class="n">new_lattice</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">circulant</span><span class="p">(</span><span class="n">miller_index</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">mi</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">h</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="n">miller_index</span>
+            <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">ext_gcd</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+            <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">a3</span> <span class="o">=</span> <span class="n">bulk</span><span class="o">.</span><span class="n">cell</span>
+
+            <span class="n">k1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">a1</span> <span class="o">-</span> <span class="n">h</span> <span class="o">*</span> <span class="n">a2</span><span class="p">)</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="p">(</span><span class="n">l</span> <span class="o">*</span> <span class="n">a1</span> <span class="o">-</span> <span class="n">h</span> <span class="o">*</span> <span class="n">a3</span><span class="p">),</span> <span class="n">l</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="n">a3</span><span class="p">)</span>
+            <span class="n">k2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">l</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">a1</span> <span class="o">-</span> <span class="n">h</span> <span class="o">*</span> <span class="n">a2</span><span class="p">)</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">l</span> <span class="o">*</span> <span class="n">a1</span> <span class="o">-</span> <span class="n">h</span> <span class="o">*</span> <span class="n">a3</span><span class="p">),</span> <span class="n">l</span> <span class="o">*</span> <span class="n">a2</span> <span class="o">-</span> <span class="n">k</span> <span class="o">*</span> <span class="n">a3</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">k2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">:</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">k1</span> <span class="o">/</span> <span class="n">k2</span><span class="p">))</span>
+                <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">l</span><span class="p">,</span> <span class="n">q</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="n">k</span>
+
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">ext_gcd</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+
+            <span class="n">c1</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">l</span><span class="p">,</span> <span class="o">-</span><span class="n">p</span> <span class="o">*</span> <span class="n">h</span><span class="p">,</span> <span class="o">-</span><span class="n">q</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
+            <span class="n">c2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="o">-</span><span class="n">k</span><span class="p">))</span> <span class="o">//</span> <span class="nb">abs</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+            <span class="n">c3</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">q</span><span class="p">)</span>
+            <span class="n">new_lattice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">c3</span><span class="p">])</span>
+
+        <span class="n">scaled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">new_lattice</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">bulk</span><span class="o">.</span><span class="n">get_scaled_positions</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">scaled</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">scaled</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">)</span>
+
+        <span class="n">new_bulk</span> <span class="o">=</span> <span class="n">Gratoms</span><span class="p">(</span>
+            <span class="n">positions</span><span class="o">=</span><span class="n">bulk</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span>
+            <span class="n">numbers</span><span class="o">=</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">(),</span>
+            <span class="n">magmoms</span><span class="o">=</span><span class="n">bulk</span><span class="o">.</span><span class="n">get_initial_magnetic_moments</span><span class="p">(),</span>
+            <span class="n">pbc</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">attach_graph</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">new_bulk</span><span class="o">.</span><span class="n">_graph</span>
+
+        <span class="n">new_bulk</span><span class="o">.</span><span class="n">set_scaled_positions</span><span class="p">(</span><span class="n">scaled</span><span class="p">)</span>
+        <span class="n">new_bulk</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">new_lattice</span><span class="p">,</span> <span class="n">bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">),</span> <span class="n">scale_atoms</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Align the longest of the ab basis vectors with x</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">new_bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">new_bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">new_bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">a3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">new_bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="n">ase</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">new_bulk</span><span class="p">,</span> <span class="n">a3</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1"># Ensure the remaining basis vectors are positive in their</span>
+        <span class="c1"># corresponding axis</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">new_bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">new_bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">new_bulk</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">new_bulk</span></div>
+
+<div class="viewcode-block" id="SlabGenerator.get_unique_terminations"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.get_unique_terminations">[docs]</a>    <span class="k">def</span> <span class="nf">get_unique_terminations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Determine the fractional coordinate shift that will result in a unique surface</span>
+<span class="sd">        termination. This is not required if bulk standardization has been performed, since all</span>
+<span class="sd">        available z shifts will result in a unique termination for a primitive cell.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        unique_shift : array (n,)</span>
+<span class="sd">            Fractional coordinate shifts which will result in unique</span>
+<span class="sd">            terminations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_terminations</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_terminations</span>
+
+        <span class="n">zcoords</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_unique_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bulk</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">zcoords</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">itol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="o">**-</span><span class="mi">1</span>
+            <span class="n">zdiff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">zcoords</span><span class="p">))</span>
+            <span class="n">zdiff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">zdiff</span> <span class="o">*</span> <span class="n">itol</span><span class="p">)</span> <span class="o">/</span> <span class="n">itol</span>
+
+            <span class="n">sym</span> <span class="o">=</span> <span class="n">symmetry</span><span class="o">.</span><span class="n">Symmetry</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bulk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">)</span>
+            <span class="n">rotations</span><span class="p">,</span> <span class="n">translations</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">get_symmetry_operations</span><span class="p">(</span><span class="n">affine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="c1"># Find all symmetries which are rotations about the z-axis</span>
+            <span class="n">zsym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">rotations</span><span class="p">)</span>
+            <span class="n">zsym</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">zsym</span> <span class="o">=</span> <span class="n">zsym</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+            <span class="n">zsym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">zsym</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+
+            <span class="n">ztranslations</span> <span class="o">=</span> <span class="n">translations</span><span class="p">[</span><span class="n">zsym</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="mi">1</span>
+            <span class="n">z_symmetry</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ztranslations</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">z_symmetry</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">unique_shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">zdiff</span> <span class="o">&lt;</span> <span class="n">z_symmetry</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">unique_shift</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">zcoords</span><span class="p">[</span><span class="n">unique_shift</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">unique_shift</span> <span class="o">=</span> <span class="n">zcoords</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">unique_shift</span> <span class="o">=</span> <span class="n">zcoords</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_terminations</span> <span class="o">=</span> <span class="n">unique_shift</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slab_basis</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_shift</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">unique_shift</span></div>
+
+<div class="viewcode-block" id="SlabGenerator.get_slab_basis"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.get_slab_basis">[docs]</a>    <span class="k">def</span> <span class="nf">get_slab_basis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterm</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">maxn</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of all terminations which have been properly shifted and with an</span>
+<span class="sd">        appropriate number of layers added. This function is mainly for performance, to prevent</span>
+<span class="sd">        looping over other operations which are not related the size of the slab.</span>
+
+<span class="sd">        This step also contains periodically constrained orthogonalization of</span>
+<span class="sd">        the c basis. This implementation only works if the a anb b basis</span>
+<span class="sd">        vectors are properly aligned with the x and y axis. This is strictly to</span>
+<span class="sd">        assist the correct identification of surface atoms.</span>
+
+<span class="sd">        Only produces the terminations requested as a lazy evaluator.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        iterm : int</span>
+<span class="sd">            Index of the slab termination to return.</span>
+<span class="sd">        maxn : int</span>
+<span class="sd">            The maximum integer component to search for a more orthogonal bulk.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ibasis : Gratoms object</span>
+<span class="sd">            Prepared, ith basis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">terminations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_unique_terminations</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_basis</span><span class="p">[</span><span class="n">iterm</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ibasis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_basis</span><span class="p">[</span><span class="n">iterm</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">ibasis</span>
+
+        <span class="n">_basis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">ibasis</span> <span class="o">=</span> <span class="n">_basis</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">iterm</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">zshift</span> <span class="o">=</span> <span class="n">terminations</span><span class="p">[</span><span class="n">iterm</span><span class="p">]</span>
+            <span class="n">scaled_positions</span> <span class="o">=</span> <span class="n">ibasis</span><span class="o">.</span><span class="n">get_scaled_positions</span><span class="p">()</span>
+            <span class="n">scaled_positions</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="n">zshift</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span>
+            <span class="n">ibasis</span><span class="o">.</span><span class="n">set_scaled_positions</span><span class="p">(</span><span class="n">scaled_positions</span><span class="p">)</span>
+            <span class="n">ibasis</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">pbc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">bulk_layers</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_unique_coordinates</span><span class="p">(</span><span class="n">_basis</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_type</span> <span class="o">!=</span> <span class="s2">&quot;trim&quot;</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bulk</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">minimum_repetitions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">/</span> <span class="n">height</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">minimum_repetitions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">bulk_layers</span><span class="p">))</span>
+
+        <span class="n">ibasis</span> <span class="o">*=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">minimum_repetitions</span><span class="p">))</span>
+
+        <span class="c1"># Get difference in the 2nd components of the b and c</span>
+        <span class="c1"># basis, this is a good starting guess for the needed</span>
+        <span class="c1"># value of the 2nd component (+/- 2 for safety)</span>
+        <span class="n">div</span> <span class="o">=</span> <span class="n">ibasis</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">ibasis</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">div</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sign</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">sign</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">div</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># Try to be smart and only search a limited space</span>
+        <span class="n">search</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="n">maxn</span> <span class="p">:</span> <span class="o">-</span><span class="n">maxn</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">m</span> <span class="p">:</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">sign</span> <span class="p">:</span> <span class="o">-</span><span class="n">sign</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">search</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># Need the reciprocal unit cell.</span>
+        <span class="n">recp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">ibasis</span><span class="o">.</span><span class="n">cell</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">miller_index</span><span class="p">,</span> <span class="n">recp</span><span class="p">)</span>
+        <span class="n">normal</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">normal</span><span class="p">)</span>
+
+        <span class="c1"># Compute the lengths of the possible transformed vectors</span>
+        <span class="c1"># and the cosine of the vector normal to the miller plane.</span>
+        <span class="n">vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">search</span><span class="p">,</span> <span class="n">ibasis</span><span class="o">.</span><span class="n">cell</span><span class="p">)</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vectors</span><span class="p">,</span> <span class="n">normal</span><span class="p">)</span> <span class="o">/</span> <span class="n">length</span><span class="p">)</span>
+
+        <span class="c1"># Find the cosine closest to 1 and the smallest lengths</span>
+        <span class="n">sort</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lexsort</span><span class="p">([</span><span class="n">angles</span><span class="p">,</span> <span class="n">length</span><span class="p">])</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">scale</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">search</span><span class="p">[</span><span class="n">sort</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
+        <span class="n">newcell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="n">ibasis</span><span class="o">.</span><span class="n">cell</span><span class="p">)</span>
+        <span class="n">ibasis</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">newcell</span><span class="p">)</span>
+        <span class="n">ibasis</span><span class="o">.</span><span class="n">wrap</span><span class="p">()</span>
+
+        <span class="n">exbasis</span> <span class="o">=</span> <span class="n">ibasis</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">connectivity</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_voronoi_neighbors</span><span class="p">(</span><span class="n">exbasis</span><span class="p">)</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ibasis</span><span class="p">)</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">connectivity</span><span class="p">[:</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">surf_atoms</span> <span class="o">=</span> <span class="n">diff</span> <span class="o">!=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Your slab has no bulk atoms and may be too thin &quot;</span>
+                <span class="s2">&quot;to identify surface atoms correctly. This may cause &quot;</span>
+                <span class="s2">&quot;surface adsorption site identification to fail.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="c1"># TODO: Graph generation needs to go here once handling of</span>
+        <span class="c1"># unit cell repetitions is implemented.</span>
+        <span class="n">scaled_zpositions</span> <span class="o">=</span> <span class="n">ibasis</span><span class="o">.</span><span class="n">get_scaled_positions</span><span class="p">()[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span>
+        <span class="n">scaled_zpositions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">scaled_zpositions</span> <span class="o">%</span> <span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">surf_atoms</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">zcoords</span> <span class="o">=</span> <span class="n">scaled_zpositions</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">scaled_zpositions</span><span class="p">)</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">zcoords</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">bottom</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">zcoords</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">ibasis</span><span class="o">.</span><span class="n">set_surface_atoms</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="n">top</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">bottom</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">slab_basis</span><span class="p">[</span><span class="n">iterm</span><span class="p">]</span> <span class="o">=</span> <span class="n">ibasis</span>
+
+        <span class="k">return</span> <span class="n">ibasis</span></div>
+
+<div class="viewcode-block" id="SlabGenerator.get_slab"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.get_slab">[docs]</a>    <span class="k">def</span> <span class="nf">get_slab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">iterm</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a slab from the bulk structure. This function is meant specifically for</span>
+<span class="sd">        selection of an individual termination or enumeration through surfaces of various size.</span>
+
+<span class="sd">        This function will orthogonalize the c basis vector and align it</span>
+<span class="sd">        with the z-axis which breaks bulk symmetry along the z-axis.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        size : int, array_like (2,) or (2, 2)</span>
+<span class="sd">            Size of the unit cell to create as described in :meth:`set_size`.</span>
+<span class="sd">        iterm : int</span>
+<span class="sd">            A termination index in reference to the list of possible</span>
+<span class="sd">            terminations.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        slab : Gratoms object</span>
+<span class="sd">            The modified basis slab produced based on the layer specifications</span>
+<span class="sd">            given.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slab_basis</span><span class="p">(</span><span class="n">iterm</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">slab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_size</span><span class="p">(</span><span class="n">slab</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+
+        <span class="c1"># Orthogonalize the z-coordinate</span>
+        <span class="c1"># Breaks bulk periodicity in the c-basis</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]]</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">set_pbc</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">slab</span> <span class="o">=</span> <span class="n">transform_ab</span><span class="p">(</span><span class="n">slab</span><span class="p">,</span> <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+        <span class="c1"># Trim the bottom of the cell, bulk symmetry may be lost</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_type</span> <span class="o">==</span> <span class="s2">&quot;trim&quot;</span><span class="p">:</span>
+            <span class="n">zlayers</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_unique_coordinates</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="n">reverse_sort</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">zlayers</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">ncut</span> <span class="o">=</span> <span class="n">reverse_sort</span><span class="p">[:</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+            <span class="n">zpos</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">positions</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">slab</span><span class="p">))</span>
+            <span class="k">del</span> <span class="n">slab</span><span class="p">[</span><span class="n">index</span><span class="p">[</span><span class="n">zpos</span> <span class="o">-</span> <span class="n">ncut</span> <span class="o">&lt;</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">tol</span><span class="p">]]</span>
+
+            <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="n">ncut</span>
+            <span class="n">slab</span><span class="o">.</span><span class="n">translate</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">ncut</span><span class="p">])</span>
+
+        <span class="n">tl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">slab</span><span class="o">.</span><span class="n">get_scaled_positions</span><span class="p">()[:,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="n">translation</span> <span class="o">=</span> <span class="n">slab</span><span class="p">[</span><span class="n">tl</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">translation</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="o">-</span><span class="n">translation</span><span class="p">)</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">wrap</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vacuum</span><span class="p">:</span>
+            <span class="n">slab</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="n">vacuum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">vacuum</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">utils</span><span class="o">.</span><span class="n">get_unique_coordinates</span><span class="p">(</span><span class="n">slab</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">layer_type</span> <span class="o">==</span> <span class="s2">&quot;sym&quot;</span><span class="p">:</span>
+            <span class="n">slab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_symmetric</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+
+        <span class="n">roundoff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="n">roundoff</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lexsort</span><span class="p">(</span><span class="n">slab</span><span class="o">.</span><span class="n">positions</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">slab</span> <span class="o">=</span> <span class="n">slab</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span><span class="p">:</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span>
+            <span class="n">constraints</span> <span class="o">=</span> <span class="n">ase</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">FixAtoms</span><span class="p">(</span><span class="n">mask</span><span class="o">=</span><span class="n">tags</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">tags</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixed</span><span class="p">))</span>
+            <span class="n">slab</span><span class="o">.</span><span class="n">set_constraint</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">slab</span> <span class="o">=</span> <span class="n">slab</span>
+
+        <span class="k">return</span> <span class="n">slab</span></div>
+
+<div class="viewcode-block" id="SlabGenerator.adsorption_sites"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.adsorption_sites">[docs]</a>    <span class="k">def</span> <span class="nf">adsorption_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slab</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper function to return the adsorption sites of the provided slab.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        slab : atoms object</span>
+<span class="sd">            The slab to find adsorption sites for. Assumes you are using</span>
+<span class="sd">            the same basis.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        output : tuple (n, n) | (n, n, n)</span>
+<span class="sd">            Coordinates and connectivity of the adsorption sites.</span>
+<span class="sd">            The symmetry indices can also be returned.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">adsorption</span><span class="o">.</span><span class="n">get_adsorption_sites</span><span class="p">(</span><span class="n">slab</span><span class="o">=</span><span class="n">slab</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">output</span></div>
+
+<div class="viewcode-block" id="SlabGenerator.set_size"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.set_size">[docs]</a>    <span class="k">def</span> <span class="nf">set_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slab</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the size of a slab based one of three methods.</span>
+
+<span class="sd">        1. An integer value performs a search of valid matrix operations</span>
+<span class="sd">        to perform on the ab-basis vectors to return a set which with</span>
+<span class="sd">        a minimal sum of distances and an angle closest to 90 degrees.</span>
+
+<span class="sd">        2. An array_like of length 2 will multiply the existing basis</span>
+<span class="sd">        vectors by that amount.</span>
+
+<span class="sd">        3. An array of shape (2, 2) will be interpreted as matrix</span>
+<span class="sd">        notation to multiply the ab-basis vectors by.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        slab : Atoms object</span>
+<span class="sd">            Slab to be made into the requested size.</span>
+<span class="sd">        size : int, array_like (2,) or (2, 2)</span>
+<span class="sd">            Size of the unit cell to create as described above.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        supercell : Gratoms object</span>
+<span class="sd">            Supercell of the requested size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">supercell</span> <span class="o">=</span> <span class="n">slab</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)):</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">size</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="n">a</span> <span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">a</span> <span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+            <span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">search_space</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">M</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">search_space</span><span class="p">):</span>
+                <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+                <span class="k">if</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">M</span><span class="p">)),</span> <span class="n">size</span><span class="p">):</span>
+                    <span class="k">continue</span>
+
+                <span class="n">vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">vector</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vector</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+                <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">d</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="c1"># obtuse angle</span>
+                <span class="k">if</span> <span class="n">angle</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">diff</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="n">metrics</span> <span class="o">+=</span> <span class="p">[[</span><span class="n">d</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">angle</span><span class="p">,</span> <span class="n">M</span><span class="p">]]</span>
+
+            <span class="k">if</span> <span class="n">metrics</span><span class="p">:</span>
+                <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">defaults</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;orthogonal&quot;</span><span class="p">):</span>
+                    <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+                <span class="n">matrix</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">x</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="mi">1</span><span class="p">]]))[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">supercell</span> <span class="o">=</span> <span class="n">transform_ab</span><span class="p">(</span><span class="n">supercell</span><span class="p">,</span> <span class="n">matrix</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">size</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,):</span>
+                <span class="n">supercell</span> <span class="o">*=</span> <span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">size</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">supercell</span> <span class="o">=</span> <span class="n">transform_ab</span><span class="p">(</span><span class="n">supercell</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">attach_graph</span><span class="p">:</span>
+            <span class="c1"># TODO: Creating the graph at this point is not ideal.</span>
+            <span class="c1"># Need to be able to handle expansion of the unit cell</span>
+            <span class="c1"># before this can be moved back to basis creation</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">supercell</span><span class="p">)</span>
+            <span class="n">exsupercell</span> <span class="o">=</span> <span class="n">supercell</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="c1"># Look into making bulk more orthogonal</span>
+            <span class="n">exsupercell</span><span class="o">.</span><span class="n">wrap</span><span class="p">()</span>
+            <span class="n">connectivity</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_voronoi_neighbors</span><span class="p">(</span><span class="n">exsupercell</span><span class="p">)</span>
+            <span class="n">edges</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">connectivity_to_edges</span><span class="p">(</span><span class="n">connectivity</span><span class="p">[:</span><span class="n">n</span><span class="p">,</span> <span class="p">:</span><span class="n">n</span><span class="p">])</span>
+            <span class="n">supercell</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">add_weighted_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s2">&quot;bonds&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">supercell</span></div>
+
+<div class="viewcode-block" id="SlabGenerator.make_symmetric"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.make_symmetric">[docs]</a>    <span class="k">def</span> <span class="nf">make_symmetric</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slab</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a symmetric slab.</span>
+
+<span class="sd">        Note, this will trim the slab potentially resulting in loss of stoichiometry.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">sym</span> <span class="o">=</span> <span class="n">symmetry</span><span class="o">.</span><span class="n">Symmetry</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+        <span class="n">inversion_symmetric</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">get_point_group</span><span class="p">(</span><span class="n">check_laue</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Trim the cell until it is symmetric</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">inversion_symmetric</span><span class="p">:</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">get_tags</span><span class="p">()</span>
+            <span class="n">bottom_layer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">slab</span><span class="p">[</span><span class="n">tags</span> <span class="o">==</span> <span class="n">bottom_layer</span><span class="p">]</span>
+
+            <span class="n">sym</span> <span class="o">=</span> <span class="n">symmetry</span><span class="o">.</span><span class="n">Symmetry</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="n">inversion_symmetric</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">get_point_group</span><span class="p">(</span><span class="n">check_laue</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bulk</span><span class="p">):</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Too many sites removed, please use a larger &quot;</span> <span class="s2">&quot;slab size.&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+        <span class="k">return</span> <span class="n">slab</span></div></div>
+
+
+<div class="viewcode-block" id="transform_ab"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.transform_ab">[docs]</a><span class="k">def</span> <span class="nf">transform_ab</span><span class="p">(</span><span class="n">slab</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transform the slab basis vectors parallel to the z-plane by matrix notation. This can result</span>
+<span class="sd">    in changing the slabs cell size. This can also result in very unusual slab dimensions, use with</span>
+<span class="sd">    caution.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    slab : Atoms object</span>
+<span class="sd">        The slab to be transformed.</span>
+<span class="sd">    matrix : array_like (2, 2)</span>
+<span class="sd">        The matrix notation transformation of the a and b basis vectors.</span>
+<span class="sd">    tol : float</span>
+<span class="sd">        Float point precision tolerance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    slab : Atoms object</span>
+<span class="sd">        Slab after transformation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">M</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">newcell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">)</span>
+
+    <span class="n">scorners_newcell</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+    <span class="n">corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">scorners_newcell</span><span class="p">,</span> <span class="n">newcell</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">scorners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">corners</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">rep</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">scorners</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="n">slab</span> <span class="o">*=</span> <span class="p">(</span><span class="n">rep</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rep</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">slab</span><span class="o">.</span><span class="n">set_cell</span><span class="p">(</span><span class="n">newcell</span><span class="p">)</span>
+
+    <span class="n">coords</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">get_scaled_positions</span><span class="p">()</span>
+    <span class="n">original_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">periodic_match</span> <span class="o">=</span> <span class="n">original_index</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">periodic_match</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">matched</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">matching_sites</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">coords</span><span class="p">)</span>
+        <span class="n">periodic_match</span><span class="p">[</span><span class="n">matched</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="n">repeated</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">periodic_match</span> <span class="o">!=</span> <span class="n">original_index</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">slab</span><span class="p">[</span><span class="n">repeated</span><span class="p">]</span>
+
+    <span class="c1"># Align the first basis vector with x</span>
+    <span class="n">sign</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">slab</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">rotate_cell</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sign</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">arrays</span><span class="p">[</span><span class="s2">&quot;surface_atoms&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">translate</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]])</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">slab</span></div>
+
+
+<div class="viewcode-block" id="convert_miller_index"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.convert_miller_index">[docs]</a><span class="k">def</span> <span class="nf">convert_miller_index</span><span class="p">(</span><span class="n">miller_index</span><span class="p">,</span> <span class="n">atoms1</span><span class="p">,</span> <span class="n">atoms2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a converted miller index between two atoms objects.&quot;&quot;&quot;</span>
+    <span class="n">recip1</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_reciprocal_vectors</span><span class="p">(</span><span class="n">atoms1</span><span class="p">)</span>
+    <span class="n">recip2</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">get_reciprocal_vectors</span><span class="p">(</span><span class="n">atoms2</span><span class="p">)</span>
+
+    <span class="n">converted_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">miller_index</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">recip1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">recip2</span><span class="p">)))</span>
+    <span class="n">converted_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">converted_index</span><span class="p">)</span>
+    <span class="n">converted_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">converted_index</span> <span class="o">/</span> <span class="n">utils</span><span class="o">.</span><span class="n">list_gcd</span><span class="p">(</span><span class="n">converted_index</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">converted_index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">converted_index</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">converted_index</span></div>
+
+
+<div class="viewcode-block" id="generate_indices"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.generate_indices">[docs]</a><span class="k">def</span> <span class="nf">generate_indices</span><span class="p">(</span><span class="n">max_index</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return an array of miller indices enumerated up to values plus or minus some maximum.</span>
+<span class="sd">    Filters out lists with greatest common divisors greater than one. Only positive values need to</span>
+<span class="sd">    be considered for the first index.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    max_index : int</span>
+<span class="sd">        Maximum number that will be considered for a given surface.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unique_index : ndarray (n, 3)</span>
+<span class="sd">        Unique miller indices</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span>
+        <span class="n">max_index</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_index</span> <span class="p">:</span> <span class="o">-</span><span class="n">max_index</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_index</span> <span class="p">:</span> <span class="o">-</span><span class="n">max_index</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="p">]</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">gcd</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">list_gcd</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">unique_index</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">gcd</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">unique_index</span></div>
+
+
+<div class="viewcode-block" id="get_unique_indices"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.get_unique_indices">[docs]</a><span class="k">def</span> <span class="nf">get_unique_indices</span><span class="p">(</span><span class="n">bulk</span><span class="p">,</span> <span class="n">max_index</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an array of miller indices which will produce unique surface terminations based on a</span>
+<span class="sd">    provided bulk structure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bulk : Atoms object</span>
+<span class="sd">        Bulk structure to get the unique miller indices.</span>
+<span class="sd">    max_index : int</span>
+<span class="sd">        Maximum number that will be considered for a given surface.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unique_millers : ndarray (n, 3)</span>
+<span class="sd">        Symmetrically distinct miller indices for a given bulk.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sym</span> <span class="o">=</span> <span class="n">symmetry</span><span class="o">.</span><span class="n">Symmetry</span><span class="p">(</span><span class="n">bulk</span><span class="p">)</span>
+    <span class="n">operations</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">get_symmetry_operations</span><span class="p">()</span>
+    <span class="n">unique_index</span> <span class="o">=</span> <span class="n">generate_indices</span><span class="p">(</span><span class="n">max_index</span><span class="p">)</span>
+
+    <span class="n">unique_millers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">miller</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">unique_index</span><span class="p">):</span>
+        <span class="n">affine_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">miller</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">symmetric</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">affine_matrix</span> <span class="ow">in</span> <span class="n">operations</span><span class="p">:</span>
+            <span class="n">operation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">affine_matrix</span><span class="p">,</span> <span class="n">affine_point</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+
+            <span class="n">match</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">matching_coordinates</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="n">unique_millers</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">match</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">symmetric</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">symmetric</span><span class="p">:</span>
+            <span class="n">unique_millers</span> <span class="o">+=</span> <span class="p">[</span><span class="n">miller</span><span class="p">]</span>
+
+    <span class="n">unique_millers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">unique_millers</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">unique_millers</span></div>
+
+
+<div class="viewcode-block" id="get_degenerate_indices"><a class="viewcode-back" href="../../../../HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.get_degenerate_indices">[docs]</a><span class="k">def</span> <span class="nf">get_degenerate_indices</span><span class="p">(</span><span class="n">bulk</span><span class="p">,</span> <span class="n">miller_index</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the miller indices which are degenerate to a given miller index for a particular bulk</span>
+<span class="sd">    structure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bulk : Atoms object</span>
+<span class="sd">        Bulk structure to get the degenerate miller indices.</span>
+<span class="sd">    miller_index : array_like (3,)</span>
+<span class="sd">        Miller index to get the degenerate indices for.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    degenerate_indices : array (N, 3)</span>
+<span class="sd">        Degenerate miller indices to the provided index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">miller_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">miller_index</span><span class="p">)</span>
+    <span class="n">miller_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">miller_index</span><span class="p">,</span> <span class="n">utils</span><span class="o">.</span><span class="n">list_gcd</span><span class="p">(</span><span class="n">miller_index</span><span class="p">))</span>
+
+    <span class="n">sym</span> <span class="o">=</span> <span class="n">symmetry</span><span class="o">.</span><span class="n">Symmetry</span><span class="p">(</span><span class="n">bulk</span><span class="p">)</span>
+    <span class="n">affine_matrix</span> <span class="o">=</span> <span class="n">sym</span><span class="o">.</span><span class="n">get_symmetry_operations</span><span class="p">()</span>
+    <span class="n">affine_point</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">miller_index</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">symmetric_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">affine_point</span><span class="p">,</span> <span class="n">affine_matrix</span><span class="p">)[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">degenerate_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">symmetric_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">degenerate_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">degenerate_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">degenerate_indices</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

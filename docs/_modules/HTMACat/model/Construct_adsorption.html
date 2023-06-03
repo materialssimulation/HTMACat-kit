@@ -9,7 +9,7 @@
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  
+
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
@@ -17,17 +17,17 @@
         <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
 
-          
-          
+
+
           <a href="../../../index.html" class="icon icon-home">
             HTMACat-kit
           </a>
@@ -70,7 +70,7 @@
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+
   <h1>Source code for HTMACat.model.Construct_adsorption</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/data/jqyang/miniconda3/bin/python</span>
 <span class="c1"># -*- coding: UTF-8 -*-</span>
@@ -152,11 +152,11 @@
                       <span class="n">slabs_ads_near</span><span class="o">=</span><span class="p">[]</span>
                       <span class="c1">#view(slabs_ads)</span>
                       <span class="k">for</span> <span class="n">slb</span> <span class="ow">in</span> <span class="n">slabs_ads</span><span class="p">:</span>
-                          <span class="n">bind_adatoms</span><span class="p">,</span><span class="n">bind_adatoms_symb</span><span class="p">,</span><span class="n">bind_type_symb</span><span class="p">,</span><span class="n">adspecie</span><span class="p">,</span><span class="n">bind_surfatoms</span><span class="p">,</span><span class="n">bind_surfatoms_symb</span><span class="o">=</span><span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">slb</span><span class="p">)</span> 
+                          <span class="n">bind_adatoms</span><span class="p">,</span><span class="n">bind_adatoms_symb</span><span class="p">,</span><span class="n">bind_type_symb</span><span class="p">,</span><span class="n">adspecie</span><span class="p">,</span><span class="n">bind_surfatoms</span><span class="p">,</span><span class="n">bind_surfatoms_symb</span><span class="o">=</span><span class="n">get_binding_adatom</span><span class="p">(</span><span class="n">slb</span><span class="p">)</span>
                           <span class="c1">#slabs_ads_near += [slb]</span>
                           <span class="k">if</span> <span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">p1_symb</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">bind_surfatoms_symb</span><span class="p">[</span><span class="mi">0</span><span class="p">])):</span>
                              <span class="n">slabs_ads_near</span> <span class="o">+=</span> <span class="p">[</span><span class="n">slb</span><span class="p">]</span>
-                          
+
                    <span class="k">elif</span> <span class="n">Index</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>
                       <span class="n">slabs_ads</span><span class="o">=</span><span class="n">Construct_double_adsorption</span><span class="p">(</span><span class="n">slabs_dop</span><span class="p">,</span><span class="n">ads</span><span class="p">,</span><span class="n">SML</span><span class="p">)</span>
                       <span class="c1">## To choose the config whose neighbor list includes the doped atoms</span>
@@ -172,13 +172,13 @@
                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ads</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> adsorption on </span><span class="si">{</span><span class="n">mname</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">ele_dop</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">natom_dop</span><span class="si">}</span><span class="s2"> doped system are finished!&quot;</span><span class="p">)</span></div>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
    <span class="n">Path_Info</span><span class="o">=</span><span class="s1">&#39;StrucInfo&#39;</span>
-   <span class="n">Model</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span> 
+   <span class="n">Model</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span>
    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">Path_Info</span><span class="p">,</span><span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">Path</span><span class="p">:</span>
       <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Path</span><span class="p">):</span>
           <span class="n">Construct_adsorption</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">Model</span><span class="p">)</span>
 
    <span class="c1">#Construct_adsorption(Path_Info,Model)</span>
-  
+
 </pre></div>
 
            </div>
@@ -194,7 +194,7 @@
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+
 
 </footer>
         </div>
@@ -205,7 +205,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
 
 </body>
 </html>

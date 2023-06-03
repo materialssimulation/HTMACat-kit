@@ -1,7 +1,8 @@
 StrucInfo:
-  structfile: POSCARslab
+  file: POSCARslab
 
 Model:
-  SML: True
   ads:
-    - ['C(=O)O',1]
+    - ["CO", 2]
+  coads:
+    - ["CO", "O2", 1, 1]

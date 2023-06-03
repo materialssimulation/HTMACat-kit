@@ -1,0 +1,23 @@
+StrucInfo:
+  struct:
+    element: Au
+    lattice_type: fcc
+    lattice_constant: 4.16
+    facet: ["111"]
+    dope:
+      Cu: ["0"]
+
+# This part alias for Species
+Species:
+  sml:
+    "COOH(s)": "O[C][O]"
+    "OCHO(s)": "[O][CH][O]"
+
+Model:
+  ads:
+    - ["COOH(s)", 1]
+    - ["OCHO(s)", 1]
+    - [s: "O[C]O", 1]
+    - [s: "[CH2]O", 1]
+    - [s: "[CH][O]", 1]
+    - [s: "[CH]O", 1]

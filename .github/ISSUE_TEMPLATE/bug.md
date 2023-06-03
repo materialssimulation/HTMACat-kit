@@ -8,7 +8,6 @@ about: 如发现Bug，请按此模板提交issues，不按模板提交的问题�
 > HTMACat 版本: x.x.x
 >
 > 环境: python x.x in windows or linux, install_requires
->
 
 ## 你遇到什么问题了？
 
@@ -17,7 +16,6 @@ about: 如发现Bug，请按此模板提交issues，不按模板提交的问题�
 ## 是否已经浏览过Issues仍无法解决？
 
 > 请搜索Issues列表、查看wiki跟TG公众号的更新说明，已经解释过的问题不要重复提问
-
 
 ## 你期望的结果
 

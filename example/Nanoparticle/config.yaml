@@ -1,0 +1,6 @@
+StrucInfo:
+  file: Pt43_particle
+
+Model:
+  ads:
+    - ["H", 1]

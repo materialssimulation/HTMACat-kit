@@ -11,10 +11,8 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -41,8 +39,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Get_start.html"><strong>Get_start</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting_started.html"><strong>Getting started</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Examples.html"><strong>Examples</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../HTMACat.html">HTMACat package</a></li>
 </ul>
@@ -72,7 +70,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for HTMACat.Base_tools</h1><div class="highlight"><pre>
-<span></span><span class="c1">### Function1: a is inclued in b return True</span>
+<span></span><span class="c1"># Function1: a is inclued in b return True</span>
 <div class="viewcode-block" id="isinclude"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.Base_tools.isinclude">[docs]</a><span class="k">def</span> <span class="nf">isinclude</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">item</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
@@ -87,7 +85,7 @@
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<span class="c1">### Function2: a and b are equal return True</span>
+<span class="c1"># Function2: a and b are equal return True</span>
 <div class="viewcode-block" id="isequal"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.Base_tools.isequal">[docs]</a><span class="k">def</span> <span class="nf">isequal</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
     <span class="n">item</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
@@ -103,8 +101,15 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
+<span class="c1"># Function3: Find the corresponding key and value from the dictionary to form a new dictionary</span>
+<div class="viewcode-block" id="get_new_dict"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.Base_tools.get_new_dict">[docs]</a><span class="k">def</span> <span class="nf">get_new_dict</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">new_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">new_dict</span></div>
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
     <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">isequal</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>

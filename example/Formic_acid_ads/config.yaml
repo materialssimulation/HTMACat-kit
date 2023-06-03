@@ -1,11 +1,12 @@
 StrucInfo:
-  element: Au
-  lattype: fcc
-  latcont: 4.16
-  facet: ['111']
-  dope:
-    Cu: ['b1']
+  struct:
+    element: Au
+    lattice_type: fcc
+    lattice_constant: 4.16
+    facet: ["111"]
+    dope:
+      Cu: ["b1"]
 
 Model:
   ads:
-    - ['HCOOH',1]
+    - ["HCOOH", 1]

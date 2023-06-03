@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTMACat.catkit package &mdash; HTMACat-kit 1.0.2 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="HTMACat.catkit.data package" href="HTMACat.catkit.data.html" />
+    <link rel="prev" title="HTMACat.NEB package" href="HTMACat.NEB.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            HTMACat-kit
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html"><strong>Getting started</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html"><strong>Examples</strong></a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="HTMACat.html">HTMACat package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="HTMACat.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.NEB.html">HTMACat.NEB package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">HTMACat.catkit package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.catkit.build">HTMACat.catkit.build module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.catkit.gratoms">HTMACat.catkit.gratoms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-HTMACat.catkit">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.descriptor.html">HTMACat.descriptor package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.model.html">HTMACat.model package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.post.html">HTMACat.post package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Base_tools">HTMACat.Base_tools module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Extract_info">HTMACat.Extract_info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.IO">HTMACat.IO module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.command">HTMACat.command module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.configuration">HTMACat.configuration module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HTMACat-kit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="HTMACat.html">HTMACat package</a></li>
+      <li class="breadcrumb-item active">HTMACat.catkit package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/HTMACat.catkit.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="htmacat-catkit-package">
+<h1>HTMACat.catkit package<a class="headerlink" href="#htmacat-catkit-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="HTMACat.catkit.data.html">HTMACat.catkit.data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.data.html#module-HTMACat.catkit.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HTMACat.catkit.gen.html">HTMACat.catkit.gen package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.utils.html">HTMACat.catkit.gen.utils package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.connectivity">HTMACat.catkit.gen.utils.connectivity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.coordinates">HTMACat.catkit.gen.utils.coordinates module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.graph">HTMACat.catkit.gen.utils.graph module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.utilities">HTMACat.catkit.gen.utils.utilities module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.utils_mdnm">HTMACat.catkit.gen.utils.utils_mdnm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils.vectors">HTMACat.catkit.gen.utils.vectors module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.utils.html#module-HTMACat.catkit.gen.utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.html#module-HTMACat.catkit.gen.adsorption">HTMACat.catkit.gen.adsorption module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.ex_sites"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.ex_sites()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_edges"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.get_adsorption_edges()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_adsorption_vectors"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.get_adsorption_vectors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_connectivity"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.get_connectivity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_coordinates"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.get_coordinates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_periodic_sites"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.get_periodic_sites()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_symmetric_sites"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.get_symmetric_sites()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.get_topology"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.get_topology()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.AdsorptionSites.plot"><code class="docutils literal notranslate"><span class="pre">AdsorptionSites.plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.Builder"><code class="docutils literal notranslate"><span class="pre">Builder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.Builder.add_adsorbate"><code class="docutils literal notranslate"><span class="pre">Builder.add_adsorbate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.Builder.add_adsorbates"><code class="docutils literal notranslate"><span class="pre">Builder.add_adsorbates()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.get_adsorption_sites"><code class="docutils literal notranslate"><span class="pre">get_adsorption_sites()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.adsorption.symmetry_equivalent_points"><code class="docutils literal notranslate"><span class="pre">symmetry_equivalent_points()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.html#module-HTMACat.catkit.gen.surface">HTMACat.catkit.gen.surface module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator"><code class="docutils literal notranslate"><span class="pre">SlabGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.adsorption_sites"><code class="docutils literal notranslate"><span class="pre">SlabGenerator.adsorption_sites()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.align_crystal"><code class="docutils literal notranslate"><span class="pre">SlabGenerator.align_crystal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.get_slab"><code class="docutils literal notranslate"><span class="pre">SlabGenerator.get_slab()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.get_slab_basis"><code class="docutils literal notranslate"><span class="pre">SlabGenerator.get_slab_basis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.get_unique_terminations"><code class="docutils literal notranslate"><span class="pre">SlabGenerator.get_unique_terminations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.make_symmetric"><code class="docutils literal notranslate"><span class="pre">SlabGenerator.make_symmetric()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.SlabGenerator.set_size"><code class="docutils literal notranslate"><span class="pre">SlabGenerator.set_size()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.convert_miller_index"><code class="docutils literal notranslate"><span class="pre">convert_miller_index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.generate_indices"><code class="docutils literal notranslate"><span class="pre">generate_indices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.get_degenerate_indices"><code class="docutils literal notranslate"><span class="pre">get_degenerate_indices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.get_unique_indices"><code class="docutils literal notranslate"><span class="pre">get_unique_indices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.surface.transform_ab"><code class="docutils literal notranslate"><span class="pre">transform_ab()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.html#module-HTMACat.catkit.gen.symmetry">HTMACat.catkit.gen.symmetry module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry"><code class="docutils literal notranslate"><span class="pre">Symmetry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry.get_lattice_name"><code class="docutils literal notranslate"><span class="pre">Symmetry.get_lattice_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry.get_pointgroup"><code class="docutils literal notranslate"><span class="pre">Symmetry.get_pointgroup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.Symmetry.get_symmetry_operations"><code class="docutils literal notranslate"><span class="pre">Symmetry.get_symmetry_operations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.get_modified_spin_symbols"><code class="docutils literal notranslate"><span class="pre">get_modified_spin_symbols()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.get_standardized_cell"><code class="docutils literal notranslate"><span class="pre">get_standardized_cell()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.gen.html#HTMACat.catkit.gen.symmetry.get_unmodified_spin_symbols"><code class="docutils literal notranslate"><span class="pre">get_unmodified_spin_symbols()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.catkit.gen.html#module-HTMACat.catkit.gen">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-HTMACat.catkit.build">
+<span id="htmacat-catkit-build-module"></span><h2>HTMACat.catkit.build module<a class="headerlink" href="#module-HTMACat.catkit.build" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.build.bulk">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.build.</span></span><span class="sig-name descname"><span class="pre">bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crystalstructure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">primitive</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/build.html#bulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.build.bulk" title="Permalink to this definition"></a></dt>
+<dd><p>Return the standard conventional cell of a bulk structure created using ASE. Accepts all
+keyword arguments for the ase bulk generator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong><span class="classifier">Atoms object | str</span></dt><dd><p>Chemical symbol or symbols as in ‘MgO’ or ‘NaCl’.</p>
+</dd>
+<dt><strong>crystalstructure</strong><span class="classifier">str</span></dt><dd><p>Must be one of sc, fcc, bcc, hcp, diamond, zincblende,
+rocksalt, cesiumchloride, fluorite or wurtzite.</p>
+</dd>
+<dt><strong>primitive</strong><span class="classifier">bool</span></dt><dd><p>Return the primitive unit cell instead of the conventional
+standard cell.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>standardized_bulk</strong><span class="classifier">Gratoms object</span></dt><dd><p>The conventional standard or primitive bulk structure.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.build.molecule">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.build.</span></span><span class="sig-name descname"><span class="pre">molecule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">species</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bond_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vacuum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/build.html#molecule"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.build.molecule" title="Permalink to this definition"></a></dt>
+<dd><p>Return list of enumerated gas-phase molecule structures based on species and topology.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>species</strong><span class="classifier">str</span></dt><dd><p>The chemical symbols to construct a molecule from.</p>
+</dd>
+<dt><strong>bond_index</strong><span class="classifier">int</span></dt><dd><p>Construct the molecule as though it were adsorbed to a surface
+parallel to the z-axis. Will bond by the atom index given.</p>
+</dd>
+<dt><strong>vacuum</strong><span class="classifier">float</span></dt><dd><p>Angstroms of vacuum to pad the molecules with.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>images</strong><span class="classifier">list of Gratoms objects</span></dt><dd><p>3D structures of the requested chemical species and topologies.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.catkit.build.surface">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.build.</span></span><span class="sig-name descname"><span class="pre">surface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">miller</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">1,</span> <span class="pre">1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">termination</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vacuum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orthogonal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/build.html#surface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.build.surface" title="Permalink to this definition"></a></dt>
+<dd><p>A helper function to return the surface associated with a given set of input parameters to
+the general surface generator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>elements</strong><span class="classifier">str or object</span></dt><dd><p>The atomic symbol to be passed to the as bulk builder function
+or an atoms object representing the bulk structure to use.</p>
+</dd>
+<dt><strong>size</strong><span class="classifier">list (3,)</span></dt><dd><p>Number of time to expand the x, y, and z primitive cell.</p>
+</dd>
+<dt><strong>miller</strong><span class="classifier">list (3,) or (4,)</span></dt><dd><p>The miller index to cleave the surface structure from. If 4 values
+are used, assume Miller-Bravis convention.</p>
+</dd>
+<dt><strong>termination</strong><span class="classifier">int</span></dt><dd><p>The index associated with a specific slab termination.</p>
+</dd>
+<dt><strong>fixed</strong><span class="classifier">int</span></dt><dd><p>Number of layers to constrain.</p>
+</dd>
+<dt><strong>vacuum</strong><span class="classifier">float</span></dt><dd><p>Angstroms of vacuum to add to the unit cell.</p>
+</dd>
+<dt><strong>orthogonal</strong><span class="classifier">bool</span></dt><dd><p>Force the slab generator to produce the most orthogonal slab.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>slab</strong><span class="classifier">Gratoms object</span></dt><dd><p>Return a slab generated from the specified bulk structure.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-HTMACat.catkit.gratoms">
+<span id="htmacat-catkit-gratoms-module"></span><h2>HTMACat.catkit.gratoms module<a class="headerlink" href="#module-HTMACat.catkit.gratoms" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.gratoms.</span></span><span class="sig-name descname"><span class="pre">Gratoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momenta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled_positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celldisp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calculator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Atoms</span></code></p>
+<p>Graph based atoms object.</p>
+<p>An Integrated class for an ASE atoms object with a corresponding Networkx Graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>adj</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">calc</span></code></dt><dd><p>Calculator object.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></dt><dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.cell.Cell</span></code> for direct manipulation.</p>
+</dd>
+<dt><strong>connectivity</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">constraints</span></code></dt><dd><p>Constraints of the atoms.</p>
+</dd>
+<dt><strong>degree</strong></dt><dd></dd>
+<dt><strong>edges</strong></dt><dd></dd>
+<dt><strong>graph</strong></dt><dd></dd>
+<dt><strong>nodes</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_lattice_vectors</span></code></dt><dd><p>Number of (non-zero) lattice vectors.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">numbers</span></code></dt><dd><p>Attribute for direct manipulation of the atomic numbers.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">pbc</span></code></dt><dd><p>Reference to pbc-flags for in-place manipulations.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">positions</span></code></dt><dd><p>Attribute for direct manipulation of the positions.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">symbols</span></code></dt><dd><p>Get chemical symbols as a <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.symbols.Symbols</span></code> object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code>(atom)</p></td>
+<td><p>Append atom to end.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">center</span></code>([vacuum, axis, about])</p></td>
+<td><p>Center atoms in unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gratoms.Gratoms.copy" title="HTMACat.catkit.gratoms.Gratoms.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Return a copy.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">edit</span></code>()</p></td>
+<td><p>Modify atoms interactively through ASE's GUI viewer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler_rotate</span></code>([phi, theta, psi, center])</p></td>
+<td><p>Rotate atoms via Euler angles (in degrees).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code>(other)</p></td>
+<td><p>Extend atoms object by appending atoms from <em>other</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fromdict</span></code>(dct)</p></td>
+<td><p>Rebuild atoms object from dictionary representation (todict).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_all_distances</span></code>([mic, vector])</p></td>
+<td><p>Return distances of all of the atoms with all of the atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angle</span></code>(a1, a2, a3[, mic])</p></td>
+<td><p>Get angle formed by three atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angles</span></code>(indices[, mic])</p></td>
+<td><p>Get angle formed by three atoms for multiple groupings.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angular_momentum</span></code>()</p></td>
+<td><p>Get total angular momentum with respect to the center of mass.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_array</span></code>(name[, copy])</p></td>
+<td><p>Get an array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_atomic_numbers</span></code>()</p></td>
+<td><p>Get integer array of atomic numbers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_calculator</span></code>()</p></td>
+<td><p>Get currently attached calculator object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cell</span></code>([complete])</p></td>
+<td><p>Get the three unit cell vectors as a <cite>class</cite>:ase.cell.Cell` object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cell_lengths_and_angles</span></code>()</p></td>
+<td><p>Get unit cell parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_celldisp</span></code>()</p></td>
+<td><p>Get the unit cell displacement vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_center_of_mass</span></code>([scaled])</p></td>
+<td><p>Get the center of mass.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_charges</span></code>()</p></td>
+<td><p>Get calculated charges.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chemical_formula</span></code>([mode, empirical])</p></td>
+<td><p>Get the chemical formula as a string based on the chemical symbols.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chemical_symbols</span></code>()</p></td>
+<td><p>Get list of chemical symbol strings.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gratoms.Gratoms.get_chemical_tags" title="HTMACat.catkit.gratoms.Gratoms.get_chemical_tags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chemical_tags</span></code></a>([rank])</p></td>
+<td><p>Generate a hash descriptive of the chemical formula (rank 0) or include bonding (rank 1).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dihedral</span></code>(a0, a1, a2, a3[, mic])</p></td>
+<td><p>Calculate dihedral angle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dihedrals</span></code>(indices[, mic])</p></td>
+<td><p>Calculate dihedral angles.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dipole_moment</span></code>()</p></td>
+<td><p>Calculate the electric dipole moment for the atoms object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_distance</span></code>(a0, a1[, mic, vector])</p></td>
+<td><p>Return distance between two atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_distances</span></code>(a, indices[, mic, vector])</p></td>
+<td><p>Return distances of atom No.i with a list of atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_forces</span></code>([apply_constraint, md])</p></td>
+<td><p>Calculate atomic forces.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_global_number_of_atoms</span></code>()</p></td>
+<td><p>Returns the global number of atoms in a distributed-atoms parallel simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_initial_charges</span></code>()</p></td>
+<td><p>Get array of initial charges.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_initial_magnetic_moments</span></code>()</p></td>
+<td><p>Get array of initial magnetic moments.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_kinetic_energy</span></code>()</p></td>
+<td><p>Get the kinetic energy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_magnetic_moment</span></code>()</p></td>
+<td><p>Get calculated total magnetic moment.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_magnetic_moments</span></code>()</p></td>
+<td><p>Get calculated local magnetic moments.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_masses</span></code>()</p></td>
+<td><p>Get array of masses in atomic mass units.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_momenta</span></code>()</p></td>
+<td><p>Get array of momenta.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_moments_of_inertia</span></code>([vectors])</p></td>
+<td><p>Get the moments of inertia along the principal axes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gratoms.Gratoms.get_neighbor_symbols" title="HTMACat.catkit.gratoms.Gratoms.get_neighbor_symbols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_neighbor_symbols</span></code></a>(u)</p></td>
+<td><p>Get chemical symbols for neighboring atoms of u.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_number_of_atoms</span></code>()</p></td>
+<td><p>Deprecated, please do not use.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pbc</span></code>()</p></td>
+<td><p>Get periodic boundary condition flags.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_positions</span></code>([wrap])</p></td>
+<td><p>Get array of positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_potential_energies</span></code>()</p></td>
+<td><p>Calculate the potential energies of all the atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_potential_energy</span></code>([force_consistent, ...])</p></td>
+<td><p>Calculate potential energy.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_properties</span></code>(properties)</p></td>
+<td><p>This method is experimental; currently for internal use.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reciprocal_cell</span></code>()</p></td>
+<td><p>Get the three reciprocal lattice vectors as a 3x3 ndarray.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scaled_positions</span></code>([wrap])</p></td>
+<td><p>Get positions relative to unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stress</span></code>([voigt, apply_constraint, ...])</p></td>
+<td><p>Calculate stress tensor.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stresses</span></code>([include_ideal_gas, voigt])</p></td>
+<td><p>Calculate the stress-tensor of all the atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gratoms.Gratoms.get_surface_atoms" title="HTMACat.catkit.gratoms.Gratoms.get_surface_atoms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_atoms</span></code></a>()</p></td>
+<td><p>Return surface atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tags</span></code>()</p></td>
+<td><p>Get integer array of tags.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_temperature</span></code>()</p></td>
+<td><p>Get the temperature in Kelvin.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_total_energy</span></code>()</p></td>
+<td><p>Get the total energy - potential plus kinetic energy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_velocities</span></code>()</p></td>
+<td><p>Get array of velocities.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_volume</span></code>()</p></td>
+<td><p>Get volume of unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">has</span></code>(name)</p></td>
+<td><p>Check for existence of array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.gratoms.Gratoms.is_isomorph" title="HTMACat.catkit.gratoms.Gratoms.is_isomorph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_isomorph</span></code></a>(other)</p></td>
+<td><p>Check if isomorphic by bond count and atomic number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_array</span></code>(name, a[, dtype, shape])</p></td>
+<td><p>Add new array.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code>([i])</p></td>
+<td><p>Remove and return atom at index <em>i</em> (default last).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rattle</span></code>([stdev, seed, rng])</p></td>
+<td><p>Randomly displace atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">repeat</span></code>(rep)</p></td>
+<td><p>Create new repeated atoms object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code>(a, v[, center, rotate_cell])</p></td>
+<td><p>Rotate atoms based on a vector and an angle, or two vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate_dihedral</span></code>(a1, a2, a3, a4[, angle, ...])</p></td>
+<td><p>Rotate dihedral angle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_angle</span></code>(a1[, a2, a3, angle, mask, ...])</p></td>
+<td><p>Set angle (in degrees) formed by three atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_array</span></code>(name, a[, dtype, shape])</p></td>
+<td><p>Update array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_atomic_numbers</span></code>(numbers)</p></td>
+<td><p>Set atomic numbers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_calculator</span></code>([calc])</p></td>
+<td><p>Attach calculator object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cell</span></code>(cell[, scale_atoms, apply_constraint])</p></td>
+<td><p>Set unit cell vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_celldisp</span></code>(celldisp)</p></td>
+<td><p>Set the unit cell displacement vectors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_center_of_mass</span></code>(com[, scaled])</p></td>
+<td><p>Set the center of mass.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_chemical_symbols</span></code>(symbols)</p></td>
+<td><p>Set chemical symbols.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_constraint</span></code>([constraint])</p></td>
+<td><p>Apply one or more constrains.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dihedral</span></code>(a1, a2, a3, a4, angle[, mask, ...])</p></td>
+<td><p>Set the dihedral angle (degrees) between vectors a1-&gt;a2 and a3-&gt;a4 by changing the atom indexed by a4.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_distance</span></code>(a0, a1, distance[, fix, mic, ...])</p></td>
+<td><p>Set the distance between two atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_initial_charges</span></code>([charges])</p></td>
+<td><p>Set the initial charges.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_initial_magnetic_moments</span></code>([magmoms])</p></td>
+<td><p>Set the initial magnetic moments.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_masses</span></code>([masses])</p></td>
+<td><p>Set atomic masses in atomic mass units.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_momenta</span></code>(momenta[, apply_constraint])</p></td>
+<td><p>Set momenta.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_pbc</span></code>(pbc)</p></td>
+<td><p>Set periodic boundary condition flags.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_positions</span></code>(newpositions[, apply_constraint])</p></td>
+<td><p>Set positions, honoring any constraints.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_scaled_positions</span></code>(scaled)</p></td>
+<td><p>Set positions relative to unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.gratoms.Gratoms.set_surface_atoms" title="HTMACat.catkit.gratoms.Gratoms.set_surface_atoms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_surface_atoms</span></code></a>(top[, bottom])</p></td>
+<td><p>Assign surface atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_tags</span></code>(tags)</p></td>
+<td><p>Set tags for all atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_velocities</span></code>(velocities)</p></td>
+<td><p>Set the momenta by specifying the velocities.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">todict</span></code>()</p></td>
+<td><p>For basic JSON (non-database) support.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code>(displacement)</p></td>
+<td><p>Translate atomic positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrap</span></code>(**wrap_kw)</p></td>
+<td><p>Wrap positions to unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>(filename[, format])</p></td>
+<td><p>Write atoms object to a file.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>get_unsaturated_nodes</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>iterimages</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.adj">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adj</span></span><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.adj" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.connectivity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connectivity</span></span><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.connectivity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Return a copy.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.degree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">degree</span></span><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.degree" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.edges" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.get_chemical_tags">
+<span class="sig-name descname"><span class="pre">get_chemical_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.get_chemical_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.get_chemical_tags" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a hash descriptive of the chemical formula (rank 0) or include bonding (rank
+1).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.get_neighbor_symbols">
+<span class="sig-name descname"><span class="pre">get_neighbor_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.get_neighbor_symbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.get_neighbor_symbols" title="Permalink to this definition"></a></dt>
+<dd><p>Get chemical symbols for neighboring atoms of u.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.get_surface_atoms">
+<span class="sig-name descname"><span class="pre">get_surface_atoms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.get_surface_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.get_surface_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Return surface atoms.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.get_unsaturated_nodes">
+<span class="sig-name descname"><span class="pre">get_unsaturated_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.get_unsaturated_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.get_unsaturated_nodes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.graph">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.graph" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.is_isomorph">
+<span class="sig-name descname"><span class="pre">is_isomorph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.is_isomorph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.is_isomorph" title="Permalink to this definition"></a></dt>
+<dd><p>Check if isomorphic by bond count and atomic number.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.nodes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.gratoms.Gratoms.set_surface_atoms">
+<span class="sig-name descname"><span class="pre">set_surface_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.set_surface_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.gratoms.Gratoms.set_surface_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Assign surface atoms.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-HTMACat.catkit">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-HTMACat.catkit" title="Permalink to this heading"></a></h2>
+<p>Catalysis Kit.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">HTMACat.catkit.</span></span><span class="sig-name descname"><span class="pre">Gratoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numbers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momenta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaled_positions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">celldisp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calculator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edges</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.Gratoms" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Atoms</span></code></p>
+<p>Graph based atoms object.</p>
+<p>An Integrated class for an ASE atoms object with a corresponding Networkx Graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>adj</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">calc</span></code></dt><dd><p>Calculator object.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">cell</span></code></dt><dd><p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.cell.Cell</span></code> for direct manipulation.</p>
+</dd>
+<dt><strong>connectivity</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">constraints</span></code></dt><dd><p>Constraints of the atoms.</p>
+</dd>
+<dt><strong>degree</strong></dt><dd></dd>
+<dt><strong>edges</strong></dt><dd></dd>
+<dt><strong>graph</strong></dt><dd></dd>
+<dt><strong>nodes</strong></dt><dd></dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_lattice_vectors</span></code></dt><dd><p>Number of (non-zero) lattice vectors.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">numbers</span></code></dt><dd><p>Attribute for direct manipulation of the atomic numbers.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">pbc</span></code></dt><dd><p>Reference to pbc-flags for in-place manipulations.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">positions</span></code></dt><dd><p>Attribute for direct manipulation of the positions.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">symbols</span></code></dt><dd><p>Get chemical symbols as a <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.symbols.Symbols</span></code> object.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">append</span></code>(atom)</p></td>
+<td><p>Append atom to end.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">center</span></code>([vacuum, axis, about])</p></td>
+<td><p>Center atoms in unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.Gratoms.copy" title="HTMACat.catkit.Gratoms.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a>()</p></td>
+<td><p>Return a copy.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">edit</span></code>()</p></td>
+<td><p>Modify atoms interactively through ASE's GUI viewer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler_rotate</span></code>([phi, theta, psi, center])</p></td>
+<td><p>Rotate atoms via Euler angles (in degrees).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code>(other)</p></td>
+<td><p>Extend atoms object by appending atoms from <em>other</em>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fromdict</span></code>(dct)</p></td>
+<td><p>Rebuild atoms object from dictionary representation (todict).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_all_distances</span></code>([mic, vector])</p></td>
+<td><p>Return distances of all of the atoms with all of the atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angle</span></code>(a1, a2, a3[, mic])</p></td>
+<td><p>Get angle formed by three atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angles</span></code>(indices[, mic])</p></td>
+<td><p>Get angle formed by three atoms for multiple groupings.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_angular_momentum</span></code>()</p></td>
+<td><p>Get total angular momentum with respect to the center of mass.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_array</span></code>(name[, copy])</p></td>
+<td><p>Get an array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_atomic_numbers</span></code>()</p></td>
+<td><p>Get integer array of atomic numbers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_calculator</span></code>()</p></td>
+<td><p>Get currently attached calculator object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cell</span></code>([complete])</p></td>
+<td><p>Get the three unit cell vectors as a <cite>class</cite>:ase.cell.Cell` object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cell_lengths_and_angles</span></code>()</p></td>
+<td><p>Get unit cell parameters.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_celldisp</span></code>()</p></td>
+<td><p>Get the unit cell displacement vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_center_of_mass</span></code>([scaled])</p></td>
+<td><p>Get the center of mass.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_charges</span></code>()</p></td>
+<td><p>Get calculated charges.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chemical_formula</span></code>([mode, empirical])</p></td>
+<td><p>Get the chemical formula as a string based on the chemical symbols.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chemical_symbols</span></code>()</p></td>
+<td><p>Get list of chemical symbol strings.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.Gratoms.get_chemical_tags" title="HTMACat.catkit.Gratoms.get_chemical_tags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chemical_tags</span></code></a>([rank])</p></td>
+<td><p>Generate a hash descriptive of the chemical formula (rank 0) or include bonding (rank 1).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dihedral</span></code>(a0, a1, a2, a3[, mic])</p></td>
+<td><p>Calculate dihedral angle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dihedrals</span></code>(indices[, mic])</p></td>
+<td><p>Calculate dihedral angles.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_dipole_moment</span></code>()</p></td>
+<td><p>Calculate the electric dipole moment for the atoms object.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_distance</span></code>(a0, a1[, mic, vector])</p></td>
+<td><p>Return distance between two atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_distances</span></code>(a, indices[, mic, vector])</p></td>
+<td><p>Return distances of atom No.i with a list of atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_forces</span></code>([apply_constraint, md])</p></td>
+<td><p>Calculate atomic forces.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_global_number_of_atoms</span></code>()</p></td>
+<td><p>Returns the global number of atoms in a distributed-atoms parallel simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_initial_charges</span></code>()</p></td>
+<td><p>Get array of initial charges.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_initial_magnetic_moments</span></code>()</p></td>
+<td><p>Get array of initial magnetic moments.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_kinetic_energy</span></code>()</p></td>
+<td><p>Get the kinetic energy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_magnetic_moment</span></code>()</p></td>
+<td><p>Get calculated total magnetic moment.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_magnetic_moments</span></code>()</p></td>
+<td><p>Get calculated local magnetic moments.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_masses</span></code>()</p></td>
+<td><p>Get array of masses in atomic mass units.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_momenta</span></code>()</p></td>
+<td><p>Get array of momenta.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_moments_of_inertia</span></code>([vectors])</p></td>
+<td><p>Get the moments of inertia along the principal axes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.Gratoms.get_neighbor_symbols" title="HTMACat.catkit.Gratoms.get_neighbor_symbols"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_neighbor_symbols</span></code></a>(u)</p></td>
+<td><p>Get chemical symbols for neighboring atoms of u.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_number_of_atoms</span></code>()</p></td>
+<td><p>Deprecated, please do not use.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pbc</span></code>()</p></td>
+<td><p>Get periodic boundary condition flags.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_positions</span></code>([wrap])</p></td>
+<td><p>Get array of positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_potential_energies</span></code>()</p></td>
+<td><p>Calculate the potential energies of all the atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_potential_energy</span></code>([force_consistent, ...])</p></td>
+<td><p>Calculate potential energy.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_properties</span></code>(properties)</p></td>
+<td><p>This method is experimental; currently for internal use.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reciprocal_cell</span></code>()</p></td>
+<td><p>Get the three reciprocal lattice vectors as a 3x3 ndarray.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scaled_positions</span></code>([wrap])</p></td>
+<td><p>Get positions relative to unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stress</span></code>([voigt, apply_constraint, ...])</p></td>
+<td><p>Calculate stress tensor.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stresses</span></code>([include_ideal_gas, voigt])</p></td>
+<td><p>Calculate the stress-tensor of all the atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.Gratoms.get_surface_atoms" title="HTMACat.catkit.Gratoms.get_surface_atoms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_atoms</span></code></a>()</p></td>
+<td><p>Return surface atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tags</span></code>()</p></td>
+<td><p>Get integer array of tags.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_temperature</span></code>()</p></td>
+<td><p>Get the temperature in Kelvin.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_total_energy</span></code>()</p></td>
+<td><p>Get the total energy - potential plus kinetic energy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_velocities</span></code>()</p></td>
+<td><p>Get array of velocities.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_volume</span></code>()</p></td>
+<td><p>Get volume of unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">has</span></code>(name)</p></td>
+<td><p>Check for existence of array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#HTMACat.catkit.Gratoms.is_isomorph" title="HTMACat.catkit.Gratoms.is_isomorph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_isomorph</span></code></a>(other)</p></td>
+<td><p>Check if isomorphic by bond count and atomic number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new_array</span></code>(name, a[, dtype, shape])</p></td>
+<td><p>Add new array.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pop</span></code>([i])</p></td>
+<td><p>Remove and return atom at index <em>i</em> (default last).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rattle</span></code>([stdev, seed, rng])</p></td>
+<td><p>Randomly displace atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">repeat</span></code>(rep)</p></td>
+<td><p>Create new repeated atoms object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate</span></code>(a, v[, center, rotate_cell])</p></td>
+<td><p>Rotate atoms based on a vector and an angle, or two vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotate_dihedral</span></code>(a1, a2, a3, a4[, angle, ...])</p></td>
+<td><p>Rotate dihedral angle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_angle</span></code>(a1[, a2, a3, angle, mask, ...])</p></td>
+<td><p>Set angle (in degrees) formed by three atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_array</span></code>(name, a[, dtype, shape])</p></td>
+<td><p>Update array.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_atomic_numbers</span></code>(numbers)</p></td>
+<td><p>Set atomic numbers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_calculator</span></code>([calc])</p></td>
+<td><p>Attach calculator object.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_cell</span></code>(cell[, scale_atoms, apply_constraint])</p></td>
+<td><p>Set unit cell vectors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_celldisp</span></code>(celldisp)</p></td>
+<td><p>Set the unit cell displacement vectors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_center_of_mass</span></code>(com[, scaled])</p></td>
+<td><p>Set the center of mass.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_chemical_symbols</span></code>(symbols)</p></td>
+<td><p>Set chemical symbols.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_constraint</span></code>([constraint])</p></td>
+<td><p>Apply one or more constrains.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_dihedral</span></code>(a1, a2, a3, a4, angle[, mask, ...])</p></td>
+<td><p>Set the dihedral angle (degrees) between vectors a1-&gt;a2 and a3-&gt;a4 by changing the atom indexed by a4.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_distance</span></code>(a0, a1, distance[, fix, mic, ...])</p></td>
+<td><p>Set the distance between two atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_initial_charges</span></code>([charges])</p></td>
+<td><p>Set the initial charges.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_initial_magnetic_moments</span></code>([magmoms])</p></td>
+<td><p>Set the initial magnetic moments.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_masses</span></code>([masses])</p></td>
+<td><p>Set atomic masses in atomic mass units.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_momenta</span></code>(momenta[, apply_constraint])</p></td>
+<td><p>Set momenta.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_pbc</span></code>(pbc)</p></td>
+<td><p>Set periodic boundary condition flags.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_positions</span></code>(newpositions[, apply_constraint])</p></td>
+<td><p>Set positions, honoring any constraints.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_scaled_positions</span></code>(scaled)</p></td>
+<td><p>Set positions relative to unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#HTMACat.catkit.Gratoms.set_surface_atoms" title="HTMACat.catkit.Gratoms.set_surface_atoms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_surface_atoms</span></code></a>(top[, bottom])</p></td>
+<td><p>Assign surface atoms.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_tags</span></code>(tags)</p></td>
+<td><p>Set tags for all atoms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_velocities</span></code>(velocities)</p></td>
+<td><p>Set the momenta by specifying the velocities.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">todict</span></code>()</p></td>
+<td><p>For basic JSON (non-database) support.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate</span></code>(displacement)</p></td>
+<td><p>Translate atomic positions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrap</span></code>(**wrap_kw)</p></td>
+<td><p>Wrap positions to unit cell.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">write</span></code>(filename[, format])</p></td>
+<td><p>Write atoms object to a file.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>get_unsaturated_nodes</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>iterimages</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.adj">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adj</span></span><a class="headerlink" href="#HTMACat.catkit.Gratoms.adj" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.connectivity">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">connectivity</span></span><a class="headerlink" href="#HTMACat.catkit.Gratoms.connectivity" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.Gratoms.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Return a copy.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.degree">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">degree</span></span><a class="headerlink" href="#HTMACat.catkit.Gratoms.degree" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.edges">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edges</span></span><a class="headerlink" href="#HTMACat.catkit.Gratoms.edges" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.get_chemical_tags">
+<span class="sig-name descname"><span class="pre">get_chemical_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.get_chemical_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.Gratoms.get_chemical_tags" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a hash descriptive of the chemical formula (rank 0) or include bonding (rank
+1).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.get_neighbor_symbols">
+<span class="sig-name descname"><span class="pre">get_neighbor_symbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.get_neighbor_symbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.Gratoms.get_neighbor_symbols" title="Permalink to this definition"></a></dt>
+<dd><p>Get chemical symbols for neighboring atoms of u.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.get_surface_atoms">
+<span class="sig-name descname"><span class="pre">get_surface_atoms</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.get_surface_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.Gratoms.get_surface_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Return surface atoms.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.get_unsaturated_nodes">
+<span class="sig-name descname"><span class="pre">get_unsaturated_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screen</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.get_unsaturated_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.Gratoms.get_unsaturated_nodes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.graph">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">graph</span></span><a class="headerlink" href="#HTMACat.catkit.Gratoms.graph" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.is_isomorph">
+<span class="sig-name descname"><span class="pre">is_isomorph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.is_isomorph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.Gratoms.is_isomorph" title="Permalink to this definition"></a></dt>
+<dd><p>Check if isomorphic by bond count and atomic number.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.nodes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#HTMACat.catkit.Gratoms.nodes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="HTMACat.catkit.Gratoms.set_surface_atoms">
+<span class="sig-name descname"><span class="pre">set_surface_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/catkit/gratoms.html#Gratoms.set_surface_atoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.catkit.Gratoms.set_surface_atoms" title="Permalink to this definition"></a></dt>
+<dd><p>Assign surface atoms.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="HTMACat.NEB.html" class="btn btn-neutral float-left" title="HTMACat.NEB package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="HTMACat.catkit.data.html" class="btn btn-neutral float-right" title="HTMACat.catkit.data package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Jiaqiang Yang; Feifeng Wu; Bin Shan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

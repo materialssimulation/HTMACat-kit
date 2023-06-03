@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>src &mdash; HTMACat-kit 1.0.2 documentation</title>
+  <title>HTMACat &mdash; HTMACat-kit 1.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -12,10 +12,8 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -42,8 +40,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Get_start.html"><strong>Get_start</strong></a></li>
-<li class="toctree-l1"><a class="reference internal" href="Usage.html"><strong>Usage</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html"><strong>Installation Guide</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="Getting_started.html"><strong>Getting started</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="Examples.html"><strong>Examples</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="HTMACat.html">HTMACat package</a></li>
 </ul>
@@ -62,7 +60,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">src</li>
+      <li class="breadcrumb-item active">HTMACat</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -72,8 +70,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="src">
-<h1>src<a class="headerlink" href="#src" title="Permalink to this heading"></a></h1>
+  <section id="htmacat">
+<h1>HTMACat<a class="headerlink" href="#htmacat" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="HTMACat.html">HTMACat package</a><ul>
@@ -83,11 +81,18 @@
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#module-HTMACat.NEB.Construct_neb">HTMACat.NEB.Construct_neb module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#htmacat-neb-construct-network-module">HTMACat.NEB.Construct_network module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#module-HTMACat.NEB.Dismove">HTMACat.NEB.Dismove module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#module-HTMACat.NEB.Extract_info">HTMACat.NEB.Extract_info module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#module-HTMACat.NEB.Post_struc">HTMACat.NEB.Post_struc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#htmacat-neb-post-struc-module">HTMACat.NEB.Post_struc module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#module-HTMACat.NEB.post_neb">HTMACat.NEB.post_neb module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#htmacat-neb-vaspneb6-module">HTMACat.NEB.vaspneb6 module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.NEB.html#module-HTMACat.NEB">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.catkit.html">HTMACat.catkit package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#module-HTMACat.catkit.build">HTMACat.catkit.build module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#module-HTMACat.catkit.gratoms">HTMACat.catkit.gratoms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.catkit.html#module-HTMACat.catkit">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="HTMACat.descriptor.html">HTMACat.descriptor package</a><ul>
@@ -102,36 +107,84 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="HTMACat.model.html">HTMACat.model package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Construct_Coadsorption">HTMACat.model.Construct_Coadsorption module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Construct_adsorption">HTMACat.model.Construct_adsorption module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Construct_bulk">HTMACat.model.Construct_bulk module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Construct_model">HTMACat.model.Construct_model module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Construct_slabs">HTMACat.model.Construct_slabs module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Ads">HTMACat.model.Ads module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Construct_adsorption_yaml">HTMACat.model.Construct_adsorption_yaml module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Species">HTMACat.model.Species module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Structure">HTMACat.model.Structure module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model.Substrate">HTMACat.model.Substrate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.model.html#module-HTMACat.model">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="HTMACat.post.html">HTMACat.post package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#htmacat-post-extract-adener-module">HTMACat.post.Extract_adener module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#htmacat-post-extract-adener-alloy-module">HTMACat.post.Extract_adener_alloy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#htmacat-post-extract-adener-site-module">HTMACat.post.Extract_adener_site module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#module-HTMACat.post.Extract_adener">HTMACat.post.Extract_adener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#module-HTMACat.post.Extract_adener_alloy">HTMACat.post.Extract_adener_alloy module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#module-HTMACat.post.Extract_adener_site">HTMACat.post.Extract_adener_site module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#module-HTMACat.post.Extract_cal_fre">HTMACat.post.Extract_cal_fre module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#module-HTMACat.post.Extract_info">HTMACat.post.Extract_info module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#htmacat-post-cal-adse-module">HTMACat.post.cal_adsE module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#module-HTMACat.post.cal_adsE">HTMACat.post.cal_adsE module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="HTMACat.post.html#module-HTMACat.post">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="HTMACat.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Base_tools">HTMACat.Base_tools module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Extract_info">HTMACat.Extract_info module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.command">HTMACat.command module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Base_tools">HTMACat.Base_tools module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Base_tools.get_new_dict"><code class="docutils literal notranslate"><span class="pre">get_new_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Base_tools.isequal"><code class="docutils literal notranslate"><span class="pre">isequal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Base_tools.isinclude"><code class="docutils literal notranslate"><span class="pre">isinclude()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.Extract_info">HTMACat.Extract_info module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.Construct_descriptor_info"><code class="docutils literal notranslate"><span class="pre">Construct_descriptor_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.Extract_adsE"><code class="docutils literal notranslate"><span class="pre">Extract_adsE()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.Extract_atomic_info"><code class="docutils literal notranslate"><span class="pre">Extract_atomic_info()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.Extract_energy"><code class="docutils literal notranslate"><span class="pre">Extract_energy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.Extract_energy_single"><code class="docutils literal notranslate"><span class="pre">Extract_energy_single()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.Extract_reaction"><code class="docutils literal notranslate"><span class="pre">Extract_reaction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.Extract_slab_info_1"><code class="docutils literal notranslate"><span class="pre">Extract_slab_info_1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.Extract_slab_info_2"><code class="docutils literal notranslate"><span class="pre">Extract_slab_info_2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.cal_Eads"><code class="docutils literal notranslate"><span class="pre">cal_Eads()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.cal_Erad"><code class="docutils literal notranslate"><span class="pre">cal_Erad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.cal_Erad_atom"><code class="docutils literal notranslate"><span class="pre">cal_Erad_atom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.cal_Eslab"><code class="docutils literal notranslate"><span class="pre">cal_Eslab()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.cal_adE_coad"><code class="docutils literal notranslate"><span class="pre">cal_adE_coad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.distinguish_atom_binding"><code class="docutils literal notranslate"><span class="pre">distinguish_atom_binding()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_adsorption_energy_stable"><code class="docutils literal notranslate"><span class="pre">get_adsorption_energy_stable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_atom_neigh"><code class="docutils literal notranslate"><span class="pre">get_atom_neigh()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_binding_adatom"><code class="docutils literal notranslate"><span class="pre">get_binding_adatom()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_distance_adatoms"><code class="docutils literal notranslate"><span class="pre">get_distance_adatoms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_file_name"><code class="docutils literal notranslate"><span class="pre">get_file_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_min_distance_group"><code class="docutils literal notranslate"><span class="pre">get_min_distance_group()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_potcar"><code class="docutils literal notranslate"><span class="pre">get_potcar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_site"><code class="docutils literal notranslate"><span class="pre">get_site()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_site_stable"><code class="docutils literal notranslate"><span class="pre">get_site_stable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_site_stable_energy"><code class="docutils literal notranslate"><span class="pre">get_site_stable_energy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.Extract_info.get_symmetry_surfatoms"><code class="docutils literal notranslate"><span class="pre">get_symmetry_surfatoms()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.IO">HTMACat.IO module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.Input"><code class="docutils literal notranslate"><span class="pre">Input()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.adsorption_part"><code class="docutils literal notranslate"><span class="pre">adsorption_part()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.generate_unique_filename"><code class="docutils literal notranslate"><span class="pre">generate_unique_filename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.get_templator"><code class="docutils literal notranslate"><span class="pre">get_templator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.out_templator_file"><code class="docutils literal notranslate"><span class="pre">out_templator_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.out_vasp"><code class="docutils literal notranslate"><span class="pre">out_vasp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.print_templator"><code class="docutils literal notranslate"><span class="pre">print_templator()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.species_part"><code class="docutils literal notranslate"><span class="pre">species_part()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.IO.substrate_part"><code class="docutils literal notranslate"><span class="pre">substrate_part()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.command">HTMACat.command module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.command.ads"><code class="docutils literal notranslate"><span class="pre">ads()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.command.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.command.main_command"><code class="docutils literal notranslate"><span class="pre">main_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="HTMACat.html#HTMACat.command.templator"><code class="docutils literal notranslate"><span class="pre">templator()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat.configuration">HTMACat.configuration module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="HTMACat.html#module-HTMACat">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">setup module</a></li>
 </ul>
 </div>
 </section>

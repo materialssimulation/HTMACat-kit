@@ -1,0 +1,12 @@
+StrucInfo:
+  struct:
+    element: Cu
+    lattice_type: fcc
+    lattice_constant: 3.58
+    facet: ["111"]
+    dope:
+      Cu: [0]
+
+Model:
+  ads:
+    - [s: "C[Al](C)C", 1]

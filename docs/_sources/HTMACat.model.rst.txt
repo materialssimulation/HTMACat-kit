@@ -4,42 +4,42 @@ HTMACat.model package
 Submodules
 ----------
 
-HTMACat.model.Construct\_Coadsorption module
---------------------------------------------
+HTMACat.model.Ads module
+------------------------
 
-.. automodule:: HTMACat.model.Construct_Coadsorption
+.. automodule:: HTMACat.model.Ads
    :members:
    :undoc-members:
    :show-inheritance:
 
-HTMACat.model.Construct\_adsorption module
-------------------------------------------
+HTMACat.model.Construct\_adsorption\_yaml module
+------------------------------------------------
 
-.. automodule:: HTMACat.model.Construct_adsorption
+.. automodule:: HTMACat.model.Construct_adsorption_yaml
    :members:
    :undoc-members:
    :show-inheritance:
 
-HTMACat.model.Construct\_bulk module
-------------------------------------
+HTMACat.model.Species module
+----------------------------
 
-.. automodule:: HTMACat.model.Construct_bulk
+.. automodule:: HTMACat.model.Species
    :members:
    :undoc-members:
    :show-inheritance:
 
-HTMACat.model.Construct\_model module
--------------------------------------
+HTMACat.model.Structure module
+------------------------------
 
-.. automodule:: HTMACat.model.Construct_model
+.. automodule:: HTMACat.model.Structure
    :members:
    :undoc-members:
    :show-inheritance:
 
-HTMACat.model.Construct\_slabs module
--------------------------------------
+HTMACat.model.Substrate module
+------------------------------
 
-.. automodule:: HTMACat.model.Construct_slabs
+.. automodule:: HTMACat.model.Substrate
    :members:
    :undoc-members:
    :show-inheritance:

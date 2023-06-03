@@ -1,16 +1,16 @@
-name: publish HtmaCat-kit to release
+name: publish HtmaCat-kit to release & PyPI
 
 on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'The branch to run the workflow on'
+        description: "The branch to run the workflow on"
         required: false
-        default: 'master'
+        default: "master"
         type: choice
         options:
-          - 'master'
-          - 'dev'
+          - "master"
+          - "dev"
   push:
     branches:
       - master
@@ -36,15 +36,13 @@ jobs:
 
       - name: Build wheel and source distribution
         run: |
-          cd src
           pip install setuptools wheel
           python setup.py sdist bdist_wheel
 
       - name: Release version
         id: release_version
         run: |
-          cd src
-          app_version=$(cat setup.py | grep version | sed "s/version='\([0-9]\+\.[0-9]\+\.[0-9]\+\)',/\1/" | sed s/[[:space:]]//g)
+          app_version=$(python setup.py --version)
           echo "app_version=$app_version" >> $GITHUB_ENV
           echo "app_version=$app_version"
 
@@ -52,22 +50,15 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: src/dist/*.whl
+          file: dist/*.whl
           tag: v${{env.app_version}}
           release_name: v${{env.app_version}}
           overwrite: false
           file_glob: true
           body: ${{github.event.head_commit.message}}
 
-      - name: Replace the install link and Update Readme
-        run: |
-          link=$(curl --silent "https://api.github.com/repos/${{ github.repository }}/releases/latest" | \
-            jq -r '.assets[].browser_download_url' | head -n1)
-          sed -i 's~https://github.com/[^/]*/[^/]*/releases/download/[^/]*/HTMACat-[^"]*~'"$link"'~g' README.md
-
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          add: 'README.md'
-          message: 'Updated wheel link in README'
-          push: true
+          password: ${{secrets.PYPI_API_TOKEN}}
+          skip_existing: true
