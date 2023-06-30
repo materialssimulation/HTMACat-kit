@@ -1,0 +1,332 @@
+['C2H6 -> C2H4 + C2H2 + H2', '8', 'Reactants', 'CC', 'Products', 'C=C', 'C#C', '[H][H]']
+
+All possible species found (17 in total):
+No.                     Chemical_form       	SMILES
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+4                       C                   	[C-4]
+5                       C2                  	[C-]#[C-]
+6                       H                   	[H+]
+7                       CH                  	[CH-3]
+8                       C2H                 	[C-]#C
+9                       CH2                 	[CH2-2]
+10                      C2H2                	[C-2]=C
+11                      CH3                 	[CH3-]
+12                      C2H3                	[C-3]C
+13                      C2H3                	[CH-]=C
+14                      C2H4                	[CH-2]C
+15                      C2H5                	[CH2-]C
+16                      CH4                 	C
+
+所有可能的基元反应 All possible reactions
+ 27 reactions in total:
+0)    1  +  6  <->  15        C2H4  +  H  <->  C2H5         	C=C  +  [H+]  <->  [CH2-]C
+1)    2  +  6  <->  13        C2H2  +  H  <->  C2H3         	C#C  +  [H+]  <->  [CH-]=C
+2)    4  +  4  <->  5         C  +  C  <->  C2              	[C-4]  +  [C-4]  <->  [C-]#[C-]
+3)    4  +  6  <->  7         C  +  H  <->  CH              	[C-4]  +  [H+]  <->  [CH-3]
+4)    4  +  7  <->  8         C  +  CH  <->  C2H            	[C-4]  +  [CH-3]  <->  [C-]#C
+5)    4  +  9  <->  10        C  +  CH2  <->  C2H2          	[C-4]  +  [CH2-2]  <->  [C-2]=C
+6)    4  +  11  <->  12       C  +  CH3  <->  C2H3          	[C-4]  +  [CH3-]  <->  [C-3]C
+7)    5  +  6  <->  8         C2  +  H  <->  C2H            	[C-]#[C-]  +  [H+]  <->  [C-]#C
+8)    6  +  6  <->  3         H  +  H  <->  H2              	[H+]  +  [H+]  <->  [H][H]
+9)    6  +  7  <->  9         H  +  CH  <->  CH2            	[H+]  +  [CH-3]  <->  [CH2-2]
+10)   6  +  8  <->  10        H  +  C2H  <->  C2H2          	[H+]  +  [C-]#C  <->  [C-2]=C
+11)   6  +  8  <->  2         H  +  C2H  <->  C2H2          	[H+]  +  [C-]#C  <->  C#C
+12)   6  +  9  <->  11        H  +  CH2  <->  CH3           	[H+]  +  [CH2-2]  <->  [CH3-]
+13)   6  +  10  <->  12       H  +  C2H2  <->  C2H3         	[H+]  +  [C-2]=C  <->  [C-3]C
+14)   6  +  10  <->  13       H  +  C2H2  <->  C2H3         	[H+]  +  [C-2]=C  <->  [CH-]=C
+15)   6  +  11  <->  16       H  +  CH3  <->  CH4           	[H+]  +  [CH3-]  <->  C
+16)   6  +  12  <->  14       H  +  C2H3  <->  C2H4         	[H+]  +  [C-3]C  <->  [CH-2]C
+17)   6  +  13  <->  14       H  +  C2H3  <->  C2H4         	[H+]  +  [CH-]=C  <->  [CH-2]C
+18)   6  +  13  <->  1        H  +  C2H3  <->  C2H4         	[H+]  +  [CH-]=C  <->  C=C
+19)   6  +  14  <->  15       H  +  C2H4  <->  C2H5         	[H+]  +  [CH-2]C  <->  [CH2-]C
+20)   0  <->  6  +  15        C2H6  <->  H  +  C2H5         	CC  <->  [H+]  +  [CH2-]C
+21)   7  +  7  <->  2         CH  +  CH  <->  C2H2          	[CH-3]  +  [CH-3]  <->  C#C
+22)   7  +  9  <->  13        CH  +  CH2  <->  C2H3         	[CH-3]  +  [CH2-2]  <->  [CH-]=C
+23)   7  +  11  <->  14       CH  +  CH3  <->  C2H4         	[CH-3]  +  [CH3-]  <->  [CH-2]C
+24)   9  +  9  <->  1         CH2  +  CH2  <->  C2H4        	[CH2-2]  +  [CH2-2]  <->  C=C
+25)   9  +  11  <->  15       CH2  +  CH3  <->  C2H5        	[CH2-2]  +  [CH3-]  <->  [CH2-]C
+26)   0  <->  11  +  11       C2H6  <->  CH3  +  CH3        	CC  <->  [CH3-]  +  [CH3-]
+
+
+
+================ The Complete CRN ================
+总反应网络
+
+
+Species (16 in total):
+No.                     Chemical_form       	SMILES
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+4                       C                   	[C-4]
+5                       C2                  	[C-]#[C-]
+6                       H                   	[H+]
+7                       CH                  	[CH-3]
+8                       C2H                 	[C-]#C
+9                       CH2                 	[CH2-2]
+10                      C2H2                	[C-2]=C
+11                      CH3                 	[CH3-]
+12                      C2H3                	[C-3]C
+13                      C2H3                	[CH-]=C
+14                      C2H4                	[CH-2]C
+15                      C2H5                	[CH2-]C
+
+26 reactions in total:
+0)    1  +  6  <->  15        C2H4  +  H  <->  C2H5         	C=C  +  [H+]  <->  [CH2-]C
+1)    2  +  6  <->  13        C2H2  +  H  <->  C2H3         	C#C  +  [H+]  <->  [CH-]=C
+2)    4  +  4  <->  5         C  +  C  <->  C2              	[C-4]  +  [C-4]  <->  [C-]#[C-]
+3)    4  +  6  <->  7         C  +  H  <->  CH              	[C-4]  +  [H+]  <->  [CH-3]
+4)    4  +  7  <->  8         C  +  CH  <->  C2H            	[C-4]  +  [CH-3]  <->  [C-]#C
+5)    4  +  9  <->  10        C  +  CH2  <->  C2H2          	[C-4]  +  [CH2-2]  <->  [C-2]=C
+6)    4  +  11  <->  12       C  +  CH3  <->  C2H3          	[C-4]  +  [CH3-]  <->  [C-3]C
+7)    5  +  6  <->  8         C2  +  H  <->  C2H            	[C-]#[C-]  +  [H+]  <->  [C-]#C
+8)    6  +  6  <->  3         H  +  H  <->  H2              	[H+]  +  [H+]  <->  [H][H]
+9)    6  +  7  <->  9         H  +  CH  <->  CH2            	[H+]  +  [CH-3]  <->  [CH2-2]
+10)   6  +  8  <->  10        H  +  C2H  <->  C2H2          	[H+]  +  [C-]#C  <->  [C-2]=C
+11)   6  +  8  <->  2         H  +  C2H  <->  C2H2          	[H+]  +  [C-]#C  <->  C#C
+12)   6  +  9  <->  11        H  +  CH2  <->  CH3           	[H+]  +  [CH2-2]  <->  [CH3-]
+13)   6  +  10  <->  12       H  +  C2H2  <->  C2H3         	[H+]  +  [C-2]=C  <->  [C-3]C
+14)   6  +  10  <->  13       H  +  C2H2  <->  C2H3         	[H+]  +  [C-2]=C  <->  [CH-]=C
+16)   6  +  12  <->  14       H  +  C2H3  <->  C2H4         	[H+]  +  [C-3]C  <->  [CH-2]C
+17)   6  +  13  <->  14       H  +  C2H3  <->  C2H4         	[H+]  +  [CH-]=C  <->  [CH-2]C
+18)   6  +  13  <->  1        H  +  C2H3  <->  C2H4         	[H+]  +  [CH-]=C  <->  C=C
+19)   6  +  14  <->  15       H  +  C2H4  <->  C2H5         	[H+]  +  [CH-2]C  <->  [CH2-]C
+20)   0  <->  6  +  15        C2H6  <->  H  +  C2H5         	CC  <->  [H+]  +  [CH2-]C
+21)   7  +  7  <->  2         CH  +  CH  <->  C2H2          	[CH-3]  +  [CH-3]  <->  C#C
+22)   7  +  9  <->  13        CH  +  CH2  <->  C2H3         	[CH-3]  +  [CH2-2]  <->  [CH-]=C
+23)   7  +  11  <->  14       CH  +  CH3  <->  C2H4         	[CH-3]  +  [CH3-]  <->  [CH-2]C
+24)   9  +  9  <->  1         CH2  +  CH2  <->  C2H4        	[CH2-2]  +  [CH2-2]  <->  C=C
+25)   9  +  11  <->  15       CH2  +  CH3  <->  C2H5        	[CH2-2]  +  [CH3-]  <->  [CH2-]C
+26)   0  <->  11  +  11       C2H6  <->  CH3  +  CH3        	CC  <->  [CH3-]  +  [CH3-]
+
+
+
+
+=================== Stem CRNs ===================
+以下是搜寻到的极小主干网络，共 7 个：
+
+
+*** Stem CRN 0:
+-- 7 involved species:
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+6                       H                   	[H+]
+13                      C2H3                	[CH-]=C
+15                      C2H5                	[CH2-]C
+-- 5 reactions involved:
+0)    1  +  6  <-->  15       C2H4  +  H  <-->  C2H5        	C=C  +  [H+]  <-->  [CH2-]C
+1)    2  +  6  <-->  13       C2H2  +  H  <-->  C2H3        	C#C  +  [H+]  <-->  [CH-]=C
+8)    6  +  6  <-->  3        H  +  H  <-->  H2             	[H+]  +  [H+]  <-->  [H][H]
+18)   6  +  13  <-->  1       H  +  C2H3  <-->  C2H4        	[H+]  +  [CH-]=C  <-->  C=C
+20)   0  <-->  6  +  15       C2H6  <-->  H  +  C2H5        	CC  <-->  [H+]  +  [CH2-]C
+
+
+*** Stem CRN 1:
+-- 8 involved species:
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+6                       H                   	[H+]
+9                       CH2                 	[CH2-2]
+11                      CH3                 	[CH3-]
+13                      C2H3                	[CH-]=C
+-- 6 reactions involved:
+1)    2  +  6  <-->  13       C2H2  +  H  <-->  C2H3        	C#C  +  [H+]  <-->  [CH-]=C
+8)    6  +  6  <-->  3        H  +  H  <-->  H2             	[H+]  +  [H+]  <-->  [H][H]
+12)   6  +  9  <-->  11       H  +  CH2  <-->  CH3          	[H+]  +  [CH2-2]  <-->  [CH3-]
+18)   6  +  13  <-->  1       H  +  C2H3  <-->  C2H4        	[H+]  +  [CH-]=C  <-->  C=C
+24)   9  +  9  <-->  1        CH2  +  CH2  <-->  C2H4       	[CH2-2]  +  [CH2-2]  <-->  C=C
+26)   0  <-->  11  +  11      C2H6  <-->  CH3  +  CH3       	CC  <-->  [CH3-]  +  [CH3-]
+
+
+*** Stem CRN 2:
+-- 10 involved species:
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+6                       H                   	[H+]
+8                       C2H                 	[C-]#C
+10                      C2H2                	[C-2]=C
+12                      C2H3                	[C-3]C
+14                      C2H4                	[CH-2]C
+15                      C2H5                	[CH2-]C
+-- 8 reactions involved:
+0)    1  +  6  <-->  15       C2H4  +  H  <-->  C2H5        	C=C  +  [H+]  <-->  [CH2-]C
+8)    6  +  6  <-->  3        H  +  H  <-->  H2             	[H+]  +  [H+]  <-->  [H][H]
+10)   6  +  8  <-->  10       H  +  C2H  <-->  C2H2         	[H+]  +  [C-]#C  <-->  [C-2]=C
+11)   6  +  8  <-->  2        H  +  C2H  <-->  C2H2         	[H+]  +  [C-]#C  <-->  C#C
+13)   6  +  10  <-->  12      H  +  C2H2  <-->  C2H3        	[H+]  +  [C-2]=C  <-->  [C-3]C
+16)   6  +  12  <-->  14      H  +  C2H3  <-->  C2H4        	[H+]  +  [C-3]C  <-->  [CH-2]C
+19)   6  +  14  <-->  15      H  +  C2H4  <-->  C2H5        	[H+]  +  [CH-2]C  <-->  [CH2-]C
+20)   0  <-->  6  +  15       C2H6  <-->  H  +  C2H5        	CC  <-->  [H+]  +  [CH2-]C
+
+
+*** Stem CRN 3:
+-- 9 involved species:
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+6                       H                   	[H+]
+7                       CH                  	[CH-3]
+11                      CH3                 	[CH3-]
+14                      C2H4                	[CH-2]C
+15                      C2H5                	[CH2-]C
+-- 7 reactions involved:
+0)    1  +  6  <-->  15       C2H4  +  H  <-->  C2H5        	C=C  +  [H+]  <-->  [CH2-]C
+8)    6  +  6  <-->  3        H  +  H  <-->  H2             	[H+]  +  [H+]  <-->  [H][H]
+19)   6  +  14  <-->  15      H  +  C2H4  <-->  C2H5        	[H+]  +  [CH-2]C  <-->  [CH2-]C
+20)   0  <-->  6  +  15       C2H6  <-->  H  +  C2H5        	CC  <-->  [H+]  +  [CH2-]C
+21)   7  +  7  <-->  2        CH  +  CH  <-->  C2H2         	[CH-3]  +  [CH-3]  <-->  C#C
+23)   7  +  11  <-->  14      CH  +  CH3  <-->  C2H4        	[CH-3]  +  [CH3-]  <-->  [CH-2]C
+26)   0  <-->  11  +  11      C2H6  <-->  CH3  +  CH3       	CC  <-->  [CH3-]  +  [CH3-]
+
+
+*** Stem CRN 4:
+-- 8 involved species:
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+6                       H                   	[H+]
+7                       CH                  	[CH-3]
+9                       CH2                 	[CH2-2]
+15                      C2H5                	[CH2-]C
+-- 6 reactions involved:
+0)    1  +  6  <-->  15       C2H4  +  H  <-->  C2H5        	C=C  +  [H+]  <-->  [CH2-]C
+8)    6  +  6  <-->  3        H  +  H  <-->  H2             	[H+]  +  [H+]  <-->  [H][H]
+9)    6  +  7  <-->  9        H  +  CH  <-->  CH2           	[H+]  +  [CH-3]  <-->  [CH2-2]
+20)   0  <-->  6  +  15       C2H6  <-->  H  +  C2H5        	CC  <-->  [H+]  +  [CH2-]C
+21)   7  +  7  <-->  2        CH  +  CH  <-->  C2H2         	[CH-3]  +  [CH-3]  <-->  C#C
+24)   9  +  9  <-->  1        CH2  +  CH2  <-->  C2H4       	[CH2-2]  +  [CH2-2]  <-->  C=C
+
+
+*** Stem CRN 5:
+-- 8 involved species:
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+6                       H                   	[H+]
+7                       CH                  	[CH-3]
+9                       CH2                 	[CH2-2]
+11                      CH3                 	[CH3-]
+-- 6 reactions involved:
+8)    6  +  6  <-->  3        H  +  H  <-->  H2             	[H+]  +  [H+]  <-->  [H][H]
+9)    6  +  7  <-->  9        H  +  CH  <-->  CH2           	[H+]  +  [CH-3]  <-->  [CH2-2]
+12)   6  +  9  <-->  11       H  +  CH2  <-->  CH3          	[H+]  +  [CH2-2]  <-->  [CH3-]
+21)   7  +  7  <-->  2        CH  +  CH  <-->  C2H2         	[CH-3]  +  [CH-3]  <-->  C#C
+24)   9  +  9  <-->  1        CH2  +  CH2  <-->  C2H4       	[CH2-2]  +  [CH2-2]  <-->  C=C
+26)   0  <-->  11  +  11      C2H6  <-->  CH3  +  CH3       	CC  <-->  [CH3-]  +  [CH3-]
+
+
+*** Stem CRN 6:
+-- 12 involved species:
+0 (Reactant)            C2H6                	CC
+1 (Product)             C2H4                	C=C
+2 (Product)             C2H2                	C#C
+3 (Product)             H2                  	[H][H]
+4                       C                   	[C-4]
+5                       C2                  	[C-]#[C-]
+6                       H                   	[H+]
+8                       C2H                 	[C-]#C
+11                      CH3                 	[CH3-]
+12                      C2H3                	[C-3]C
+14                      C2H4                	[CH-2]C
+15                      C2H5                	[CH2-]C
+-- 10 reactions involved:
+0)    1  +  6  <-->  15       C2H4  +  H  <-->  C2H5        	C=C  +  [H+]  <-->  [CH2-]C
+2)    4  +  4  <-->  5        C  +  C  <-->  C2             	[C-4]  +  [C-4]  <-->  [C-]#[C-]
+6)    4  +  11  <-->  12      C  +  CH3  <-->  C2H3         	[C-4]  +  [CH3-]  <-->  [C-3]C
+7)    5  +  6  <-->  8        C2  +  H  <-->  C2H           	[C-]#[C-]  +  [H+]  <-->  [C-]#C
+8)    6  +  6  <-->  3        H  +  H  <-->  H2             	[H+]  +  [H+]  <-->  [H][H]
+11)   6  +  8  <-->  2        H  +  C2H  <-->  C2H2         	[H+]  +  [C-]#C  <-->  C#C
+16)   6  +  12  <-->  14      H  +  C2H3  <-->  C2H4        	[H+]  +  [C-3]C  <-->  [CH-2]C
+19)   6  +  14  <-->  15      H  +  C2H4  <-->  C2H5        	[H+]  +  [CH-2]C  <-->  [CH2-]C
+20)   0  <-->  6  +  15       C2H6  <-->  H  +  C2H5        	CC  <-->  [H+]  +  [CH2-]C
+26)   0  <-->  11  +  11      C2H6  <-->  CH3  +  CH3       	CC  <-->  [CH3-]  +  [CH3-]
+
+
+
+
+
+
+Species_topological (17 in total):
+
+0 (Reactant)    C2H6		CC
+nodes: [(0, 'C'), (1, 'C'), (2, 'H'), (3, 'H'), (4, 'H'), (5, 'H'), (6, 'H'), (7, 'H')]
+edges: [(0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (1, 6), (1, 7)]
+
+1 (Product)     C2H4		C=C
+nodes: [(0, 'C'), (1, 'C'), (2, 'H'), (3, 'H'), (4, 'H'), (5, 'H')]
+edges: [(0, 1), (0, 2), (0, 3), (1, 4), (1, 5)]
+
+2 (Product)     C2H2		C#C
+nodes: [(0, 'C'), (1, 'C'), (2, 'H'), (3, 'H')]
+edges: [(0, 1), (0, 2), (1, 3)]
+
+3 (Product)     H2		[H][H]
+nodes: [(0, 'H'), (1, 'H')]
+edges: [(0, 1)]
+
+4               C		[C-4]
+nodes: [(0, 'C')]
+edges: []
+
+5               C2		[C-]#[C-]
+nodes: [(0, 'C'), (1, 'C')]
+edges: [(0, 1)]
+
+6               H		[H+]
+nodes: [(0, 'H')]
+edges: []
+
+7               CH		[CH-3]
+nodes: [(0, 'C'), (1, 'H')]
+edges: [(0, 1)]
+
+8               C2H		[C-]#C
+nodes: [(0, 'C'), (1, 'C'), (2, 'H')]
+edges: [(0, 1), (0, 2)]
+
+9               CH2		[CH2-2]
+nodes: [(0, 'C'), (1, 'H'), (2, 'H')]
+edges: [(0, 1), (0, 2)]
+
+10              C2H2		[C-2]=C
+nodes: [(0, 'C'), (1, 'C'), (2, 'H'), (3, 'H')]
+edges: [(0, 1), (0, 2), (0, 3)]
+
+11              CH3		[CH3-]
+nodes: [(0, 'C'), (1, 'H'), (2, 'H'), (3, 'H')]
+edges: [(0, 1), (0, 2), (0, 3)]
+
+12              C2H3		[C-3]C
+nodes: [(0, 'C'), (1, 'C'), (2, 'H'), (3, 'H'), (4, 'H')]
+edges: [(0, 1), (0, 2), (0, 3), (0, 4)]
+
+13              C2H3		[CH-]=C
+nodes: [(0, 'C'), (1, 'C'), (2, 'H'), (3, 'H'), (4, 'H')]
+edges: [(0, 1), (0, 2), (0, 3), (1, 4)]
+
+14              C2H4		[CH-2]C
+nodes: [(0, 'C'), (1, 'C'), (2, 'H'), (3, 'H'), (4, 'H'), (5, 'H')]
+edges: [(0, 1), (0, 2), (0, 3), (0, 4), (1, 5)]
+
+15              C2H5		[CH2-]C
+nodes: [(0, 'C'), (1, 'C'), (2, 'H'), (3, 'H'), (4, 'H'), (5, 'H'), (6, 'H')]
+edges: [(0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (1, 6)]
+
+16              CH4		C
+nodes: [(0, 'H'), (1, 'C'), (2, 'H'), (3, 'H'), (4, 'H')]
+edges: [(0, 1), (1, 2), (1, 3), (1, 4)]
+
+

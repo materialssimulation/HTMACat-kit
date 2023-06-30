@@ -1,6 +1,7 @@
 import os
 from HTMACat.model.Construct_adsorption_yaml import *
 from HTMACat.IO import print_templator, out_templator_file, yaml2dict
+from HTMACat.CRN import runCRN_net
 from HTMACat.__version__ import __title__, __version__
 from pathlib import *
 import shutil
@@ -66,3 +67,9 @@ def complete(in_dir: str = typer.Option("./", "-i", "--inputdir", help="relative
     config_str = json.dumps(config)
     with open('./complete_config.json','w',encoding='utf-8') as f:
         f.write(config_str)
+
+@htmat.command(context_settings=CONTEXT_SETTINGS)
+def crn():
+    """Generate the Chemical Reaction Network."""
+    with open('CRNGenerator_log.txt', 'w') as f:
+        f.write(runCRN_net())
