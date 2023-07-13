@@ -90,19 +90,23 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-HTMACat.IO">HTMACat.IO module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.Input"><code class="docutils literal notranslate"><span class="pre">Input()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.adsorption_part"><code class="docutils literal notranslate"><span class="pre">adsorption_part()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.dict2object"><code class="docutils literal notranslate"><span class="pre">dict2object()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.generate_unique_filename"><code class="docutils literal notranslate"><span class="pre">generate_unique_filename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.get_ads_dict"><code class="docutils literal notranslate"><span class="pre">get_ads_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.get_species_dict"><code class="docutils literal notranslate"><span class="pre">get_species_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.get_substrate_dict"><code class="docutils literal notranslate"><span class="pre">get_substrate_dict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.get_templator"><code class="docutils literal notranslate"><span class="pre">get_templator()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.out_templator_file"><code class="docutils literal notranslate"><span class="pre">out_templator_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.out_vasp"><code class="docutils literal notranslate"><span class="pre">out_vasp()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.print_templator"><code class="docutils literal notranslate"><span class="pre">print_templator()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.species_part"><code class="docutils literal notranslate"><span class="pre">species_part()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.substrate_part"><code class="docutils literal notranslate"><span class="pre">substrate_part()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.read"><code class="docutils literal notranslate"><span class="pre">read()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.write"><code class="docutils literal notranslate"><span class="pre">write()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.IO.yaml2dict"><code class="docutils literal notranslate"><span class="pre">yaml2dict()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-HTMACat.command">HTMACat.command module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#HTMACat.command.ads"><code class="docutils literal notranslate"><span class="pre">ads()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.command.complete"><code class="docutils literal notranslate"><span class="pre">complete()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#HTMACat.command.crn"><code class="docutils literal notranslate"><span class="pre">crn()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#HTMACat.command.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#HTMACat.command.main_command"><code class="docutils literal notranslate"><span class="pre">main_command()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#HTMACat.command.templator"><code class="docutils literal notranslate"><span class="pre">templator()</span></code></a></li>
@@ -1194,18 +1198,28 @@ The third list contains the corresponding directories for each species’ stable
 <p>Created on Sun Mar 19 11:47:30 2023.</p>
 <p>&#64;author: YuxiaoLan</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.IO.Input">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">Input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#Input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.Input" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.IO.adsorption_part">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">adsorption_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#adsorption_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.adsorption_part" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="HTMACat.IO.dict2object">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">dict2object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">substrate_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ads_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#dict2object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.dict2object" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.IO.generate_unique_filename">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">generate_unique_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#generate_unique_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.generate_unique_filename" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.IO.get_ads_dict">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">get_ads_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#get_ads_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.get_ads_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.IO.get_species_dict">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">get_species_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#get_species_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.get_species_dict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.IO.get_substrate_dict">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">get_substrate_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#get_substrate_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.get_substrate_dict" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -1219,23 +1233,23 @@ The third list contains the corresponding directories for each species’ stable
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.IO.out_vasp">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">out_vasp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="HTMACat.model.html#HTMACat.model.Structure.Structure" title="HTMACat.model.Structure.Structure"><span class="pre">Structure</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#out_vasp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.out_vasp" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="HTMACat.IO.print_templator">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">print_templator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#print_templator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.print_templator" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.IO.species_part">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">species_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#species_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.species_part" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="HTMACat.IO.read">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.read" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="HTMACat.IO.substrate_part">
-<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">substrate_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#substrate_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.substrate_part" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="HTMACat.IO.write">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="HTMACat.model.html#HTMACat.model.Structure.Structure" title="HTMACat.model.Structure.Structure"><span class="pre">Structure</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.write" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.IO.yaml2dict">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.IO.</span></span><span class="sig-name descname"><span class="pre">yaml2dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/IO.html#yaml2dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.IO.yaml2dict" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>
@@ -1245,6 +1259,18 @@ The third list contains the corresponding directories for each species’ stable
 <dt class="sig sig-object py" id="HTMACat.command.ads">
 <span class="sig-prename descclassname"><span class="pre">HTMACat.command.</span></span><span class="sig-name descname"><span class="pre">ads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dir:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/command.html#ads"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.command.ads" title="Permalink to this definition"></a></dt>
 <dd><p>Construct adsorption configuration.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.command.complete">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.command.</span></span><span class="sig-name descname"><span class="pre">complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_dir:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;typer.models.OptionInfo</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/command.html#complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.command.complete" title="Permalink to this definition"></a></dt>
+<dd><p>Complete config</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="HTMACat.command.crn">
+<span class="sig-prename descclassname"><span class="pre">HTMACat.command.</span></span><span class="sig-name descname"><span class="pre">crn</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/HTMACat/command.html#crn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#HTMACat.command.crn" title="Permalink to this definition"></a></dt>
+<dd><p>Generate the Chemical Reaction Network.</p>
 </dd></dl>
 
 <dl class="py function">

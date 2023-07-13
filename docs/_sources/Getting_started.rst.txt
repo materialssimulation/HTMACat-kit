@@ -45,6 +45,7 @@ The format of the whole `config.yaml` is as follows:
         - ['NO', 2]
         - [s: 'C(=O)O',1]
         - [f: 'NH3+',1]
+        - [s: 'C[Al](C)C',1Al]
       coads:
         - ['NH3','O',1,1]
 
@@ -68,16 +69,16 @@ the keywords should be chosen as following two types: ``file`` or ``struct``
 
 ``Species`` part is an optional part, which used to alias the species name, including:
 
-* `sml`: using *Smiles* toe represent the adsorption species
-* `file`: adsorption species reading from structure file, such as *xyz* format and *vasp* format
+* ``sml``: using *Smiles* toe represent the adsorption species
+* ``file``: adsorption species reading from structure file, such as *xyz* format and *vasp* format
 
 ``Model`` part contains the adsorption modeling parameters, including:
 
 * ``ads``: using ``- [ adsorbate formular , adsorption sites type]`` to represent one adsorption status, where
   adsorption formular should be a str start with ``'`` end with ``'``. Different adsorption status should start with
   new line, adsorption sites type can be chosen from ``1`` or ``2``.
-* ``coads``: using ``- [ads1, ads2, ads1 sites, ads2 sites]``, *ads1* and *ads2* is two adsorbate species formular,
-  *ads1 sites* and *ads2 sites* is adsorption sites type, can be chosen from ``1`` and ``2``.
+* ``coads``: using ``- [ads1, ads2, ads1 sites, ads2 sites]``, ``ads1`` and ``ads2`` is two adsorbate species formular,
+  ``ads1 sites`` and ``ads2 sites`` is adsorption sites type, can be chosen from ``1`` and ``2``.
 * Each *adsorbate species formular* has three representation:
     * *str* format such as ``'ads1'``, this format will automatically generate species according to
       chemical formular
@@ -85,6 +86,10 @@ the keywords should be chosen as following two types: ``file`` or ``struct``
       the *smile* formular
     * *file* format such as ``f: 'ads1'`` or ``file: 'ads1'``, this format will read structure from
       file 'ads1', now only 'xyz' and 'vasp' structure file format is supported
+* New in version 1.0.5: Adding the symbol of the element contained in the adsorbate followed by the type of adsorption site 
+  generates a configuration in which all atoms corresponding to that element are adsorbed atoms, and automatically adjusts the 
+  orientation so that the adsorbed atom is at the bottom. Such as ``- [s: 'C[Al](C)C',1Al]`` will generatte configurations with 
+  Al atoms as adsorbed stoms
 
 **To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.** Users can modify the
 corresponding parameters to achieve customized modeling according to their research needs.
@@ -98,6 +103,12 @@ Furthermore, for the adsorption models on doped surfaces, we use the ``get_bindi
 types of surface atoms that the adsorbate binds to in the preliminary configurations. We only select configurations
 where the adsorbate is bound to a surface atom that contains a dopant atom, in order to reduce the number of final
 output structures.
+
+(3) Completion of the input file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Run the command ``htmat complete``, it will add the default parameters according to the current config.yaml and output 
+the complete_config.json file.
 
 
 **2.Automated construction of reaction transition state calculation process**
