@@ -71,13 +71,13 @@
              
   <h1>Source code for HTMACat.model.Construct_adsorption_yaml</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/data/jqyang/miniconda3/bin/python</span>
-<span class="kn">from</span> <span class="nn">HTMACat.IO</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">out_vasp</span>
+<span class="kn">from</span> <span class="nn">HTMACat.IO</span> <span class="kn">import</span> <span class="n">read</span><span class="p">,</span> <span class="n">write</span>
 
 
 <div class="viewcode-block" id="Construct_adsorption_yaml"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Construct_adsorption_yaml.Construct_adsorption_yaml">[docs]</a><span class="k">def</span> <span class="nf">Construct_adsorption_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-    <span class="n">substrates</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">,</span> <span class="n">adsorptions</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">adsorptions</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">ads</span> <span class="ow">in</span> <span class="n">adsorptions</span><span class="p">:</span>
-        <span class="n">out_vasp</span><span class="p">(</span><span class="n">ads</span><span class="p">)</span></div>
+        <span class="n">write</span><span class="p">(</span><span class="n">ads</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
