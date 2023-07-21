@@ -134,10 +134,15 @@ class Sml_Species(ABS_Species):
         for b in mole.GetBonds():
             edges_list.append((b.GetBeginAtomIdx(), b.GetEndAtomIdx()))
         _idxtmp = rdMolDescriptors.CalcMolFormula(mole).find('-')
-        if -1 == _idxtmp:
+        _idxtmp1 = rdMolDescriptors.CalcMolFormula(mole).find('+')
+        if -1 == _idxtmp and -1 == _idxtmp1:
             form_str = rdMolDescriptors.CalcMolFormula(mole)
+        elif _idxtmp != 1 and _idxtmp1 == -1:
+            form_str = rdMolDescriptors.CalcMolFormula(mole)[:_idxtmp]
+        elif _idxtmp == -1 and _idxtmp1 != 1:
+            form_str = rdMolDescriptors.CalcMolFormula(mole)[:_idxtmp1]
         else:
-            form_str = rdMolDescriptors.CalcMolFormula(mole)[:rdMolDescriptors.CalcMolFormula(mole).find('-')]
+            raise ValueError('Invalid SMILES')
         atoms = Atoms(form_str, coords_list)
         atoms.set_atomic_numbers(atomicnums_list)
         ads_molecule = to_gratoms(atoms, edges=edges_list)
