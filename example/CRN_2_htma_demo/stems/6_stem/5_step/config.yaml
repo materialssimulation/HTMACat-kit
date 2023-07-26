@@ -1,0 +1,15 @@
+# This is a template file where you need to define the structure you want to build (in addition to the adsorbate).
+StrucInfo:
+  struct:
+    element: Pt
+    lattice_type: fcc
+    lattice_constant: 4.16
+    facet: ["100"]
+    dope:
+      Cu: ["0"]
+
+Model:
+  ads:
+    - [s: "C#C", 1] # The SMILES form is required here, and the adsorption method can be customized.
+  coads:
+    - [s: "[H+]", s: "[C-]#C", 1, 1]
