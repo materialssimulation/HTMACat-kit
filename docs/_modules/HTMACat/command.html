@@ -74,6 +74,7 @@
 <span class="kn">from</span> <span class="nn">HTMACat.model.Construct_adsorption_yaml</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">HTMACat.IO</span> <span class="kn">import</span> <span class="n">print_templator</span><span class="p">,</span> <span class="n">out_templator_file</span><span class="p">,</span> <span class="n">yaml2dict</span>
 <span class="kn">from</span> <span class="nn">HTMACat.CRN</span> <span class="kn">import</span> <span class="n">runCRN_net</span>
+<span class="kn">from</span> <span class="nn">HTMACat.CRN</span> <span class="kn">import</span> <span class="n">run_crnconfiggen</span>
 <span class="kn">from</span> <span class="nn">HTMACat.__version__</span> <span class="kn">import</span> <span class="n">__title__</span><span class="p">,</span> <span class="n">__version__</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
@@ -145,6 +146,11 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate the Chemical Reaction Network.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;CRNGenerator_log.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">runCRN_net</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="crngen"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.command.crngen">[docs]</a><span class="nd">@htmat</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">context_settings</span><span class="o">=</span><span class="n">CONTEXT_SETTINGS</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">crngen</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate structured directories and input files based on CRNGenerator_log.txt&quot;&quot;&quot;</span>
+    <span class="n">run_crnconfiggen</span><span class="p">()</span></div>
 </pre></div>
 
            </div>
