@@ -2,6 +2,7 @@ import os
 from HTMACat.model.Construct_adsorption_yaml import *
 from HTMACat.IO import print_templator, out_templator_file, yaml2dict
 from HTMACat.CRN import runCRN_net
+from HTMACat.CRN import run_crnconfiggen
 from HTMACat.__version__ import __title__, __version__
 from pathlib import *
 import shutil
@@ -73,3 +74,8 @@ def crn():
     """Generate the Chemical Reaction Network."""
     with open('CRNGenerator_log.txt', 'w') as f:
         f.write(runCRN_net())
+
+@htmat.command(context_settings=CONTEXT_SETTINGS)
+def crngen():
+    """Generate structured directories and input files based on CRNGenerator_log.txt"""
+    run_crnconfiggen()

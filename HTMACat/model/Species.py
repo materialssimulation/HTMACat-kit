@@ -137,9 +137,9 @@ class Sml_Species(ABS_Species):
         _idxtmp1 = rdMolDescriptors.CalcMolFormula(mole).find('+')
         if -1 == _idxtmp and -1 == _idxtmp1:
             form_str = rdMolDescriptors.CalcMolFormula(mole)
-        elif _idxtmp != 1 and _idxtmp1 == -1:
+        elif _idxtmp != -1 and _idxtmp1 == -1:
             form_str = rdMolDescriptors.CalcMolFormula(mole)[:_idxtmp]
-        elif _idxtmp == -1 and _idxtmp1 != 1:
+        elif _idxtmp == -1 and _idxtmp1 != -1:
             form_str = rdMolDescriptors.CalcMolFormula(mole)[:_idxtmp1]
         else:
             raise ValueError('Invalid SMILES')
