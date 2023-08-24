@@ -47,14 +47,14 @@ or install from source code
 
 ```bash
 # master branch
-pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master
+pip install -U git+https://github.com/materialssimulation/HTMACat-kit.git@master
 # or dev branch
-pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev
+pip install -U git+hhttps://github.com/materialssimulation/HTMACat-kit.git@dev
 ```
 
 ## ⚡ 3. Getting started
 
-Please Visit [HTMACat-kit’s documentation](https://stanfordbshan.github.io/HTMACat-kit/) for more information.
+Please Visit [HTMACat-kit’s documentation](https://materialssimulation.github.io/HTMACat-kit/) for more information.
 
 ## ❤️ Author
 
@@ -64,6 +64,7 @@ Please Visit [HTMACat-kit’s documentation](https://stanfordbshan.github.io/HTM
 - Zhaojie Wang email:[yczgwangzhaojie@163.com](yczgwangzhaojie@163.com)
 - Yuxiao Lan email:[husterlanxxt@163.com](husterlanxxt@163.com)
 - Haojie Li email:[1197946404@qq.com](1197946404@qq.com)
+- Rongxin Chen email:[rongxinchen@hust.edu.cn](rongxinchen@hust.edu.cn)
 - Zhang Liu email:[zhangliu@hust.edu.cn](zhangliu@hust.edu.cn)
 - Zhihong Zhang email:[zhihongzh_chem@126.com](zhihongzh_chem@126.com)
 

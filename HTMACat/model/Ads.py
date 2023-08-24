@@ -198,15 +198,15 @@ class Coadsorption(Adsorption):
         )
 
     def construct(self):
-        print(self.get_sites())
-        if self.get_sites() == "1 1":
+        ### Change by RxChen, 2023 7 26:
+        if self.get_sites() == ['1','1']:
             slabs_ads = self.Construct_coadsorption_11()
-        elif self.get_sites() == "1 2":
+        elif self.get_sites() == ['1','2']:
             slabs_ads = self.Construct_coadsorption_12()
-        elif self.get_sites() == "2 2":
+        elif self.get_sites() == ['2','2']:
             slabs_ads = self.Construct_coadsorption_22()
         else:
-            raise ValueError('Supports only "1 1" "1 2" "2 2" adsorption sites for coads!')
+            raise ValueError("Supports only ['1','1'] ['1','2'] ['2','2'] adsorption sites for coads!")### end
         if self.substrate.is_dope():
             slabs_ads = self.remove_same(slabs_ads)
         return slabs_ads

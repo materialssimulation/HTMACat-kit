@@ -37,6 +37,6 @@ or install from source code
 .. code-block:: console
 
     # master branch
-    pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master
+    pip install -U git+https://github.com/materialssimulation/HTMACat-kit.git@master
     # or dev branch
-    pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev
+    pip install -U git+https://github.com/materialssimulation/HTMACat-kit.git@dev

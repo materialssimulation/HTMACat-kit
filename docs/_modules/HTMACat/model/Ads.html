@@ -237,14 +237,15 @@
         <span class="p">)</span>
 
 <div class="viewcode-block" id="Coadsorption.construct"><a class="viewcode-back" href="../../../HTMACat.model.html#HTMACat.model.Ads.Coadsorption.construct">[docs]</a>    <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;1 1&quot;</span><span class="p">:</span>
+        <span class="c1">### Change by RxChen, 2023 7 26:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;1&#39;</span><span class="p">]:</span>
             <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_coadsorption_11</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;1 2&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">]:</span>
             <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_coadsorption_12</span><span class="p">()</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;2 2&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sites</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">]:</span>
             <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Construct_coadsorption_22</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Supports only &quot;1 1&quot; &quot;1 2&quot; &quot;2 2&quot; adsorption sites for coads!&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Supports only [&#39;1&#39;,&#39;1&#39;] [&#39;1&#39;,&#39;2&#39;] [&#39;2&#39;,&#39;2&#39;] adsorption sites for coads!&quot;</span><span class="p">)</span><span class="c1">### end</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">substrate</span><span class="o">.</span><span class="n">is_dope</span><span class="p">():</span>
             <span class="n">slabs_ads</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_same</span><span class="p">(</span><span class="n">slabs_ads</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">slabs_ads</span></div>

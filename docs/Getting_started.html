@@ -47,6 +47,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#high-throughput-adsorption-modeling"><strong>1.High-throughput adsorption modeling</strong></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prepare-the-input-files">(1) Prepare the input files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#run-script">(2) Run script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#completion-of-the-input-file">(3) Completion of the input file</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#automated-construction-of-reaction-transition-state-calculation-process"><strong>2.Automated construction of reaction transition state calculation process</strong></a></li>
@@ -122,6 +123,7 @@
 <span class="go">    - [&#39;NO&#39;, 2]</span>
 <span class="go">    - [s: &#39;C(=O)O&#39;,1]</span>
 <span class="go">    - [f: &#39;NH3+&#39;,1]</span>
+<span class="go">    - [s: &#39;C[Al](C)C&#39;,1Al]</span>
 <span class="go">  coads:</span>
 <span class="go">    - [&#39;NH3&#39;,&#39;O&#39;,1,1]</span>
 </pre></div>
@@ -151,16 +153,16 @@ substitution and bulk equivalent proportional substitution.</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">Species</span></code> part is an optional part, which used to alias the species name, including:</p>
 <ul class="simple">
-<li><p><cite>sml</cite>: using <em>Smiles</em> toe represent the adsorption species</p></li>
-<li><p><cite>file</cite>: adsorption species reading from structure file, such as <em>xyz</em> format and <em>vasp</em> format</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sml</span></code>: using <em>Smiles</em> toe represent the adsorption species</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code>: adsorption species reading from structure file, such as <em>xyz</em> format and <em>vasp</em> format</p></li>
 </ul>
 <p><code class="docutils literal notranslate"><span class="pre">Model</span></code> part contains the adsorption modeling parameters, including:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ads</span></code>: using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[</span> <span class="pre">adsorbate</span> <span class="pre">formular</span> <span class="pre">,</span> <span class="pre">adsorption</span> <span class="pre">sites</span> <span class="pre">type]</span></code> to represent one adsorption status, where
 adsorption formular should be a str start with <code class="docutils literal notranslate"><span class="pre">'</span></code> end with <code class="docutils literal notranslate"><span class="pre">'</span></code>. Different adsorption status should start with
 new line, adsorption sites type can be chosen from <code class="docutils literal notranslate"><span class="pre">1</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">coads</span></code>: using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[ads1,</span> <span class="pre">ads2,</span> <span class="pre">ads1</span> <span class="pre">sites,</span> <span class="pre">ads2</span> <span class="pre">sites]</span></code>, <em>ads1</em> and <em>ads2</em> is two adsorbate species formular,
-<em>ads1 sites</em> and <em>ads2 sites</em> is adsorption sites type, can be chosen from <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">coads</span></code>: using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[ads1,</span> <span class="pre">ads2,</span> <span class="pre">ads1</span> <span class="pre">sites,</span> <span class="pre">ads2</span> <span class="pre">sites]</span></code>, <code class="docutils literal notranslate"><span class="pre">ads1</span></code> and <code class="docutils literal notranslate"><span class="pre">ads2</span></code> is two adsorbate species formular,
+<code class="docutils literal notranslate"><span class="pre">ads1</span> <span class="pre">sites</span></code> and <code class="docutils literal notranslate"><span class="pre">ads2</span> <span class="pre">sites</span></code> is adsorption sites type, can be chosen from <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
 <li><dl class="simple">
 <dt>Each <em>adsorbate species formular</em> has three representation:</dt><dd><ul>
 <li><p><em>str</em> format such as <code class="docutils literal notranslate"><span class="pre">'ads1'</span></code>, this format will automatically generate species according to
@@ -173,6 +175,10 @@ file ‘ads1’, now only ‘xyz’ and ‘vasp’ structure file format is supp
 </dd>
 </dl>
 </li>
+<li><p>New in version 1.0.5: Adding the symbol of the element contained in the adsorbate followed by the type of adsorption site
+generates a configuration in which all atoms corresponding to that element are adsorbed atoms, and automatically adjusts the
+orientation so that the adsorbed atom is at the bottom. Such as <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">[s:</span> <span class="pre">'C[Al](C)C',1Al]</span></code> will generatte configurations with
+Al atoms as adsorbed stoms</p></li>
 </ul>
 <p><strong>To avoid ambiguity, it is recommended that SMILES be used when declaring complex species.</strong> Users can modify the
 corresponding parameters to achieve customized modeling according to their research needs.</p>
@@ -185,6 +191,11 @@ Furthermore, for the adsorption models on doped surfaces, we use the <code class
 types of surface atoms that the adsorbate binds to in the preliminary configurations. We only select configurations
 where the adsorbate is bound to a surface atom that contains a dopant atom, in order to reduce the number of final
 output structures.</p>
+</section>
+<section id="completion-of-the-input-file">
+<h3>(3) Completion of the input file<a class="headerlink" href="#completion-of-the-input-file" title="Permalink to this heading"></a></h3>
+<p>Run the command <code class="docutils literal notranslate"><span class="pre">htmat</span> <span class="pre">complete</span></code>, it will add the default parameters according to the current config.yaml and output
+the complete_config.json file.</p>
 </section>
 </section>
 <section id="automated-construction-of-reaction-transition-state-calculation-process">

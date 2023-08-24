@@ -85,19 +85,22 @@
 <span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<div class="viewcode-block" id="Input"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.Input">[docs]</a><span class="k">def</span> <span class="nf">Input</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">substrate_dict</span><span class="p">,</span><span class="n">species_dict</span><span class="p">,</span><span class="n">ads_dict</span> <span class="o">=</span> <span class="n">yaml2dict</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">ads</span> <span class="o">=</span> <span class="n">dict2object</span><span class="p">(</span><span class="n">substrate_dict</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">,</span> <span class="n">ads_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ads</span></div>
+
+<div class="viewcode-block" id="yaml2dict"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.yaml2dict">[docs]</a><span class="k">def</span> <span class="nf">yaml2dict</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="n">yaml</span> <span class="o">=</span> <span class="n">YAML</span><span class="p">(</span><span class="n">typ</span><span class="o">=</span><span class="s2">&quot;safe&quot;</span><span class="p">)</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">result</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">substrate_dict</span> <span class="o">=</span> <span class="n">get_substrate_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">species_dict</span> <span class="o">=</span> <span class="n">get_species_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="n">ads_dict</span> <span class="o">=</span> <span class="n">get_ads_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">substrate_dict</span><span class="p">,</span><span class="n">species_dict</span><span class="p">,</span><span class="n">ads_dict</span></div>
 
-    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrate_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="n">species_dict</span> <span class="o">=</span> <span class="n">species_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="n">ads</span> <span class="o">=</span> <span class="n">adsorption_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">substrates</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">,</span> <span class="n">ads</span></div>
-
-
-<div class="viewcode-block" id="substrate_part"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.substrate_part">[docs]</a><span class="k">def</span> <span class="nf">substrate_part</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
-    <span class="c1"># A substrate is one facet with one dop element with on dop_type</span>
+<div class="viewcode-block" id="get_substrate_dict"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.get_substrate_dict">[docs]</a><span class="k">def</span> <span class="nf">get_substrate_dict</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+    <span class="c1"># preproces substrate dictionary</span>
     <span class="n">struct_Info</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;StrucInfo&quot;</span><span class="p">]</span>
     <span class="n">file_default</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">struct_default</span> <span class="o">=</span> <span class="p">{</span>
@@ -107,7 +110,7 @@
         <span class="s2">&quot;facet&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;111&quot;</span><span class="p">],</span>
         <span class="s2">&quot;dope&quot;</span><span class="p">:</span> <span class="p">{},</span>
         <span class="s2">&quot;supercell&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-        <span class="c1">#&quot;layer&quot;: 4,</span>
+        <span class="s2">&quot;layer&quot;</span><span class="p">:</span> <span class="mi">4</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="s2">&quot;file&quot;</span> <span class="ow">in</span> <span class="n">struct_Info</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">struct_Info</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
@@ -119,28 +122,26 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">struct_default</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">substrate_init_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;file&quot;</span><span class="p">:</span> <span class="n">file_default</span><span class="p">,</span> <span class="s2">&quot;struct&quot;</span><span class="p">:</span> <span class="n">struct_default</span><span class="p">}</span>
-    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrate_from_input</span><span class="p">(</span><span class="n">substrate_init_dict</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">substrates</span></div>
+    <span class="k">return</span> <span class="n">substrate_init_dict</span></div>
 
-
-<div class="viewcode-block" id="species_part"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.species_part">[docs]</a><span class="k">def</span> <span class="nf">species_part</span><span class="p">(</span><span class="n">result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<div class="viewcode-block" id="get_species_dict"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.get_species_dict">[docs]</a><span class="k">def</span> <span class="nf">get_species_dict</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
     <span class="k">if</span> <span class="s2">&quot;Species&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="k">return</span> <span class="p">{}</span>
     <span class="n">species_info</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;Species&quot;</span><span class="p">]</span>
-    <span class="n">species_dict</span> <span class="o">=</span> <span class="n">species_from_input</span><span class="p">(</span><span class="n">species_info</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">species_dict</span></div>
+    <span class="k">return</span> <span class="n">species_info</span></div>
 
-
-<div class="viewcode-block" id="adsorption_part"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.adsorption_part">[docs]</a><span class="k">def</span> <span class="nf">adsorption_part</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
-    <span class="c1"># Adsorption Part</span>
-    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrate_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-    <span class="n">species_dict</span> <span class="o">=</span> <span class="n">species_part</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<div class="viewcode-block" id="get_ads_dict"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.get_ads_dict">[docs]</a><span class="k">def</span> <span class="nf">get_ads_dict</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
     <span class="n">ads_model</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;Model&quot;</span><span class="p">]</span>
     <span class="n">ads_default_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ads&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;coads&quot;</span><span class="p">:</span> <span class="p">[]}</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ads&quot;</span><span class="p">,</span> <span class="s2">&quot;coads&quot;</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ads_model</span><span class="p">:</span>
             <span class="n">ads_model</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">ads_default_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    <span class="n">ads</span> <span class="o">=</span> <span class="n">ads_from_input</span><span class="p">(</span><span class="n">ads_model</span><span class="p">,</span> <span class="n">substrates</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ads_model</span></div>
+
+<div class="viewcode-block" id="dict2object"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.dict2object">[docs]</a><span class="k">def</span> <span class="nf">dict2object</span><span class="p">(</span><span class="n">substrate_dict</span><span class="p">,</span> <span class="n">species_dict</span><span class="p">,</span> <span class="n">ads_dict</span><span class="p">):</span>
+    <span class="n">substrates</span> <span class="o">=</span> <span class="n">substrate_from_input</span><span class="p">(</span><span class="n">substrate_dict</span><span class="p">)</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="n">species_from_input</span><span class="p">(</span><span class="n">species_dict</span><span class="p">)</span>
+    <span class="n">ads</span> <span class="o">=</span> <span class="n">ads_from_input</span><span class="p">(</span><span class="n">ads_dict</span><span class="p">,</span> <span class="n">substrates</span><span class="p">,</span> <span class="n">species</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ads</span></div>
 
 
@@ -202,7 +203,7 @@
     <span class="k">return</span> <span class="n">unique_filename</span></div>
 
 
-<div class="viewcode-block" id="out_vasp"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.out_vasp">[docs]</a><span class="k">def</span> <span class="nf">out_vasp</span><span class="p">(</span><span class="n">struct_class</span><span class="p">:</span> <span class="n">Structure</span><span class="p">):</span>
+<div class="viewcode-block" id="write"><a class="viewcode-back" href="../../HTMACat.html#HTMACat.IO.write">[docs]</a><span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">struct_class</span><span class="p">:</span> <span class="n">Structure</span><span class="p">):</span>
     <span class="n">file_name</span> <span class="o">=</span> <span class="n">struct_class</span><span class="o">.</span><span class="n">out_file_name</span><span class="p">()</span>
     <span class="n">print_str</span> <span class="o">=</span> <span class="n">struct_class</span><span class="o">.</span><span class="n">out_print</span><span class="p">()</span>
     <span class="n">structures</span> <span class="o">=</span> <span class="n">struct_class</span><span class="o">.</span><span class="n">construct</span><span class="p">()</span>
