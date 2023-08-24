@@ -554,8 +554,10 @@ class Builder(AdsorptionSites):
             slab=None,
             site_index=0,
             auto_construct=True,
+            rotation_mode='vertical to vec_to_neigh_imgsite',
+            rotation_args={},
             direction_mode='default', # wzj 20230524 指定确定位向的方式
-            direction_args=[], # wzj 20230524 为后续扩展预留的参数
+            direction_args={}, # wzj 20230524 为后续扩展预留的参数
             symmetric=True):
         """Bond and adsorbate by a single atom."""
         if slab is None:
@@ -582,19 +584,20 @@ class Builder(AdsorptionSites):
         branches = nx.bfs_successors(atoms.graph, bond)
         atoms.translate(-atoms.positions[bond])
 
-        """ ### zjwang 20230426
+        # Zhaojie Wang   20230510, 20230825
         if auto_construct:
-            atoms = catkit.gen.molecules.get_3D_positions(atoms, bond)
-
-            # Align with the adsorption vector
-            atoms.rotate([0, 0, 1], vector)
-        """
-        if auto_construct: ### wzj 20230510
             if direction_mode == 'default':
                 atoms.rotate([0, 0, 1], vector)
             elif direction_mode == 'decision_boundary':
+                # 先根据参与吸附的原子确定位向，将物种“扶正”
                 adsorption_vector, flag = utils.solve_normal_vector_linearsvc(adsorbate.get_positions(), bond)
+                print('adsorption_vector:\n', adsorption_vector)
                 atoms.rotate(adsorption_vector, [0, 0, 1])
+                # 再在xoy平面中旋转物种以避免重叠（思路：投影“长轴”与rotation_args['vec_to_neigh_imgsite']垂直）
+                # “长轴”：物种原子在xoy平面上的投影坐标进行PCA降维（2to1），找到降维后的主元，其方向即作为“长轴”方向
+                #principle_axe, flag = utils.solve_principle_axe_pca(atoms.get_positions(), bond)
+                #print('principle_axe:\n', principle_axe)
+                #atoms.rotate(principle_axe, [-1/rotation_args['vec_to_neigh_imgsite'][0], 0])
 
         atoms.translate(base_position)
         n = len(slab)

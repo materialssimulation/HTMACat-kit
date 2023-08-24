@@ -1,0 +1,15 @@
+StrucInfo:
+  struct:
+    element: Cu
+    lattice_type: fcc
+    lattice_constant: 3.62
+    facet: ["111"]
+    supercell: [6, 6]
+    layers: 4
+    dope:
+      Cu: [0]
+
+Model:
+  coads:
+    - [s: "C=C", s: "[H+]", 1, 1]
+    

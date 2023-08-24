@@ -25,6 +25,7 @@ def yaml2dict(filename):
     substrate_dict = get_substrate_dict(result)
     species_dict = get_species_dict(result)
     ads_dict = get_ads_dict(result)
+    print('ads_dict',ads_dict)
     return substrate_dict,species_dict,ads_dict
 
 def get_substrate_dict(result):

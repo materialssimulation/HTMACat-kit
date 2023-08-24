@@ -1,0 +1,14 @@
+StrucInfo:
+  struct:
+    element: Cu
+    lattice_type: fcc
+    lattice_constant: 3.62
+    facet: ["111"]
+    supercell: [6, 6]
+    layers: 4
+    dope:
+      Cu: [0]
+
+Model:
+  ads:
+    - [s: "CC(C)O[Al](OC(C)C)OC(C)C", 1Al]
