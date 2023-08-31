@@ -11,4 +11,6 @@ StrucInfo:
 
 Model:
   ads:
-    - [s: "CC(C)O[Al](OC(C)C)OC(C)C", 1]
+    - [s: "C[CH2-].C[CH2-].[Zn+2]", 1+]
+    # 等价于：
+    # - [s: "C[CH2-].[Zn+2].C[CH2-]", 1Zn] 

@@ -7,7 +7,11 @@ from .vectors import (get_reciprocal_vectors, plane_normal, get_basis_vectors)
 from .utilities import (running_mean, to_gratoms, get_atomic_numbers,
                         get_reference_energies, parse_slice, ext_gcd,
                         list_gcd)
-from .utils_mdnm import (mol_to_graph, solve_normal_vector_linearsvc)
+from .utils_mdnm import (mol_to_graph,
+                         solve_normal_vector_linearsvc,
+                         solve_principle_axe_pca,
+                         Check_treatable__HTMATver,
+                         Gen_conn_mole)
 
 __all__ = ['get_voronoi_neighbors',
            'get_cutoff_neighbors',
@@ -31,4 +35,7 @@ __all__ = ['get_voronoi_neighbors',
            'ext_gcd',
            'list_gcd',
            'mol_to_graph',
-           'solve_normal_vector_linearsvc']
+           'solve_normal_vector_linearsvc',
+           'solve_principle_axe_pca',
+           'Check_treatable__HTMATver',
+           'Gen_conn_mole']

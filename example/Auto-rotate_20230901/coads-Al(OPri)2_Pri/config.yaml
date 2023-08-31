@@ -10,6 +10,8 @@ StrucInfo:
       Cu: [0]
 
 Model:
+  ads:
+    - [s: "CC(C)[O-]", 1O]
+    - [s: "CC(C)O[Al+]OC(C)C", 1+]
   coads:
-    - [s: "C=C", s: "[H+]", 1, 1]
-    
+    - [s: "CC(C)O[Al+]OC(C)C", s: "CC(C)[O-]", 1Al, 1-]

@@ -34,7 +34,7 @@ class Adsorption(Structure):
         assert isinstance(species, list), "species should be a list of Species class"
         assert isinstance(species[0], ABS_Species), "species should be a list of Species class"
         assert isinstance(sites, list), "sites should be a list"
-        assert sites[0] in ['1', '2'], 'Supports only "1" "2" adsorption sites type for ads!'
+        #assert sites[0] in ['1', '2'], 'Supports only "1" "2" adsorption sites type for ads!'
         self.species = species
         self.sites = sites
         self.spec_ads_stable = spec_ads_stable
@@ -109,6 +109,36 @@ class Adsorption(Structure):
             ):
                 slabs_ads_near += [slb]
         return slabs_ads_near
+    
+    def vec_to_nearest_neighbor_site(self, slab, site_coords):
+        # site_coords: a list containing 1 (ads) or 2 (coads) coord(s) of adsorption site(s)
+        # return: the vector from the adsorption site of specie A to its nearest neighboring adsorption site
+        # [The v_nn of specie A is always the v_nn of specie B too !!!]
+        coord_images = site_coords
+        num_origin_sites = len(coord_images)
+        for d,dim in enumerate(slab._pbc):
+            if dim:
+                for i in range(num_origin_sites):
+                    coord_images.append(coord_images[i]+slab._cellobj[d]) # coord_images[0]: the coord of specie A
+                    coord_images.append(coord_images[i]-slab._cellobj[d])
+        imagesites_distances = [np.sqrt(np.sum(np.square(v-coord_images[0]))) for v in coord_images]
+        idx_tmp = np.argmin(imagesites_distances[1:]) + 1
+        v_nn = coord_images[idx_tmp] - coord_images[0]
+        #print('imagesites_distances--:', imagesites_distances, idx_tmp)
+        #print('vec_to_neigh_imgsite--:', v_nn)
+        return v_nn
+    
+    def dist_of_nearest_diff_neigh_site(self, slab, site_coords):
+        # site_coords: a list of 2 site coords (different species)
+        coord_images = site_coords
+        num_origin_sites = len(coord_images)
+        for d,dim in enumerate(slab._pbc):
+            if dim:
+                coord_images.append(coord_images[1]+slab._cellobj[d]) # coord_images[0]: the coord of specie A
+                coord_images.append(coord_images[1]-slab._cellobj[d])
+        imagesites_distances = [np.sqrt(np.sum(np.square(v[:2]-coord_images[0][:2]))) for v in coord_images]
+        d = np.min(imagesites_distances[1:])
+        return d
 
     def Construct_single_adsorption(self, ele=None):
         # generate surface adsorption configuration
@@ -118,29 +148,17 @@ class Adsorption(Structure):
             site = AdsorptionSites(slab)
             coordinates = site.get_coordinates()
             builder = Builder(slab)
-            ads_use = self.species[0].get_molecule()
-            print('coordinates:\n', coordinates)
-            print(slab._pbc)
-            print(slab._cellobj)
-            print(slab._cellobj[0])
+            ads_use, ads_use_charges = self.species[0].get_molecule()
             if not ele is None:
-                chemical_symbols = np.array(ads_use.get_chemical_symbols())
-                bond_atom_ids = chemical_symbols[chemical_symbols==ele]
-                bond_atom_ids = np.where(chemical_symbols==ele)[0]
-                ### print('bond_atom_ids =', bond_atom_ids, bond_atom_ids.shape)
+                if ele == '+':
+                    bond_atom_ids = np.where(np.array(ads_use_charges)>0)[0]
+                elif ele == '-':
+                    bond_atom_ids = np.where(np.array(ads_use_charges)<0)[0]
+                else:
+                    chemical_symbols = np.array(ads_use.get_chemical_symbols())
+                    bond_atom_ids = np.where(chemical_symbols==ele)[0]
                 for j, coord in enumerate(coordinates):
-                    #
-                    coord_images = []
-                    for d,dim in enumerate(slab._pbc):
-                        if dim:
-                            coord_images.append(coord+slab._cellobj[d])
-                            coord_images.append(coord-slab._cellobj[d])
-                    print('---')
-                    imagesites_distances = [np.sqrt(np.sum(np.square(coord-v))) for v in coord_images]
-                    print('imagesites_distances:', imagesites_distances, np.argmax(imagesites_distances))
-                    vec_to_neigh_imgsite = coord_images[np.argmax(imagesites_distances)] - coord
-                    print('vec_to_neigh_imgsite:', vec_to_neigh_imgsite)
-                    #
+                    vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coords=[coord])
                     for bond_id in bond_atom_ids:
                         slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j,
                                                                rotation_mode ='vertical to vec_to_neigh_imgsite',
@@ -150,18 +168,7 @@ class Adsorption(Structure):
                         #    slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j, direction_mode='decision_boundary', direction_args=bond_atom_ids)]
             else:
                 for j, coord in enumerate(coordinates):
-                    #
-                    coord_images = []
-                    for d,dim in enumerate(slab._pbc):
-                        if dim:
-                            coord_images.append(coord+slab._cellobj[d])
-                            coord_images.append(coord-slab._cellobj[d])
-                    print('---')
-                    imagesites_distances = [np.sqrt(np.sum(np.square(coord-v))) for v in coord_images]
-                    print('imagesites_distances:', imagesites_distances, np.argmax(imagesites_distances))
-                    vec_to_neigh_imgsite = coord_images[np.argmax(imagesites_distances)] - coord
-                    print('vec_to_neigh_imgsite:', vec_to_neigh_imgsite)
-                    #
+                    vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coords=[coord])
                     slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j,
                                                            rotation_mode ='vertical to vec_to_neigh_imgsite',
                                                            rotation_args ={'vec_to_neigh_imgsite':vec_to_neigh_imgsite})]
@@ -173,7 +180,7 @@ class Adsorption(Structure):
         for i, slab in enumerate(slabs):
             site = AdsorptionSites(slab)
             builder = Builder(slab)
-            ads_use = self.species[0].get_molecule()
+            ads_use, ads_use_charges = self.species[0].get_molecule()
             edges = site.get_adsorption_edges()
             for j, edge01 in enumerate(edges):
                 slab_ad += [builder._double_adsorption(ads_use, bonds=[0, 1], edge_index=j)]
@@ -198,15 +205,16 @@ class Coadsorption(Adsorption):
         )
 
     def construct(self):
-        ### Change by RxChen, 2023 7 26:
-        if self.get_sites() == ['1','1']:
-            slabs_ads = self.Construct_coadsorption_11()
-        elif self.get_sites() == ['1','2']:
+        ### Change by RxChen, 2023 7 26: ZhaojieWang 20230828:
+        if ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['1','1']):
+            ele = [''.join(self.get_sites()[0][1:]),''.join(self.get_sites()[1][1:])]
+            slabs_ads = self.Construct_coadsorption_11(ele=ele)
+        elif ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['1','2']):
             slabs_ads = self.Construct_coadsorption_12()
-        elif self.get_sites() == ['2','2']:
+        elif ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['2','2']):
             slabs_ads = self.Construct_coadsorption_22()
         else:
-            raise ValueError("Supports only ['1','1'] ['1','2'] ['2','2'] adsorption sites for coads!")### end
+            raise ValueError("Supports only '1' or '2' adsorption sites for coads!")### end
         if self.substrate.is_dope():
             slabs_ads = self.remove_same(slabs_ads)
         return slabs_ads
@@ -239,38 +247,77 @@ class Coadsorption(Adsorption):
                 slabs_ads_near += [slb]
         return slabs_ads_near
 
-    def Construct_coadsorption_11(self):
+    def Construct_coadsorption_11(self, dist_min_xoy='default', ele=['','']):
         slab_ad = []
         ads_type = self.spec_ads_stable
         dis_inter = self.substrate.get_dis_inter()
         slabs = self.substrate.construct()
+        if 'default' == dist_min_xoy:
+            la = np.sqrt(np.dot(slabs[0]._cellobj[0], slabs[0]._cellobj[0]))
+            lb = np.sqrt(np.dot(slabs[0]._cellobj[1], slabs[0]._cellobj[1]))
+            dist_min_xoy = min(0.4*min(la,lb), 4.0)
         for i, slab in enumerate(slabs):
             site01 = AdsorptionSites(slab)
+            coordinates01 = site01.get_coordinates() ### add
             builder01 = Builder(slab)
-            coordinate01 = site01.get_coordinates()
             # generate surface adsorption configuration
-            ads1_use = self.species[0].get_molecule()
-            ads2_use = self.species[1].get_molecule()
-            for k, sitetype in enumerate(site01.get_symmetric_sites()):
-                slab = builder01._single_adsorption(
-                    ads1_use, bond=0, site_index=k, auto_construct=True
-                )
-                coord01 = site01.get_coordinates()[k]
-                site02 = AdsorptionSites(slab)
+            ads1_use, ads1_use_charges = self.species[0].get_molecule()
+            ads2_use, ads2_use_charges = self.species[1].get_molecule()
+            bond_atom_ids_list = [[],[]]
+            if not ele[0] in ['', '+', '-']:
+                chemical_symbols01 = np.array(ads1_use.get_chemical_symbols())
+                bond_atom_ids_list[0] = np.where(chemical_symbols01==ele[0])[0]
+            elif '+' == ele[0]:
+                bond_atom_ids_list[0] = np.where(np.array(ads1_use_charges)>0)[0]
+            elif '-' == ele[0]:
+                bond_atom_ids_list[0] = np.where(np.array(ads1_use_charges)<0)[0]
+            else:
+                bond_atom_ids_list[0] = np.array([0])
+            if not ele[1] in ['', '+', '-']:
+                chemical_symbols02 = np.array(ads2_use.get_chemical_symbols())
+                bond_atom_ids_list[1] = np.where(chemical_symbols02==ele[1])[0]
+            elif '+' == ele[1]:
+                bond_atom_ids_list[1] = np.where(np.array(ads2_use_charges)>0)[0]
+            elif '-' == ele[1]:
+                bond_atom_ids_list[1] = np.where(np.array(ads2_use_charges)<0)[0]
+            else:
+                bond_atom_ids_list[1] = np.array([0])
+            for k, coord01 in enumerate(coordinates01):
+                slab_tmp = builder01._single_adsorption(ads1_use, bond=0, site_index=k, auto_construct=True,
+                                                        enable_rotate_xoy=False,
+                                                        direction_mode='decision_boundary') # 此处bond参数随意，有吸附即可
+                site02 = AdsorptionSites(slab_tmp)
                 coordinates02 = site02.get_coordinates()
+                ###print('len(coordinates01), len(coordinates02) =', len(coordinates01), len(coordinates02))
+                # 第一个物种放到表面上之后打破了对称性才使得第二个物种的可吸附位点情况变多
                 for j, coord02 in enumerate(coordinates02):
+                    vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coords=[coord01,coord02])
                     dis = np.linalg.norm(coord01 - coord02)
+                    dis_xoy = self.dist_of_nearest_diff_neigh_site(slab_tmp, [coord01,coord02])
                     if dis < float(dis_inter[0]):
                         continue
                     elif dis > float(dis_inter[1]):
                         continue
+                    elif dis_xoy < dist_min_xoy: # 控制两吸附位点的距离（在xoy平面内）不能过小
+                        continue
                     else:
-                        builder02 = Builder(slab)
-                        slab_ad += [
-                            builder02._single_adsorption(
-                                ads2_use, bond=0, site_index=j, auto_construct=True
-                            )
-                        ]
+                        # 确定最近邻位点连线后正式构建前一个物种的吸附表面
+                        for bond_id01 in bond_atom_ids_list[0]:
+                            for bond_id02 in bond_atom_ids_list[1]:
+                                slab = builder01._single_adsorption(ads1_use, bond=bond_id01, site_index=k, auto_construct=True,
+                                                                    enable_rotate_xoy=True,
+                                                                    rotation_mode ='vertical to vec_to_neigh_imgsite',
+                                                                    rotation_args ={'vec_to_neigh_imgsite':vec_to_neigh_imgsite},
+                                                                    direction_mode='decision_boundary')
+                                builder02 = Builder(slab)
+                                slab_ = builder02._single_adsorption(
+                                            ads2_use, bond=bond_id02, site_index=j, auto_construct=True,
+                                            enable_rotate_xoy=True,
+                                            rotation_mode ='vertical to vec_to_neigh_imgsite',
+                                            rotation_args ={'vec_to_neigh_imgsite':vec_to_neigh_imgsite},
+                                            direction_mode='decision_boundary'
+                                        )
+                                slab_ad += [slab_]
 
         typ = {None: 0, "top": 1, "bri": 2, "fcc": 3, "hcp": 3, "4-fold": 4}
         # view(slab_ad)
@@ -308,8 +355,8 @@ class Coadsorption(Adsorption):
             builder01 = Builder(slab)
             coordinate01 = site01.get_coordinates()
             # generate surface adsorption configuration
-            ads1_use = self.species[0].get_molecule()
-            ads2_use = self.species[1].get_molecule()
+            ads1_use, ads1_use_charges = self.species[0].get_molecule()
+            ads2_use, ads2_use_charges = self.species[1].get_molecule()
             for k, coord01 in enumerate(coordinate01):
                 slab = builder01._single_adsorption(ads1_use, bond=0, site_index=k)
                 # after adsorbing an atoms
@@ -365,8 +412,8 @@ class Coadsorption(Adsorption):
             values = [site_coord01[i] for i in range(len(site_type01))]
             dic_site01 = dict(zip(keys, values))
             # generate surface adsorption configuration
-            ads1_use = self.species[0].get_molecule()
-            ads2_use = self.species[1].get_molecule()
+            ads1_use, ads1_use_charges = self.species[0].get_molecule()
+            ads2_use, ads2_use_charges = self.species[1].get_molecule()
             for k, edge01 in enumerate(edge01):
                 slab = builder01._double_adsorption(ads1_use, bonds=[0, 1], edge_index=k)
                 coord00 = dic_site01.get(edge01[0])

@@ -2,6 +2,8 @@
 import copy
 import numpy as np
 from sklearn.svm import SVC
+from sklearn.decomposition import PCA
+from rdkit import Chem
 
 def mol_to_graph(self, m):
     """Convert a molecule object to a graph.
@@ -47,6 +49,8 @@ def solve_normal_vector_linearsvc(coords, bond_idx, take_into_account_idx=None):
     flag_linearly_separable : list
         Record whether the extended coordinates are linearly separable.
     """
+    if len(coords) == 1:
+        return [0, 0, 1], True
     # confirm the symmetry center for generating mirror image atoms, and
     # label original atoms (except the bonding atom)
     if take_into_account_idx is None:
@@ -74,9 +78,19 @@ def solve_normal_vector_linearsvc(coords, bond_idx, take_into_account_idx=None):
     ### print(labels, svc.predict(coords_ext))
     return vec, flag_linearly_separable
 
+def solve_principle_axe_pca(coords):
+    """PCA: 2D to 1D, using x & y coords of atoms in an adsorbate
+    """
+    if len(coords) == 1:
+        return [1, 1, 0]
+    X = np.array(coords)[:,:2]
+    pca = PCA(n_components=1)
+    pca.fit(X)
+    return pca.components_[0]
 
+date = '20230825'
 
-if __name__ == '__main__':
+if __name__ == '__main__' and date == '20230510':
     coords_NH3 = 4 * np.array([ # NH3+.xyz
         [ 0.00000,  0.00000,  0.11649], # N
         [ 0.00000,  0.93973,  0.40800], # H
@@ -95,3 +109,60 @@ if __name__ == '__main__':
 
     vec, flag = solve_normal_vector_linearsvc(coords_NH3, 0, [0,1,2,3])
     print(vec, np.sum(vec*vec), flag)
+
+if __name__ == '__main__' and date == '20230825':
+    print(solve_principle_axe_pca(np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])))
+    print(solve_principle_axe_pca(np.array([[-1,  0], [-2,  0], [-3, -1], [1, 2], [2, 2], [3, 3]])))
+    print(solve_principle_axe_pca(np.array([[0,  0, 1], [2,  0, 3], [0, 1, 2], [2, 1, 5]])))
+
+# 以下与分子生成相关，Species.py get_molecule()中使用
+def Check_treatable__HTMATver(sml): # Zhaojie Wang 20230829   改动：兼容非中性物种
+    # 若多段SMILES化合物中阴离子or阳离子只有一种，且各段都只有一个带电位点，该物质中的离子键是可以唯一正确连接的
+    # 要求：1）必须所有段有且仅有一个带电位点；2）整个分子中只有一个正电位点或只有一个负电位点（作为中心与所有异号位点成离子键）
+    smls = sml.split('.') # 按弱连接分段
+    moles = [Chem.AddHs(Chem.MolFromSmiles(k)) for k in smls]
+    treatable = True
+    #
+    poschg = [[] for k in range(len(moles))] # 各段正电荷原子下标
+    negchg = [[] for k in range(len(moles))] # 各段负电荷原子下标
+    for i,m in enumerate(moles):
+        for atom in m.GetAtoms():
+            if atom.GetFormalCharge() > 0:
+                poschg[i].append(atom.GetIdx())
+            elif atom.GetFormalCharge() < 0:
+                negchg[i].append(atom.GetIdx())
+            else:
+                pass
+    # 确定带正/负电的位点总数
+    num_havepos = 0
+    num_haveneg = 0
+    for i in range(len(moles)):
+        if (len(poschg[i]) + len(negchg[i]) != 1): # 条件1
+            treatable = False
+            break
+        num_havepos += len(poschg[i])
+        num_haveneg += len(negchg[i])
+    if (num_havepos > 1) and (num_haveneg > 1): # 分子中正、负电位点都不止一个，不行
+        treatable = False
+    return treatable
+
+def Gen_conn_mole(sml): # Zhaojie Wang 20230829   补充离子键使多段SMILES物种连通
+    mole = Chem.AddHs(Chem.MolFromSmiles(sml))
+    poschg = []
+    negchg = []
+    for atom in mole.GetAtoms():
+        if atom.GetFormalCharge() > 0:
+            poschg.append(atom.GetIdx())
+        elif atom.GetFormalCharge() < 0:
+            negchg.append(atom.GetIdx())
+    if 1 == len(poschg):
+        center = poschg[0]
+        attach = negchg
+    else:
+        center = negchg[0]
+        attach = poschg
+    molew = Chem.RWMol(mole)
+    btype = Chem.BondType.IONIC
+    for idx in attach:
+        molew.AddBond(center,idx,btype)
+    return molew
