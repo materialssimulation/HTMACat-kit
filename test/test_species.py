@@ -64,7 +64,7 @@ def test_get_molecule(sim_species, file_species, sml_species):
         ],
     )
     # sml_species
-    sml_molecule = sml_species.get_molecule()
+    sml_molecule = sml_species.get_molecule()[0]
     print(sml_species.form)
     # assert np.allclose(sml_molecule.numbers, [7, 1, 1])
     # assert np.allclose(sml_molecule.positions, [[-0.00569876,  0.40600421, -0.        ],
