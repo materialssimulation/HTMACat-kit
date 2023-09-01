@@ -1,0 +1,16 @@
+StrucInfo:
+  struct:
+    element: Cu
+    lattice_type: fcc
+    lattice_constant: 3.62
+    facet: ["111"]
+    supercell: [6, 6]
+    layers: 4
+    dope:
+      Cu: [0]
+
+Model:
+  ads:
+    - [s: "C[CH2-].C[CH2-].[Zn+2]", 1+]
+    # 等价于：
+    # - [s: "C[CH2-].[Zn+2].C[CH2-]", 1Zn] 

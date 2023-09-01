@@ -40,7 +40,8 @@ def sml_species():
 def test_get_molecule(sim_species, file_species, sml_species):
     # sim_species
     sim_molecule = sim_species.get_molecule()
-    assert np.allclose(sim_molecule.numbers, [7, 1, 1, 1])
+    print(sim_species.get_molecule())
+    assert np.allclose(sim_molecule.get_atomic_numbers(), [7, 1, 1, 1])
     assert np.allclose(
         sim_molecule.positions,
         [
@@ -63,7 +64,7 @@ def test_get_molecule(sim_species, file_species, sml_species):
         ],
     )
     # sml_species
-    sml_molecule = sml_species.get_molecule()
+    sml_molecule = sml_species.get_molecule()[0]
     print(sml_species.form)
     # assert np.allclose(sml_molecule.numbers, [7, 1, 1])
     # assert np.allclose(sml_molecule.positions, [[-0.00569876,  0.40600421, -0.        ],
