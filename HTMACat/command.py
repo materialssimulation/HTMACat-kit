@@ -1,10 +1,13 @@
 import os
 from HTMACat.model.Construct_adsorption_yaml import *
-from HTMACat.IO import print_templator, out_templator_file
+from HTMACat.IO import print_templator, out_templator_file, yaml2dict
+from HTMACat.CRN import runCRN_net
+from HTMACat.CRN import run_crnconfiggen
 from HTMACat.__version__ import __title__, __version__
 from pathlib import *
 import shutil
 import typer
+import json
 from rich import print
 
 htmat = typer.Typer(add_completion=False)
@@ -54,3 +57,25 @@ def templator():
     """Print out input templator."""
     print_templator()
     out_templator_file()
+
+@htmat.command(context_settings=CONTEXT_SETTINGS)
+def complete(in_dir: str = typer.Option("./", "-i", "--inputdir", help="relative directory of input file")):
+    """Complete config"""
+    StrucInfo = "config.yaml"
+    os.chdir(in_dir)
+    substrate_dict,species_dict,ads_dict = yaml2dict(StrucInfo)
+    config = {'StrucInfo':substrate_dict, 'Species':species_dict, 'Model':ads_dict}
+    config_str = json.dumps(config)
+    with open('./complete_config.json','w',encoding='utf-8') as f:
+        f.write(config_str)
+
+@htmat.command(context_settings=CONTEXT_SETTINGS)
+def crn():
+    """Generate the Chemical Reaction Network."""
+    with open('CRNGenerator_log.txt', 'w') as f:
+        f.write(runCRN_net())
+
+@htmat.command(context_settings=CONTEXT_SETTINGS)
+def crngen():
+    """Generate structured directories and input files based on CRNGenerator_log.txt"""
+    run_crnconfiggen()

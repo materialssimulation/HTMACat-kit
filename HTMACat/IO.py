@@ -13,19 +13,22 @@ from pathlib import Path
 from rich import print
 import os
 
-def Input(filename):
+def read(filename):
+    substrate_dict,species_dict,ads_dict = yaml2dict(filename)
+    ads = dict2object(substrate_dict, species_dict, ads_dict)
+    return ads
+
+def yaml2dict(filename):
     yaml = YAML(typ="safe")
     with open(filename, encoding="utf-8") as f:
         result: dict = yaml.load(f.read())
+    substrate_dict = get_substrate_dict(result)
+    species_dict = get_species_dict(result)
+    ads_dict = get_ads_dict(result)
+    return substrate_dict,species_dict,ads_dict
 
-    substrates = substrate_part(result)
-    species_dict = species_part(result)
-    ads = adsorption_part(result)
-    return substrates, species_dict, ads
-
-
-def substrate_part(result):
-    # A substrate is one facet with one dop element with on dop_type
+def get_substrate_dict(result):
+    # preproces substrate dictionary
     struct_Info = result["StrucInfo"]
     file_default = []
     struct_default = {
@@ -35,7 +38,7 @@ def substrate_part(result):
         "facet": ["111"],
         "dope": {},
         "supercell": [3, 3],
-        #"layer": 4,
+        "layer": 4
     }
     if "file" in struct_Info:
         if isinstance(struct_Info["file"], list):
@@ -47,28 +50,26 @@ def substrate_part(result):
     else:
         struct_default = {}
     substrate_init_dict = {"file": file_default, "struct": struct_default}
-    substrates = substrate_from_input(substrate_init_dict)
-    return substrates
+    return substrate_init_dict
 
-
-def species_part(result: dict):
+def get_species_dict(result):
     if "Species" not in result.keys():
         return {}
     species_info = result["Species"]
-    species_dict = species_from_input(species_info)
-    return species_dict
+    return species_info
 
-
-def adsorption_part(result):
-    # Adsorption Part
-    substrates = substrate_part(result)
-    species_dict = species_part(result)
+def get_ads_dict(result):
     ads_model = result["Model"]
     ads_default_dict = {"ads": [], "coads": []}
     for key in ["ads", "coads"]:
         if key not in ads_model:
             ads_model[key] = ads_default_dict[key]
-    ads = ads_from_input(ads_model, substrates, species_dict)
+    return ads_model
+
+def dict2object(substrate_dict, species_dict, ads_dict):
+    substrates = substrate_from_input(substrate_dict)
+    species = species_from_input(species_dict)
+    ads = ads_from_input(ads_dict, substrates, species)
     return ads
 
 
@@ -130,7 +131,7 @@ def generate_unique_filename(filename):
     return unique_filename
 
 
-def out_vasp(struct_class: Structure):
+def write(struct_class: Structure):
     file_name = struct_class.out_file_name()
     print_str = struct_class.out_print()
     structures = struct_class.construct()

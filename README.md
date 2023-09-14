@@ -14,9 +14,10 @@
 
 ## 📌 1. Introduction
 
-<p align="justify"> A high-throughput modeling, calculation, and analysis framework for catalytic reaction processes, it provides key tools for high-throughput design and screening of catalytic materials. The software mainly includes functional modules such as surface structure analysis and information extraction, catalytic surface and various adsorption model construction, automatic construction of primitive reaction processes, automatic extraction of computational data and automatic extraction and construction of descriptors.The software can perform the following computational workflows: adsorption energy calculation and analysis workflow, primitive reaction calculation and analysis workflow, high throughput
-calculation and automated analysis of adsorption energy and reaction potential of catalytic primitive reaction
-processes, etc. </p>
+<p align="justify">The code is developed by Professor <a href="bshan@mail.hust.edu.cn">Bin Shan</a>'s team at HUST. It is originally designed to provide an efficient, stable and reliable tool for high throughput modelling, computational and other steps in catalytic reaction processes.The software mainly includes functional modules such as surface structure analysis and information extraction, catalytic surface and various adsorption model construction, automatic construction of primitive reaction processes, automatic extraction of computational data and automatic extraction.
+</p>
+
+
 
 ## 🚀 2. Installation Guide
 
@@ -47,28 +48,30 @@ or install from source code
 
 ```bash
 # master branch
-pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@master
+pip install -U git+https://github.com/materialssimulation/HTMACat-kit.git@master
 # or dev branch
-pip install -U git+https://github.com/stanfordbshan/HTMACat-kit.git@dev
+pip install -U git+hhttps://github.com/materialssimulation/HTMACat-kit.git@dev
 ```
+
 
 ## ⚡ 3. Getting started
 
-Please Visit [HTMACat-kit’s documentation](https://stanfordbshan.github.io/HTMACat-kit/) for more information.
+Please Visit [HTMACat-kit’s documentation](https://materialssimulation.github.io/HTMACat-kit/) for more information.
 
-## ❤️ Author
 
-- Jiaqiang Yang email:[jqyang_hust@hust.edu.cn](mailto:jqyang_hust@hust.edu.cn)
-- Feifeng Wu email:[wufeifeng_hust@163.com](wufeifeng_hust@163.com)
-- Bin Shan email:[bshan@mail.hust.edu.cn](bshan@mail.hust.edu.cn)
-- Zhaojie Wang email:[yczgwangzhaojie@163.com](yczgwangzhaojie@163.com)
-- Yuxiao Lan email:[husterlanxxt@163.com](husterlanxxt@163.com)
-- Haojie Li email:[1197946404@qq.com](1197946404@qq.com)
-- Zhang Liu email:[zhangliu@hust.edu.cn](zhangliu@hust.edu.cn)
-- Zhihong Zhang email:[zhihongzh_chem@126.com](zhihongzh_chem@126.com)
+
+## ❤️ Contributing Authors
+- [Jiaqiang Yang](jqyang_hust@hust.edu.cn)
+- [Feifeng Wu](wufeifeng_hust@163.com)
+- [Zhaojie Wang](yczgwangzhaojie@163.com)
+- [Yuxiao Lan](husterlanxxt@163.com)
+- [Haojie Li](1197946404@qq.com)
+- [Rongxin Chen](rongxinchen@hust.edu.cn)
+- [Zhang Liu](zhangliu@hust.edu.cn)
+- [Zhihong Zhang](zhihongzh_chem@126.com)
 
 ## 🐤 Links
 
-- Materials Design and Nano-Manufacturing Center@HUST:http://www.materialssimulation.com/
-- Pypi homepage for HTMACat project:https://pypi.org/project/HTMACat/
-- HTMACat-kit’s documentation:https://stanfordbshan.github.io/HTMACat-kit/
+- [Materials Design and Nano-Manufacturing Center@HUST](http://www.materialssimulation.com/)
+- [HTMACat-kit's Pypi homepage](https://pypi.org/project/HTMACat/)
+- [HTMACat-kit’s Documentation](https://stanfordbshan.github.io/HTMACat-kit/)

@@ -102,12 +102,13 @@ class Bulk:
 
 
 class Slab(Structure):
-    def __init__(self, in_bulk=Bulk(), facet="100", layers=4):
+    def __init__(self, in_bulk=Bulk(), facet="100", layers=4, layers_relax=2):
         self.bulk = in_bulk
         self.file = None
         self.facet = facet
         self.property = {}
         self.layers = layers
+        self.layers_relax = layers_relax
         if "p1" not in self.property or "p1_symb" not in self.property:
             self.property["p1"] = []
             self.property["p1_symb"] = []
@@ -129,6 +130,9 @@ class Slab(Structure):
 
     def get_layers(self):
         return self.layers
+    
+    def get_layers_relax(self):
+        return self.layers_relax
 
     def out_file_name(self):
         mname = self.bulk.get_main_element()
@@ -180,12 +184,13 @@ class Slab(Structure):
         mbulk = self.bulk.construct()
         supercell = self.bulk.get_supercell()
         layers = self.get_layers()
+        layers_relax = self.get_layers_relax()
         ##### generate the surfaces #####
         gen = SlabGenerator(
             mbulk,
             miller_index=miller_index,
             layers=layers,
-            fixed=2,
+            fixed=layers-layers_relax,
             layer_type="trim",
             vacuum=8,
             standardize_bulk=True,
@@ -247,7 +252,7 @@ class Slab(Structure):
         bulk_init_dict = get_new_dict(bulk_list, init_dict)
         in_bulk = Bulk(**bulk_init_dict)
         # get the parameters for slab initialization
-        slab_list = ['facet','layers']
+        slab_list = ['facet','layers','layers_relax']
         slab_init_dict = get_new_dict(slab_list, init_dict)
 
         return cls(in_bulk, **slab_init_dict)
@@ -261,7 +266,7 @@ class Slab(Structure):
             return []
         substrates = []
         # get the parameters for struct initialization
-        struct_list = ['element','lattice_type','lattice_constant','supercell','layers']
+        struct_list = ['element','lattice_type','lattice_constant','supercell','layers','layers_relax']
         struct_init_dict = get_new_dict(struct_list,struct_Info)
         # get the parameters for dope and surface initialization
         dope_system = struct_Info["dope"]
