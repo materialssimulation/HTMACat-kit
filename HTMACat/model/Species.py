@@ -116,7 +116,7 @@ class Sml_Species(ABS_Species):
         ads1 = rdMolDescriptors.CalcMolFormula(mole)
         return ads1
 
-    def get_molecule(self) -> Gratoms:
+    def get_molecule(self, randomSeed=0) -> Gratoms:
         ### Changed by ZhaojieWang, 20230829 (<>改进：需能处理离子键可连接的SMILES)
         ads1 = self.get_formular()
         if '.' in ads1:
@@ -127,7 +127,7 @@ class Sml_Species(ABS_Species):
                 return None
         else:
             mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-        stat = AllChem.EmbedMolecule(mole, randomSeed=0)
+        stat = AllChem.EmbedMolecule(mole, randomSeed=randomSeed)
         if stat == -1:
             print("[WARNING]: No 3D conformer of specie %s can be generated, using the 2D version instead! (could be unreasonable)" % ads1)
         #try:
