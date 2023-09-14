@@ -78,6 +78,37 @@ def solve_normal_vector_linearsvc(coords, bond_idx, take_into_account_idx=None):
     ### print(labels, svc.predict(coords_ext))
     return vec, flag_linearly_separable
 
+def solve_normal_vector_pca(coords, bond_idx):
+    """Solve the adsorption direction of the given species using PCA. Returns the direction
+    that should be rotated into [001] of the slab model.
+    3D to 3D PCA: [x, y, z] to [M1, M2, M3]
+
+    Parameters
+    ----------
+    coords : numpy.ndarray
+        The coordinates of all atoms in the species.
+    bond_idx : int
+        The index of the atom to be placed on the adsorption sites.
+
+    Returns
+    -------
+    vec : list
+        The shortest component M3.
+    """
+    # 1. 找方向
+    if len(coords) == 1:
+        vec = [0, 0, 1]
+    else:
+        X = np.array(coords)[:,:3]
+        pca = PCA(n_components=3)
+        pca.fit(X)
+        vec = pca.components_[2]
+    # 2. 定“上下”
+    Center_coord = np.mean(coords, axis=0) # 形心坐标
+    if np.dot(vec,(Center_coord-coords[bond_idx])) < 0:
+        vec = -vec
+    return vec # return M3
+
 def solve_principle_axe_pca(coords):
     """PCA: 2D to 1D, using x & y coords of atoms in an adsorbate
     """
@@ -88,7 +119,7 @@ def solve_principle_axe_pca(coords):
     pca.fit(X)
     return pca.components_[0]
 
-date = '20230825'
+date = '20230905'
 
 if __name__ == '__main__' and date == '20230510':
     coords_NH3 = 4 * np.array([ # NH3+.xyz
@@ -97,18 +128,30 @@ if __name__ == '__main__' and date == '20230510':
         [ 0.81383, -0.46986,  0.40808], # H
         [-0.81383, -0.46986,  0.40808], # H
     ])
-
     vec, flag = solve_normal_vector_linearsvc(coords_NH3, 0)
     print(vec, np.sum(vec*vec), flag)
-
     vec, flag = solve_normal_vector_linearsvc(coords_NH3, 0, [0,1])
     print(vec, np.sum(vec*vec), flag)
-
     vec, flag = solve_normal_vector_linearsvc(coords_NH3, 0, [1,2,3])
     print(vec, np.sum(vec*vec), flag)
-
     vec, flag = solve_normal_vector_linearsvc(coords_NH3, 0, [0,1,2,3])
     print(vec, np.sum(vec*vec), flag)
+
+if __name__ == '__main__' and date == '20230905':
+    coords_NH3 = 4 * np.array([ # NH3+.xyz
+        [ 0.00000,  0.00000,  0.11649], # N
+        [ 0.00000,  0.93973,  0.40800], # H
+        [ 0.81383, -0.46986,  0.40808], # H
+        [-0.81383, -0.46986,  0.40808], # H
+    ])
+    vec = solve_normal_vector_pca(coords_NH3, 0)
+    print(vec, np.sum(vec*vec))
+    coords_2 = 4 * np.array([
+        [ 0.00000,  0.00000,  0.11649],
+        [ 0.00000,  0.00000,  0.40800],
+    ])
+    vec = solve_normal_vector_pca(coords_NH3, 1)
+    print(vec, np.sum(vec*vec))
 
 if __name__ == '__main__' and date == '20230825':
     print(solve_principle_axe_pca(np.array([[-1, -1], [-2, -1], [-3, -2], [1, 1], [2, 1], [3, 2]])))
