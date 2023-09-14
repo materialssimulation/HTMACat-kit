@@ -194,7 +194,7 @@ class Adsorption(Structure):
                         #    slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j, direction_mode='decision_boundary', direction_args=bond_atom_ids)]
             else:
                 for j, coord in enumerate(coordinates):
-                    vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coord=coord)
+                    vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coords=[coord])
                     site_ = j
                     coord_ = None
                     if 'site_coords' in self.settings.keys():
