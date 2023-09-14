@@ -559,6 +559,8 @@ class Builder(AdsorptionSites):
             rotation_args={},
             direction_mode='default', # wzj 20230524 指定确定位向的方式
             direction_args={}, # wzj 20230524 为后续扩展预留的参数
+            site_coord=None,
+            z_bias=0,
             symmetric=True,
             verbose=False):
         """Bond and adsorbate by a single atom."""
@@ -582,6 +584,10 @@ class Builder(AdsorptionSites):
         numbers = atoms.numbers[bond]
         R = radii[numbers]
         base_position = utils.trilaterate(top_sites[u], r + R, vector)
+        
+        # Zhaojie Wang   20230910(precise adsorption coord)
+        if not site_coord is None:
+            base_position = site_coord
 
         branches = nx.bfs_successors(atoms.graph, bond)
         atoms.translate(-atoms.positions[bond])
@@ -614,6 +620,7 @@ class Builder(AdsorptionSites):
                 ### print('target_vec:\n', target_vec)
                 atoms.rotate([principle_axe[0], principle_axe[1], 0], target_vec)
 
+        base_position[2] = base_position[2] + z_bias
         atoms.translate(base_position)
         n = len(slab)
         slab += atoms
