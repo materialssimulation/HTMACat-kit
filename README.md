@@ -72,6 +72,6 @@ Please Visit [HTMACat-kit’s documentation](https://materialssimulation.github.
 
 ## 🐤 Links
 
-- Materials Design and Nano-Manufacturing Center@HUST:http://www.materialssimulation.com/
-- Pypi homepage for HTMACat project:https://pypi.org/project/HTMACat/
-- HTMACat-kit’s documentation:https://stanfordbshan.github.io/HTMACat-kit/
+- [Materials Design and Nano-Manufacturing Center@HUST](http://www.materialssimulation.com/)
+- [HTMACat-kit's Pypi homepage](https://pypi.org/project/HTMACat/)
+- [HTMACat-kit’s Documentation](https://stanfordbshan.github.io/HTMACat-kit/)
