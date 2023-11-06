@@ -171,8 +171,8 @@ class Adsorption(Structure):
                 #print(len(self.species[0].get_molecule()))
                 #print(len(self.species))
                 #print(self.species[0].get_molecule())
-                #ads_use = self.species[0].get_molecule()
-                ads_use, ads_use_charges = self.species[0].get_molecule()
+                ads_use = self.species[0].get_molecule()
+                #ads_use, ads_use_charges = self.species[0].get_molecule()
             if not ele is None:
                 if ele == '+':
                     bond_atom_ids = np.where(np.array(ads_use_charges)>0)[0]
