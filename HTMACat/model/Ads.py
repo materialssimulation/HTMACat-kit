@@ -150,14 +150,29 @@ class Adsorption(Structure):
             _rotation_mode = self.settings['rotation']
         else:
             _rotation_mode = 'vnn'
+        if 'z_bias' in self.settings.keys():
+            _z_bias = float(self.settings['z_bias'])
+        else:
+            _z_bias = float(0)
         # generate surface adsorption configuration
         slab_ad = []
         slabs = self.substrate.construct()
         for i, slab in enumerate(slabs):
-            site = AdsorptionSites(slab)
-            coordinates = site.get_coordinates()
+            if 'site_coords' in self.settings.keys():
+                coordinates = np.array(self.settings['site_coords'], dtype=np.float64)
+            else:
+                site = AdsorptionSites(slab)
+                coordinates = site.get_coordinates()
             builder = Builder(slab)
-            ads_use, ads_use_charges = self.species[0].get_molecule()
+            if 'conform_rand' in self.settings.keys():
+                ads_use, ads_use_charges = self.species[0].get_molecule(int(self.settings['conform_rand']))
+            else:
+                #print('********************')
+                #print(len(self.species[0].get_molecule()))
+                #print(len(self.species))
+                #print(self.species[0].get_molecule())
+                ads_use = self.species[0].get_molecule()
+                #ads_use, ads_use_charges = self.species[0].get_molecule()
             if not ele is None:
                 if ele == '+':
                     bond_atom_ids = np.where(np.array(ads_use_charges)>0)[0]
@@ -168,19 +183,32 @@ class Adsorption(Structure):
                     bond_atom_ids = np.where(chemical_symbols==ele)[0]
                 for j, coord in enumerate(coordinates):
                     vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coords=[coord])
+                    site_ = j
+                    coord_ = None
+                    if 'site_coords' in self.settings.keys():
+                        coord_ = coord
+                    # confirm z coord (height of the adsorbate)
                     for bond_id in bond_atom_ids:
-                        slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j,
+                        slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=site_,
                                                                rotation_mode =_rotation_mode,
                                                                rotation_args ={'vec_to_neigh_imgsite':vec_to_neigh_imgsite},
-                                                               direction_mode=_direction_mode)]
+                                                               direction_mode=_direction_mode,
+                                                               site_coord = coord_,
+                                                               z_bias=_z_bias)]
                         #if len(bond_atom_ids) > 1:
                         #    slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j, direction_mode='decision_boundary', direction_args=bond_atom_ids)]
             else:
                 for j, coord in enumerate(coordinates):
                     vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coords=[coord])
-                    slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=j,
+                    site_ = j
+                    coord_ = None
+                    if 'site_coords' in self.settings.keys():
+                        coord_ = coord
+                    slab_ad += [builder._single_adsorption(ads_use, bond=0, site_index=site_,
                                                            rotation_mode =_rotation_mode,
-                                                           rotation_args ={'vec_to_neigh_imgsite':vec_to_neigh_imgsite})]
+                                                           rotation_args ={'vec_to_neigh_imgsite':vec_to_neigh_imgsite},
+                                                           site_coord = coord_,
+                                                           z_bias=_z_bias)]
         return slab_ad
 
     def Construct_double_adsorption(self):

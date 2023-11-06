@@ -559,6 +559,8 @@ class Builder(AdsorptionSites):
             rotation_args={},
             direction_mode='default', # wzj 20230524 指定确定位向的方式
             direction_args={}, # wzj 20230524 为后续扩展预留的参数
+            site_coord=None,
+            z_bias=0,
             symmetric=True,
             verbose=False):
         """Bond and adsorbate by a single atom."""
@@ -582,11 +584,16 @@ class Builder(AdsorptionSites):
         numbers = atoms.numbers[bond]
         R = radii[numbers]
         base_position = utils.trilaterate(top_sites[u], r + R, vector)
+        
+        # Zhaojie Wang   20230910(precise adsorption coord)
+        if not site_coord is None:
+            base_position = site_coord
 
         branches = nx.bfs_successors(atoms.graph, bond)
         atoms.translate(-atoms.positions[bond])
 
         # Zhaojie Wang   20230510(direction), 20230828(rotation)
+        #lbx
         if auto_construct:
             if direction_mode == 'bond_atom':
                 # 根据参与吸附的原子确定位向，将物种“扶正”
@@ -598,6 +605,14 @@ class Builder(AdsorptionSites):
                 adsorption_vector = utils.solve_normal_vector_pca(atoms.get_positions(), bond)
                 ### print('adsorption_vector:\n', adsorption_vector)
                 atoms.rotate(adsorption_vector, [0, 0, 1])
+                #得到分子的坐标与中心坐标
+                rotated_positions = atoms.get_positions()
+                #center_x_m, center_y_m = utils.center_molecule(rotated_positions)
+                #print("分子中心坐标 (x, y):", center_x_m, center_y_m)
+
+
+
+
             else: # direction_mode == 'default':
                 atoms.rotate([0, 0, 1], vector)
             # 再在xoy平面中旋转物种以避免重叠（思路：投影“长轴”与rotation_args['vec_to_neigh_imgsite']垂直）
@@ -613,10 +628,36 @@ class Builder(AdsorptionSites):
                     target_vec = [-1/rotation_args['vec_to_neigh_imgsite'][0], 1/rotation_args['vec_to_neigh_imgsite'][1], 0]
                 ### print('target_vec:\n', target_vec)
                 atoms.rotate([principle_axe[0], principle_axe[1], 0], target_vec)
+        
+        
+        #lbx
+        if base_position[2] == 0.0:
+            z_coordinates = rotated_positions[:, 2]
+            min_z = np.min(z_coordinates) #得到分子z轴最小值
+            #print(rotated_positions)
+            #print(min_z)
+            final_positions = slab.get_positions() #slab坐标  
+            z_coordinates = final_positions[:, 2]
+            max_z = np.max(z_coordinates) #获取slabz轴最大值
+            base_position[2] = round(0 - min_z + 2.0 + max_z,1)
+            #计算slab中心坐标
+            center_x, center_y = utils.center_slab(final_positions)
+            #print("(x, y):", center_x,center_y,base_position[2])
+            base_position[0] = round(center_x ,1)
+            base_position[1] = round(center_y ,1)
+            print("(x, y,z):", base_position[0],base_position[1],base_position[2])
+            atoms.translate(base_position)
+            #atoms.translate(base_position)
+            n = len(slab)
+            slab += atoms
+            #lbx:slab为增加分子后的坐标,base_position[2]为config输入的z
+        else:
+            base_position[2] = base_position[2] + z_bias
+            atoms.translate(base_position)
+            n = len(slab)
+            slab += atoms
 
-        atoms.translate(base_position)
-        n = len(slab)
-        slab += atoms
+        
 
         # Add graph connections
         for metal_index in self.index[u]:
