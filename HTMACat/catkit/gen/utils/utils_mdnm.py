@@ -209,3 +209,40 @@ def Gen_conn_mole(sml): # Zhaojie Wang 20230829   补充离子键使多段SMILES
     for idx in attach:
         molew.AddBond(center,idx,btype)
     return molew
+
+
+
+def center_molecule(rotated_positions):
+    # 计算x轴和y轴的最大值和最小值
+    min_x = np.min(rotated_positions[:, 0])
+    max_x = np.max(rotated_positions[:, 0])
+    min_y = np.min(rotated_positions[:, 1])
+    max_y = np.max(rotated_positions[:, 1])
+
+    # 获取x轴最小值对应的y坐标和y轴最大值对应的x坐标
+    min_x_y = rotated_positions[np.argmin(rotated_positions[:, 0])][1]
+    max_y_x = rotated_positions[np.argmax(rotated_positions[:, 1])][0]
+      # 计算原子的中心坐标
+    center_x = (min_x + max_x) / 2
+    center_y = (min_y + max_y) / 2
+
+    return center_x, center_y
+
+def center_slab(final_positions):
+    # 计算x轴和y轴的最大值和最小值
+    min_x = np.min(final_positions[:, 0])
+    max_x = np.max(final_positions[:, 0])
+    min_y = np.min(final_positions[:, 1])
+    max_y = np.max(final_positions[:, 1])
+
+    # 获取x轴最小值对应的y坐标和y轴最大值对应的x坐标
+    min_x_y = final_positions[np.argmin(final_positions[:, 0])][1]
+    max_y_x = final_positions[np.argmax(final_positions[:, 1])][0]
+
+    # 计算原子的中心坐标
+    center_x = (min_x + max_x) / 2
+    center_y = (min_y + max_y) / 2
+
+    return center_x, center_y
+
+

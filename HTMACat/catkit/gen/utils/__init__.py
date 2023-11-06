@@ -12,7 +12,9 @@ from .utils_mdnm import (mol_to_graph,
                          solve_normal_vector_pca,
                          solve_principle_axe_pca,
                          Check_treatable__HTMATver,
-                         Gen_conn_mole)
+                         Gen_conn_mole,
+                         center_molecule,
+                         center_slab,)
 
 __all__ = ['get_voronoi_neighbors',
            'get_cutoff_neighbors',
@@ -40,4 +42,6 @@ __all__ = ['get_voronoi_neighbors',
            'solve_normal_vector_pca',
            'solve_principle_axe_pca',
            'Check_treatable__HTMATver',
-           'Gen_conn_mole']
+           'Gen_conn_mole',
+           'center_molecule',
+           'center_slab']

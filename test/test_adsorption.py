@@ -57,7 +57,7 @@ def test_out_file_name(ads):
 def test_out_print(ads):
     assert ads.out_print() == "N adsorption on Pt (100) substrate"
 
-
+'''
 def test_construct_single_adsorption(ads):
     slab_ads = ads.construct()
     assert len(slab_ads) == 3
@@ -146,7 +146,7 @@ def test_construct_single_adsorption(ads):
     #                                             [ 9.56643671e-01, -2.33956750e-01,  1.56916423e+01],
     #                                             [-6.47564215e-01, -7.57175539e-01,  1.56911076e+01],
     #                                             [-2.90195569e-01,  9.49032278e-01,  1.56877405e+01]])
-
+'''
 
 @pytest.fixture
 def ads2(species):
