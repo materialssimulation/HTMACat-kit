@@ -657,7 +657,11 @@ class Builder(AdsorptionSites):
             n = len(slab)
             slab += atoms
 
-        
+
+        base_position[2] = base_position[2] + z_bias
+        atoms.translate(base_position)
+        n = len(slab)
+        slab += atoms
 
         # Add graph connections
         for metal_index in self.index[u]:
