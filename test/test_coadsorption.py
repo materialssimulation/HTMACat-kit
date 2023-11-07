@@ -79,11 +79,6 @@ def test_construct_coadsorption_11(coads11):
             1,
             1,
             1,
-            7,
-            1,
-            1,
-            1,
-            8,
             8,
         ],
     )
