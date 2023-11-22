@@ -588,10 +588,10 @@ class Builder(AdsorptionSites):
         # Zhaojie Wang   20230910(precise adsorption coord)
         if not site_coord is None:
             base_position = site_coord
-
+        
         branches = nx.bfs_successors(atoms.graph, bond)
         atoms.translate(-atoms.positions[bond])
-
+        
         # Zhaojie Wang   20230510(direction), 20230828(rotation)
         #lbx
         if auto_construct:
