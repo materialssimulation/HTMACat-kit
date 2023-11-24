@@ -156,6 +156,7 @@ class Adsorption(Structure):
                 coordinates = site.get_coordinates()
             builder = Builder(slab)
             # if 'conform_rand' in self.settings.keys():
+            print(type(self.species[0]))
             ads_use, ads_use_charges = self.species[0].get_molecule(int(self.settings['conform_rand']))
             # else:
                 #print('********************')

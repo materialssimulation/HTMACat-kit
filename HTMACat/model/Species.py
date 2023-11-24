@@ -31,7 +31,7 @@ class ABS_Species(ABC):
         return self.get_formular()
 
     @abstractmethod
-    def get_molecule(self) -> Gratoms:
+    def get_molecule(self, randomSeed=0) -> Gratoms:
         pass
 
     @classmethod
@@ -51,7 +51,7 @@ class Sim_Species(ABS_Species):
     def __init__(self, form, formtype="sim", alias_name=None):
         super().__init__(form, formtype, alias_name)
 
-    def get_molecule(self):
+    def get_molecule(self, randomSeed=0):
         ads1 = self.get_formular()
         atoms = molecule(ads1)
         cutOff = neighborlist.natural_cutoffs(atoms)
@@ -64,7 +64,9 @@ class Sim_Species(ABS_Species):
                 if matrix[i, j] == 1:
                     edges_list.append((i, j))
         ads_molecule = to_gratoms(atoms, edges=edges_list)
-        return ads_molecule
+        # todo
+        ads_use_charges = -1
+        return ads_molecule,ads_use_charges
 
 
 class File_Species(ABS_Species):
@@ -99,11 +101,13 @@ class File_Species(ABS_Species):
                     edges_list.append((i, j))
         return edges_list
 
-    def get_molecule(self) -> Gratoms:
+    def get_molecule(self, randomSeed=0) -> Gratoms:
         atoms = self.atoms
         edges_list = self.edges_list
         ads_molecule = to_gratoms(atoms, edges=edges_list)
-        return ads_molecule
+        # todo
+        ads_use_charges = -1
+        return ads_molecule,ads_use_charges
 
 
 class Sml_Species(ABS_Species):
