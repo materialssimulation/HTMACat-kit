@@ -2,6 +2,7 @@
 import numpy as np
 from ase import Atoms
 from HTMACat.catkit.gen import utils
+from collections import defaultdict
 
 
 
@@ -16,10 +17,25 @@ def coads_split(filename,element,key_atom):
     coords_start_line = 9 
     atomic_coords = [line.split()[:3] for line in contcar_content[coords_start_line:]]
     atomic_coords = [[float(coord) for coord in coords] for coords in atomic_coords]
-    threshold_z = 0.25 #需要改动（改为真实值？）
-    substrate_atoms = [coord for coord in atomic_coords if coord[2] < threshold_z]
-    molecule_atoms = [coord for coord in atomic_coords if coord[2] >= threshold_z]
+    threshold_z = 0.1 #需要改动（改为真实值？）
+
+    grouped_coords = defaultdict(list)
     
+    # 将 Z 轴坐标按照有效数字进行分组
+    for coord in atomic_coords:
+        z_value = round(coord[2], 2)  # 取两位有效数字
+        grouped_coords[z_value].append(coord)
+    threshold_z_values = [max(coords, key=lambda c: c[2]) for z_value, coords in grouped_coords.items() if len(coords) >= 8]
+    threshold_z0 = max(threshold_z_values, key=lambda c: c[2])[2]
+   
+
+
+    substrate_atoms = [coord for coord in atomic_coords if coord[2] < threshold_z + threshold_z0]
+    molecule_atoms = [coord for coord in atomic_coords if coord[2] >= threshold_z + threshold_z0]
+    
+
+
+
     cartesian_coordinates = np.dot(molecule_atoms, lattice_matrix)
     cartesian_coordinates_list = cartesian_coordinates.tolist()
     selected_elements = element.split('-') #输入
