@@ -639,7 +639,7 @@ class Builder(AdsorptionSites):
             final_positions = slab.get_positions() #slab坐标  
             z_coordinates = final_positions[:, 2]
             max_z = np.max(z_coordinates) #获取slabz轴最大值
-            base_position[2] = round(0 - min_z + 2.0 + max_z,1)
+            base_position[2] = round(0 - min_z + 3.0 + max_z,1)
             #计算slab中心坐标
             center_x, center_y = utils.center_slab(final_positions)
             #print("(x, y):", center_x,center_y,base_position[2])
