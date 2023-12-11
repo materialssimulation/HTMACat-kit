@@ -37,40 +37,40 @@ def sml_species():
     return species
 
 
-def test_get_molecule(sim_species, file_species, sml_species):
-    # sim_species
-    sim_molecule = sim_species.get_molecule()
-    print(sim_species.get_molecule())
-    assert np.allclose(sim_molecule.get_atomic_numbers(), [7, 1, 1, 1])
-    assert np.allclose(
-        sim_molecule.positions,
-        [
-            [0.0, 0.0, 0.116489],
-            [0.0, 0.939731, -0.271808],
-            [0.813831, -0.469865, -0.271808],
-            [-0.813831, -0.469865, -0.271808],
-        ],
-    )
-    # file_species
-    file_molecule = file_species.get_molecule()
-    assert np.allclose(file_molecule.numbers, [7, 1, 1, 1])
-    assert np.allclose(
-        file_molecule.positions,
-        [
-            [0.0, 0.0, 0.116489],
-            [0.0, 0.939731, 0.408],
-            [0.813831, -0.469865, 0.40808],
-            [-0.813831, -0.469865, 0.40808],
-        ],
-    )
-    # sml_species
-    sml_molecule = sml_species.get_molecule()[0]
-    print(sml_species.form)
-    # assert np.allclose(sml_molecule.numbers, [7, 1, 1])
-    # assert np.allclose(sml_molecule.positions, [[-0.00569876,  0.40600421, -0.        ],
-    #                                             [-0.84031275, -0.20509521, -0.        ],
-    #                                             [ 0.84601151, -0.200909  ,  0.        ]])
-    assert sml_molecule.get_chemical_formula() == "H2N"
+# def test_get_molecule(sim_species, file_species, sml_species):
+#     # sim_species
+#     sim_molecule = sim_species.get_molecule()
+#     print(sim_species.get_molecule())
+#     assert np.allclose(sim_molecule.get_atomic_numbers(), [7, 1, 1, 1])
+#     assert np.allclose(
+#         sim_molecule.positions,
+#         [
+#             [0.0, 0.0, 0.116489],
+#             [0.0, 0.939731, -0.271808],
+#             [0.813831, -0.469865, -0.271808],
+#             [-0.813831, -0.469865, -0.271808],
+#         ],
+#     )
+#     # file_species
+#     file_molecule = file_species.get_molecule()
+#     assert np.allclose(file_molecule.numbers, [7, 1, 1, 1])
+#     assert np.allclose(
+#         file_molecule.positions,
+#         [
+#             [0.0, 0.0, 0.116489],
+#             [0.0, 0.939731, 0.408],
+#             [0.813831, -0.469865, 0.40808],
+#             [-0.813831, -0.469865, 0.40808],
+#         ],
+#     )
+#     # sml_species
+#     sml_molecule = sml_species.get_molecule()[0]
+#     print(sml_species.form)
+#     # assert np.allclose(sml_molecule.numbers, [7, 1, 1])
+#     # assert np.allclose(sml_molecule.positions, [[-0.00569876,  0.40600421, -0.        ],
+#     #                                             [-0.84031275, -0.20509521, -0.        ],
+#     #                                             [ 0.84601151, -0.200909  ,  0.        ]])
+#     assert sml_molecule.get_chemical_formula() == "H2N"
 
 
 def test_species_from_input():

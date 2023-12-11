@@ -142,18 +142,9 @@ class Adsorption(Structure):
         return d
 
     def Construct_single_adsorption(self, ele=None):
-        if 'direction' in self.settings.keys():
-            _direction_mode = self.settings['direction']
-        else:
-            _direction_mode = 'bond_atom'
-        if 'rotation' in self.settings.keys():
-            _rotation_mode = self.settings['rotation']
-        else:
-            _rotation_mode = 'vnn'
-        if 'z_bias' in self.settings.keys():
-            _z_bias = float(self.settings['z_bias'])
-        else:
-            _z_bias = float(0)
+        _direction_mode = self.settings['direction']
+        _rotation_mode = self.settings['rotation']
+        _z_bias = float(self.settings['z_bias'])
         # generate surface adsorption configuration
         slab_ad = []
         slabs = self.substrate.construct()
@@ -164,14 +155,15 @@ class Adsorption(Structure):
                 site = AdsorptionSites(slab)
                 coordinates = site.get_coordinates()
             builder = Builder(slab)
-            if 'conform_rand' in self.settings.keys():
-                ads_use, ads_use_charges = self.species[0].get_molecule(int(self.settings['conform_rand']))
-            else:
+            # if 'conform_rand' in self.settings.keys():
+            print(type(self.species[0]))
+            ads_use, ads_use_charges = self.species[0].get_molecule(int(self.settings['conform_rand']))
+            # else:
                 #print('********************')
                 #print(len(self.species[0].get_molecule()))
                 #print(len(self.species))
                 #print(self.species[0].get_molecule())
-                ads_use = self.species[0].get_molecule()
+                # ads_use = self.species[0].get_molecule()
                 #ads_use, ads_use_charges = self.species[0].get_molecule()
             if not ele is None:
                 if ele == '+':
@@ -230,16 +222,26 @@ class Adsorption(Structure):
             spec1 = init_from_ads(i[0], species_dict)
             sites1 = str(i[1])
             if len(i) > 2:
-                settings1 = i[2]
+                settings = cls.get_settings(i[2]['settings'])
                 # print('settings1', settings1, '\n', settings1['settings'])
-                for j in substrates:
-                    ads.append(cls([spec1], list(sites1), settings=settings1['settings'], substrate=j))
             else:
-                for j in substrates:
-                    ads.append(cls([spec1], list(sites1), substrate=j))
+                settings = cls.get_settings()
+            for j in substrates:
+                ads.append(cls([spec1], list(sites1), settings=settings, substrate=j))
         return ads
 
-
+    @classmethod
+    def get_settings(cls,settings_dict={}):
+        default_settings = {'conform_rand':1,
+                            'direction':'bond_atom',
+                            'rotation':'vnn',
+                            'z_bias':float(0),
+                            }
+        for key,value in settings_dict.items():
+            default_settings[key] = value
+        print(default_settings)
+        return default_settings
+    
 class Coadsorption(Adsorption):
     def __init__(self, species: list, sites: list, settings={}, spec_ads_stable=None, substrate=Slab()):
         super().__init__(species, sites, settings, spec_ads_stable, substrate)
