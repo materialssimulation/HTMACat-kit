@@ -1,15 +1,17 @@
-#lbx
+#lbxent
 import numpy as np
 from ase import Atoms
 from HTMACat.catkit.gen import utils
 from collections import defaultdict
+from collections import Counter,OrderedDict
+from ase.data import atomic_numbers, atomic_names, covalent_radii
 
 
 
 
 
-def coads_split(filename,element,key_atom):
-    print('Dealing with vasp file:', filename,element,key_atom)
+def coads_split(filename,key_atom):
+    print('Dealing with vasp file:', filename,key_atom)
     contcar_file_path = filename
     with open(contcar_file_path, 'r') as f:
         contcar_content = f.readlines()
@@ -25,37 +27,67 @@ def coads_split(filename,element,key_atom):
     for coord in atomic_coords:
         z_value = round(coord[2], 2)  # 取两位有效数字
         grouped_coords[z_value].append(coord)
-    threshold_z_values = [max(coords, key=lambda c: c[2]) for z_value, coords in grouped_coords.items() if len(coords) >= 8]
+    threshold_z_values = [max(coords, key=lambda c: c[2]) for z_value, coords in grouped_coords.items() if len(coords) >= 6]
     threshold_z0 = max(threshold_z_values, key=lambda c: c[2])[2]
    
 
 
     substrate_atoms = [coord for coord in atomic_coords if coord[2] < threshold_z + threshold_z0]
     molecule_atoms = [coord for coord in atomic_coords if coord[2] >= threshold_z + threshold_z0]
-    
+    molecule_atoms_indices = [index for index, coord in enumerate(atomic_coords) if coord in molecule_atoms]
+    #print(molecule_atoms_indices)
 
 
 
     cartesian_coordinates = np.dot(molecule_atoms, lattice_matrix)
     cartesian_coordinates_list = cartesian_coordinates.tolist()
-    selected_elements = element.split('-') #输入
-    from ase.data import atomic_numbers, atomic_names, covalent_radii
-    number_list = [atomic_numbers[key] for key in selected_elements]
-    r_list = [covalent_radii[k] for k in number_list]
-    element_symbols = contcar_content[5].split()
-    atom_counts = [int(count) for count in contcar_content[6].split()]
+    
     
 
-    total_atoms = sum(count for element, count in zip(element_symbols, atom_counts) if element in selected_elements)
-    molecule_atoms_copy = list(molecule_atoms)
+
+    #原子数及元素符号
+    element_symbols = contcar_content[5].split()
+    atom_counts = [int(count) for count in contcar_content[6].split()]
+    all_atoms = [(element, count) for element, count in zip(element_symbols, atom_counts)]
+    all_atoms_list = [char * count if len(char) == 1 else [char] * count for char , count in all_atoms]
+    all_atoms_list0 = [char for sublist in all_atoms_list for char in sublist]#所有元素包含基底与分子
+    #print(all_atoms_list0)
+    molecule_elements = [all_atoms_list0[index] for index in molecule_atoms_indices]
+    unique_atoms = list(dict.fromkeys(molecule_elements))#获得分子元素
+    #print(molecule_elements,unique_atoms)
+    atom_counts1 = Counter(molecule_elements)
+    atom_counts1_dict = dict(atom_counts1)
+    repeat_counts = list(atom_counts1_dict.values())#每个元素对应的数量
+    #print(repeat_counts)
+
+
+    selected_elements = unique_atoms #输入
+    #print(selected_elements)
+    number_list = [atomic_numbers[key] for key in selected_elements]
+    r_list = [covalent_radii[k] for k in number_list]
+    
+
+    #total_atoms = sum(count for element, count in zip(element_symbols, atom_counts) if element in selected_elements)
+    #molecule_atoms_copy = list(molecule_atoms)
     selected_molecule_elements = [(element, count) for element, count in zip(element_symbols, atom_counts) if element in selected_elements]
+
+
+
+
+
     unzipped = list(zip(*selected_molecule_elements))
-    counts_list = list(unzipped[1])
+    #counts_list = list(unzipped[1])
+    counts_list = repeat_counts
+    #print(counts_list,number_list)
     number_counts = list(zip(number_list,counts_list))
+    #print(number_counts)
 
 
     target_key = atomic_numbers[key_atom]
-    number_counts = [(number, 1) if number == target_key else (number, count) for number, count in number_counts]
+    #number_counts = [(number, 1) if number == target_key else (number, count) for number, count in number_counts] #基底含中心原子元素
+    #sum_H = len(molecule_atoms) - sum(value for key, value in number_counts if key != 1) #基底被羟基化
+    #index_of_key_1 = next((index for index, (key, _) in enumerate(number_counts) if key == 1), None)
+    #number_counts[index_of_key_1] = (1,sum_H)
     #print(number_counts)
 
     atom_coordinates_list = []
@@ -179,14 +211,14 @@ def coads_split(filename,element,key_atom):
         np.set_printoptions(precision=16)
         atomic_coords = np.array(atomic_coords)
 
-        new_contcar_file_path1 = f"origin_CONTCAR"
-        # 将原子坐标写入文件
-        with open(new_contcar_file_path1, 'w') as f:
-            f.writelines(contcar_content[:coords_start_line])
-            for coord in atomic_coords1:
-                f.write(f"  {coord[0]:.16f}  {coord[1]:.16f}  {coord[2]:.16f}   T   T   T\n")
-
-        print("原子坐标文件已生成", new_contcar_file_path1)
+        #new_contcar_file_path1 = f"origin_CONTCAR"
+        ## 将原子坐标写入文件
+        #with open(new_contcar_file_path1, 'w') as f:
+        #    f.writelines(contcar_content[:coords_start_line])
+        #    for coord in atomic_coords1:
+        #        f.write(f"  {coord[0]:.16f}  {coord[1]:.16f}  {coord[2]:.16f}   T   T   T\n")
+#
+        #print("原子坐标文件已生成", new_contcar_file_path1)
 
         #流程1分离
         selected_list, other_list = separate_rows(molecule_atoms, tup)
@@ -267,7 +299,7 @@ def coads_split(filename,element,key_atom):
         a = 0
         int_tuple = tuple(int(x) for x in tup)
         sorted_tup = tuple(sorted(int_tuple))
-        print(int_tuple)
+        #print(int_tuple)
         for index in sorted_tup:
             restored_result[index] = selected_list3[a]
             a = a+1
@@ -299,10 +331,10 @@ def coads_split(filename,element,key_atom):
             for coord in atomic_coords:
                 f.write(f"  {coord[0]:.16f}  {coord[1]:.16f}  {coord[2]:.16f}   T   T   T\n")
 
-        print("原子坐标文件已生成", new_contcar_file_path0)
+        print("原子坐标过渡文件已生成", new_contcar_file_path0)
        
-        new_contcar_file_path = f"{tup}_CONTCAR"
-        print(new_contcar_file_path0)
+        new_contcar_file_path = f"CONTCAR_{tup}"
+        #print(new_contcar_file_path0)
         with open(f"{tup[0]}_CONTCAR", 'r') as f:
             contcar_content1 = f.readlines()
         atomic_coords00 = [list(map(float, line.split()[:3])) for line in contcar_content1[coords_start_line:]]
@@ -326,5 +358,5 @@ def coads_split(filename,element,key_atom):
             # 将新内容写入新的CONTCAR文件
         with open(new_contcar_file_path, 'w') as f:
             f.writelines(contcar_content1)
-        print("新的CONTCAR文件已生成:", new_contcar_file_path)
+        print("基团分离后的CONTCAR文件已生成:", new_contcar_file_path)
 

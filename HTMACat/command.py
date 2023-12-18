@@ -82,7 +82,7 @@ def crngen():
     run_crnconfiggen()
 
 @htmat.command(context_settings=CONTEXT_SETTINGS)#lbx
-def split(filename,element,key_atom):
+def split(filename,key_atom):
     """split configuration."""
     print("split ... ...")
-    coads_split(filename,element,key_atom)
+    coads_split(filename,key_atom)
