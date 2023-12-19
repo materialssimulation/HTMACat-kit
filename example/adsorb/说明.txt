@@ -1,0 +1,17 @@
+StrucInfo:
+  file: CONTCAR
+Model:
+  ads:
+    - [f: '1.xyz', 1Si, settings: {site_coords: [[5.9, 8.1, 0.0]], direction: 'asphericity'}]
+yaml文件内容如上
+
+cmd打开
+输入htmat ads
+生成吸附结构的CONTCAR
+
+说明：
+StrucInfo:
+  file: CONTCAR(基底文件名)
+Model:
+  ads:
+    - [f: '1.xyz'(分子为xyz文件，此处为分子文件名), 1Si(1为模式1，Si为指定的中心原子), settings: {site_coords: [[5.9, 8.1, 0.0(0.0为指定自动吸附模式，xyz值自动生成，使得分子最低点离基底表面3.4埃)]], direction: 'asphericity'(旋转模式，使用该参数使得分子按最大惯性矩旋转，尽可能平铺于基底表面)}]
