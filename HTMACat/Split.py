@@ -270,8 +270,8 @@ def coads_split(filename,key_atom):
             z_2 = (ase_atoms2.positions+cartesian_coordinates[first_atom])[:, 2]
             min_z1 = np.min(z_1)
             min_z2 = np.min(z_2)
-            dez1 = max_z - min_z1 + 2.4  #2埃处
-            dez2 = max_z - min_z2 + 2.4
+            dez1 = max_z - min_z1 + 2.0  #2埃处
+            dez2 = max_z - min_z2 + 2.0
             dez1 = np.array([dez1]).reshape(1,-1)
             dez2 = np.array([dez2]).reshape(1,-1)
             ase_atoms1.positions[:, 2] = ase_atoms1.positions[:, 2] + dez1
