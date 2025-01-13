@@ -662,12 +662,13 @@ class Builder(AdsorptionSites):
                 slabs_list.append(copy.deepcopy(slab))
                 dealt_positions = a.get_positions()
                 min_z = np.min(dealt_positions[:,2]) #得到分子z轴最小值
-                base_position[2] = max_z - min_z + 2.2 # 吸附物种最低原子处于slab以上2.2A，随后再尝试降低
+                base_position[2] = max_z - min_z + 3.0 # 吸附物种最低原子处于slab以上?A，随后再尝试降低
                 a.translate(base_position)
                 slabs_list[-1] += a
                 # Add graph connections
                 for metal_index in self.index[u]:
                     slabs_list[-1].graph.add_edge(metal_index, bond + n)
+                '''
                 # 评估当前构型并不断尝试将吸附物降低以尽可能贴近表面，直到score不再提高
                 score_tmp = utils.score_configuration_hetero(coords=slabs_list[-1].get_positions(),
                                                              symbols=slabs_list[-1].get_chemical_symbols(),
@@ -694,7 +695,8 @@ class Builder(AdsorptionSites):
                 str_log = str(ia) + ' | score = ' + str(np.round(score_configurations[-1],3)).ljust(8) + '(x,y,z): ' + str(base_position)
                 ### print(str_log)
                 with open('score_log.txt', 'a') as f:
-                    f.write(str_log+'\n')
+                    f.write(str_log+"\n")
+                '''
             with open('score_log.txt', 'a') as f:
                 f.write('\n')
                 f.write('Ranking configurations by their scores:\n')
@@ -711,7 +713,7 @@ class Builder(AdsorptionSites):
             final_positions = slab.get_positions() #slab坐标  
             z_coordinates = final_positions[:, 2]
             max_z = np.max(z_coordinates) #获取slabz轴最大值
-            base_position[2] = round(0 - min_z + 4.0 + max_z,1)
+            base_position[2] = round(0 - min_z + 3.0 + max_z,1)
             #计算slab中心坐标
             center_x, center_y = utils.center_slab(final_positions)
             #print("(x, y):", center_x,center_y,base_position[2])
