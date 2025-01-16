@@ -25,7 +25,7 @@ class Adsorption(Structure):
                 "NH2": [2],
                 "NH": [2, 4],
                 "N": [2, 4],
-                "O": [3],
+                "O": [2, 3],
                 "OH": [2, 4],
                 "NO": [2, 4],
                 "H2O": [1],
@@ -485,6 +485,8 @@ class Coadsorption(Adsorption):
             elif typ.get(bind_type_symb_tmp[0]) in ads_type.get(adspecie_tmp[0]) and \
                  typ.get(bind_type_symb_tmp[1]) in ads_type.get(adspecie_tmp[1]):
                 slab_ad_final += [adslab]
+        print(len(slab_ad_final))
+        print(slab_ad_final)
         return slab_ad_final
 
     def Construct_coadsorption_12(self):
