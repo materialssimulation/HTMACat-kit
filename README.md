@@ -69,6 +69,7 @@ Please Visit [HTMACat-kit’s documentation](https://materialssimulation.github.
 - [Rongxin Chen](rongxinchen@hust.edu.cn)
 - [Zhang Liu](zhangliu@hust.edu.cn)
 - [Zhihong Zhang](zhihongzh_chem@126.com)
+- [Ziqi Xian](2821838490@qq.com)
 
 ## 🐤 Links
 
