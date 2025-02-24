@@ -140,6 +140,7 @@ class Adsorption(Structure):
     def Construct_single_adsorption(self, ele=None):
         _direction_mode = self.settings['direction']
         _rotation_mode = self.settings['rotation']
+        print('>>>>>>>>> ', self.settings['rotation'])
         _z_bias = float(self.settings['z_bias'])
         # generate surface adsorption configuration
         slab_ad = []
@@ -262,10 +263,13 @@ class Coadsorption(Adsorption):
         if ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['1','1']):
             ele = [''.join(self.get_sites()[0][1:]),''.join(self.get_sites()[1][1:])]
             slabs_ads = self.Construct_coadsorption_11(ele=ele)
+            print('a')
         elif ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['1','2']):
             slabs_ads = self.Construct_coadsorption_12()
+            print('b')
         elif ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['2','2']):
             slabs_ads = self.Construct_coadsorption_22()
+            print('c')
         else:
             raise ValueError("Supports only '1' or '2' adsorption sites for coads!")### end
         if self.substrate.is_dope():
@@ -308,8 +312,9 @@ class Coadsorption(Adsorption):
             _direction_mode = 'bond_atom'
         if 'rotation' in self.settings.keys():
             _rotation_mode = self.settings['rotation']
+            print(">>> self.settings['rotation'] =", self.settings['rotation'])
         else:
-            _rotation_mode = 'vnn'
+            _rotation_mode = 'xzq'
         if 'site_locate_ads1' in self.settings.keys():
             _site_locate_ads1 = self.settings['site_locate_ads1']
         else:
