@@ -650,16 +650,22 @@ class Builder(AdsorptionSites):
                     max_z = np.max(final_positions[:, 2])  # 获取 slab z 轴最大值
                     base_position[2] = round(0 - min_z + 2.5 + max_z, 1)
 
-                    # 计算 slab 中心坐标，确保吸附分子位于 slab 的正中心
-                    center_x, center_y = utils.center_slab(final_positions)
-                    base_position[0] = round(center_x, 1)
-                    base_position[1] = round(center_y, 1)
+                   # xzq如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
+                    if site_coord[0] == 0 and site_coord[1] == 0:
+                       center_x, center_y = utils.center_slab(final_positions)  # 计算 slab 的 xy 中心
+                       base_position[0] = round(center_x, 1)  # 将分子放置在 xy 中心
+                       base_position[1] = round(center_y, 1)
+                    else:
+                       # 否则，使用输入的 site_coord 作为 xy 坐标
+                       base_position[0] = round(site_coord[0], 1)
+                       base_position[1] = round(site_coord[1], 1)
 
                     atoms.translate(base_position)  # 确保所有构型都以正确的 z 轴间距平移
 
                     # 将分子平移到指定的 site_coord 位置
-                    vec_tmp = site_coord - atoms.get_positions()[bond]
-                    atoms.translate([vec_tmp[0], vec_tmp[1], 0])
+                    vec_tmp = site_coord - atoms.get_positions()[bond]  # 计算平移量
+                    atoms.translate([vec_tmp[0], vec_tmp[1], 0])  # 只平移 x-y，不改变 z
+
 
                     slab_with_adsorbate = slab.copy()
                     slab_with_adsorbate += atoms
@@ -729,12 +735,17 @@ class Builder(AdsorptionSites):
                # 计算 slab 中心坐标
                 slab_positions = slab.get_positions()
                 center_x, center_y = utils.center_slab(slab_positions)
-                base_position[0] = round(center_x, 1)
-                base_position[1] = round(center_y, 1)
+               # xzq如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
+                if site_coord[0] == 0 and site_coord[1] == 0:
+                   base_position[0] = round(center_x, 1)
+                   base_position[1] = round(center_y, 1)
+                else:
+                   base_position[0] = round(site_coord[0], 1)
+                   base_position[1] = round(site_coord[1], 1)
 
                 # 打印检查
                 print(f"min_z (adsorbate): {min_z}, max_z (slab): {max_z}, new base_position: {base_position}")
-        
+
                 # 平移吸附分子
                 a.translate(base_position)
 
@@ -742,7 +753,7 @@ class Builder(AdsorptionSites):
                 xy_translation = site_coord[:2] - a.get_positions()[bond][:2]
                 a.translate([xy_translation[0], xy_translation[1], 0])  # 只移动 x-y，不改变 z
                 print('Final base_position:', base_position)
-                
+    
                 # 组合 slab 和吸附物 
                 slabs_list[-1] += a
                 # Add graph connections
