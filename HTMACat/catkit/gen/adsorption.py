@@ -552,7 +552,7 @@ class Builder(AdsorptionSites):
             raise ValueError("Only mono- and bidentate adsorption supported.")
 
         return slab
-    #xzq
+    #xzq_test
     @staticmethod
     def inertia_tensor(positions, masses):
         """计算分子的惯性矩张量"""
