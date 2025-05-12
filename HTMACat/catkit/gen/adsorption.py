@@ -629,11 +629,13 @@ class Builder(AdsorptionSites):
                 # 自动处理三种惯性矩方向
                 slabs_list = []
                 for inertia_mode in range(1, 4):  # 遍历第一、第二、第三惯性矩
+                    atoms_copy = atoms.copy()  # ✅ 每次都从原始结构复制
+                    base_position = [0.0, 0.0, 0.0]
                     adsorption_vector = principal_axes[:, inertia_mode - 1]                    
-                    atoms.rotate(adsorption_vector, [0, 0, 1])
+                    atoms_copy.rotate(adsorption_vector, [0, 0, 1])
 
                     if enable_rotate_xoy and rotation_mode == 'vnn' and rotation_args != {}:
-                        principle_axe = utils.solve_principle_axe_pca(atoms.get_positions())
+                        principle_axe = utils.solve_principle_axe_pca(atoms_copy.get_positions())
                         if abs(rotation_args['vec_to_neigh_imgsite'][0]) < 1e-8:
                             target_vec = [1, 0, 0]
                         elif abs(rotation_args['vec_to_neigh_imgsite'][1]) < 1e-8:
@@ -641,14 +643,21 @@ class Builder(AdsorptionSites):
                         else:
                             target_vec = [-1/rotation_args['vec_to_neigh_imgsite'][0], 
                                           1/rotation_args['vec_to_neigh_imgsite'][1], 0]
-                        atoms.rotate([principle_axe[0], principle_axe[1], 0], target_vec)
+                        atoms_copy.rotate([principle_axe[0], principle_axe[1], 0], target_vec)
+                # =============== ✅ 关键部分：设置 Z 高度 ===============
+                    z_coordinates = atoms_copy.get_positions()[:, 2]
+                    min_z = np.min(z_coordinates)
 
-                    # 【关键改动】确保每次都重新计算 `base_position[2]`
-                    z_coordinates = atoms.get_positions()[:, 2]
-                    min_z = np.min(z_coordinates)  # 得到分子 z 轴最小值
-                    final_positions = slab.get_positions()  # slab 坐标
-                    max_z = np.max(final_positions[:, 2])  # 获取 slab z 轴最大值
-                    base_position[2] = round(0 - min_z + 2.5 + max_z, 1)
+                    final_positions = slab.get_positions()
+                    max_z = np.max(final_positions[:, 2])
+
+                    
+                    if abs(site_coord[2]) < 1e-6:  # 如果为 0 或非常接近 0
+                        effective_distance = 2.5
+                    else:
+                        effective_distance = site_coord[2]
+
+                    base_position[2] = round(max_z - min_z + effective_distance, 2)
 
                    # 如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
                     if site_coord[0] == 0 and site_coord[1] == 0:
@@ -660,15 +669,15 @@ class Builder(AdsorptionSites):
                        base_position[0] = round(site_coord[0], 1)
                        base_position[1] = round(site_coord[1], 1)
 
-                    atoms.translate(base_position)  # 确保所有构型都以正确的 z 轴间距平移
+                    atoms_copy.translate(base_position)  # 确保所有构型都以正确的 z 轴间距平移
 
                     # 将分子平移到指定的 site_coord 位置
-                    vec_tmp = site_coord - atoms.get_positions()[bond]  # 计算平移量
-                    atoms.translate([vec_tmp[0], vec_tmp[1], 0])  # 只平移 x-y，不改变 z
+                    vec_tmp = site_coord - atoms_copy.get_positions()[bond]  # 计算平移量
+                    atoms_copy.translate([vec_tmp[0], vec_tmp[1], 0])  # 只平移 x-y，不改变 z
 
 
                     slab_with_adsorbate = slab.copy()
-                    slab_with_adsorbate += atoms
+                    slab_with_adsorbate += atoms_copy
                     slabs_list.append(slab_with_adsorbate)
 
                 return slabs_list  # 返回三种吸附构型的列表
@@ -727,11 +736,14 @@ class Builder(AdsorptionSites):
             n = len(slab)
             slabs_list = []
             score_configurations = [] # 各个吸附构型(slab)的“分数”
-            for ia,a in enumerate(atoms_list):
+            for ia, a_orig in enumerate(atoms_list):
                 slabs_list.append(copy.deepcopy(slab))
+                a = copy.deepcopy(a_orig)  # 确保每次处理原始未改动的 adsorbate
                 dealt_positions = a.get_positions()
                 min_z = np.min(dealt_positions[:,2]) #得到分子z轴最小值
-                base_position[2] = round(max_z - min_z + 2.5,1) # 吸附物种最低原子处于slab以上?A，随后再尝试降低
+                # Step 1: Z 方向平移
+                z_translation = max_z - min_z + (2.5 if site_coord[2] == 0 else site_coord[2])
+                a.translate([0, 0, z_translation])
                # 计算 slab 中心坐标
                 slab_positions = slab.get_positions()
                 center_x, center_y = utils.center_slab(slab_positions)
