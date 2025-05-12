@@ -659,7 +659,7 @@ class Builder(AdsorptionSites):
 
                     base_position[2] = round(max_z - min_z + effective_distance, 2)
 
-                   # 如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
+                   # xzq如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
                     if site_coord[0] == 0 and site_coord[1] == 0:
                        center_x, center_y = utils.center_slab(final_positions)  # 计算 slab 的 xy 中心
                        base_position[0] = round(center_x, 1)  # 将分子放置在 xy 中心
@@ -747,7 +747,7 @@ class Builder(AdsorptionSites):
                # 计算 slab 中心坐标
                 slab_positions = slab.get_positions()
                 center_x, center_y = utils.center_slab(slab_positions)
-               # 如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
+               # xzq如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
                 if site_coord[0] == 0 and site_coord[1] == 0:
                    base_position[0] = round(center_x, 1)
                    base_position[1] = round(center_y, 1)
