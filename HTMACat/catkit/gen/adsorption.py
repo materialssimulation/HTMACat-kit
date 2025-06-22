@@ -1,12 +1,6 @@
 from . import defaults
 from . import utils
 from . import symmetry
-from ase.build import molecule, fcc111
-from ase.io import write
-from ase.thermochemistry import IdealGasThermo
-from ase.vibrations import Vibrations
-
-from copy import deepcopy
 import HTMACat.catkit as catkit
 import matplotlib.pyplot as plt
 import itertools
@@ -573,22 +567,21 @@ class Builder(AdsorptionSites):
         return principal_axes
     
     def _single_adsorption(
-        self,
-        adsorbate,
-        bond,
-        slab=None,
-        site_index=0,
-        auto_construct=True,
-        enable_rotate_xoy=True,
-        rotation_mode='vnn',
-        rotation_args={},
-        direction_mode='default',
-        direction_args={},  # 用于指定惯性矩模式
-        site_coord=None,
-        z_bias=0,
-        symmetric=True,
-        verbose=False
-    ):
+            self,
+            adsorbate,
+            bond,
+            slab=None,
+            site_index=0,
+            auto_construct=True,
+            enable_rotate_xoy=True,
+            rotation_mode='vertical to vec_to_neigh_imgsite',
+            rotation_args={},
+            direction_mode='default', # wzj 20230524 指定确定位向的方式
+            direction_args={}, # wzj 20230524 为后续扩展预留的参数
+            site_coord=None,
+            z_bias=0,
+            symmetric=True,
+            verbose=False):
         """Bond and adsorbate by a single atom."""
         if slab is None:
             slab = self.slab.copy()
@@ -610,82 +603,21 @@ class Builder(AdsorptionSites):
         numbers = atoms.numbers[bond]
         R = radii[numbers]
         base_position = utils.trilaterate(top_sites[u], r + R, vector)
-
+        
         # Zhaojie Wang   20230910(precise adsorption coord)
         if not site_coord is None:
             base_position = site_coord
-
+        
+        branches = nx.bfs_successors(atoms.graph, bond)
+        atoms.translate(-atoms.positions[bond])
+        
+        # Zhaojie Wang   20230510(direction), 20230828(rotation)
+        #lbx
         if auto_construct:
-            if direction_mode == 'asphericity':
-                # 根据分子的形状调整朝向，使其“平躺”在表面上
-                masses = atoms.get_masses()
-                positions = atoms.get_positions()
-                #xzq
-                # 计算惯性矩张量
-                inertia_tensor_value = self.inertia_tensor(positions, masses)
-
-                # 获取主惯性轴
-                principal_axes = self.get_principal_axes(inertia_tensor_value)
-
-                # 自动处理三种惯性矩方向
-                slabs_list = []
-                for inertia_mode in range(1, 4):  # 遍历第一、第二、第三惯性矩
-                    atoms_copy = atoms.copy()  # ✅ 每次都从原始结构复制
-                    base_position = [0.0, 0.0, 0.0]
-                    adsorption_vector = principal_axes[:, inertia_mode - 1]                    
-                    atoms_copy.rotate(adsorption_vector, [0, 0, 1])
-
-                    if enable_rotate_xoy and rotation_mode == 'vnn' and rotation_args != {}:
-                        principle_axe = utils.solve_principle_axe_pca(atoms_copy.get_positions())
-                        if abs(rotation_args['vec_to_neigh_imgsite'][0]) < 1e-8:
-                            target_vec = [1, 0, 0]
-                        elif abs(rotation_args['vec_to_neigh_imgsite'][1]) < 1e-8:
-                            target_vec = [0, 1, 0]
-                        else:
-                            target_vec = [-1/rotation_args['vec_to_neigh_imgsite'][0], 
-                                          1/rotation_args['vec_to_neigh_imgsite'][1], 0]
-                        atoms_copy.rotate([principle_axe[0], principle_axe[1], 0], target_vec)
-                # =============== ✅ 关键部分：设置 Z 高度 ===============
-                    z_coordinates = atoms_copy.get_positions()[:, 2]
-                    min_z = np.min(z_coordinates)
-
-                    final_positions = slab.get_positions()
-                    max_z = np.max(final_positions[:, 2])
-
-                    
-                    if abs(site_coord[2]) < 1e-6:  # 如果为 0 或非常接近 0
-                        effective_distance = 2.5
-                    else:
-                        effective_distance = site_coord[2]
-
-                    base_position[2] = round(max_z - min_z + effective_distance, 2)
-
-                   # xzq如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
-                    if site_coord[0] == 0 and site_coord[1] == 0:
-                       center_x, center_y = utils.center_slab(final_positions)  # 计算 slab 的 xy 中心
-                       base_position[0] = round(center_x, 1)  # 将分子放置在 xy 中心
-                       base_position[1] = round(center_y, 1)
-                    else:
-                       # 否则，使用输入的 site_coord 作为 xy 坐标
-                       base_position[0] = round(site_coord[0], 1)
-                       base_position[1] = round(site_coord[1], 1)
-
-                    atoms_copy.translate(base_position)  # 确保所有构型都以正确的 z 轴间距平移
-
-                    # 将分子平移到指定的 site_coord 位置
-                    vec_tmp = site_coord - atoms_copy.get_positions()[bond]  # 计算平移量
-                    atoms_copy.translate([vec_tmp[0], vec_tmp[1], 0])  # 只平移 x-y，不改变 z
-
-
-                    slab_with_adsorbate = slab.copy()
-                    slab_with_adsorbate += atoms_copy
-                    slabs_list.append(slab_with_adsorbate)
-
-                return slabs_list  # 返回三种吸附构型的列表
-
-            elif direction_mode == 'bond_atom':
+            if direction_mode == 'bond_atom':
                 # 根据参与吸附的原子确定位向，将物种“扶正”
                 adsorption_vector, flag = utils.solve_normal_vector_linearsvc(atoms.get_positions(), bond)
+                ### print('adsorption_vector:\n', adsorption_vector)
                 atoms.rotate(adsorption_vector, [0, 0, 1])
             elif direction_mode == 'asphericity':
                 # 根据分子的形状调整朝向，使其“平躺”在表面上
@@ -796,20 +728,12 @@ class Builder(AdsorptionSites):
             n = len(slab)
             slabs_list = []
             score_configurations = [] # 各个吸附构型(slab)的“分数”
-            for ia, a_orig in enumerate(atoms_list):
+            for ia,a in enumerate(atoms_list):
                 slabs_list.append(copy.deepcopy(slab))
-                a = copy.deepcopy(a_orig)  # 确保每次处理原始未改动的 adsorbate
                 dealt_positions = a.get_positions()
                 min_z = np.min(dealt_positions[:,2]) #得到分子z轴最小值
                 base_position[2] = max_z - min_z + 2 # 吸附物种最低原子处于slab以上2.2A，随后再尝试降低
                 a.translate(base_position)
-
-                # 将分子平移到指定的 site_coord 位置
-                xy_translation = site_coord[:2] - a.get_positions()[bond][:2]
-                a.translate([xy_translation[0], xy_translation[1], 0])  # 只移动 x-y，不改变 z
-                print('Final base_position:', base_position)
-    
-                # 组合 slab 和吸附物 
                 slabs_list[-1] += a
                 # Add graph connections
                 for metal_index in self.index[u]:
@@ -847,7 +771,6 @@ class Builder(AdsorptionSites):
                 f.write('Ranking configurations by their scores:\n')
                 for i,idx in enumerate(np.argsort(score_configurations)[::-1]):
                     f.write(str(i).ljust(4)+':    '+str(idx).ljust(8)+str(score_configurations[idx])+'\n')
-            
             return slabs_list
         
         #lbx
@@ -860,8 +783,7 @@ class Builder(AdsorptionSites):
             final_positions = slab.get_positions() #slab坐标  
             z_coordinates = final_positions[:, 2]
             max_z = np.max(z_coordinates) #获取slabz轴最大值
-            base_position[2] = round(0 - min_z + 2.5 + max_z,1)
-            print(f"min_z (adsorbate): {min_z}, max_z (slab): {max_z}, new base_position[2]: {base_position[2]}")
+            base_position[2] = round(0 - min_z + 4.0 + max_z,1)
             #计算slab中心坐标
             center_x, center_y = utils.center_slab(final_positions)
             #print("(x, y):", center_x,center_y,base_position[2])
@@ -886,7 +808,6 @@ class Builder(AdsorptionSites):
             slab.graph.add_edge(metal_index, bond + n)
 
         return slab
-
 
     def _double_adsorption(self, adsorbate, bonds=None, edge_index=0):
         """Bond and adsorbate by two adjacent atoms."""
