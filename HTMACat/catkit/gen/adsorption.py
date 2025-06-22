@@ -571,6 +571,7 @@ class Builder(AdsorptionSites):
         sorted_indices = np.argsort(eigenvalues)[::-1]  # 按惯性矩大小排序（从大到小）
         principal_axes = eigenvectors[:, sorted_indices]
         return principal_axes
+    
     def _single_adsorption(
         self,
         adsorbate,
@@ -686,7 +687,66 @@ class Builder(AdsorptionSites):
                 # 根据参与吸附的原子确定位向，将物种“扶正”
                 adsorption_vector, flag = utils.solve_normal_vector_linearsvc(atoms.get_positions(), bond)
                 atoms.rotate(adsorption_vector, [0, 0, 1])
+            elif direction_mode == 'asphericity':
+                # 根据分子的形状调整朝向，使其“平躺”在表面上
+                masses = atoms.get_masses()
+                positions = atoms.get_positions()
+                #xzq
+                # 计算惯性矩张量
+                inertia_tensor_value = self.inertia_tensor(positions, masses)
 
+                # 获取主惯性轴
+                principal_axes = self.get_principal_axes(inertia_tensor_value)
+
+                # 自动处理三种惯性矩方向
+                slabs_list = []
+                for inertia_mode in range(1, 4):  # 遍历第一、第二、第三惯性矩
+                    atoms_copy = atoms.copy()  # ✅ 每次都从原始结构复制
+                    base_position = [0.0, 0.0, 0.0]
+                    adsorption_vector = principal_axes[:, inertia_mode - 1]                    
+                    atoms_copy.rotate(adsorption_vector, [0, 0, 1])
+
+                    if enable_rotate_xoy and rotation_mode == 'vnn' and rotation_args != {}:
+                        principle_axe = utils.solve_principle_axe_pca(atoms_copy.get_positions())
+                        if abs(rotation_args['vec_to_neigh_imgsite'][0]) < 1e-8:
+                            target_vec = [1, 0, 0]
+                        elif abs(rotation_args['vec_to_neigh_imgsite'][1]) < 1e-8:
+                            target_vec = [0, 1, 0]
+                        else:
+                            target_vec = [-1/rotation_args['vec_to_neigh_imgsite'][0], 
+                                          1/rotation_args['vec_to_neigh_imgsite'][1], 0]
+                        atoms_copy.rotate([principle_axe[0], principle_axe[1], 0], target_vec)
+                    # 设置 吸附 高度
+                    z_coordinates = atoms_copy.get_positions()[:, 2]
+                    min_z = np.min(z_coordinates)
+
+                    final_positions = slab.get_positions()
+                    max_z = np.max(final_positions[:, 2])
+
+                    
+                    if abs(site_coord[2]) < 1e-6:  # 如果为 0 或非常接近 0
+                        effective_distance = 2
+                    else:
+                        effective_distance = site_coord[2]
+
+                    base_position[2] = round(max_z - min_z + effective_distance, 2)
+
+                    #使用输入的 site_coord 作为 xy 坐标
+                    base_position[0] = round(site_coord[0], 1)
+                    base_position[1] = round(site_coord[1], 1)
+
+                    atoms_copy.translate(base_position)  # 确保所有构型都以正确的 z 轴间距平移
+
+                    # 将分子平移到指定的 site_coord 位置
+                    vec_tmp = site_coord - atoms_copy.get_positions()[bond]  # 计算平移量
+                    atoms_copy.translate([vec_tmp[0], vec_tmp[1], 0])  # 只平移 x-y，不改变 z
+
+
+                    slab_with_adsorbate = slab.copy()
+                    slab_with_adsorbate += atoms_copy
+                    slabs_list.append(slab_with_adsorbate)
+
+                return slabs_list  # 返回三种吸附构型的列表)
             elif direction_mode == 'hetero': # zjwang 20240815
                 # 适用于有明确“官能团”的偏链状的分子
                 # 求出从分子杂原子中心到所有原子中心的吸附矢量vec_p，将vec_p旋转到[0,0,1]竖直向上
@@ -741,24 +801,7 @@ class Builder(AdsorptionSites):
                 a = copy.deepcopy(a_orig)  # 确保每次处理原始未改动的 adsorbate
                 dealt_positions = a.get_positions()
                 min_z = np.min(dealt_positions[:,2]) #得到分子z轴最小值
-                # Step 1: Z 方向平移
-                z_translation = max_z - min_z + (2.5 if site_coord[2] == 0 else site_coord[2])
-                a.translate([0, 0, z_translation])
-               # 计算 slab 中心坐标
-                slab_positions = slab.get_positions()
-                center_x, center_y = utils.center_slab(slab_positions)
-               # xzq如果输入的 xy 为 [0, 0]，则将分子放在 slab 的 xy 中心
-                if site_coord[0] == 0 and site_coord[1] == 0:
-                   base_position[0] = round(center_x, 1)
-                   base_position[1] = round(center_y, 1)
-                else:
-                   base_position[0] = round(site_coord[0], 1)
-                   base_position[1] = round(site_coord[1], 1)
-
-                # 打印检查
-                print(f"min_z (adsorbate): {min_z}, max_z (slab): {max_z}, new base_position: {base_position}")
-
-                # 平移吸附分子
+                base_position[2] = max_z - min_z + 2 # 吸附物种最低原子处于slab以上2.2A，随后再尝试降低
                 a.translate(base_position)
 
                 # 将分子平移到指定的 site_coord 位置
@@ -771,8 +814,7 @@ class Builder(AdsorptionSites):
                 # Add graph connections
                 for metal_index in self.index[u]:
                     slabs_list[-1].graph.add_edge(metal_index, bond + n)
-                '''
-                # 评估当前构型并不断尝试将吸附物降低以尽可能贴近表面，直到score不再提高
+                '''# 评估当前构型并不断尝试将吸附物降低以尽可能贴近表面，直到score不再提高
                 score_tmp = utils.score_configuration_hetero(coords=slabs_list[-1].get_positions(),
                                                              symbols=slabs_list[-1].get_chemical_symbols(),
                                                              z_surf=max_z)
@@ -798,8 +840,8 @@ class Builder(AdsorptionSites):
                 str_log = str(ia) + ' | score = ' + str(np.round(score_configurations[-1],3)).ljust(8) + '(x,y,z): ' + str(base_position)
                 ### print(str_log)
                 with open('score_log.txt', 'a') as f:
-                    f.write(str_log+"\n")
-                '''
+                    f.write(str_log+'\n')
+                    '''
             with open('score_log.txt', 'a') as f:
                 f.write('\n')
                 f.write('Ranking configurations by their scores:\n')
@@ -809,8 +851,9 @@ class Builder(AdsorptionSites):
             return slabs_list
         
         #lbx
-        '''if base_position[2] == 0.0:
-            z_coordinates = rotated_positions[:, 2]
+        if base_position[2] == 0.0:
+            #z_coordinates = rotated_positions[:, 2]
+            z_coordinates = atoms.get_positions()[:, 2]
             min_z = np.min(z_coordinates) #得到分子z轴最小值
             #print(rotated_positions)
             #print(min_z)
@@ -840,7 +883,7 @@ class Builder(AdsorptionSites):
 
         # Add graph connections
         for metal_index in self.index[u]:
-            slab.graph.add_edge(metal_index, bond + n)'''
+            slab.graph.add_edge(metal_index, bond + n)
 
         return slab
 
