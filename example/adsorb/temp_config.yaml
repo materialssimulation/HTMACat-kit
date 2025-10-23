@@ -1,23 +1,24 @@
-StrucInfo:
-  element: Pt
-  lattice_type: fcc
-  lattice_constant: 4.16
-  facet:
-  - '100'
-  dope:
-    Cu:
-    - '0'
 Model:
   ads:
   - - 's: ''O'''
     - 1O
     - settings:
+        direction: asphericity
         site_coords:
         - - 1
           - 1
           - 2
-        direction: asphericity
   - - 's: ''O'''
     - 1O
     - settings:
         direction: asphericity
+StrucInfo:
+  struct:
+    dope:
+      Cu:
+      - '0'
+    element: Pt
+    facet:
+    - '100'
+    lattice_constant: 4.16
+    lattice_type: fcc
