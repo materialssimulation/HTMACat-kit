@@ -38,20 +38,24 @@ def main_command():
 @htmat.command(context_settings=CONTEXT_SETTINGS)
 def ads(
     in_dir: str = typer.Option("./", "-i", "--inputdir", help="relative directory of input file"),
-    out_dir: str = typer.Option(
-        "./", "-o", "--outputdir", help="relative directory of output file"
-    ),
 ):
     """Construct adsorption configuration."""
-    print("Construct adsorption configuration ... ...")
-    wordir = Path(in_dir).resolve()
-    outdir = Path(out_dir).resolve()
-    StrucInfo = "config.yaml"
-    if not outdir == wordir:
-        outdir.mkdir(parents=True, exist_ok=True)
-        shutil.copy(wordir / StrucInfo, outdir)
-        os.chdir(outdir)
-    Construct_adsorption_yaml(StrucInfo)
+    import os
+    from HTMACat.api import construct_adsorption
+    from rich import print
+
+    print("[bold green]Construct adsorption configuration via API...[/bold green]")
+
+    # 找到配置文件路径
+    config_path = os.path.join(in_dir, "config.yaml")
+    if not os.path.exists(config_path):
+        print(f"[red]Error:[/red] config.yaml not found in {in_dir}")
+        raise typer.Exit(code=1)
+
+    # 直接传入路径，不需要读取内容
+    construct_adsorption(config_yaml=config_path)
+
+    print("[bold green]✅ Adsorption configuration generated successfully![/bold green]")
 
 
 @htmat.command(context_settings=CONTEXT_SETTINGS)

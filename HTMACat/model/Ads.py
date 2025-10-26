@@ -25,7 +25,7 @@ class Adsorption(Structure):
                 "NH2": [2],
                 "NH": [2, 4],
                 "N": [2, 4],
-                "O": [2, 4],
+                "O": [1,2, 3],
                 "OH": [2, 4],
                 "NO": [2, 4],
                 "H2O": [1],
@@ -136,15 +136,30 @@ class Adsorption(Structure):
         imagesites_distances = [np.sqrt(np.sum(np.square(v[:2]-coord_images[0][:2]))) for v in coord_images]
         d = np.min(imagesites_distances[1:])
         return d
-
+    
+    def adjust_fractional_coordinates(self, atoms):
+        cell = atoms.get_cell()
+        fractional_coords = atoms.get_scaled_positions()
+        
+        # 调整x坐标范围
+        fractional_coords[:, 0] += 0.5
+        fractional_coords[:, 0] %= 1.0  # 将x坐标重新映射到0到1之间
+        # 调整y坐标范围
+        fractional_coords[:, 1] += 0.5
+        fractional_coords[:, 1] %= 1.0  # 将y坐标重新映射到0到1之间
+        
+        # 将调整后的分数坐标应用回结构
+        atoms.set_scaled_positions(fractional_coords)
+        
     def Construct_single_adsorption(self, ele=None):
         _direction_mode = self.settings['direction']
         _rotation_mode = self.settings['rotation']
-        print('>>>>>>>>> ', self.settings['rotation'])
         _z_bias = float(self.settings['z_bias'])
         # generate surface adsorption configuration
         slab_ad = []
         slabs = self.substrate.construct()
+        # 判断是否提供了自定义位点坐标
+        has_custom_site_coords = 'site_coords' in self.settings.keys()
         for i, slab in enumerate(slabs):
             if 'site_coords' in self.settings.keys():
                 coordinates = np.array(self.settings['site_coords'], dtype=np.float64)
@@ -173,7 +188,7 @@ class Adsorption(Structure):
                 for j, coord in enumerate(coordinates):
                     vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coords=[coord])
                     site_ = j
-                    coord_ = None
+                    coord_ = coord if has_custom_site_coords else None
                     if 'site_coords' in self.settings.keys():
                         coord_ = coord
                     # confirm z coord (height of the adsorbate)
@@ -185,18 +200,22 @@ class Adsorption(Structure):
                                                                direction_mode=_direction_mode,
                                                                site_coord = coord_,
                                                                z_bias=_z_bias)
-                        if type(tmp) == list:
+                        if isinstance(tmp, list):
                             for ii, t in enumerate(tmp):
+                                if not has_custom_site_coords:
+                                    self.adjust_fractional_coordinates(t)
                                 slab_ad += [t]
                         else:
-                            slab_ad += [tmp]
+                            if not has_custom_site_coords:
+                                self.adjust_fractional_coordinates(tmp)
+                            slab_ad.append(tmp)
                         #if len(bond_atom_ids) > 1:
                         #    slab_ad += [builder._single_adsorption(ads_use, bond=bond_id, site_index=j, direction_mode='decision_boundary', direction_args=bond_atom_ids)]
             else:
                 for j, coord in enumerate(coordinates):
                     vec_to_neigh_imgsite = self.vec_to_nearest_neighbor_site(slab=slab, site_coords=[coord])
                     site_ = j
-                    coord_ = None
+                    coord_ = coord if has_custom_site_coords else None
                     if 'site_coords' in self.settings.keys():
                         coord_ = coord
                     tmp = builder._single_adsorption(ads_use, bond=0, site_index=site_,
@@ -205,11 +224,17 @@ class Adsorption(Structure):
                                                            direction_mode=_direction_mode,
                                                            site_coord = coord_,
                                                            z_bias=_z_bias)
-                    if type(tmp) == list:
+                    if isinstance(tmp, list):
                         for ii, t in enumerate(tmp):
-                            slab_ad += [t]
+                            if not has_custom_site_coords:
+                            # 调整分数坐标范围
+                                self.adjust_fractional_coordinates(t)
+                            slab_ad.append(t)
                     else:
-                        slab_ad += [tmp]
+                        if not has_custom_site_coords:
+                        # 调整分数坐标范围
+                            self.adjust_fractional_coordinates(tmp)
+                        slab_ad.append(tmp)
         return slab_ad
 
     def Construct_double_adsorption(self):
@@ -244,7 +269,7 @@ class Adsorption(Structure):
         default_settings = {'conform_rand':1,
                             'direction':'default',
                             'rotation':'vnn',
-                            'z_bias':float(0),
+                            'z_bias':float(2.0),
                             }
         for key,value in settings_dict.items():
             default_settings[key] = value
@@ -263,13 +288,10 @@ class Coadsorption(Adsorption):
         if ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['1','1']):
             ele = [''.join(self.get_sites()[0][1:]),''.join(self.get_sites()[1][1:])]
             slabs_ads = self.Construct_coadsorption_11(ele=ele)
-            print('a')
         elif ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['1','2']):
             slabs_ads = self.Construct_coadsorption_12()
-            print('b')
         elif ([self.get_sites()[0][0], self.get_sites()[1][0]] == ['2','2']):
             slabs_ads = self.Construct_coadsorption_22()
-            print('c')
         else:
             raise ValueError("Supports only '1' or '2' adsorption sites for coads!")### end
         if self.substrate.is_dope():
@@ -312,9 +334,8 @@ class Coadsorption(Adsorption):
             _direction_mode = 'bond_atom'
         if 'rotation' in self.settings.keys():
             _rotation_mode = self.settings['rotation']
-            print(">>> self.settings['rotation'] =", self.settings['rotation'])
         else:
-            _rotation_mode = 'xzq'
+            _rotation_mode = 'vnn'
         if 'site_locate_ads1' in self.settings.keys():
             _site_locate_ads1 = self.settings['site_locate_ads1']
         else:
@@ -457,17 +478,21 @@ class Coadsorption(Adsorption):
                 bind_surfatoms,
                 bind_surfatoms_symb,
             ) = get_binding_adatom(adslab)
+            print(f"Adsorption  {j+1}: {adspecie, bind_type_symb}")
             adspecie_tmp, bind_type_symb_tmp = [], []
             for k, spe in enumerate(adspecie):
                 if spe in ads_type.keys():
                     adspecie_tmp += [spe]
                     bind_type_symb_tmp += [bind_type_symb[k]]
+            print(f"Adsorption configuration1 {j+1}: {adspecie_tmp, bind_type_symb_tmp}")
             if len(adspecie_tmp) < 2:
                 # print('Can not identify the config!')
                 slab_ad_final += [adslab]
             elif typ.get(bind_type_symb_tmp[0]) in ads_type.get(adspecie_tmp[0]) and \
                  typ.get(bind_type_symb_tmp[1]) in ads_type.get(adspecie_tmp[1]):
                 slab_ad_final += [adslab]
+        print(len(slab_ad_final))
+        print(slab_ad_final)
         return slab_ad_final
 
     def Construct_coadsorption_12(self):
