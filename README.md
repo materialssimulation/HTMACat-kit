@@ -69,24 +69,63 @@ pip install -U git+https://github.com/materialssimulation/HTMACat-kit.git@master
 # or dev branch
 pip install -U git+hhttps://github.com/materialssimulation/HTMACat-kit.git@dev
 ```
-
+[⬆️ Back to top](#htmacat-kit)
 
 ## ⚡ 3. Getting started
 
 Please Visit [HTMACat-kit’s documentation](https://materialssimulation.github.io/HTMACat-kit/) for more information.
 
-
+[⬆️ Back to top](#htmacat-kit)
 
 ## ❤️ Contributing Authors
-- [Jiaqiang Yang](jqyang_hust@hust.edu.cn)
-- [Feifeng Wu](wufeifeng_hust@163.com)
-- [Zhaojie Wang](yczgwangzhaojie@163.com)
-- [Yuxiao Lan](husterlanxxt@163.com)
-- [Haojie Li](1197946404@qq.com)
-- [Rongxin Chen](rongxinchen@hust.edu.cn)
-- [Zhang Liu](zhangliu@hust.edu.cn)
-- [Zhihong Zhang](zhihongzh_chem@126.com)
-- [Ziqi Xian](2821838490@qq.com)
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/zwang008?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:jqyang_hust@hust.edu.cn">Jiaqiang Yang</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/10000001?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:wufeifeng_hust@163.com">Feifeng Wu</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/3510012?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:yczgwangzhaojie@163.com">Zhaojie Wang</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/10000004?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:husterlanxxt@163.com">Yuxiao Lan</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/1197946404?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:1197946404@qq.com">Haojie Li</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/10000006?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:rongxinchen@hust.edu.cn">Rongxin Chen</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/10000007?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:zhangliu@hust.edu.cn">Zhang Liu</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/10000008?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:zhihongzh_chem@126.com">Zhihong Zhang</a>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/2821838490?v=4" width="60" height="60" style="border-radius:50%;"/><br>
+      <a href="mailto:2821838490@qq.com">Ziqi Xian</a>
+    </td>
+  </tr>
+</table>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+[⬆️ Back to top](#htmacat-kit)
 
 ## 🐤 Links
 
