@@ -14,10 +14,27 @@
 
 ## 📌 1. Introduction
 
+### 🧬 About The Project
+
 <p align="justify">The code is developed by Professor <a href="bshan@mail.hust.edu.cn">Bin Shan</a>'s team at HUST. It is originally designed to provide an efficient, stable and reliable tool for high throughput modelling, computational and other steps in catalytic reaction processes.The software mainly includes functional modules such as surface structure analysis and information extraction, catalytic surface and various adsorption model construction, automatic construction of primitive reaction processes, automatic extraction of computational data and automatic extraction.
 </p>
 
+### 🧰 Built With
 
+Main Python libraries and frameworks:
+
+| [Python](https://www.python.org/) | ![Python](https://www.python.org/static/community_logos/python-logo.png) |
+| [ASE](https://wiki.fysik.dtu.dk/ase/) | ![ASE](https://wiki.fysik.dtu.dk/ase/_static/ase_logo.png) |
+| [NumPy](https://numpy.org/) | ![NumPy](https://numpy.org/images/logo.svg) |
+| [NetworkX](https://networkx.org/) | ![NetworkX](https://networkx.org/_static/networkx_logo.svg) |
+| [SciPy](https://scipy.org/) | ![SciPy](https://scipy.org/images/logo.svg) |
+| [Spglib](https://spglib.github.io/spglib/) | ![Spglib](https://spglib.github.io/spglib/_static/spglib-logo.png) |
+| [ruamel.yaml](https://yaml.readthedocs.io/en/latest/) | ![YAML](https://upload.wikimedia.org/wikipedia/commons/5/5a/YAML_Logo.svg) |
+| [RDKit](https://www.rdkit.org/) | ![RDKit](https://www.rdkit.org/static/rdkit_logo.svg) |
+| [Typer](https://typer.tiangolo.com/) | ![Typer](https://raw.githubusercontent.com/tiangolo/typer/master/img/logo-margin/logo-teal-margin.png) |
+| [Scikit-learn](https://scikit-learn.org/) | ![Scikit-learn](https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png) |
+
+[⬆️ Back to top](#htmacat-kit)
 
 ## 🚀 2. Installation Guide
 
@@ -76,3 +93,4 @@ Please Visit [HTMACat-kit’s documentation](https://materialssimulation.github.
 - [Materials Design and Nano-Manufacturing Center@HUST](http://www.materialssimulation.com/)
 - [HTMACat-kit's Pypi homepage](https://pypi.org/project/HTMACat/)
 - [HTMACat-kit’s Documentation](https://stanfordbshan.github.io/HTMACat-kit/)
+⬆️ Back to top
