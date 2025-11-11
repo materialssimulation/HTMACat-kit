@@ -14,10 +14,27 @@
 
 ## 📌 1. Introduction
 
+### 🧬 About The Project
+
 <p align="justify">The code is developed by Professor <a href="bshan@mail.hust.edu.cn">Bin Shan</a>'s team at HUST. It is originally designed to provide an efficient, stable and reliable tool for high throughput modelling, computational and other steps in catalytic reaction processes.The software mainly includes functional modules such as surface structure analysis and information extraction, catalytic surface and various adsorption model construction, automatic construction of primitive reaction processes, automatic extraction of computational data and automatic extraction.
 </p>
 
+### 🧰 Built With
 
+Main Python libraries and frameworks:
+
+[![Python](https://img.shields.io/badge/Python-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![ASE](https://img.shields.io/badge/ASE-green)](https://wiki.fysik.dtu.dk/ase/)
+[![NumPy](https://img.shields.io/badge/NumPy-orange?logo=numpy&logoColor=white)](https://numpy.org/)
+[![NetworkX](https://img.shields.io/badge/NetworkX-yellow)](https://networkx.org/)
+[![SciPy](https://img.shields.io/badge/SciPy-lightgrey?logo=scipy&logoColor=white)](https://scipy.org/)
+[![spglib](https://img.shields.io/badge/spglib-blueviolet)](https://spglib.github.io/spglib/)
+[![ruamel.yaml](https://img.shields.io/badge/ruamel.yaml-9cf)](https://pypi.org/project/ruamel.yaml/)
+[![RDKit](https://img.shields.io/badge/RDKit-brightgreen)](https://www.rdkit.org/)
+[![Typer](https://img.shields.io/badge/Typer-ff69b4)](https://typer.tiangolo.com/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-ffb300?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
+
+[⬆️ Back to top](#htmacat-kit)
 
 ## 🚀 2. Installation Guide
 
@@ -52,13 +69,13 @@ pip install -U git+https://github.com/materialssimulation/HTMACat-kit.git@master
 # or dev branch
 pip install -U git+hhttps://github.com/materialssimulation/HTMACat-kit.git@dev
 ```
-
+[⬆️ Back to top](#htmacat-kit)
 
 ## ⚡ 3. Getting started
 
 Please Visit [HTMACat-kit’s documentation](https://materialssimulation.github.io/HTMACat-kit/) for more information.
 
-
+[⬆️ Back to top](#htmacat-kit)
 
 ## ❤️ Contributing Authors
 - [Jiaqiang Yang](jqyang_hust@hust.edu.cn)
@@ -71,8 +88,12 @@ Please Visit [HTMACat-kit’s documentation](https://materialssimulation.github.
 - [Zhihong Zhang](zhihongzh_chem@126.com)
 - [Ziqi Xian](2821838490@qq.com)
 
+[⬆️ Back to top](#htmacat-kit)
+
 ## 🐤 Links
 
 - [Materials Design and Nano-Manufacturing Center@HUST](http://www.materialssimulation.com/)
 - [HTMACat-kit's Pypi homepage](https://pypi.org/project/HTMACat/)
 - [HTMACat-kit’s Documentation](https://stanfordbshan.github.io/HTMACat-kit/)
+
+⬆️ Back to top
