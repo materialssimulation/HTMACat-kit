@@ -23,16 +23,16 @@
 
 Main Python libraries and frameworks:
 
-[![Python](https://www.python.org/static/favicon.ico)](https://www.python.org/)
-[![ASE](https://wiki.fysik.dtu.dk/ase/_static/ase_logo.ico)](https://wiki.fysik.dtu.dk/ase/)
-[![NumPy](https://numpy.org/images/favicon.ico)](https://numpy.org/)
-[![NetworkX](https://networkx.org/_static/networkx_favicon.ico)](https://networkx.org/)
-[![SciPy](https://scipy.org/images/favicon.ico)](https://www.scipy.org/)
-[![Spglib](https://spglib.github.io/spglib/_static/favicon.ico)](https://spglib.github.io/spglib/)
-[![YAML](https://yaml.org/favicon.ico)](https://yaml.readthedocs.io/en/latest/)
-[![RDKit](https://www.rdkit.org/favicon.ico)](https://www.rdkit.org/)
-[![Typer](https://avatars.githubusercontent.com/u/55725745?s=48&v=4)](https://typer.tiangolo.com/)
-[![Scikit-learn](https://scikit-learn.org/stable/_static/favicon.ico)](https://scikit-learn.org/)
+[![Python](https://img.shields.io/badge/Python-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![ASE](https://img.shields.io/badge/ASE-green)](https://wiki.fysik.dtu.dk/ase/)
+[![NumPy](https://img.shields.io/badge/NumPy-orange?logo=numpy&logoColor=white)](https://numpy.org/)
+[![NetworkX](https://img.shields.io/badge/NetworkX-yellow)](https://networkx.org/)
+[![SciPy](https://img.shields.io/badge/SciPy-lightgrey?logo=scipy&logoColor=white)](https://scipy.org/)
+[![spglib](https://img.shields.io/badge/spglib-blueviolet)](https://spglib.github.io/spglib/)
+[![ruamel.yaml](https://img.shields.io/badge/ruamel.yaml-9cf)](https://pypi.org/project/ruamel.yaml/)
+[![RDKit](https://img.shields.io/badge/RDKit-brightgreen)](https://www.rdkit.org/)
+[![Typer](https://img.shields.io/badge/Typer-ff69b4)](https://typer.tiangolo.com/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-ffb300?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
 
 [⬆️ Back to top](#htmacat-kit)
 
