@@ -1,0 +1,6 @@
+StrucInfo:
+  file: slab_W110.vasp
+Model:
+  ads:
+    - [f: 'smi.cif', 1, settings: {site_coords: [[4.7475, 6.714, 0.0], [6.33, 6.714, 0.0], [6.33, 7.45987, 0.0]], direction: 'hetero'}]
+    # 3个坐标依次为top、bridge、hollow位

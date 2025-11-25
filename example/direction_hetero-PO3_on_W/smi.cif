@@ -1,0 +1,46 @@
+
+#======================================================================
+# CRYSTAL DATA
+#----------------------------------------------------------------------
+data_VESTA_phase_1
+
+_chemical_name_common                  'C  P  O  H                            '
+_cell_length_a                         20.000000
+_cell_length_b                         20.000000
+_cell_length_c                         20.000000
+_cell_angle_alpha                      90.000000
+_cell_angle_beta                       90.000000
+_cell_angle_gamma                      90.000000
+_cell_volume                           8000.000000
+_space_group_name_H-M_alt              'P 1'
+_space_group_IT_number                 1
+
+loop_
+_space_group_symop_operation_xyz
+   'x, y, z'
+
+loop_
+   _atom_site_label
+   _atom_site_occupancy
+   _atom_site_fract_x
+   _atom_site_fract_y
+   _atom_site_fract_z
+   _atom_site_adp_type
+   _atom_site_B_iso_or_equiv
+   _atom_site_type_symbol
+   C1         1.0     0.559738     0.567097     0.576367    Biso  1.000000 C
+   C2         1.0     0.538675     0.511538     0.528444    Biso  1.000000 C
+   C3         1.0     0.470158     0.524697     0.496636    Biso  1.000000 C
+   P1         1.0     0.439382     0.459509     0.442292    Biso  1.000000 P
+   O1         1.0     0.375792     0.471925     0.407310    Biso  1.000000 O
+   O2         1.0     0.503454     0.446742     0.394082    Biso  1.000000 O
+   O3         1.0     0.434494     0.393122     0.488181    Biso  1.000000 O
+   H1         1.0     0.609292     0.557062     0.597885    Biso  1.000000 H
+   H2         1.0     0.562336     0.615667     0.550620    Biso  1.000000 H
+   H3         1.0     0.523945     0.572164     0.617877    Biso  1.000000 H
+   H4         1.0     0.576254     0.505968     0.488613    Biso  1.000000 H
+   H5         1.0     0.537437     0.463604     0.555894    Biso  1.000000 H
+   H6         1.0     0.471167     0.570961     0.466734    Biso  1.000000 H
+   H7         1.0     0.431303     0.531331     0.535235    Biso  1.000000 H
+   H8         1.0     0.488986     0.431875     0.349897    Biso  1.000000 H
+   H9         1.0     0.477588     0.376746     0.503935    Biso  1.000000 H

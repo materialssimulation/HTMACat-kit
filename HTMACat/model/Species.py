@@ -28,10 +28,10 @@ class ABS_Species(ABC):
         return self.alias_name
 
     def out_file_name(self):
-        return self.get_formular()
+        return self.alias_name
 
     @abstractmethod
-    def get_molecule(self) -> Gratoms:
+    def get_molecule(self, randomSeed=0) -> Gratoms:
         pass
 
     @classmethod
@@ -51,7 +51,7 @@ class Sim_Species(ABS_Species):
     def __init__(self, form, formtype="sim", alias_name=None):
         super().__init__(form, formtype, alias_name)
 
-    def get_molecule(self):
+    def get_molecule(self, randomSeed=0):
         ads1 = self.get_formular()
         atoms = molecule(ads1)
         cutOff = neighborlist.natural_cutoffs(atoms)
@@ -64,7 +64,9 @@ class Sim_Species(ABS_Species):
                 if matrix[i, j] == 1:
                     edges_list.append((i, j))
         ads_molecule = to_gratoms(atoms, edges=edges_list)
-        return ads_molecule
+        # todo
+        ads_use_charges = -1
+        return ads_molecule,ads_use_charges
 
 
 class File_Species(ABS_Species):
@@ -78,7 +80,10 @@ class File_Species(ABS_Species):
         self.filetype = typename
 
     def out_file_name(self):
-        return self.alias_name
+        if "." in self.form:
+            return self.form.split(".")[0]
+        else:
+            return self.form
 
     @property
     def atoms(self) -> Atoms:
@@ -99,11 +104,13 @@ class File_Species(ABS_Species):
                     edges_list.append((i, j))
         return edges_list
 
-    def get_molecule(self) -> Gratoms:
+    def get_molecule(self, randomSeed=0) -> Gratoms:
         atoms = self.atoms
         edges_list = self.edges_list
         ads_molecule = to_gratoms(atoms, edges=edges_list)
-        return ads_molecule
+        # todo
+        ads_use_charges = -1
+        return ads_molecule,ads_use_charges
 
 
 class Sml_Species(ABS_Species):
@@ -111,12 +118,15 @@ class Sml_Species(ABS_Species):
         super().__init__(form, formtype, alias_name)
 
     def out_file_name(self):
-        ads1 = self.get_formular()
-        mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-        ads1 = rdMolDescriptors.CalcMolFormula(mole)
-        return ads1
+        if self.alias_name == self.form:
+            ads1 = self.get_formular()
+            mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
+            ads1 = rdMolDescriptors.CalcMolFormula(mole)
+            return ads1
+        else:
+            return self.alias_name.split("(")[0]
 
-    def get_molecule(self) -> Gratoms:
+    def get_molecule(self, randomSeed=0) -> Gratoms:
         ### Changed by ZhaojieWang, 20230829 (<>改进：需能处理离子键可连接的SMILES)
         ads1 = self.get_formular()
         if '.' in ads1:
@@ -127,7 +137,7 @@ class Sml_Species(ABS_Species):
                 return None
         else:
             mole = Chem.AddHs(Chem.MolFromSmiles(ads1))
-        stat = AllChem.EmbedMolecule(mole, randomSeed=0)
+        stat = AllChem.EmbedMolecule(mole, randomSeed=randomSeed)
         if stat == -1:
             print("[WARNING]: No 3D conformer of specie %s can be generated, using the 2D version instead! (could be unreasonable)" % ads1)
         #try:

@@ -518,7 +518,7 @@ def get_atom_neigh(poscar, atom):
 
 
 # 8. TO get atoms binding with surface among adatoms
-def get_binding_adatom(poscar):
+def get_binding_adatom(poscar, layer=4):
     """Determine the adsorbed atoms and the surface atoms to which they bind.
 
     Parameters
@@ -559,7 +559,9 @@ def get_binding_adatom(poscar):
         struct = read(poscar, format="vasp")
     else:
         struct = poscar
-    layer = len(get_unique_coordinates(poscar, axis=2, tag=True, tol=0.01))-1
+    # layer = len(get_unique_coordinates(poscar, axis=2, tag=True, tol=0.01))-1
+    # print(f"layer {layer}")
+    # print(get_unique_coordinates(poscar, axis=2, tag=True, tol=0.01))
     (
         adatoms,
         adatoms_symb,
@@ -568,8 +570,8 @@ def get_binding_adatom(poscar):
         subsurfatoms,
         subsurfatoms_symb,
     ) = distinguish_atom_binding(poscar, tol=0.05, base_layer=layer)    # Changed by RxChen, 2023/06/02
-    # print(adatoms_symb,surfatoms_symb)
-    # print(struct.symbols)
+    # print(f"adatoms {adatoms_symb},surfatoms {surfatoms_symb}")
+    # print(f"struct.symbols {struct.symbols}")
     cutOff = natural_cutoffs(struct, mult=1.0)
     # print(cutOff)
     nl = NeighborList(cutOff, self_interaction=False, bothways=True)

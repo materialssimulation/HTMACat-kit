@@ -106,7 +106,7 @@ class Slab(Structure):
         self.bulk = in_bulk
         self.file = None
         self.facet = facet
-        self.property = {}
+        self.property = {} #掺杂元素序号以及元素符号p1,p1_symb
         self.layers = layers
         self.layers_relax = layers_relax
         if "p1" not in self.property or "p1_symb" not in self.property:
